@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="leftmenu_listitem_textstyle">
+        <item name="android:textSize">15dip</item> 
+        <item name="android:textColor">#0f0f0f</item>
+    </style>
+</resources>
