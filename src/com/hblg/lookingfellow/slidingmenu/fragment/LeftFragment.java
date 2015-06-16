@@ -15,50 +15,73 @@
  */
 package com.hblg.lookingfellow.slidingmenu.fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
+import com.hblg.lookingfellow.tools.ImageTool;
 
 public class LeftFragment extends Fragment {
 	
 	MainFragment mainFragment;
-	
-	RelativeLayout leftmenuNews;
-	RelativeLayout leftmenuFriends;
+	ImageView headImage;
+	Button leftmenuMsg;
+	Button leftmenuFriend;
+	Button leftmenuSettings;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.left, null);
-		leftmenuNews = (RelativeLayout)view.findViewById(R.id.leftmenu_news);
-		leftmenuFriends = (RelativeLayout)view.findViewById(R.id.leftmenu_friends);
+		headImage = (ImageView)view.findViewById(R.id.headimage);
+		leftmenuMsg = (Button)view.findViewById(R.id.leftmenu_message);
+		leftmenuFriend = (Button)view.findViewById(R.id.leftmenu_friend);
+		leftmenuSettings = (Button)view.findViewById(R.id.leftmenu_settings);
 		return view;
 	}
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		leftmenuNews.setOnClickListener(new OnClickListener() {
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+				R.drawable.headimage);
+		Bitmap output = ImageTool.toRoundCorner(bitmap, 360.0f);
+		headImage.setImageBitmap(output);
+		leftmenuMsg.setSelected(true); //初始化的时候设置消息按钮项为默认选中状态
+		leftmenuMsg.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				((SlidingActivity) getActivity()).showLeft();
-				Toast.makeText(getActivity(), "news", Toast.LENGTH_SHORT).show();
+				leftmenuMsg.setSelected(true);
+				leftmenuFriend.setSelected(false);
+				leftmenuSettings.setSelected(false);
+				((SlidingActivity)getActivity()).showLeft();
 			}
 		});
-		leftmenuFriends.setOnClickListener(new OnClickListener() {
+		leftmenuFriend.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				((SlidingActivity) getActivity()).showLeft();
-				Toast.makeText(getActivity(), "friends", Toast.LENGTH_SHORT).show();
+				leftmenuMsg.setSelected(false);
+				leftmenuFriend.setSelected(true);
+				leftmenuSettings.setSelected(false);
+				((SlidingActivity)getActivity()).showLeft();
+			}
+		});
+		leftmenuSettings.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				leftmenuMsg.setSelected(false);
+				leftmenuFriend.setSelected(false);
+				leftmenuSettings.setSelected(true);
+				((SlidingActivity)getActivity()).showLeft();
 			}
 		});
 	}

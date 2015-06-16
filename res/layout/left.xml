@@ -4,302 +4,154 @@
  	android:layout_height="fill_parent"
  	android:scrollbars="none">
 
-<LinearLayout
-  android:orientation="vertical"
-  android:layout_width="270dp"
-  android:layout_height="fill_parent">
-  <RelativeLayout
-  	 android:layout_width="fill_parent"
- 	 android:layout_height="150dip"
- 	 android:background="@drawable/head_bg" >
-  		<ImageView
-  			 android:layout_width="wrap_content"
- 	 		 android:layout_height="wrap_content" 
- 	 		 android:id="@+id/head_imageView"
- 	 		 android:src="@drawable/head"
- 	 		 android:layout_alignParentLeft="true"
- 	 		 android:layout_alignParentBottom="true"
- 	 		 android:paddingLeft="10dip"
- 	 		 android:paddingBottom="10dip"
- 	 		 />
- 	 	<TextView 
- 	 		android:layout_width="wrap_content"
- 	 		android:layout_height="wrap_content" 
- 	 		android:id="@+id/name_textView"
- 	 		android:text="司云飞"
- 	 		android:textColor="#f7f7f7"
- 	 		android:textSize="22dip"
- 	 		android:layout_toRightOf="@id/head_imageView"
- 	 		android:layout_alignTop="@id/head_imageView"
- 	 		android:paddingLeft="10dip"
- 	 		android:paddingTop="11dip"
- 	 		/>
- 	 	<TextView 
- 	 		android:layout_width="wrap_content"
- 	 		android:layout_height="wrap_content" 
- 	 		android:text="湖北理工学院"
- 	 		android:textColor="#f7f7f7"
- 	 		android:layout_alignLeft="@id/name_textView"
- 	 		android:layout_below="@id/name_textView"
- 	 		android:paddingLeft="10dip"
- 	 		/>
-  </RelativeLayout>
-  
-  <LinearLayout
-  	 android:layout_width="fill_parent"
- 	 android:layout_height="wrap_content"
- 	 android:background="#cecece" >
-  	<TextView 
-  		android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:text="常用" 
- 	 	android:textColor="#b4b4b4"
- 	 	android:paddingTop="5dip"
- 	 	android:paddingBottom="5dip"
- 	 	android:layout_marginLeft="15dip"
- 	 	/>
-  </LinearLayout>
-  
-  <include
-      android:layout_width="fill_parent"
-      android:layout_height="2px"
-      layout="@layout/line" >
-  </include>
-  
-  <RelativeLayout
-  	 android:layout_width="fill_parent"
- 	 android:layout_height="50dip"
- 	 android:id="@+id/leftmenu_news"
- 	 android:orientation="horizontal"
- 	 android:background="#e0e0e0" >
-  	 <ImageView 
-  	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:id="@+id/leftmenu_newsicon1"
- 	 	android:src="@drawable/leftmenu_newsicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:paddingLeft="15dip"
- 	 	/>
- 	 <TextView 
- 	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:text="新鲜事"
- 	 	style="@style/leftmenu_listitem_textstyle"
- 	 	android:layout_toRightOf="@id/leftmenu_newsicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:layout_marginLeft="13dip" />
-  </RelativeLayout>
-   <include
-      android:layout_width="fill_parent"
-      android:layout_height="1px"
-      layout="@layout/line" >
-  </include>
-  <RelativeLayout
-  	 android:layout_width="fill_parent"
- 	 android:layout_height="50dip"
- 	 android:id="@+id/leftmenu_friends"
- 	 android:orientation="horizontal"
- 	 android:background="#e0e0e0" >
-  	 <ImageView 
-  	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:id="@+id/leftmenu_friendsicon1"
- 	 	android:src="@drawable/leftmenu_friendsicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:paddingLeft="15dip"
- 	 	/>
- 	 <TextView 
- 	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:text="好友"
- 	 	style="@style/leftmenu_listitem_textstyle"
- 	 	android:layout_toRightOf="@id/leftmenu_friendsicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:layout_marginLeft="13dip" />
-  </RelativeLayout>
-  
-   <include
-      android:layout_width="fill_parent"
-      android:layout_height="1px"
-      layout="@layout/line" >
-  </include>
-  <RelativeLayout
-  	 android:layout_width="fill_parent"
- 	 android:layout_height="50dip"
- 	 android:id="@+id/leftmenu_search"
- 	 android:orientation="horizontal"
- 	 android:background="#e0e0e0" >
-  	 <ImageView 
-  	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:id="@+id/leftmenu_searchicon1"
- 	 	android:src="@drawable/leftmenu_searchicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:paddingLeft="15dip"
- 	 	/>
- 	 <TextView 
- 	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:text="找老乡"
- 	 	style="@style/leftmenu_listitem_textstyle"
- 	 	android:layout_toRightOf="@id/leftmenu_searchicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:layout_marginLeft="13dip" />
-  </RelativeLayout>
-   <include
-      android:layout_width="fill_parent"
-      android:layout_height="1px"
-      layout="@layout/line" >
-  </include>
-  <RelativeLayout
-  	 android:layout_width="fill_parent"
- 	 android:layout_height="50dip"
- 	 android:id="@+id/leftmenu_position"
- 	 android:orientation="horizontal"
- 	 android:background="#e0e0e0" >
-  	 <ImageView 
-  	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:id="@+id/leftmenu_positionicon1"
- 	 	android:src="@drawable/leftmenu_positionicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:paddingLeft="15dip"
- 	 	/>
- 	 <TextView 
- 	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:text="附近"
- 	 	style="@style/leftmenu_listitem_textstyle"
- 	 	android:layout_toRightOf="@id/leftmenu_positionicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:layout_marginLeft="13dip" />
-  </RelativeLayout>
-  <include
-      android:layout_width="fill_parent"
-      android:layout_height="1px"
-      layout="@layout/line" >
-  </include>
-  <RelativeLayout
-  	 android:layout_width="fill_parent"
- 	 android:layout_height="50dip"
- 	 android:id="@+id/leftmenu_share"
- 	 android:orientation="horizontal"
- 	 android:background="#e0e0e0" >
-  	 <ImageView 
-  	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:id="@+id/leftmenu_shareicon1"
- 	 	android:src="@drawable/leftmenu_shareicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:paddingLeft="15dip"
- 	 	/>
- 	 <TextView 
- 	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:text="热门分享"
- 	 	style="@style/leftmenu_listitem_textstyle"
- 	 	android:layout_toRightOf="@id/leftmenu_shareicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:layout_marginLeft="13dip" />
-  </RelativeLayout>
-  <LinearLayout
-  	 android:layout_width="fill_parent"
- 	 android:layout_height="wrap_content"
- 	 android:background="#cecece" >
-  	<TextView 
-  		android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:text="操作" 
- 	 	android:textColor="#b4b4b4"
- 	 	android:paddingTop="5dip"
- 	 	android:paddingBottom="5dip"
- 	 	android:layout_marginLeft="15dip"
- 	 	/>
-  </LinearLayout>
-  
-  <include
-      android:layout_width="fill_parent"
-      android:layout_height="1px"
-      layout="@layout/line" >
-  </include>
-  <RelativeLayout
-  	 android:layout_width="fill_parent"
- 	 android:layout_height="50dip"
- 	 android:id="@+id/leftmenu_daymode"
- 	 android:orientation="horizontal"
- 	 android:background="#e0e0e0" >
-  	 <ImageView 
-  	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:id="@+id/leftmenu_daymodeicon1"
- 	 	android:src="@drawable/leftmenu_daymodeicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:paddingLeft="15dip"
- 	 	/>
- 	 <TextView 
- 	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:text="亮度：正常"
- 	 	style="@style/leftmenu_listitem_textstyle"
- 	 	android:layout_toRightOf="@id/leftmenu_daymodeicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:layout_marginLeft="13dip" />
-  </RelativeLayout>
-  <include
-      android:layout_width="fill_parent"
-      android:layout_height="1px"
-      layout="@layout/line" >
-  </include>
-  <RelativeLayout
-  	 android:layout_width="fill_parent"
- 	 android:layout_height="50dip"
- 	 android:id="@+id/leftmenu_settings"
- 	 android:orientation="horizontal"
- 	 android:background="#e0e0e0" >
-  	 <ImageView 
-  	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:id="@+id/leftmenu_settingsicon1"
- 	 	android:src="@drawable/leftmenu_settingsicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:paddingLeft="15dip"
- 	 	/>
- 	 <TextView 
- 	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:text="选项"
- 	 	style="@style/leftmenu_listitem_textstyle"
- 	 	android:layout_toRightOf="@id/leftmenu_settingsicon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:layout_marginLeft="13dip" />
-  </RelativeLayout>
-  <include
-      android:layout_width="fill_parent"
-      android:layout_height="1px"
-      layout="@layout/line" >
-  </include>
-  <RelativeLayout
-  	 android:layout_width="fill_parent"
- 	 android:layout_height="50dip"
- 	 android:id="@+id/leftmenu_logout"
- 	 android:orientation="horizontal"
- 	 android:background="#e0e0e0" >
-  	 <ImageView 
-  	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:id="@+id/leftmenu_logouticon1"
- 	 	android:src="@drawable/leftmenu_logouticon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:paddingLeft="15dip"
- 	 	/>
- 	 <TextView 
- 	 	android:layout_width="wrap_content"
- 	 	android:layout_height="wrap_content"
- 	 	android:text="注销登录"
- 	 	style="@style/leftmenu_listitem_textstyle"
- 	 	android:layout_toRightOf="@id/leftmenu_logouticon1"
- 	 	android:layout_centerVertical="true"
- 	 	android:layout_marginLeft="13dip" />
-  </RelativeLayout>
-</LinearLayout>
+	<LinearLayout
+	  android:orientation="vertical"
+	  android:layout_width="160dip"
+	  android:layout_height="fill_parent">
+	  <!--头像部分  -->
+  	  <RelativeLayout
+  	  	android:layout_width="fill_parent"
+	  	android:layout_height="200dip"
+	  	android:background="@drawable/tool_box_fragment_bg_normal" >
+	  	
+	  	<LinearLayout 
+	  	android:layout_width="wrap_content"
+	  	android:layout_height="wrap_content"
+	  	android:layout_centerVertical="true"
+	  	android:layout_centerHorizontal="true"
+	  	android:orientation="vertical"
+	  	>
+	  		<RelativeLayout 
+	  		android:layout_width="wrap_content"
+	  		android:layout_height="wrap_content">
+	  		
+		  		<ImageView 
+		  		android:layout_width="110dip"
+		  		android:layout_height="110dip"
+		  		android:id="@+id/headimage"
+		  		android:src="@drawable/headimage"
+		  		android:background="@drawable/bg_border"
+		  		android:layout_centerHorizontal="true"
+	  	  		/>
+	  	  		<TextView 
+	  	  		android:layout_width="wrap_content"
+		  		android:layout_height="wrap_content"
+		  		android:text="Silocean"
+		  		android:layout_below="@id/headimage"
+		  		android:layout_centerHorizontal="true"
+		  		android:paddingTop="10dip"
+		  		android:textSize="18sp"
+		  		android:textColor="#fdfdfd"
+		  		/>
+	  		</RelativeLayout>
+	  
+	   	 </LinearLayout>
+	  	
+  	  	</RelativeLayout>
+  	  	
+  	  	<!--消息  -->
+  	  	<RelativeLayout 
+  	  		android:layout_width="fill_parent"
+		  	android:layout_height="70dip"
+		  	>
+  	  		<Button 
+  	  		android:layout_width="fill_parent"
+		  	android:layout_height="fill_parent"
+		  	android:id="@+id/leftmenu_message"
+  	  		android:background="@drawable/leftmenuitem_selector" />
+  	  		<ImageView 
+  	  			android:layout_width="wrap_content"
+		  		android:layout_height="wrap_content"
+		  		android:id="@+id/tool_box_fragment_message_icon"
+		  		android:src="@drawable/tool_box_fragment_message_icon"
+		  		android:layout_alignParentLeft="true"
+		  		android:paddingLeft="18dip"
+		  		android:layout_centerVertical="true"
+		  		/>
+		  	<TextView
+		  		android:layout_width="wrap_content"
+		  		android:layout_height="wrap_content"
+		  		android:text="消    息"
+		  		android:layout_centerVertical="true"
+		  		android:layout_toRightOf="@id/tool_box_fragment_message_icon"
+		  		android:paddingLeft="12dip"
+		  		style="@style/leftmenu_listitem_textstyle"
+		  		/>
+  	  	</RelativeLayout>
+  	  	<!--好友  -->
+  	  	<RelativeLayout 
+  	  		android:layout_width="fill_parent"
+		  	android:layout_height="70dip"
+		  	>
+  	  		<Button 
+  	  		android:layout_width="fill_parent"
+		  	android:layout_height="fill_parent"
+		  	android:id="@+id/leftmenu_friend"
+  	  		android:background="@drawable/leftmenuitem_selector" />
+  	  		<ImageView 
+  	  			android:layout_width="wrap_content"
+		  		android:layout_height="wrap_content"
+		  		android:id="@+id/tool_box_fragment_friend_icon"
+		  		android:src="@drawable/tool_box_fragment_friend_icon"
+		  		android:layout_alignParentLeft="true"
+		  		android:paddingLeft="18dip"
+		  		android:layout_centerVertical="true"
+		  		/>
+		  	<TextView
+		  		android:layout_width="wrap_content"
+		  		android:layout_height="wrap_content"
+		  		android:text="好友圈"
+		  		android:layout_centerVertical="true"
+		  		android:layout_toRightOf="@id/tool_box_fragment_friend_icon"
+		  		android:paddingLeft="12dip"
+		  		style="@style/leftmenu_listitem_textstyle"
+		  		/>
+  	  	</RelativeLayout>
+  	  	<!--好友  -->
+  	  	<RelativeLayout 
+  	  		android:layout_width="fill_parent"
+		  	android:layout_height="70dip"
+		  	>
+  	  		<Button 
+  	  		android:layout_width="fill_parent"
+		  	android:layout_height="fill_parent"
+		  	android:id="@+id/leftmenu_settings"
+  	  		android:background="@drawable/leftmenuitem_selector" />
+  	  		<ImageView 
+  	  			android:layout_width="wrap_content"
+		  		android:layout_height="wrap_content"
+		  		android:id="@+id/tool_box_fragment_settings_icon"
+		  		android:src="@drawable/tool_box_fragment_settings_icon"
+		  		android:layout_alignParentLeft="true"
+		  		android:paddingLeft="18dip"
+		  		android:layout_centerVertical="true"
+		  		/>
+		  	<TextView
+		  		android:layout_width="wrap_content"
+		  		android:layout_height="wrap_content"
+		  		android:text="设    置"
+		  		android:layout_centerVertical="true"
+		  		android:layout_toRightOf="@id/tool_box_fragment_settings_icon"
+		  		android:paddingLeft="12dip"
+		  		style="@style/leftmenu_listitem_textstyle"
+		  		/>
+  	  	</RelativeLayout>
+  	  	
+  	  	<!--邀请好友  -->
+  	  	<RelativeLayout 
+  	  		android:layout_width="fill_parent"
+		  	android:layout_height="100dip"
+		  	android:background="@drawable/tool_box_fragment_bg_normal" >
+  	  		<Button 
+  	  			android:id="@+id/leftmenu_invitebutton"
+  	  			android:layout_width="130dip"
+		  		android:layout_height="wrap_content"
+		  		android:text="邀请好友"
+		  		android:textColor="#ebebeb"
+		  		android:textSize="13sp"
+		  		android:layout_centerHorizontal="true"
+		  		android:layout_alignParentBottom="true"
+		  		android:background="@drawable/leftmenuitem_button_selector" />
+  	  	</RelativeLayout>
+	</LinearLayout>
 </ScrollView>

@@ -8,12 +8,21 @@
       		android:layout_height="wrap_content"
       		android:id="@+id/main_titlebar_leftmenu"
       		android:src="@drawable/main_titlebar_leftmenu" />
+      	<TextView
+      		android:layout_width="wrap_content"
+      		android:layout_height="wrap_content"
+      		android:id="@+id/titlebar_title"
+      		android:text="同乡会"
+      		android:layout_centerHorizontal="true"
+      		android:layout_centerVertical="true"
+      		android:textColor="@color/white"
+      		android:textSize="18sp"
+      		/>
       	<ImageView 
       		android:layout_width="wrap_content"
       		android:layout_height="wrap_content"
       		android:id="@+id/main_titlebar_rightmenu"
       		android:src="@drawable/main_titlebar_rightmenu"
-      		android:layout_marginRight="-15dip"
       		android:layout_centerVertical="true"
       		android:layout_alignParentRight="true"
       		/>
