@@ -15,8 +15,6 @@
  */
 package com.hblg.lookingfellow.slidingmenu.fragment;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,64 +22,111 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
-import com.hblg.lookingfellow.tools.ImageTool;
 
 public class LeftFragment extends Fragment {
 	
 	MainFragment mainFragment;
-	ImageView headImage;
+	
+	Button leftmenuPosts;
+	Button leftmenuPerson;
+	Button leftmenuFriends;
 	Button leftmenuMsg;
-	Button leftmenuFriend;
 	Button leftmenuSettings;
+	
+	Button leftmenuCross;
+	Button leftmenuNear;
+	Button leftmenuShare;
+	
+	Button leftmenuInvite;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.left, null);
-		headImage = (ImageView)view.findViewById(R.id.headimage);
-		leftmenuMsg = (Button)view.findViewById(R.id.leftmenu_message);
-		leftmenuFriend = (Button)view.findViewById(R.id.leftmenu_friend);
-		leftmenuSettings = (Button)view.findViewById(R.id.leftmenu_settings);
+		leftmenuPosts = (Button)view.findViewById(R.id.leftmenu_posts_button);
+		leftmenuPerson = (Button)view.findViewById(R.id.leftmenu_person_button);
+		leftmenuFriends = (Button)view.findViewById(R.id.leftmenu_friends_button);
+		leftmenuMsg = (Button)view.findViewById(R.id.leftmenu_msg_button);
+		leftmenuSettings = (Button)view.findViewById(R.id.leftmenu_settings_button);
+		leftmenuCross = (Button)view.findViewById(R.id.leftmenu_cross_button);
+		leftmenuNear = (Button)view.findViewById(R.id.leftmenu_near_button);
+		leftmenuShare = (Button)view.findViewById(R.id.leftmenu_share_button);
+		leftmenuInvite = (Button)view.findViewById(R.id.leftmenu_invite_button);
 		return view;
 	}
 
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.headimage);
-		Bitmap output = ImageTool.toRoundCorner(bitmap, 360.0f);
-		headImage.setImageBitmap(output);
-		leftmenuMsg.setSelected(true); //初始化的时候设置消息按钮项为默认选中状态
-		leftmenuMsg.setOnClickListener(new OnClickListener() {
-			
-			@Override
+		leftmenuPosts.setSelected(true);
+		leftmenuPosts.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				leftmenuMsg.setSelected(true);
-				leftmenuFriend.setSelected(false);
+				leftmenuPosts.setSelected(true);
+				leftmenuPerson.setSelected(false);
+				leftmenuFriends.setSelected(false);
+				leftmenuMsg.setSelected(false);
 				leftmenuSettings.setSelected(false);
 				((SlidingActivity)getActivity()).showLeft();
 			}
 		});
-		leftmenuFriend.setOnClickListener(new OnClickListener() {
-			
-			@Override
+		leftmenuPerson.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+				leftmenuPosts.setSelected(false);
+				leftmenuPerson.setSelected(true);
+				leftmenuFriends.setSelected(false);
 				leftmenuMsg.setSelected(false);
-				leftmenuFriend.setSelected(true);
+				leftmenuSettings.setSelected(false);
+				((SlidingActivity)getActivity()).showLeft();
+			}
+		});
+		leftmenuFriends.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				leftmenuPosts.setSelected(false);
+				leftmenuPerson.setSelected(false);
+				leftmenuFriends.setSelected(true);
+				leftmenuMsg.setSelected(false);
+				leftmenuSettings.setSelected(false);
+				((SlidingActivity)getActivity()).showLeft();
+			}
+		});
+		leftmenuMsg.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				leftmenuPosts.setSelected(false);
+				leftmenuPerson.setSelected(false);
+				leftmenuFriends.setSelected(false);
+				leftmenuMsg.setSelected(true);
 				leftmenuSettings.setSelected(false);
 				((SlidingActivity)getActivity()).showLeft();
 			}
 		});
 		leftmenuSettings.setOnClickListener(new OnClickListener() {
-			
-			@Override
 			public void onClick(View v) {
+				leftmenuPosts.setSelected(false);
+				leftmenuPerson.setSelected(false);
+				leftmenuFriends.setSelected(false);
 				leftmenuMsg.setSelected(false);
-				leftmenuFriend.setSelected(false);
 				leftmenuSettings.setSelected(true);
 				((SlidingActivity)getActivity()).showLeft();
+			}
+		});
+		leftmenuCross.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				//TODO
+			}
+		});
+		leftmenuNear.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				//TODO
+			}
+		});
+		leftmenuShare.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				//TODO
+			}
+		});
+		leftmenuInvite.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				//TODO
 			}
 		});
 	}

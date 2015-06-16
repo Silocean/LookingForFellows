@@ -111,8 +111,8 @@ public class SlidingMenu extends RelativeLayout {
 		bgParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 
 		View bgShadeContent = new View(mContext);
-		bgShadeContent.setBackgroundDrawable(getResources().getDrawable(
-				R.drawable.shade_bg));
+		/*bgShadeContent.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.shade_bg));*/
 		bgShade.addView(bgShadeContent, bgParams);
 
 		addView(bgShade, bgParams);
