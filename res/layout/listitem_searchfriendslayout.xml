@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:descendantFocusability="blocksDescendants" >
+  <ImageView
+  	 android:layout_width="50dip"
+  	 android:layout_height="50dip"
+  	 android:id="@+id/searchfriendslayout_headimage"
+  	 android:layout_centerVertical="true"
+  	 android:layout_alignParentLeft="true"
+  	 android:paddingLeft="10dip" />
+  <TextView
+  	 android:layout_width="wrap_content"
+  	 android:layout_height="wrap_content"
+  	 android:id="@+id/searchfriendslayout_name"
+  	 android:layout_toRightOf="@id/searchfriendslayout_headimage"
+  	 android:layout_alignTop="@id/searchfriendslayout_headimage"
+  	 android:layout_marginLeft="10dip"
+  	 android:textColor="#737373"
+  	 android:textSize="16sp" />
+  <TextView
+  	 android:layout_width="wrap_content"
+  	 android:layout_height="wrap_content"
+  	 android:id="@+id/searchfriendslayout_hometown"
+  	 android:layout_alignLeft="@id/searchfriendslayout_name"
+  	 android:layout_below="@id/searchfriendslayout_name"
+  	 android:layout_alignBottom="@id/searchfriendslayout_headimage"
+  	 android:textColor="#737373"
+  	 android:textSize="12sp" />
+  <Button
+  	 android:layout_width="wrap_content"
+  	 android:layout_height="wrap_content"
+  	 android:id="@+id/searchfriendslayout_add"
+  	 android:background="@drawable/searchfriends_add_icon_selector"
+  	 android:layout_centerVertical="true"
+  	 android:layout_alignParentRight="true"
+  	 android:layout_marginRight="10dip" />
+</RelativeLayout>

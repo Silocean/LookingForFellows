@@ -2,15 +2,15 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
-  android:layout_height="wrap_content" >
+  android:layout_height="fill_parent" >
+  <!--上半部分  -->
   <RelativeLayout
   	android:layout_width="fill_parent"
-  	android:layout_height="wrap_content"
+  	android:layout_height="fill_parent"
   	android:id="@+id/upRelativeLayout" >
-  	<!--上半部分  -->
   	<RelativeLayout
   		android:layout_width="fill_parent"
-  		android:layout_height="wrap_content" >
+  		android:layout_height="fill_parent" >
   		<ImageView
   			android:layout_width="50dip"
   			android:layout_height="50dip"
@@ -25,7 +25,9 @@
   			android:textColor="#373737"
   			android:layout_toRightOf="@id/postlayout_headimage"
   			android:layout_marginLeft="15dip"
-  			android:layout_alignTop="@id/postlayout_headimage" />
+  			android:layout_alignTop="@id/postlayout_headimage"
+  			android:ellipsize="end"
+  			android:singleLine="true" />
   		<TextView
   			android:layout_width="wrap_content"
   			android:layout_height="wrap_content"
@@ -35,14 +37,15 @@
   			android:layout_marginRight="5dip"
   			android:layout_alignLeft="@id/postlayout_title"
   			android:layout_below="@id/postlayout_title"
-  			android:layout_marginTop="5dip" />
+  			android:layout_marginTop="5dip"
+  			android:ellipsize="end" />
   	</RelativeLayout>
   </RelativeLayout>
   
   <!--下半部分  -->
   <RelativeLayout
   	android:layout_width="fill_parent"
-  	android:layout_height="wrap_content"
+  	android:layout_height="fill_parent"
   	android:id="@+id/downRelativeLayout"
   	android:layout_below="@id/upRelativeLayout" >
   	<ImageView
@@ -73,4 +76,5 @@
   		android:layout_marginRight="5dip"
   		style="@style/listitem_postlayout_textstyle" />
   </RelativeLayout>
+
 </RelativeLayout>

@@ -3,7 +3,6 @@
 	<!--定义按下的图片  -->
     <item android:state_pressed="true"   
 		android:drawable = "@drawable/listitem_postlayout_bg_pressed" />
-	
 	<!-- 定义按钮默认的图片 -->   
-	<item android:drawable="@drawable/listitem_postlayout_bg_pressed" />   
+	<item android:drawable="@drawable/listitem_postlayout_bg_normal" />   
 </selector>

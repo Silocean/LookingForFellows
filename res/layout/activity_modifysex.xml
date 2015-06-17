@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="@color/bg_color" >
+  <RelativeLayout
+		android:layout_width="fill_parent"
+      	android:layout_height="45dip"
+      	android:id="@+id/modifysex_titlebar"
+      	android:background="@drawable/main_titlebarbg" >
+		<Button
+			android:layout_width="wrap_content"
+      		android:layout_height="wrap_content"
+      		android:id="@+id/modifysex_goback_button"
+      		android:background="@drawable/goback_icon_selector" />
+      	<TextView
+      		android:layout_width="wrap_content"
+      		android:layout_height="wrap_content"
+      		android:id="@+id/titlebar_title"
+      		android:text="性别"
+      		android:layout_centerHorizontal="true"
+      		android:layout_centerVertical="true"
+      		android:textColor="@color/white"
+      		android:textSize="18sp"
+      		/>
+  </RelativeLayout>
+	<LinearLayout 
+	  	android:orientation="vertical" 
+	  	android:layout_width="290dip"
+	  	android:id="@+id/modifysex_radiobutton_linearlayout"
+	  	android:layout_below="@id/modifysex_titlebar"
+	  	android:layout_height="wrap_content"
+	  	android:layout_centerHorizontal="true"
+	  	android:paddingTop="20dip" >
+	  	<RadioGroup
+            android:id="@+id/radiogroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            androidrientation="vertical" >
+            <RadioButton
+                android:id="@+id/modifysex_radiobutton_male"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/leftmenu_itembg_pressed"
+                android:button="@null"
+                android:drawableLeft="@drawable/modifysex_male_icon"
+                android:drawablePadding="10dip"
+                android:drawableRight="@drawable/modifysex_icon_selector"
+                android:text="男"
+                style="@style/personinfo_textstyle" />
+            <RadioButton
+                android:id="@+id/modifysex_radiobutton_female"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/leftmenu_itembg_pressed"
+                android:button="@null"
+                android:drawableLeft="@drawable/modifysex_female_icon"
+                android:drawableRight="@drawable/modifysex_icon_selector"
+                android:drawablePadding="10dip"
+                android:text="女"
+                style="@style/personinfo_textstyle" />
+        </RadioGroup>
+	</LinearLayout>
+</RelativeLayout>

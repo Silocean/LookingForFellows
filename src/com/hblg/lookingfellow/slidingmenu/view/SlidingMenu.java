@@ -30,7 +30,6 @@ import android.widget.Scroller;
 import com.hblg.lookingfellow.R;
 
 public class SlidingMenu extends RelativeLayout {
-
 	private View mSlidingView;
 	private View mMenuView;
 	private View mDetailView;
@@ -114,7 +113,6 @@ public class SlidingMenu extends RelativeLayout {
 		/*bgShadeContent.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.shade_bg));*/
 		bgShade.addView(bgShadeContent, bgParams);
-
 		addView(bgShade, bgParams);
 
 		addView(view, aboveParams);
@@ -172,12 +170,10 @@ public class SlidingMenu extends RelativeLayout {
 			mLastMotionY = y;
 			mIsBeingDragged = false;
 			if (canSlideLeft) {
-				System.out.println("left");
 				mMenuView.setVisibility(View.VISIBLE);
 				mDetailView.setVisibility(View.INVISIBLE);
 			}
 			if (canSlideRight) {
-				System.out.println("right");
 				mMenuView.setVisibility(View.INVISIBLE);
 				mDetailView.setVisibility(View.VISIBLE);
 			}

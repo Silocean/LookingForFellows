@@ -8,12 +8,14 @@
 
 	<include layout="@layout/titlebar" />
 
-      <ListView
+    <ListView
           android:id="@+id/contentList"
           android:layout_width="fill_parent"
           android:layout_height="fill_parent"
           android:scrollbars="none"
           android:cacheColorHint="#00000000"
+          android:divider="@color/black_half"
+          android:dividerHeight="1dip"
           android:listSelector="@drawable/listitem_postlayout_bg_selector" >
-      </ListView>
+     </ListView>
 </LinearLayout>

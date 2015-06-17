@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="6dp" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+		<TextView
+            android:id="@+id/chat_item_sendtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:background="@drawable/chat_item_sendtime_bg" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" >
+        <ImageView
+            android:id="@+id/chat_item_headimage"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:focusable="false" />
+        <TextView
+            android:id="@+id/chat_item_chatcontent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:textSize="16sp"
+            android:textColor="#7f7f7f"
+            android:layout_toRightOf="@id/chat_item_headimage"
+            android:layout_alignTop="@id/chat_item_headimage"
+            android:background="@drawable/chat_item_left_chatcontent_bg_selector"
+            android:maxWidth="210dip" />
+    </RelativeLayout>
+
+</LinearLayout>

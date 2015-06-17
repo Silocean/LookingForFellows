@@ -22,13 +22,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
 
 public class LeftFragment extends Fragment {
 	
-	MainFragment mainFragment;
 	
 	Button leftmenuPosts;
 	Button leftmenuPerson;
@@ -41,6 +41,14 @@ public class LeftFragment extends Fragment {
 	Button leftmenuShare;
 	
 	Button leftmenuInvite;
+	
+	
+	PersonFragment personFragment;
+	MainFragment mainFragment;
+	FriendsFragment friendsFragment;
+	MsgFragment msgFragment;
+	SettingsFragment settingsFragment;
+	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.left, null);
@@ -53,6 +61,8 @@ public class LeftFragment extends Fragment {
 		leftmenuNear = (Button)view.findViewById(R.id.leftmenu_near_button);
 		leftmenuShare = (Button)view.findViewById(R.id.leftmenu_share_button);
 		leftmenuInvite = (Button)view.findViewById(R.id.leftmenu_invite_button);
+		personFragment = new PersonFragment();
+		settingsFragment = new SettingsFragment();
 		return view;
 	}
 
@@ -66,6 +76,8 @@ public class LeftFragment extends Fragment {
 				leftmenuFriends.setSelected(false);
 				leftmenuMsg.setSelected(false);
 				leftmenuSettings.setSelected(false);
+				mainFragment = new MainFragment();
+				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, mainFragment);
 				((SlidingActivity)getActivity()).showLeft();
 			}
 		});
@@ -76,6 +88,11 @@ public class LeftFragment extends Fragment {
 				leftmenuFriends.setSelected(false);
 				leftmenuMsg.setSelected(false);
 				leftmenuSettings.setSelected(false);
+				
+				// 更新主界面
+				
+				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, personFragment);
+				
 				((SlidingActivity)getActivity()).showLeft();
 			}
 		});
@@ -86,6 +103,8 @@ public class LeftFragment extends Fragment {
 				leftmenuFriends.setSelected(true);
 				leftmenuMsg.setSelected(false);
 				leftmenuSettings.setSelected(false);
+				friendsFragment = new FriendsFragment();
+				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, friendsFragment);
 				((SlidingActivity)getActivity()).showLeft();
 			}
 		});
@@ -96,6 +115,8 @@ public class LeftFragment extends Fragment {
 				leftmenuFriends.setSelected(false);
 				leftmenuMsg.setSelected(true);
 				leftmenuSettings.setSelected(false);
+				msgFragment = new MsgFragment();
+				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, msgFragment);
 				((SlidingActivity)getActivity()).showLeft();
 			}
 		});
@@ -106,27 +127,32 @@ public class LeftFragment extends Fragment {
 				leftmenuFriends.setSelected(false);
 				leftmenuMsg.setSelected(false);
 				leftmenuSettings.setSelected(true);
+				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, settingsFragment);
 				((SlidingActivity)getActivity()).showLeft();
 			}
 		});
 		leftmenuCross.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				//TODO
+				Toast.makeText(getActivity(), "cross", 0).show();
 			}
 		});
 		leftmenuNear.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				//TODO
+				Toast.makeText(getActivity(), "near", 0).show();
 			}
 		});
 		leftmenuShare.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				//TODO
+				Toast.makeText(getActivity(), "share", 0).show();
 			}
 		});
 		leftmenuInvite.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				//TODO
+				Toast.makeText(getActivity(), "invite", 0).show();
 			}
 		});
 	}

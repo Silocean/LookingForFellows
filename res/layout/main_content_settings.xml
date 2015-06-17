@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/content"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent" >
+      <RelativeLayout
+			android:layout_width="fill_parent"
+	      	android:layout_height="45dip"
+	      	android:id="@+id/main_titlebar_relativelayout"
+	      	android:background="@drawable/main_titlebarbg" >
+		<ImageView 
+			android:layout_width="wrap_content"
+      		android:layout_height="wrap_content"
+      		android:id="@+id/main_titlebar_settings_leftmenu"
+      		android:src="@drawable/main_titlebar_leftmenu" />
+      	<TextView
+      		android:layout_width="wrap_content"
+      		android:layout_height="wrap_content"
+      		android:id="@+id/titlebar_title"
+      		android:text="设置"
+      		android:layout_centerHorizontal="true"
+      		android:layout_centerVertical="true"
+      		android:textColor="@color/white"
+      		android:textSize="18sp"
+      		/>
+	</RelativeLayout>
+	<ScrollView 
+		android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_below="@id/main_titlebar_relativelayout"
+	    android:scrollbars="none"
+	    android:background="#d3d3d3" >
+		<RelativeLayout
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent" >
+			<!--第一组菜单  -->
+			<LinearLayout 
+			  	android:orientation="vertical" 
+			  	android:layout_width="290dip"
+			  	android:id="@+id/settings_first_linearlayout"
+			  	android:layout_height="wrap_content"
+			  	android:layout_centerHorizontal="true"
+			  	android:paddingTop="20dip" >
+			  	<RelativeLayout
+			  		android:layout_width="fill_parent"
+			  		android:layout_height="40dip" >
+			  		<Button 
+			  			android:layout_width="fill_parent"
+			  			android:layout_height="fill_parent"
+			  			android:id="@+id/settings_personinfo_button"
+			  			android:background="@drawable/leftmenuitem_selector" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/settings_personinfo_icon"
+			  			android:src="@drawable/settings_personinfo_icon"
+			  			android:layout_alignParentLeft="true"
+			  			android:paddingLeft="10dip"
+			  			android:layout_centerVertical="true" />
+			  		<TextView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:text="个人信息"
+			  			android:layout_toRightOf="@id/settings_personinfo_icon"
+			  			style="@style/personinfo_textstyle" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/go_more_icon"
+			  			android:src="@drawable/go_more_icon"
+			  			android:layout_alignParentRight="true"
+			  			android:paddingRight="10dip"
+			  			android:layout_centerVertical="true" />
+			  	</RelativeLayout>
+			  	<RelativeLayout
+			  		android:layout_width="fill_parent"
+			  		android:layout_height="40dip" >
+			  		<Button 
+			  			android:layout_width="fill_parent"
+			  			android:layout_height="fill_parent"
+			  			android:id="@+id/settings_erweima_button"
+			  			android:background="@drawable/leftmenuitem_selector" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/settings_erweima_icon"
+			  			android:src="@drawable/settings_erweima_icon"
+			  			android:layout_alignParentLeft="true"
+			  			android:paddingLeft="10dip"
+			  			android:layout_centerVertical="true" />
+			  		<TextView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:text="二维码名片"
+			  			android:layout_toRightOf="@id/settings_erweima_icon"
+			  			style="@style/personinfo_textstyle" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/go_more_icon"
+			  			android:src="@drawable/go_more_icon"
+			  			android:layout_alignParentRight="true"
+			  			android:paddingRight="10dip"
+			  			android:layout_centerVertical="true" />
+			  	</RelativeLayout>
+			</LinearLayout>
+			<!--第二组菜单  -->
+			<LinearLayout 
+			  	android:orientation="vertical" 
+			  	android:layout_width="290dip"
+			  	android:id="@+id/settings_second_linearlayout"
+			  	android:layout_below="@id/settings_first_linearlayout"
+			  	android:layout_height="wrap_content"
+			  	android:layout_centerHorizontal="true"
+			  	android:paddingTop="20dip" >
+			  	<RelativeLayout
+			  		android:layout_width="fill_parent"
+			  		android:layout_height="40dip" >
+			  		<Button 
+			  			android:layout_width="fill_parent"
+			  			android:layout_height="fill_parent"
+			  			android:id="@+id/settings_notification_button"
+			  			android:background="@drawable/leftmenuitem_selector" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/settings_notification_icon"
+			  			android:src="@drawable/settings_notification_icon"
+			  			android:layout_alignParentLeft="true"
+			  			android:paddingLeft="10dip"
+			  			android:layout_centerVertical="true" />
+			  		<TextView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:text="提醒设置"
+			  			android:layout_toRightOf="@id/settings_notification_icon"
+			  			style="@style/personinfo_textstyle" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/go_more_icon"
+			  			android:src="@drawable/go_more_icon"
+			  			android:layout_alignParentRight="true"
+			  			android:paddingRight="10dip"
+			  			android:layout_centerVertical="true" />
+			  	</RelativeLayout>
+			  	<RelativeLayout
+			  		android:layout_width="fill_parent"
+			  		android:layout_height="40dip" >
+			  		<Button 
+			  			android:layout_width="fill_parent"
+			  			android:layout_height="fill_parent"
+			  			android:id="@+id/settings_chatbg_button"
+			  			android:background="@drawable/leftmenuitem_selector" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/settings_chatbg_icon"
+			  			android:src="@drawable/settings_chatbg_icon"
+			  			android:layout_alignParentLeft="true"
+			  			android:paddingLeft="10dip"
+			  			android:layout_centerVertical="true" />
+			  		<TextView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:text="全局聊天背景"
+			  			android:layout_toRightOf="@id/settings_chatbg_icon"
+			  			style="@style/personinfo_textstyle" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/go_more_icon"
+			  			android:src="@drawable/go_more_icon"
+			  			android:layout_alignParentRight="true"
+			  			android:paddingRight="10dip"
+			  			android:layout_centerVertical="true" />
+			  	</RelativeLayout>
+			  	<RelativeLayout
+			  		android:layout_width="fill_parent"
+			  		android:layout_height="40dip" >
+			  		<Button 
+			  			android:layout_width="fill_parent"
+			  			android:layout_height="fill_parent"
+			  			android:id="@+id/settings_privacy_button"
+			  			android:background="@drawable/leftmenuitem_selector" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/settings_privacy_icon"
+			  			android:src="@drawable/settings_privacy_icon"
+			  			android:layout_alignParentLeft="true"
+			  			android:paddingLeft="10dip"
+			  			android:layout_centerVertical="true" />
+			  		<TextView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:text="权限设置"
+			  			android:layout_toRightOf="@id/settings_privacy_icon"
+			  			style="@style/personinfo_textstyle" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/go_more_icon"
+			  			android:src="@drawable/go_more_icon"
+			  			android:layout_alignParentRight="true"
+			  			android:paddingRight="10dip"
+			  			android:layout_centerVertical="true" />
+			  	</RelativeLayout>
+			</LinearLayout>
+			<!--第三组菜单  -->
+			<LinearLayout 
+			  	android:orientation="vertical" 
+			  	android:layout_width="290dip"
+			  	android:id="@+id/settings_third_linearlayout"
+			  	android:layout_below="@id/settings_second_linearlayout"
+			  	android:layout_height="wrap_content"
+			  	android:layout_centerHorizontal="true"
+			  	android:paddingTop="20dip" >
+			  	<RelativeLayout
+			  		android:layout_width="fill_parent"
+			  		android:layout_height="40dip" >
+			  		<Button 
+			  			android:layout_width="fill_parent"
+			  			android:layout_height="fill_parent"
+			  			android:id="@+id/settings_tools_button"
+			  			android:background="@drawable/leftmenuitem_selector" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/settings_tools_icon"
+			  			android:src="@drawable/settings_tools_icon"
+			  			android:layout_alignParentLeft="true"
+			  			android:paddingLeft="10dip"
+			  			android:layout_centerVertical="true" />
+			  		<TextView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:text="工具箱"
+			  			android:layout_toRightOf="@id/settings_tools_icon"
+			  			style="@style/personinfo_textstyle" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/go_more_icon"
+			  			android:src="@drawable/go_more_icon"
+			  			android:layout_alignParentRight="true"
+			  			android:paddingRight="10dip"
+			  			android:layout_centerVertical="true" />
+			  	</RelativeLayout>
+			  	<RelativeLayout
+			  		android:layout_width="fill_parent"
+			  		android:layout_height="40dip" >
+			  		<Button 
+			  			android:layout_width="fill_parent"
+			  			android:layout_height="fill_parent"
+			  			android:id="@+id/settings_lock_button"
+			  			android:background="@drawable/leftmenuitem_selector" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/settings_lock_icon"
+			  			android:src="@drawable/settings_lock_icon"
+			  			android:layout_alignParentLeft="true"
+			  			android:paddingLeft="10dip"
+			  			android:layout_centerVertical="true" />
+			  		<TextView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:text="密码锁定"
+			  			android:layout_toRightOf="@id/settings_lock_icon"
+			  			style="@style/personinfo_textstyle" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/go_more_icon"
+			  			android:src="@drawable/go_more_icon"
+			  			android:layout_alignParentRight="true"
+			  			android:paddingRight="10dip"
+			  			android:layout_centerVertical="true" />
+			  	</RelativeLayout>
+			</LinearLayout>
+			<!--第四组菜单  -->
+			<LinearLayout 
+			  	android:orientation="vertical" 
+			  	android:layout_width="290dip"
+			  	android:id="@+id/settings_fourth_linearlayout"
+			  	android:layout_below="@id/settings_third_linearlayout"
+			  	android:layout_height="wrap_content"
+			  	android:layout_centerHorizontal="true"
+			  	android:paddingTop="20dip" >
+			  	<RelativeLayout
+			  		android:layout_width="fill_parent"
+			  		android:layout_height="40dip" >
+			  		<Button 
+			  			android:layout_width="fill_parent"
+			  			android:layout_height="fill_parent"
+			  			android:id="@+id/settings_feedback_button"
+			  			android:background="@drawable/leftmenuitem_selector" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/settings_feedback_icon"
+			  			android:src="@drawable/settings_feedback_icon"
+			  			android:layout_alignParentLeft="true"
+			  			android:paddingLeft="10dip"
+			  			android:layout_centerVertical="true" />
+			  		<TextView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:text="意见反馈"
+			  			android:layout_toRightOf="@id/settings_feedback_icon"
+			  			style="@style/personinfo_textstyle" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/go_more_icon"
+			  			android:src="@drawable/go_more_icon"
+			  			android:layout_alignParentRight="true"
+			  			android:paddingRight="10dip"
+			  			android:layout_centerVertical="true" />
+			  	</RelativeLayout>
+			  	<RelativeLayout
+			  		android:layout_width="fill_parent"
+			  		android:layout_height="40dip" >
+			  		<Button 
+			  			android:layout_width="fill_parent"
+			  			android:layout_height="fill_parent"
+			  			android:id="@+id/settings_about_button"
+			  			android:background="@drawable/leftmenuitem_selector" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/settings_about_icon"
+			  			android:src="@drawable/settings_about_icon"
+			  			android:layout_alignParentLeft="true"
+			  			android:paddingLeft="10dip"
+			  			android:layout_centerVertical="true" />
+			  		<TextView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:text="关于"
+			  			android:layout_toRightOf="@id/settings_about_icon"
+			  			style="@style/personinfo_textstyle" />
+			  		<ImageView 
+			  			android:layout_width="wrap_content"
+			  			android:layout_height="wrap_content"
+			  			android:id="@+id/go_more_icon"
+			  			android:src="@drawable/go_more_icon"
+			  			android:layout_alignParentRight="true"
+			  			android:paddingRight="10dip"
+			  			android:layout_centerVertical="true" />
+			  	</RelativeLayout>
+			</LinearLayout>
+			<!--第五组菜单  -->
+			<LinearLayout 
+			  	android:orientation="vertical" 
+			  	android:layout_width="290dip"
+			  	android:id="@+id/settings_fifth_linearlayout"
+			  	android:layout_below="@id/settings_fourth_linearlayout"
+			  	android:layout_height="wrap_content"
+			  	android:layout_centerHorizontal="true"
+			  	android:paddingTop="20dip"
+			  	android:paddingBottom="20dip" >
+			  	<RelativeLayout
+			  		android:layout_width="fill_parent"
+			  		android:layout_height="40dip" >
+			  		<Button 
+			  			android:layout_width="fill_parent"
+			  			android:layout_height="fill_parent"
+			  			android:gravity="center"
+			  			android:text="退出登录"
+			  			android:id="@+id/settings_exit_button"
+			  			android:textSize="18sp"
+			  			android:textColor="@color/white"
+			  			android:background="@drawable/settings_exitbut_selector" />
+			  	</RelativeLayout>
+			</LinearLayout>
+		</RelativeLayout>
+	</ScrollView>
+</RelativeLayout>

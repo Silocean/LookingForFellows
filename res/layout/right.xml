@@ -14,7 +14,7 @@
             android:layout_height="50dp"
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
-            android:text="我的消息"
+            android:text="搜老乡"
             android:textColor="@color/black"
             android:textSize="15sp" />
 
@@ -23,7 +23,7 @@
             android:layout_width="fill_parent"
             android:layout_height="2px"
             layout="@layout/line"
-            android:layout_below="@+id/title" >
+            android:layout_below="@id/title" >
         </include>
 
         <ListView

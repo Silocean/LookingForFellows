@@ -16,17 +16,21 @@
 package com.hblg.lookingfellow.slidingmenu.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.slidingmenu.fragment.LeftFragment;
 import com.hblg.lookingfellow.slidingmenu.fragment.MainFragment;
 import com.hblg.lookingfellow.slidingmenu.fragment.RightFragment;
 import com.hblg.lookingfellow.slidingmenu.view.SlidingMenu;
+import com.hblg.lookingfellow.sqlite.DBOpenHelper;
 
 public class SlidingActivity extends FragmentActivity {
-	SlidingMenu mSlidingMenu;
+	public SlidingMenu mSlidingMenu;
 	LeftFragment leftFragment;
 	RightFragment rightFragment;
 	MainFragment mainFragment;
@@ -55,6 +59,12 @@ public class SlidingActivity extends FragmentActivity {
 		t.replace(R.id.center_frame, mainFragment);
 		t.commit();
 	}
+	
+	public void replaceFragment(int id, Fragment fragment) {
+		FragmentTransaction t = this.getSupportFragmentManager().beginTransaction();
+		t.replace(id, fragment);
+		t.commit();
+	}
 
 
 	public void showLeft() {
@@ -63,6 +73,20 @@ public class SlidingActivity extends FragmentActivity {
 
 	public void showRight() {
 		mSlidingMenu.showRightView();
+	}
+    
+    long waitTime = 2000;
+    long touchTime = 0;
+
+	@Override
+	public void onBackPressed() {
+		long currentTime = System.currentTimeMillis();
+		if((currentTime-touchTime)>=waitTime) {
+			Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+			touchTime = currentTime;
+		}else {
+			finish();
+		}
 	}
 
 }
