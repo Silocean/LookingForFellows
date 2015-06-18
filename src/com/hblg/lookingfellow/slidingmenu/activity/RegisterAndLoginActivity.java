@@ -12,6 +12,7 @@ import com.hblg.lookingfellow.R;
 public class RegisterAndLoginActivity extends Activity implements OnClickListener{
 	Button registerButton;
 	Button loginButton;
+	Intent intent;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -26,11 +27,12 @@ public class RegisterAndLoginActivity extends Activity implements OnClickListene
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.registerButton:
-			Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+			intent = new Intent(getApplicationContext(), RegisterActivity.class);
 			startActivity(intent);
 			break;
 		case R.id.loginButton:
-			//TODO
+			intent = new Intent(getApplicationContext(), LoginActivity.class);
+			startActivity(intent);
 			break;
 		default:
 			break;

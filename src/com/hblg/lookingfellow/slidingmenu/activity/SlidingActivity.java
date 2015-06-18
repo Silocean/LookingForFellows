@@ -15,11 +15,11 @@
  */
 package com.hblg.lookingfellow.slidingmenu.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
@@ -27,7 +27,6 @@ import com.hblg.lookingfellow.slidingmenu.fragment.LeftFragment;
 import com.hblg.lookingfellow.slidingmenu.fragment.MainFragment;
 import com.hblg.lookingfellow.slidingmenu.fragment.RightFragment;
 import com.hblg.lookingfellow.slidingmenu.view.SlidingMenu;
-import com.hblg.lookingfellow.sqlite.DBOpenHelper;
 
 public class SlidingActivity extends FragmentActivity {
 	public SlidingMenu mSlidingMenu;
@@ -85,7 +84,11 @@ public class SlidingActivity extends FragmentActivity {
 			Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
 			touchTime = currentTime;
 		}else {
-			finish();
+			Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+			intent.putExtra("tag", "close");
+			//最关键是这句 Intent.FLAG_ACTIVITY_CLEAR_TOP使得处于栈底的A发挥推土机的作用，从最底层把栈里所有的activity都清理掉，再在自己的oncreate方法加一句finish结束自己，即可实现退出。
+	        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
+	        startActivity(intent);
 		}
 	}
 
