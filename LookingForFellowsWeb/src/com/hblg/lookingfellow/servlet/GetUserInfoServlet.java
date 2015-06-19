@@ -28,7 +28,7 @@ public class GetUserInfoServlet extends HttpServlet {
 		StudentDAO dao = new StudentDAO();
 		Map<String, String> map = dao.getStuInfo(qq);
 		String str = constructJson(map);
-		System.out.println(str);
+		System.out.println(qq + "=====" + str);
 		out.write(str);
 		out.flush();
 		out.close();
