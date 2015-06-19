@@ -6,23 +6,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import org.xml.sax.HandlerBase;
 
 import com.hblg.lookingfellow.db.DBManager;
 import com.hblg.lookingfellow.entity.Message;
 
 public class MessageDAO {
-	
+
 	Connection conn = null;
-	
+
 	public MessageDAO() {
 		conn = DBManager.getConn();
 	}
+
 	/**
 	 * 保存消息
+	 * 
 	 * @param msg
 	 * @return
 	 */
@@ -37,18 +36,18 @@ public class MessageDAO {
 			pst.setString(4, msg.getDetails());
 			pst.setString(5, msg.getTime());
 			int result = pst.executeUpdate();
-			if(result == 1) {
+			if (result == 1) {
 				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
@@ -58,8 +57,10 @@ public class MessageDAO {
 		}
 		return false;
 	}
+
 	/**
 	 * 保存添加好友消息
+	 * 
 	 * @param msg
 	 * @return
 	 */
@@ -74,18 +75,18 @@ public class MessageDAO {
 			pst.setString(4, msg.getDetails());
 			pst.setString(5, msg.getTime());
 			int result = pst.executeUpdate();
-			if(result == 1) {
+			if (result == 1) {
 				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
@@ -95,8 +96,10 @@ public class MessageDAO {
 		}
 		return false;
 	}
+
 	/**
 	 * 保存解除好友关系的消息
+	 * 
 	 * @param msg
 	 */
 	public boolean saveunfriendriendMessage(Message msg) {
@@ -110,18 +113,18 @@ public class MessageDAO {
 			pst.setString(4, msg.getDetails());
 			pst.setString(5, msg.getTime());
 			int result = pst.executeUpdate();
-			if(result == 1) {
+			if (result == 1) {
 				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
@@ -131,21 +134,23 @@ public class MessageDAO {
 		}
 		return false;
 	}
+
 	/**
 	 * 根据用户qq号码查询他的未读消息
+	 * 
 	 * @param sender
 	 * @return
 	 */
 	public ArrayList<Map<String, Object>> getMessages(String receiver) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		ArrayList<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		try {
 			String sql = "select * from message where msgReceiver = ?";
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, receiver);
 			rs = pst.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("msgId", rs.getInt(1));
 				map.put("msgType", rs.getInt(2));
@@ -158,17 +163,17 @@ public class MessageDAO {
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally  {
+		} finally {
 			try {
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
-				if(rs != null) {
+				if (rs != null) {
 					rs.close();
 					rs = null;
 				}
@@ -178,21 +183,24 @@ public class MessageDAO {
 		}
 		return null;
 	}
+
 	/**
 	 * 根据用户qq号码查询他的未读添加好友消息
+	 * 
 	 * @param sender
 	 * @return
 	 */
-	public ArrayList<Map<String, Object>> getRequestAddFriendMessages(String receiver) {
+	public ArrayList<Map<String, Object>> getRequestAddFriendMessages(
+			String receiver) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		ArrayList<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		try {
 			String sql = "select * from requestAddMsg where msgReceiver = ?";
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, receiver);
 			rs = pst.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("msgId", rs.getInt(1));
 				map.put("msgType", rs.getInt(2));
@@ -205,17 +213,17 @@ public class MessageDAO {
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally  {
+		} finally {
 			try {
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
-				if(rs != null) {
+				if (rs != null) {
 					rs.close();
 					rs = null;
 				}
@@ -225,8 +233,10 @@ public class MessageDAO {
 		}
 		return null;
 	}
+
 	/**
 	 * 删除服务器端暂存的消息
+	 * 
 	 * @param receiver
 	 * @return
 	 */
@@ -237,7 +247,7 @@ public class MessageDAO {
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, receiver);
 			int result = pst.executeUpdate();
-			if(result > 0) {
+			if (result > 0) {
 				System.out.println("已删除数据库中暂存的消息:" + receiver);
 				return true;
 			}
@@ -245,11 +255,11 @@ public class MessageDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
@@ -259,8 +269,10 @@ public class MessageDAO {
 		}
 		return false;
 	}
+
 	/**
 	 * 删除服务器端暂存的请求添加好友消息
+	 * 
 	 * @param receiver
 	 * @return
 	 */
@@ -271,7 +283,7 @@ public class MessageDAO {
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, receiver);
 			int result = pst.executeUpdate();
-			if(result > 0) {
+			if (result > 0) {
 				System.out.println("已删除数据库中暂存的消息:" + receiver);
 				return true;
 			}
@@ -279,11 +291,11 @@ public class MessageDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
@@ -293,8 +305,10 @@ public class MessageDAO {
 		}
 		return false;
 	}
+
 	/**
 	 * 根据发送者qq获取发送者名字
+	 * 
 	 * @param msgSender
 	 * @return
 	 */
@@ -306,18 +320,18 @@ public class MessageDAO {
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, msgSender);
 			rs = pst.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				return rs.getString(1);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
-				if(rs != null) {
+				if (rs != null) {
 					rs.close();
 					rs = null;
 				}
@@ -327,5 +341,5 @@ public class MessageDAO {
 		}
 		return null;
 	}
-	
+
 }

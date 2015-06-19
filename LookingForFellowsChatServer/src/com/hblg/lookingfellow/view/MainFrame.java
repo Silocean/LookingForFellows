@@ -13,16 +13,17 @@ import javax.swing.JTextArea;
 
 import com.hblg.lookingfellow.model.Server;
 
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame implements ActionListener {
-	
+
 	JPanel panel1;
 	JPanel panel2;
-	
+
 	JButton startBut;
-	
+
 	public static JTextArea ta;
 	JScrollPane sp;
-	
+
 	public MainFrame() {
 		startBut = new JButton("Æô¶¯·þÎñÆ÷");
 		startBut.addActionListener(this);
@@ -31,7 +32,8 @@ public class MainFrame extends JFrame implements ActionListener {
 		panel1.add(startBut);
 		panel2 = new JPanel();
 		ta = new JTextArea();
-		sp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		sp = new JScrollPane(ta, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		panel2.setLayout(new BorderLayout());
 		panel2.add(sp, BorderLayout.CENTER);
 		this.add(panel1, BorderLayout.NORTH);
@@ -41,7 +43,7 @@ public class MainFrame extends JFrame implements ActionListener {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+
 	public static void main(String[] args) {
 		new MainFrame();
 	}
@@ -51,11 +53,11 @@ public class MainFrame extends JFrame implements ActionListener {
 		new ServerThread().start();
 		startBut.setEnabled(false);
 	}
-	
+
 	private class ServerThread extends Thread {
 		public void run() {
 			new Server();
 		}
 	}
-	
+
 }

@@ -10,6 +10,7 @@ import com.hblg.lookingfellow.view.MainFrame;
 
 public class Server {
 	
+	@SuppressWarnings("resource")
 	public Server() {
 		try {
 			ServerSocket ss = new ServerSocket(3456);
