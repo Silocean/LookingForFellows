@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.selfdefinedwidget.SignsTextWatcher;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
 import com.hblg.lookingfellow.user.User;
@@ -21,12 +23,13 @@ public class PersonSignsActivity extends Activity {
 	Button gobackButton;
 	Button saveButton;
 	EditText signsEditText;
+	TextView WordNumTextView;
 	
 	String signs;
 	
 	ProgressDialog dialog;
 	Message message;
-	UIHandler handler = new UIHandler();
+	public UIHandler handler = new UIHandler();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -52,8 +55,11 @@ public class PersonSignsActivity extends Activity {
 			}
 		});
 		signsEditText = (EditText)this.findViewById(R.id.personsigns_content);
-		String signs = getIntent().getStringExtra("signs");
+		signs = getIntent().getStringExtra("signs");
 		signsEditText.setText(signs);
+		signsEditText.addTextChangedListener(new SignsTextWatcher(60, signsEditText, this));
+		WordNumTextView = (TextView)this.findViewById(R.id.pesonsigns_wordnum);
+		WordNumTextView.setText((60-signs.getBytes().length) + "/60");
 	}
 	private class ModifySignsThread extends Thread {
 		@Override
@@ -70,7 +76,7 @@ public class PersonSignsActivity extends Activity {
 			}
 		}
 	}
-	private class UIHandler extends Handler {
+	public class UIHandler extends Handler {
 
 		@Override
 		public void handleMessage(Message msg) {
@@ -80,10 +86,15 @@ public class PersonSignsActivity extends Activity {
 				Toast.makeText(getApplicationContext(), "保存成功", 0).show();
 				Intent intent = new Intent(getApplicationContext(), PersonInfoActivity.class);
 				startActivity(intent);
-			} else {
-				// 表示保存成功
+			} else if(msg.arg1 == 2){
+				// 表示保存失败
 				dialog.dismiss();
 				Toast.makeText(getApplicationContext(), "保存失败", 0).show();
+			}
+			if(msg.what == 1) {
+				int keep = msg.arg2;
+				WordNumTextView.setText(keep+"/60");
+				System.out.println(keep);
 			}
 		}
 		

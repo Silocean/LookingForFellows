@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
 import com.hblg.lookingfellow.tools.StreamTool;
 
 public class RegisterActivity extends Activity implements OnClickListener{
@@ -40,7 +41,6 @@ public class RegisterActivity extends Activity implements OnClickListener{
 	Message  message;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 		gobackButton = (Button)this.findViewById(R.id.register_goback_button);
@@ -48,8 +48,11 @@ public class RegisterActivity extends Activity implements OnClickListener{
 		hometownButton = (Button)this.findViewById(R.id.register_hometown_bg_button);
 		hometownButton.setOnClickListener(this);
 		nameEditText = (EditText)this.findViewById(R.id.name_editText);
+		nameEditText.addTextChangedListener(new MaxLengthWatcher(20, nameEditText, this));
 		qqEditText = (EditText)this.findViewById(R.id.qq_editText);
+		qqEditText.addTextChangedListener(new MaxLengthWatcher(11, qqEditText, this));
 		passwordEditText = (EditText)this.findViewById(R.id.password_editText);
+		passwordEditText.addTextChangedListener(new MaxLengthWatcher(15, passwordEditText, this));
 		hometownTextView = (TextView)this.findViewById(R.id.hometown_textView);
 		String name = nameEditText.getText().toString();
 		String qq = qqEditText.getText().toString();
@@ -172,17 +175,27 @@ public class RegisterActivity extends Activity implements OnClickListener{
 	}
 
 	private boolean check() {
-		if(hometownTextView.getText().toString().trim().equals("请选择你的老家")) {
+		String hometown = hometownTextView.getText().toString().trim();
+		String name = nameEditText.getText().toString().trim();
+		String qq = qqEditText.getText().toString().trim();
+		String password = passwordEditText.getText().toString().trim();
+		if(hometown.equals("请选择你的老家")) {
 			Toast.makeText(getApplicationContext(), "请填写家乡所在地", 0).show();
 			return false;
-		} else if(nameEditText.getText().toString().trim().equals("")) {
+		} else if(name.equals("")) {
 			Toast.makeText(getApplicationContext(), "请填写姓名", 0).show();
 			return false;
-		} else if(qqEditText.getText().toString().trim().equals("")) {
+		} else if(qq.equals("")) {
 			Toast.makeText(getApplicationContext(), "请填写QQ号码", 0).show();
 			return false;
-		} else if(passwordEditText.getText().toString().trim().equals("")) {
+		} else if(password.equals("")) {
 			Toast.makeText(getApplicationContext(), "请填写密码", 0).show();
+			return false;
+		} else if(!qq.matches("\\d{4,11}")) {
+			Toast.makeText(getApplicationContext(), "qq号码格式不正确", 0).show();
+			return false;
+		} else if(!password.matches("\\w{6,15}")) {
+			Toast.makeText(getApplicationContext(), "密码为6-15位的a-zA-Z_0-9字符", 0).show();
 			return false;
 		}
 		return true;

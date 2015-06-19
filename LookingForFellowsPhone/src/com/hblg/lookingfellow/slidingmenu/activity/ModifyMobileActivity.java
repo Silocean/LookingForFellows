@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
 import com.hblg.lookingfellow.user.User;
@@ -38,6 +39,7 @@ public class ModifyMobileActivity extends Activity implements OnClickListener{
 		modifySaveButton = (Button)this.findViewById(R.id.modifymobile_save);
 		modifySaveButton.setOnClickListener(this);
 		modifyMobile = (EditText)this.findViewById(R.id.modifyMobile_editText);
+		modifyMobile.addTextChangedListener(new MaxLengthWatcher(11, modifyMobile, this));
 		String mobile = getIntent().getStringExtra("mobile");
 		modifyMobile.setText(mobile);
 	}
@@ -67,18 +69,28 @@ public class ModifyMobileActivity extends Activity implements OnClickListener{
 			break;
 		case R.id.modifymobile_save:
 			//TODO
-			SQLiteService service = new SQLiteService(getApplicationContext());
-			String qq = User.qq;
-			mobile = modifyMobile.getText().toString().trim();
-			service.modifyMobile(mobile, qq);
-			dialog = ProgressDialog.show(ModifyMobileActivity.this, "", "正在修改...", true);
-			new ModifyMobileThread().start();
+			if(check()) {
+				SQLiteService service = new SQLiteService(getApplicationContext());
+				String qq = User.qq;
+				mobile = modifyMobile.getText().toString().trim();
+				service.modifyMobile(mobile, qq);
+				dialog = ProgressDialog.show(ModifyMobileActivity.this, "", "正在修改...", true);
+				new ModifyMobileThread().start();
+			}
 			break;
 		default:
 			break;
 		}
 	}
 	
+	private boolean check() {
+		mobile = modifyMobile.getText().toString().trim();
+		if(!mobile.matches("\\d{7,11}")) {
+			Toast.makeText(getApplicationContext(), "手机号码格式不正确", 0).show();
+			return false;
+		}
+		return true;
+	}
 	private class ModifyMobileThread extends Thread {
 		public void run() {
 			modify();

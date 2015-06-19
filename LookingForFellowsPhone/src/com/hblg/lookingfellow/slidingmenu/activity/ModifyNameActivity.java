@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
 import com.hblg.lookingfellow.user.User;
@@ -37,6 +38,7 @@ public class ModifyNameActivity extends Activity implements OnClickListener{
 		modifySaveButton = (Button)this.findViewById(R.id.modifyname_save);
 		modifySaveButton.setOnClickListener(this);
 		modifyName = (EditText)this.findViewById(R.id.modifyname_editText);
+		modifyName.addTextChangedListener(new MaxLengthWatcher(20, modifyName, this));
 		String name = getIntent().getStringExtra("name");
 		modifyName.setText(name);
 	}
@@ -65,19 +67,28 @@ public class ModifyNameActivity extends Activity implements OnClickListener{
 			this.finish();
 			break;
 		case R.id.modifyname_save:
-			//TODO
-			SQLiteService service = new SQLiteService(getApplicationContext());
-			String qq = User.qq;
-			name = modifyName.getText().toString().trim();
-			service.modifyName(name, qq);
-			dialog = ProgressDialog.show(ModifyNameActivity.this, "", "正在修改...", true);
-			new ModifyNameThread().start();
+			if(check()) {
+				SQLiteService service = new SQLiteService(getApplicationContext());
+				String qq = User.qq;
+				name = modifyName.getText().toString().trim();
+				service.modifyName(name, qq);
+				dialog = ProgressDialog.show(ModifyNameActivity.this, "", "正在修改...", true);
+				new ModifyNameThread().start();
+			}
 			break;
 		default:
 			break;
 		}
 	}
 	
+	private boolean check() {
+		name = modifyName.getText().toString().trim();
+		if(name.equals("")) {
+			Toast.makeText(getApplicationContext(), "名字不能为空", 0).show();
+			return false;
+		}
+		return true;
+	}
 	private class ModifyNameThread extends Thread {
 		@Override
 		public void run() {

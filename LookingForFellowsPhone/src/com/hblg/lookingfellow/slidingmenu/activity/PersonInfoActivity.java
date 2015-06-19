@@ -1,12 +1,24 @@
 package com.hblg.lookingfellow.slidingmenu.activity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +33,10 @@ import android.widget.Toast;
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.Student;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
+import com.hblg.lookingfellow.tools.CheckSDCard;
+import com.hblg.lookingfellow.tools.FormFile;
 import com.hblg.lookingfellow.tools.ImageTool;
+import com.hblg.lookingfellow.tools.SocketHttpRequester;
 import com.hblg.lookingfellow.user.User;
 
 public class PersonInfoActivity extends Activity implements OnClickListener{
@@ -49,17 +64,36 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 	Button takeOldPictureButton;
 	Button cancelButton;
 	
+	String rootPath = Environment.getExternalStorageDirectory() + "/lookingfellow/";
+	
+	Message msg;
+	ProgressDialog dialog;
+	UIHandler handler = new UIHandler();
+	
+	private class UIHandler extends Handler {
+
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				dialog.dismiss();
+				Toast.makeText(getApplicationContext(), "上传头像成功", 0).show();
+				break;
+			case 2 :
+				dialog.dismiss();
+				Toast.makeText(getApplicationContext(), "上传头像失败", 0).show();
+				break;
+			default:
+				break;
+			}
+		}
+		
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_personinfo);
 		headImage = (ImageView)this.findViewById(R.id.personinfo_headimage_icon);
-		//对头像做圆形处理
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.headimage);
-		Bitmap output = ImageTool.toRoundCorner(bitmap, 360.0f);
-		headImage.setImageBitmap(output);
 		gobackButton = (Button)this.findViewById(R.id.personinfo_goback_button);
 		gobackButton.setOnClickListener(this);
 		headImageButton = (Button)this.findViewById(R.id.personinfo_headimage_button);
@@ -99,6 +133,15 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 	}
 	
 	private void initStuInfo() {
+		File file = new File(rootPath + "head/" + "head_" + User.qq + ".jpg");
+		Bitmap bitmap;
+		if(!file.exists()) {
+			bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.head_default);
+		} else {
+			bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+		}
+		Bitmap output = ImageTool.toRoundCorner(bitmap, 360.0f);
+		headImage.setImageBitmap(output);
 		SQLiteService service = new SQLiteService(getApplicationContext());
 		String qq = User.qq;
 		Student stu = service.getStuInfo(qq);
@@ -129,20 +172,10 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 			this.finish();
 			break;
 		case R.id.personinfo_headimage_button:
-			if(popupWindow.isShowing()) {
-				// 隐藏窗口，如果设置了点击窗口外小时即不需要此方式隐藏  
-				popupWindow.dismiss();
-			} else {
-				popupWindow.showAtLocation(v, Gravity.BOTTOM, 0, 0);
-			}
+			this.dismissPopwindow(v);
 			break;
 		case R.id.personinfo_personhomepagebg_button:
-			if(popupWindow.isShowing()) {
-				// 隐藏窗口，如果设置了点击窗口外小时即不需要此方式隐藏  
-				popupWindow.dismiss();
-			} else {
-				popupWindow.showAtLocation(v, Gravity.BOTTOM, 0, 0);
-			}
+			this.dismissPopwindow(v);
 			break;
 		case R.id.personinfo_name_button:
 			intent = new Intent(getApplicationContext(), ModifyNameActivity.class);
@@ -186,25 +219,118 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 			startActivity(intent);
 			break;
 		case R.id.headimage_popupwindow_takenewpicture:
-			//TODO
-			Toast.makeText(getApplicationContext(), "拍摄", 0).show();
+			this.dismissPopwindow(v);
+			Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  //调用系统照相机
+			//下面这句指定调用相机拍照后的照片存储的路径 
+			intent2.putExtra(MediaStore.EXTRA_OUTPUT, 
+					Uri.fromFile(new File(rootPath + "head/", "tempHead.jpg")));
+			startActivityForResult(intent2, 1);
 			break;
 		case R.id.headimage_popupwindow_takeoldpicture:
-			Toast.makeText(getApplicationContext(), "从相册选择", 0).show();
+			this.dismissPopwindow(v);
+			Intent intent3 = new Intent(Intent.ACTION_PICK);
+			intent3.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*"); // 调用系统图库
+			startActivityForResult(intent3, 2);
 			break;
 		case R.id.headimage_popupwindow_cancel:
-			if(popupWindow.isShowing()) {
-				// 隐藏窗口，如果设置了点击窗口外小时即不需要此方式隐藏  
-				popupWindow.dismiss();
-			} else {
-				popupWindow.showAtLocation(v, Gravity.BOTTOM, 0, 0);
+			this.dismissPopwindow(v);
+			break;
+		default:
+			break;
+		}
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		case 1:
+			File file = new File(rootPath + "head/" + "tempHead.jpg");
+			startPhotoZoom(Uri.fromFile(file), 100, 100);
+			break;
+		case 2: 
+			if(data != null) {
+				startPhotoZoom(data.getData(), 100, 100); 
+			}
+			break;
+		case 3:
+			if(data != null) {
+				Bitmap bitmap = data.getExtras().getParcelable("data");
+				saveImage(bitmap);
 			}
 			break;
 		default:
 			break;
 		}
 	}
-	
+	private void saveImage(Bitmap bitmap) {
+		FileOutputStream fos = null;
+		if(CheckSDCard.hasSdcard()) {
+			try {
+				String path = rootPath + "head/";
+				String headName = "head_" + User.qq + ".jpg";
+				File file = new File(path);
+				if(!file.exists()) {
+					file.mkdirs();
+				}
+				fos = new FileOutputStream(path + headName);
+				boolean flag = bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos); // 保存头像到本地SD卡
+				if(flag)  { //上传头像
+					dialog = ProgressDialog.show(PersonInfoActivity.this, "", "正在上传...", true);
+					String url = "http://192.168.1.152:8080/lookingfellowWeb0.2/GetImageServlet";
+					File imageFile = new File(path, headName);
+					if(imageFile.exists()) {
+						FormFile formFile = new FormFile(imageFile, "imaga", "image/*");
+						Map<String, String> params = new HashMap<String, String>();
+						params.put("title", "title");
+						params.put("content", "content");
+						boolean result = SocketHttpRequester.post(url, params, formFile);
+						if(result) {
+							msg = handler.obtainMessage(1); // 1表示上传成功
+							msg.sendToTarget();
+						} else {
+							msg = handler.obtainMessage(2); // 2表示上传失败
+							msg.sendToTarget();
+						}
+					}
+				}
+				System.out.println(path);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if(fos != null) {
+						fos.flush();
+						fos.close();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} else {
+			Toast.makeText(getApplicationContext(), "SD卡不可用", 0).show();
+		}
+	}
+	private void startPhotoZoom(Uri uri, int width, int height) {
+		Intent intent = new Intent("com.android.camera.action.CROP"); 
+		intent.setDataAndType(uri, "image/*"); 
+		//下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪 
+		intent.putExtra("crop", "true"); 
+		// aspectX aspectY 是宽高的比例 
+		intent.putExtra("aspectX", 1); 
+		intent.putExtra("aspectY", 1); 
+		// outputX outputY 是裁剪图片宽高 
+		intent.putExtra("outputX", width); 
+		intent.putExtra("outputY", height); 
+		intent.putExtra("return-data", true); 
+		startActivityForResult(intent, 3); 
+	}
+	private void dismissPopwindow(View v) {
+		if(popupWindow.isShowing()) {
+			// 隐藏窗口，如果设置了点击窗口外小时即不需要此方式隐藏  
+			popupWindow.dismiss();
+		} else {
+			popupWindow.showAtLocation(v, Gravity.BOTTOM, 0, 0);
+		}
+	}
 	private void initHeadimagePopupWindow() {
 		inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		popupView = inflater.inflate(R.layout.headimage_popupwindow, null);

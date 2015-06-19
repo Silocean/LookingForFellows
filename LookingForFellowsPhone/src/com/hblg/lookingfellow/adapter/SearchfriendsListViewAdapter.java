@@ -55,8 +55,8 @@ public class SearchfriendsListViewAdapter extends BaseAdapter {
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
 		ImageView headImage = (ImageView)convertView.findViewById(R.id.searchfriendslayout_headimage);
 		Bitmap bm = (Bitmap)map.get("headimage");
-		Bitmap output = ImageTool.toRoundCorner(bm, 360.0f);
-		headImage.setImageBitmap(output);
+		//Bitmap output = ImageTool.toRoundCorner(bm, 360.0f);
+		headImage.setImageBitmap(bm);
 		TextView nameTextView = (TextView)convertView.findViewById(R.id.searchfriendslayout_name);
 		String name = (String)map.get("name");
 		nameTextView.setText(name);

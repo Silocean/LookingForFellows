@@ -57,8 +57,8 @@ public class ChatListViewAdapter extends BaseAdapter {
 		leftSendTimeTextview.setText(leftSendTime);
 		ImageView leftHeadImage = (ImageView)convertView.findViewById(R.id.chat_item_headimage);
 		Bitmap bm = (Bitmap)map.get("leftheadimage");
-		Bitmap output = ImageTool.toRoundCorner(bm, 15.0f);
-		leftHeadImage.setImageBitmap(output);
+		//Bitmap output = ImageTool.toRoundCorner(bm, 15.0f);
+		leftHeadImage.setImageBitmap(bm);
 		TextView leftChatContentTextview = (TextView)convertView.findViewById(R.id.chat_item_chatcontent);
 		String leftChatContent = (String)map.get("leftchatcontent");
 		leftChatContentTextview.setText(leftChatContent);

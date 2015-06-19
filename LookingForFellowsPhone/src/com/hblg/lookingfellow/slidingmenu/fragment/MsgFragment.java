@@ -60,11 +60,10 @@ public class MsgFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.headimage);
-		Bitmap output = ImageTool.toRoundCorner(bitmap, 45.0f);
+				R.drawable.head_default);
 		for(int i=0; i<7; i++) {
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("headimage", output);
+			map.put("headimage", bitmap);
 			map.put("name", "linxiaonan");
 			map.put("content", "明天中午聚会，请务必准时集合！啦啦啦啦啦啦啦啦");
 			map.put("time", "15:21");

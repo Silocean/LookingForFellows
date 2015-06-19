@@ -64,7 +64,6 @@ public class PostDetailListViewAdapter extends BaseAdapter{
 			linearLayout=(LinearLayout)convertView.findViewById(R.id.posts_list_layout);
 			
 			holder.headImg=(ImageView)convertView.findViewById(R.id.posts_list_headImg);
-			holder.contentImg=(ImageView)convertView.findViewById(R.id.posts_list_contentImg);
 			holder.nameTxt=(TextView)convertView.findViewById(R.id.posts_list_nameTxt);
 			holder.timeTxt=(TextView)convertView.findViewById(R.id.posts_list_time);
 			holder.floorTxt=(TextView)convertView.findViewById(R.id.posts_list_floor);

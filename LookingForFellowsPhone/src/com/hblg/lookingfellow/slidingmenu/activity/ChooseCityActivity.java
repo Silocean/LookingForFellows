@@ -37,7 +37,6 @@ public class ChooseCityActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_choosecity);
 		gobackButton = (Button)this.findViewById(R.id.choosecity_goback_button);

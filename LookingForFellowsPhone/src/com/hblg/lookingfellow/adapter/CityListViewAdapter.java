@@ -67,12 +67,15 @@ public class CityListViewAdapter extends BaseAdapter {
 		areaNameTextview.setText(cityName);
 		Button button = (Button)convertView.findViewById(R.id.bgbutton);
 		final String provinceName = bundle.getString("province");
-		bundle.putString("city", cityName);
+		
 		button.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				if(bundle.getString("tag").equals("register")) {
 					Intent intent = new Intent(context, RegisterActivity.class);
-					intent.putExtras(bundle);
+					Bundle myBundle = new Bundle();
+					myBundle.putString("city", cityName);
+					myBundle.putString("province", provinceName);
+					intent.putExtras(myBundle);
 					// 防止 Calling startActivity() from outside of an Activity问题发生
 					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 					context.startActivity(intent);

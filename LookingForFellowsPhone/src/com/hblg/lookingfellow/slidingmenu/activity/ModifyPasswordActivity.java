@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
 import com.hblg.lookingfellow.user.User;
@@ -40,7 +41,9 @@ public class ModifyPasswordActivity extends Activity implements OnClickListener{
 		modifySaveButton = (Button)this.findViewById(R.id.modifypassword_save);
 		modifySaveButton.setOnClickListener(this);
 		nowEditText = (EditText)this.findViewById(R.id.modifypassword_now_editText);
+		nowEditText.addTextChangedListener(new MaxLengthWatcher(15, nowEditText, this));
 		newEditText = (EditText)this.findViewById(R.id.modifypassword_new_editText);
+		newEditText.addTextChangedListener(new MaxLengthWatcher(15, newEditText, this));
 	}
 	private class UIHandler extends Handler {
 		@Override
@@ -65,17 +68,18 @@ public class ModifyPasswordActivity extends Activity implements OnClickListener{
 			this.finish();
 			break;
 		case R.id.modifypassword_save:
-			//TODO
-			String qq = User.qq;
-			String oldPassword = User.password;
-			if(oldPassword.equals(nowEditText.getText().toString().trim())) {
-				SQLiteService service = new SQLiteService(getApplicationContext());
-				newPassword = newEditText.getText().toString().trim();
-				service.modifyPassword(newPassword, qq);
-				dialog = ProgressDialog.show(ModifyPasswordActivity.this, "", "正在修改...", true);
-				new ModifyPasswordThread().start();
-			} else {
-				Toast.makeText(getApplicationContext(), "原密码不正确", 0).show();
+			if(check()) {
+				String qq = User.qq;
+				String oldPassword = User.password;
+				if(oldPassword.equals(nowEditText.getText().toString().trim())) {
+					SQLiteService service = new SQLiteService(getApplicationContext());
+					newPassword = newEditText.getText().toString().trim();
+					service.modifyPassword(newPassword, qq);
+					dialog = ProgressDialog.show(ModifyPasswordActivity.this, "", "正在修改...", true);
+					new ModifyPasswordThread().start();
+				} else {
+					Toast.makeText(getApplicationContext(), "原密码不正确", 0).show();
+				}
 			}
 			break;
 		default:
@@ -83,6 +87,17 @@ public class ModifyPasswordActivity extends Activity implements OnClickListener{
 		}
 	}
 	
+	private boolean check() {
+		newPassword = newEditText.getText().toString().trim();
+		if(newPassword.equals("")) {
+			Toast.makeText(getApplicationContext(), "密码不能为空", 0).show();
+			return false;
+		} else if(!newPassword.matches("\\w{6,15}")) {
+			Toast.makeText(getApplicationContext(), "密码为6-15位的a-zA-Z_0-9字符", 0).show();
+			return false;
+		}
+		return true;
+	}
 	private class ModifyPasswordThread extends Thread {
 		@Override
 		public void run() {

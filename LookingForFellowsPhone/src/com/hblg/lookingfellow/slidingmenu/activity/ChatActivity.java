@@ -39,7 +39,7 @@ public class ChatActivity extends Activity implements OnClickListener{
 	
 	public void initListData() {
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.headimage);
+				R.drawable.head_default);
 		for(int i=0; i<7; i++) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("leftsendtime", "09-12 13:55");

@@ -47,7 +47,7 @@ public class AddFriendsActivity extends Activity {
 	
 	public void initList() {
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.headimage);
+				R.drawable.head_default);
 		for(int i=0; i<27; i++) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("headimage", bitmap);

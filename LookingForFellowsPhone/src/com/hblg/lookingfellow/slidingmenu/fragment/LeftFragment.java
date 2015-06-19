@@ -61,6 +61,7 @@ public class LeftFragment extends Fragment {
 		leftmenuNear = (Button)view.findViewById(R.id.leftmenu_near_button);
 		leftmenuShare = (Button)view.findViewById(R.id.leftmenu_share_button);
 		leftmenuInvite = (Button)view.findViewById(R.id.leftmenu_invite_button);
+		mainFragment = new MainFragment();
 		return view;
 	}
 
@@ -74,7 +75,7 @@ public class LeftFragment extends Fragment {
 				leftmenuFriends.setSelected(false);
 				leftmenuMsg.setSelected(false);
 				leftmenuSettings.setSelected(false);
-				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, SlidingActivity.mainFragment);
+				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, mainFragment);
 				((SlidingActivity)getActivity()).showLeft();
 			}
 		});

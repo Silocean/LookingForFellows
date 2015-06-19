@@ -15,10 +15,14 @@
  */
 package com.hblg.lookingfellow.slidingmenu.fragment;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,12 +34,11 @@ import android.widget.TextView;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.Student;
-import com.hblg.lookingfellow.slidingmenu.activity.ChooseProvinceActivity;
-import com.hblg.lookingfellow.slidingmenu.activity.ModifyMobileActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.PersonInfoActivity;
-import com.hblg.lookingfellow.slidingmenu.activity.PersonSignsActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
+import com.hblg.lookingfellow.tools.CheckSDCard;
+import com.hblg.lookingfellow.tools.ImageLoader;
 import com.hblg.lookingfellow.tools.ImageTool;
 import com.hblg.lookingfellow.user.User;
 
@@ -78,6 +81,9 @@ public class PersonFragment extends Fragment {
 	}
 	
 	private void initStuInfo() {
+		Bitmap bitmap = ImageTool.getHeadImageFromLocalOrNet(getActivity(), User.qq);
+		Bitmap output = ImageTool.toRoundCorner(bitmap, 360.0f);
+		headImage.setImageBitmap(output);
 		SQLiteService service = new SQLiteService(getActivity());
 		String qq = User.qq;
 		Student student = service.getStuInfo(qq);
@@ -100,7 +106,7 @@ public class PersonFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		//对头像做圆形处理
 		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.headimage);
+				R.drawable.head_default);
 		Bitmap output = ImageTool.toRoundCorner(bitmap, 360.0f);
 		headImage.setImageBitmap(output);
 		titlebarLeftmenu.setOnClickListener(new OnClickListener() {

@@ -50,8 +50,8 @@ public class MsgListViewAdapter extends BaseAdapter {
 		ImageView headImage = (ImageView)convertView.findViewById(R.id.msglayout_headimage);
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
 		Bitmap bm = (Bitmap)map.get("headimage");
-		Bitmap output = ImageTool.toRoundCorner(bm, 360.0f);
-		headImage.setImageBitmap(output);
+		//Bitmap output = ImageTool.toRoundCorner(bm, 360.0f);
+		headImage.setImageBitmap(bm);
 		TextView nameTextView = (TextView)convertView.findViewById(R.id.msglayout_name);
 		String name = (String)map.get("name");
 		nameTextView.setText(name);

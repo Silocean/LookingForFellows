@@ -10,8 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedHashMap;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,7 +35,7 @@ public class ImageUtils {
 	public static LinkedHashMap<String, SoftReference<Bitmap>> imageCache = 
 			new LinkedHashMap<String,SoftReference<Bitmap>>();
 	
-	private final static int Dafult_image = R.drawable.headimage;
+	private final static int DEFAULT_IMAGE = R.drawable.head_default;
 	
 	private final static long CLEAR_TIME = 24*24*60*60*1000;
 	
@@ -50,7 +49,7 @@ public class ImageUtils {
 	public static void setImageView(ImageView imageView,String imageUrl,Context context,ImageCallBack callBack){
 		String md5 = MD5.getMD5(imageUrl);
 		String imagePath = getExternalCacheDir(context,"go")+File.separator+md5;
-		if(Utils.isSDAvailable()){
+		if(CheckSDCard.hasSdcard()){
 			setImageViewUtils( imageView,imagePath,imageUrl,context,callBack);
 			imageView.setTag(imagePath);
 		}else {
@@ -69,7 +68,7 @@ public class ImageUtils {
 	 */
 	public static void setHomeSlidImageView(ImageView imageView,String ImageName,String imageUrl,Context context,ImageCallBack callBack){
 		String imagePath = getExternalCacheDir(context,"slid")+File.separator+ImageName;
-		if(Utils.isSDAvailable()){
+		if(CheckSDCard.hasSdcard()){
 			setImageViewUtils( imageView,imagePath,imageUrl,context,callBack);
 			imageView.setTag(imagePath);
 		}else {
@@ -95,7 +94,7 @@ public class ImageUtils {
 			bitMap = loadBitMapFromLocalOrNet(imagePath,imageUrl,context,callBack);
 		}
 		if(bitMap == null){
-			imageView.setImageResource(Dafult_image);
+			imageView.setImageResource(DEFAULT_IMAGE);
 		}else{
 			imageView.setImageBitmap(bitMap);
 		}
@@ -122,6 +121,7 @@ public class ImageUtils {
 			public void handleMessage(Message msg) {
 				if (msg.obj != null) {
 					Bitmap bitmap = (Bitmap) msg.obj;
+					System.out.println(imageUrl + "===========");
 					callBack.loadImage(bitmap,imageUrl);
 				}
 			}
@@ -290,8 +290,7 @@ public class ImageUtils {
 	/**
 	 * @return the cache dir from sd
 	 */
-	@TargetApi(Build.VERSION_CODES.FROYO)
-	@SuppressLint("NewApi")
+
 	public static String getExternalCacheDir(Context context,String filename){
 		if(hasExternalCacheDir()){
 			return context.getExternalCacheDir().getPath()+File.separator+filename;
