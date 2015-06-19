@@ -31,6 +31,7 @@ public class PostDAO {
 		proMap.put("重庆", "post_chongqing");
 		proMap.put("河北", "post_hebei");
 		proMap.put("山西", "post_shanxi");
+		proMap.put("陕西", "post_shanxi2");
 		proMap.put("台湾", "post_taiwan");
 		proMap.put("辽宁", "post_liaoning");
 		proMap.put("吉林", "post_jilin");
@@ -66,12 +67,12 @@ public class PostDAO {
 	public boolean insertPost(Post post) {
 		PreparedStatement pst = null;
 		try {
-			String sql = "insert into post values(?, ?, ?, ?, 0, ?)";
+			String sql = "insert into post (title, content, authorId, time, replyNum, imageName) values(?, ?, ?, ?, 0, ?)";
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, post.getTitle());
 			pst.setString(2, post.getDetails());
-			pst.setString(3, post.getTime());
-			pst.setString(4, post.getAuthorId());
+			pst.setString(3, post.getAuthorId());
+			pst.setString(4, post.getTime());
 			pst.setString(5, post.getImageName());
 			int result = pst.executeUpdate();
 			if (result == 1) {
@@ -136,10 +137,7 @@ public class PostDAO {
 		ResultSet rs = null;
 		try {
 			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-			String sql = "select top 20 * from " + postView
-					+ " where postId not in(select top " + page * 20
-					+ " postId from " + postView
-					+ " order by postId desc) order by postId desc";
+			String sql = "select * from " + postView + " limit " + page * 20;
 			pst = conn.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while (rs.next()) {
@@ -147,9 +145,9 @@ public class PostDAO {
 				map.put("id", rs.getInt(1));
 				map.put("title", rs.getString(2));
 				map.put("details", rs.getString(3));
-				map.put("time", rs.getString(4));
-				map.put("authorId", rs.getString(5));
-				map.put("authorName", this.getAuthorName(rs.getString(5)));
+				map.put("authorId", rs.getString(4));
+				map.put("time", rs.getString(5));
+				map.put("authorName", this.getAuthorName(rs.getString(4)));
 				map.put("replyNum", rs.getInt(6));
 				map.put("imageName", rs.getString(7));
 				list.add(map);

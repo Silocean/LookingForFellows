@@ -8,12 +8,14 @@ public class DBManager {
 	static Connection conn = null;
 
 	public static Connection getConn() {
-		String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-		String url = "jdbc:sqlserver://localhost:1433; DatabaseName=lookingfellow";
+		String driverName = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://localhost/test";
+		String dbUser = "root";
+		String dbPwd = "123456";
 		try {
 			Class.forName(driverName);
-			conn = DriverManager.getConnection(url, "sa", "123456");
-			System.out.println("connect sqlserver successful!");
+			conn = DriverManager.getConnection(url, dbUser, dbPwd);
+			System.out.println("connect mysql successful!");
 			return conn;
 		} catch (Exception e) {
 			e.printStackTrace();
