@@ -13,7 +13,7 @@ public class DBManager {
 		try {
 			Class.forName(driverName);
 			conn = DriverManager.getConnection(url, "sa", "123456");
-			System.out.println("connect sqlserver successful!");
+			//System.out.println("connect sqlserver successful!");
 			return conn;
 		} catch (Exception e) {
 			e.printStackTrace();
