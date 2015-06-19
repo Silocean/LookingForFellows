@@ -27,12 +27,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
 import com.hblg.lookingfellow.selfdefinedwidget.SendpostEditText;
 import com.hblg.lookingfellow.slidingmenu.fragment.MainFragment;
 import com.hblg.lookingfellow.tools.StreamTool;
 import com.hblg.lookingfellow.tools.TimeConvertTool;
-import com.hblg.lookingfellow.user.User;
 
 public class SendPostActivity extends Activity {
 	Button goback;

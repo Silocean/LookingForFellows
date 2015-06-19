@@ -14,10 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.selfdefinedwidget.SignsTextWatcher;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
-import com.hblg.lookingfellow.user.User;
 
 public class PersonSignsActivity extends Activity {
 	Button gobackButton;

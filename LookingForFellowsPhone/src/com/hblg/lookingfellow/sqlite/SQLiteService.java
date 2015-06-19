@@ -1,18 +1,24 @@
 package com.hblg.lookingfellow.sqlite;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import com.hblg.lookingfellow.entity.Student;
+import java.util.Map;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.hblg.lookingfellow.entity.Message;
+import com.hblg.lookingfellow.entity.Student;
+import com.hblg.lookingfellow.entity.User;
+
 public class SQLiteService {
 	
 	DBOpenHelper openHelper;
+	
+	String imagePath = "http://192.168.1.152:8080/lookingfellowWeb0.2/head/";
 	
 	public SQLiteService(Context context) {
 		openHelper = new DBOpenHelper(context);
@@ -121,7 +127,7 @@ public class SQLiteService {
 	 * @param qq
 	 */
 	public void modifyMobile(String mobile, String qq) {
-		SQLiteDatabase db = openHelper.getReadableDatabase();
+		SQLiteDatabase db = openHelper.getWritableDatabase();
 		String sql = "update student set stuPhone = ? where stuQQ = ?";
 		db.execSQL(sql, new Object[]{mobile, qq});
 		System.out.println("save to local successfully");
@@ -132,7 +138,7 @@ public class SQLiteService {
 	 * @param qq
 	 */
 	public void modifyName(String name, String qq) {
-		SQLiteDatabase db = openHelper.getReadableDatabase();
+		SQLiteDatabase db = openHelper.getWritableDatabase();
 		String sql = "update student set stuName = ? where stuQQ = ?";
 		db.execSQL(sql, new Object[]{name, qq});
 		System.out.println("save to local successfully");
@@ -143,7 +149,7 @@ public class SQLiteService {
 	 * @param qq
 	 */
 	public void modifySigns(String signs, String qq) {
-		SQLiteDatabase db = openHelper.getReadableDatabase();
+		SQLiteDatabase db = openHelper.getWritableDatabase();
 		String sql = "update student set stuSigns = ? where stuQQ = ?";
 		db.execSQL(sql, new Object[]{signs, qq});
 		System.out.println("save to local successfully");
@@ -154,7 +160,7 @@ public class SQLiteService {
 	 * @param qq
 	 */
 	public void modifySex(String sex, String qq) {
-		SQLiteDatabase db = openHelper.getReadableDatabase();
+		SQLiteDatabase db = openHelper.getWritableDatabase();
 		String sql = "update student set stuSex = ? where stuQQ = ?";
 		db.execSQL(sql, new Object[]{sex, qq});
 		System.out.println("save to local successfully");
@@ -165,7 +171,7 @@ public class SQLiteService {
 	 * @param qq
 	 */
 	public void modifyHometown(String hometown, String qq) {
-		SQLiteDatabase db = openHelper.getReadableDatabase();
+		SQLiteDatabase db = openHelper.getWritableDatabase();
 		String sql = "update student set stuHometown = ? where stuQQ = ?";
 		db.execSQL(sql, new Object[]{hometown, qq});
 		System.out.println("save to local successfully");
@@ -176,11 +182,68 @@ public class SQLiteService {
 	 * @param qq
 	 */
 	public void modifyPassword(String newPassword, String qq) {
-		SQLiteDatabase db = openHelper.getReadableDatabase();
+		SQLiteDatabase db = openHelper.getWritableDatabase();
 		String sql = "update student set stuPassword = ? where stuQQ = ?";
 		db.execSQL(sql, new Object[]{newPassword, qq});
 		System.out.println("save to local successfully");
 		db.close();
+	}
+	/**
+	 * 把聊天记录保存到本地
+	 * @param messages
+	 */
+	public void saveMessage(ArrayList<Map<String, Object>> messages) {
+		SQLiteDatabase db = openHelper.getWritableDatabase();
+		String sql = "insert into message values (?, ?, ?, ?, ?, ?, ?)";
+		for(int i=0; i<messages.size(); i++) {
+			Map<String, Object> map = messages.get(i);
+			// 这里注意发送者，接收者位置要颠倒一下，在客户端看来，用户以外的人都是接收者
+			db.execSQL(sql, new Object[]{null, map.get("msgType"), map.get("msgReceiver"), map.get("msgSender"), map.get("msgSenderName"), map.get("msgDetails"), map.get("msgTime")});
+		}
+		System.out.println("添加聊天记录成功");
+		db.close();
+	}
+	/**
+	 * 取得本地所有聊天信息
+	 * @return
+	 */
+	public ArrayList<Map<String, Object>> getMessages() {
+		List<String> chatToPersons = this.getAllChatTo();
+		ArrayList<Map<String, Object>> messages = new ArrayList<Map<String,Object>>();
+		SQLiteDatabase db = openHelper.getReadableDatabase();
+		for(int i=0; i<chatToPersons.size(); i++) {
+			String sql = "select * from message where msgSender = ? and msgReceiver = ?";
+			Cursor cursor = db.rawQuery(sql, new String[]{User.qq, chatToPersons.get(i)});
+			cursor.moveToFirst();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("headimage", imagePath + "head_" + cursor.getString(cursor.getColumnIndex("msgReceiver")) + ".jpg");
+			map.put("msgType", cursor.getInt(cursor.getColumnIndex("msgType")));
+			map.put("msgSender", cursor.getString(cursor.getColumnIndex("msgSender")));
+			map.put("msgReceiver", cursor.getString(cursor.getColumnIndex("msgReceiver")));
+			map.put("msgReceiverName", cursor.getString(cursor.getColumnIndex("msgReceiverName")));
+			map.put("msgDetails", cursor.getString(cursor.getColumnIndex("msgDetails")));
+			map.put("msgTime", cursor.getString(cursor.getColumnIndex("msgTime")));
+			messages.add(map);
+			cursor.close();
+		}
+		db.close();
+		return messages;
+	}
+	/**
+	 * 取得所有聊天对象（相对于客户端而言）
+	 * @return
+	 */
+	public List<String> getAllChatTo() {
+		List<String> senders = new ArrayList<String>();
+		SQLiteDatabase db = openHelper.getReadableDatabase();
+		String sql = "select msgReceiver from message group by msgReceiver";
+		Cursor cursor = db.rawQuery(sql, null);
+		while(cursor.moveToNext()) {
+			senders.add(cursor.getString(cursor.getColumnIndex("msgReceiver")));
+		}
+		cursor.close();
+		db.close();
+		return senders;
 	}
 	
 }

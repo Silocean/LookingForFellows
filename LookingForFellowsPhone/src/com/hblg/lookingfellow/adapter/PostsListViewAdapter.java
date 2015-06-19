@@ -29,8 +29,7 @@ public class PostsListViewAdapter extends BaseAdapter {
 	ArrayList<Map<String, Object>> list;
 	int resourceId;
 	LayoutInflater inflater;
-	Bitmap bm;
-	private Holder holder;
+	private ViewHolder holder;
 	Context context;
 	
 	public PostsListViewAdapter(Context mcontext, ArrayList<Map<String, Object>> list, int resourceId, ListView listview) {
@@ -61,7 +60,7 @@ public class PostsListViewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		holder=new Holder();
+		holder=new ViewHolder();
 		if(null==convertView){
 			convertView = inflater.inflate(resourceId, null);
 			holder.headImage = (ImageView)convertView.findViewById(R.id.postlayout_headimage);
@@ -73,7 +72,7 @@ public class PostsListViewAdapter extends BaseAdapter {
 			holder.publishtimeTextView = (TextView)convertView.findViewById(R.id.postlayout_publish_time);
 			convertView.setTag(holder);
 		}else{
-			holder=(Holder)convertView.getTag();
+			holder=(ViewHolder)convertView.getTag();
 		}
 		
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
@@ -129,7 +128,7 @@ public class PostsListViewAdapter extends BaseAdapter {
 		return convertView;
 	}
 	
-	private class Holder{
+	private class ViewHolder{
 		private ImageView headImage;
 		private TextView  titleTextView;
 		private TextView  contentTextView;

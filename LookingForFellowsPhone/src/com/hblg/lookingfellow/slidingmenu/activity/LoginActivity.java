@@ -1,7 +1,8 @@
 package com.hblg.lookingfellow.slidingmenu.activity;
 
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.StreamTokenizer;
+import java.io.ObjectOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -14,18 +15,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import com.hblg.lookingfellow.entity.*;
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.entity.MessageType;
+import com.hblg.lookingfellow.entity.User;
+import com.hblg.lookingfellow.model.ChatClient;
+import com.hblg.lookingfellow.model.ManageClientConnServer;
 import com.hblg.lookingfellow.service.GetUserInfoService;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.StreamTool;
-import com.hblg.lookingfellow.user.User;
 
 public class LoginActivity extends Activity implements OnClickListener{
 	Button sureButton;
@@ -63,6 +66,20 @@ public class LoginActivity extends Activity implements OnClickListener{
 				String password = passwordEditText.getText().toString().trim();
 				User user = new User();
 				user.saveQqAndPassword(qq, password);
+				
+				// 启动聊天客户端
+				ChatClient cc = new ChatClient(getApplicationContext());
+				
+				// 请求暂存在服务器的消息
+				try {
+					com.hblg.lookingfellow.entity.Message msgChatMsg = new com.hblg.lookingfellow.entity.Message();
+					msgChatMsg.setType(MessageType.MSG_REQUESTCHATMSG);
+					msgChatMsg.setSender(User.qq);
+					ObjectOutputStream oos = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
+					oos.writeObject(msgChatMsg);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				
 				//启动程序主窗体
 				Intent intent = new Intent(getApplicationContext(), SlidingActivity.class);
@@ -144,10 +161,10 @@ public class LoginActivity extends Activity implements OnClickListener{
 					byte[] data = StreamTool.read(in);
 					String str = new String(data);
 					if(str.contains("1")) {
-						message.arg1 = 1; //表死登录成功
+						message.arg1 = 1; // 表示登录成功
 						return;
 					} else if(str.contains("2")) {
-						message.arg1 = 2; //表示用户名或密码错误
+						message.arg1 = 2; // 表示用户名或密码错误
 						return;
 					}
 				}

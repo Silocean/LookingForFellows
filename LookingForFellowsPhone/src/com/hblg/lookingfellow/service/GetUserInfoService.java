@@ -13,9 +13,9 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.hblg.lookingfellow.entity.Student;
+import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.StreamTool;
-import com.hblg.lookingfellow.user.User;
 
 public class GetUserInfoService extends Service {
 

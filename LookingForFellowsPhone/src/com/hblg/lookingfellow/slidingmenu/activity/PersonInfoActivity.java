@@ -32,12 +32,12 @@ import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.Student;
+import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.CheckSDCard;
 import com.hblg.lookingfellow.tools.FormFile;
 import com.hblg.lookingfellow.tools.ImageTool;
 import com.hblg.lookingfellow.tools.SocketHttpRequester;
-import com.hblg.lookingfellow.user.User;
 
 public class PersonInfoActivity extends Activity implements OnClickListener{
 	Button gobackButton;

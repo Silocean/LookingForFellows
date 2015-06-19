@@ -16,9 +16,9 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
-import com.hblg.lookingfellow.user.User;
 
 public class ModifySexActivity extends Activity implements OnClickListener, OnCheckedChangeListener{
 	Button gobackButton;

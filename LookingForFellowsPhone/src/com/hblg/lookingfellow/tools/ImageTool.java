@@ -16,7 +16,7 @@ import android.graphics.RectF;
 import android.os.Environment;
 
 import com.hblg.lookingfellow.R;
-import com.hblg.lookingfellow.user.User;
+import com.hblg.lookingfellow.entity.User;
 /**
  * 用于图像处理的工具类
  * @author Silocean

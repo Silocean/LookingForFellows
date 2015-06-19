@@ -1,6 +1,6 @@
 package com.hblg.lookingfellow.adapter;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import android.content.Context;
@@ -10,21 +10,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hblg.lookingfellow.R;
-import com.hblg.lookingfellow.tools.ImageTool;
+import com.hblg.lookingfellow.tools.ImageUtils;
+import com.hblg.lookingfellow.tools.ImageUtils.ImageCallBack;
 
 public class MsgListViewAdapter extends BaseAdapter {
-	
-	List<Map<String, Object>> list;
+	Context context;
+	ArrayList<Map<String, Object>> list;
 	int resourceId;
 	LayoutInflater inflater;
+	ListView listView;
 	
-	public MsgListViewAdapter(Context context, List<Map<String, Object>> list, int resourceId) {
+	Bitmap bm;
+	
+	ViewHolder holder;
+	
+	public MsgListViewAdapter(Context context, ArrayList<Map<String, Object>> list, int resourceId, ListView listView) {
+		this.context = context;
 		this.list = list;
 		this.resourceId = resourceId;
+		this.listView = listView;
 		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+	
+	public void setData(ArrayList<Map<String, Object>> list) {
+		this.list = list;
+		notifyDataSetChanged();
 	}
 
 	@Override
@@ -44,24 +58,50 @@ public class MsgListViewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		holder = new ViewHolder();
 		if(convertView == null) {
 			convertView = inflater.inflate(resourceId, null);
+			holder.headImage = (ImageView)convertView.findViewById(R.id.msglayout_headimage);
+			holder.nameTextView = (TextView)convertView.findViewById(R.id.msglayout_name);
+			holder.contentTextView = (TextView)convertView.findViewById(R.id.msglayout_content);
+			holder.timeTextView = (TextView)convertView.findViewById(R.id.msglayout_time);
+		} else {
+			holder = (ViewHolder)convertView.getTag();
 		}
-		ImageView headImage = (ImageView)convertView.findViewById(R.id.msglayout_headimage);
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
-		Bitmap bm = (Bitmap)map.get("headimage");
-		//Bitmap output = ImageTool.toRoundCorner(bm, 360.0f);
-		headImage.setImageBitmap(bm);
-		TextView nameTextView = (TextView)convertView.findViewById(R.id.msglayout_name);
-		String name = (String)map.get("name");
-		nameTextView.setText(name);
-		TextView contentTextView = (TextView)convertView.findViewById(R.id.msglayout_content);
-		String content = (String)map.get("content");
-		contentTextView.setText(content);
-		TextView timeTextView = (TextView)convertView.findViewById(R.id.msglayout_time);
-		String time = (String)map.get("time");
-		timeTextView.setText(time);
+		
+		String name = (String)map.get("msgReceiverName");
+		holder.nameTextView.setText(name);
+		
+		String content = (String)map.get("msgDetails");
+		holder.contentTextView.setText(content);
+		
+		String time = (String)map.get("msgTime");
+		holder.timeTextView.setText(time);
+		//Í·Ïñ
+		ImageUtils.ImageCallBack callBack = new ImageCallBack() {
+			public void loadImage(Bitmap bitMap, String imageTag) {
+				ImageView imageView = (ImageView)listView.findViewWithTag(imageTag);
+				if(null==bitMap){
+					imageView.setBackgroundResource(R.drawable.head_default);
+				}else if(null==imageView){
+					holder.headImage.setBackgroundResource(R.drawable.head_default);
+					return;
+				}
+				imageView.setImageBitmap(bitMap);
+			}
+		};
+		String headUrl = (String)map.get("headimage");
+		ImageUtils.setImageView(holder.headImage, headUrl, context, callBack);
+		
 		return convertView;
+	}
+	
+	private class ViewHolder {
+		private ImageView headImage;
+		private TextView nameTextView;
+		private TextView contentTextView;
+		private TextView timeTextView;
 	}
 
 }

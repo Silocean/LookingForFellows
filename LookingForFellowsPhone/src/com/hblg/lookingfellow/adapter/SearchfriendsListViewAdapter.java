@@ -1,6 +1,6 @@
 package com.hblg.lookingfellow.adapter;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import android.content.Context;
@@ -12,24 +12,37 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
-import com.hblg.lookingfellow.tools.ImageTool;
+import com.hblg.lookingfellow.tools.ImageUtils;
+import com.hblg.lookingfellow.tools.ImageUtils.ImageCallBack;
 
 public class SearchfriendsListViewAdapter extends BaseAdapter {
 	
-	List<Map<String, Object>> list;
+	ArrayList<Map<String, String>> list;
 	int resourceId;
 	LayoutInflater inflater;
 	Context context;
+	ListView listView;
 	
-	public SearchfriendsListViewAdapter(Context context, List<Map<String, Object>> list, int resourceId) {
+	Bitmap bm;
+	
+	ViewHolder holder;
+	
+	public SearchfriendsListViewAdapter(Context context, ArrayList<Map<String, String>> list, int resourceId, ListView listView) {
 		this.context = context;
 		this.list = list;
 		this.resourceId = resourceId;
+		this.listView = listView;
 		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+
+	public void setData(ArrayList<Map<String, String>> list) {
+		this.list = list;
+		notifyDataSetChanged();
 	}
 
 	@Override
@@ -49,20 +62,24 @@ public class SearchfriendsListViewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
+		holder = new ViewHolder();
 		if(convertView == null) {
 			convertView = inflater.inflate(resourceId, null);
+			holder.headImage = (ImageView)convertView.findViewById(R.id.searchfriendslayout_headimage);
+			holder.nameTextView = (TextView)convertView.findViewById(R.id.searchfriendslayout_name);
+			holder.hometownTextView = (TextView)convertView.findViewById(R.id.searchfriendslayout_hometown);
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder)convertView.getTag();
 		}
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
-		ImageView headImage = (ImageView)convertView.findViewById(R.id.searchfriendslayout_headimage);
-		Bitmap bm = (Bitmap)map.get("headimage");
-		//Bitmap output = ImageTool.toRoundCorner(bm, 360.0f);
-		headImage.setImageBitmap(bm);
-		TextView nameTextView = (TextView)convertView.findViewById(R.id.searchfriendslayout_name);
-		String name = (String)map.get("name");
-		nameTextView.setText(name);
-		TextView hometownTextView = (TextView)convertView.findViewById(R.id.searchfriendslayout_hometown);
-		String hometown = (String)map.get("hometown");
-		hometownTextView.setText(hometown);
+		// 姓名
+		String name = (String)map.get("friendName");
+		holder.nameTextView.setText(name);
+		// 家乡
+		String hometown = (String)map.get("friendHometown");
+		holder.hometownTextView.setText(hometown);
+		
 		Button addFriend = (Button)convertView.findViewById(R.id.searchfriendslayout_add);
 		addFriend.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -70,7 +87,27 @@ public class SearchfriendsListViewAdapter extends BaseAdapter {
 				Toast.makeText(context, "addFriend"+position, 0).show();
 			}
 		});
+		//头像
+		ImageUtils.ImageCallBack callBack = new ImageCallBack() {
+			public void loadImage(Bitmap bitMap, String imageTag) {
+				ImageView imageView = (ImageView)listView.findViewWithTag(imageTag);
+				if(null==bitMap){
+					imageView.setBackgroundResource(R.drawable.head_default);
+				}else if(null==imageView){
+					holder.headImage.setBackgroundResource(R.drawable.head_default);
+					return;
+				}
+				imageView.setImageBitmap(bitMap);
+			}
+		};
+		String headUrl = (String)map.get("headimage");
+		ImageUtils.setImageView(holder.headImage, headUrl, context, callBack);
 		return convertView;
 	}
 
+	private class ViewHolder {
+		private ImageView headImage;
+		private TextView  nameTextView;
+		private TextView  hometownTextView;
+	}
 }

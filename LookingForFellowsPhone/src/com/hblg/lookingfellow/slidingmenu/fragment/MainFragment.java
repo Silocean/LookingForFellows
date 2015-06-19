@@ -48,6 +48,7 @@ import android.widget.Toast;
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.PostsListViewAdapter;
 import com.hblg.lookingfellow.entity.Post;
+import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.selfdefinedwidget.PullDownView;
 import com.hblg.lookingfellow.selfdefinedwidget.PullDownView.OnPullDownListener;
 import com.hblg.lookingfellow.slidingmenu.activity.PostDetailActivity;
@@ -55,7 +56,6 @@ import com.hblg.lookingfellow.slidingmenu.activity.SendPostActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
 import com.hblg.lookingfellow.sqlite.DBOpenHelper;
 import com.hblg.lookingfellow.tools.StreamTool;
-import com.hblg.lookingfellow.user.User;
 
 public class MainFragment extends Fragment  implements OnPullDownListener, OnItemClickListener {
 	/**本类的布局*/
@@ -155,8 +155,8 @@ public class MainFragment extends Fragment  implements OnPullDownListener, OnIte
 	}
 	
 	public ArrayList<Map<String,Object>> getData(int page) {
+		ArrayList<Map<String ,Object>> tempList = new ArrayList<Map<String,Object>>(); 
 		try {
-			ArrayList<Map<String ,Object>> tempList = new ArrayList<Map<String,Object>>(); 
 			String path = "http://192.168.1.152:8080/lookingfellowWeb0.2/PostsServlet?page=";
 			path = path + page;
 			HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();
@@ -168,6 +168,8 @@ public class MainFragment extends Fragment  implements OnPullDownListener, OnIte
 				String str = new String(data);
 				if(str.equals("error")) {
 					//Toast.makeText(getActivity(), "服务器端出现问题，请稍后再试", 0).show();
+				} else if(str.equals("[")){
+					Toast.makeText(getActivity(), "暂没有人发帖", 0).show();
 				} else {
 					JSONArray array = new JSONArray(str);
 					//saveToCache(array); // 保存帖子条目数据到缓存
@@ -191,7 +193,7 @@ public class MainFragment extends Fragment  implements OnPullDownListener, OnIte
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return tempList;
 	}
 
 	/**刷新事件接口  这里要注意的是获取更多完 要关闭 刷新的进度条RefreshComplete()**/

@@ -1,9 +1,10 @@
 package com.hblg.lookingfellow.adapter;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,24 +13,39 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
-import com.hblg.lookingfellow.tools.ImageTool;
+import com.hblg.lookingfellow.slidingmenu.activity.ChatActivity;
+import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
+import com.hblg.lookingfellow.tools.ImageUtils;
+import com.hblg.lookingfellow.tools.ImageUtils.ImageCallBack;
 
 public class friendsListViewAdapter extends BaseAdapter {
 	
-	List<Map<String, Object>> list;
+	ArrayList<Map<String, String>> list;
 	int resourceId;
 	LayoutInflater inflater;
 	Context context;
+	ListView listView;
 	
-	public friendsListViewAdapter(Context context, List<Map<String, Object>> list, int resourceId) {
+	Bitmap bm;
+	
+	ViewHolder holder;
+	
+	public friendsListViewAdapter(Context context, ArrayList<Map<String, String>> list, int resourceId, ListView listView ) {
 		this.context = context;
 		this.list = list;
 		this.resourceId = resourceId;
+		this.listView = listView;
 		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
+	
+	public void setData(ArrayList<Map<String, String>> list) {
+		this.list = list;
+		notifyDataSetChanged();
 	}
 
 	@Override
@@ -49,28 +65,71 @@ public class friendsListViewAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
+		holder = new ViewHolder();
 		if(convertView == null) {
 			convertView = inflater.inflate(resourceId, null);
+			holder.headImage = (ImageView)convertView.findViewById(R.id.friendslayout_headimage);
+			holder.nameTextView = (TextView)convertView.findViewById(R.id.friendslayout_name);
+			holder.hometownTextView = (TextView)convertView.findViewById(R.id.friendslayout_hometown);
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder)convertView.getTag();
 		}
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
-		ImageView headImage = (ImageView)convertView.findViewById(R.id.friendslayout_headimage);
-		Bitmap bm = (Bitmap)map.get("headimage");
-		//Bitmap output = ImageTool.toRoundCorner(bm, 360.0f);
-		headImage.setImageBitmap(bm);
-		TextView nameTextView = (TextView)convertView.findViewById(R.id.friendslayout_name);
-		String name = (String)map.get("name");
-		nameTextView.setText(name);
-		TextView hometownTextView = (TextView)convertView.findViewById(R.id.friendslayout_hometown);
-		String hometown = (String)map.get("hometown");
-		hometownTextView.setText(hometown);
+		// qq号码
+		final String qq = (String)map.get("friendQq");
+		// 名字
+		String name = (String)map.get("friendName");
+		holder.nameTextView.setText(name);
+		// 老家
+		String hometown = (String)map.get("friendHometown");
+		holder.hometownTextView.setText(hometown);
+		
 		Button chat = (Button)convertView.findViewById(R.id.friendslayout_chat);
 		chat.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				//TODO 处理聊天事件
-				Toast.makeText(context, "chat"+position, 0).show();
+				Intent intent = new Intent(context, ChatActivity.class);
+				// 防止 Calling startActivity() from outside of an Activity问题发生
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.putExtra("friendQq", qq);
+				context.startActivity(intent);
 			}
 		});
+		
+		//头像
+		ImageUtils.ImageCallBack callBack = new ImageCallBack() {
+			public void loadImage(Bitmap bitMap, String imageTag) {
+				ImageView imageView = (ImageView)listView.findViewWithTag(imageTag);
+				if(null==bitMap){
+					imageView.setBackgroundResource(R.drawable.head_default);
+				}else if(null==imageView){
+					holder.headImage.setBackgroundResource(R.drawable.head_default);
+					return;
+				}
+				imageView.setImageBitmap(bitMap);
+			}
+		};
+		String headUrl = (String)map.get("headimage");
+		ImageUtils.setImageView(holder.headImage, headUrl, context, callBack);
+		
+		holder.headImage.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(context, FriendInfoActivity.class);
+				// 防止 Calling startActivity() from outside of an Activity问题发生
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.putExtra("qq", qq);
+				context.startActivity(intent);
+			}
+		});
+		
 		return convertView;
+		
+	}
+	
+	private class ViewHolder {
+		private ImageView headImage;
+		private TextView  nameTextView;
+		private TextView  hometownTextView;
 	}
 
 }

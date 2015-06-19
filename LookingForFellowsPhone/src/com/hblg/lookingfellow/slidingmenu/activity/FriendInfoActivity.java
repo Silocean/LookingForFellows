@@ -9,10 +9,10 @@ import org.json.JSONObject;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.Student;
+import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.ImageTool;
 import com.hblg.lookingfellow.tools.StreamTool;
-import com.hblg.lookingfellow.user.User;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -47,7 +47,7 @@ public class FriendInfoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		String qq = getIntent().getStringExtra("authorId");
+		String qq = getIntent().getStringExtra("qq");
 		setContentView(R.layout.activity_friendinfo);
 		titlebarLeftmenu = (Button)this.findViewById(R.id.main_titlebar_goback_leftmenu);
 		titlebarRightmenu = (Button)this.findViewById(R.id.main_titlebar_gomore_rightmenu);

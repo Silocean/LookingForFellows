@@ -121,7 +121,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 			String qq = qqEditText.getText().toString().trim();
 			String name = nameEditText.getText().toString().trim();
 			//一定要去掉空格，否则在用get方式提交数据的时候会出错
-			String hometown = hometownTextView.getText().toString().trim().replaceAll(" ", "");
+			String hometown = hometownTextView.getText().toString().trim();
 			String password = passwordEditText.getText().toString().trim();
 			message = new Message();
 			register(qq, name, hometown, password);

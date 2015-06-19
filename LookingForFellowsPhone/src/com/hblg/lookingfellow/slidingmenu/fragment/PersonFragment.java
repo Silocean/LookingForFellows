@@ -34,13 +34,13 @@ import android.widget.TextView;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.Student;
+import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.slidingmenu.activity.PersonInfoActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.CheckSDCard;
 import com.hblg.lookingfellow.tools.ImageLoader;
 import com.hblg.lookingfellow.tools.ImageTool;
-import com.hblg.lookingfellow.user.User;
 
 public class PersonFragment extends Fragment {
 	

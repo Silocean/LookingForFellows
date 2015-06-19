@@ -32,19 +32,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 import android.widget.SimpleAdapter.ViewBinder;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.MsgListViewAdapter;
+import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
+import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.ImageTool;
 
 public class MsgFragment extends Fragment {
 	ListView listView;
-	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+	ArrayList<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 	private MsgListViewAdapter adapter;
 	ImageView titlebarLeftmenu;
 	Button titlebarRightmenu;
+	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.main_content_msg, null);
@@ -56,21 +60,11 @@ public class MsgFragment extends Fragment {
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.head_default);
-		for(int i=0; i<7; i++) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("headimage", bitmap);
-			map.put("name", "linxiaonan");
-			map.put("content", "明天中午聚会，请务必准时集合！啦啦啦啦啦啦啦啦");
-			map.put("time", "15:21");
-			list.add(map);
-		}
-		adapter = new MsgListViewAdapter(getActivity(), list, R.layout.listitem_msglayout);
-		
+		adapter = new MsgListViewAdapter(getActivity(), list, R.layout.listitem_msglayout, listView);
+		ArrayList<Map<String, Object>> data = this.getMessages();
+		list = data;
+		adapter.setData(data);
 		listView.setAdapter(adapter);
 		
 		titlebarLeftmenu.setOnClickListener(new OnClickListener() {
@@ -82,9 +76,20 @@ public class MsgFragment extends Fragment {
 		titlebarRightmenu.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				//TODO
+				
 			}
 		});
+	}
+	
+	public ArrayList<Map<String, Object>> getMessages() {
+		SQLiteService service = new SQLiteService(getActivity());
+		ArrayList<Map<String, Object>> tempList = new ArrayList<Map<String,Object>>();
+		tempList = service.getMessages();
+		if(tempList.size() == 0) { //  如果没有消息记录
+			Toast.makeText(getActivity(), "暂没有消息记录", 0).show();
+		}
+		System.out.println(tempList);
+		return tempList;
 	}
 
 }

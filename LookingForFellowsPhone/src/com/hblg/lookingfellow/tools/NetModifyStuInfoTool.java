@@ -5,7 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import com.hblg.lookingfellow.user.User;
+import com.hblg.lookingfellow.entity.User;
 
 import android.os.Message;
 
