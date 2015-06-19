@@ -10,30 +10,32 @@ import java.util.Map;
 
 import com.hblg.lookingfellow.db.DBManager;
 import com.hblg.lookingfellow.entity.Reply;
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 
 public class ReplyDAO {
 	Connection conn = null;
-	
+
 	public ReplyDAO() {
 		conn = DBManager.getConn();
 	}
+
 	/**
 	 * 根据postId获取该帖子的所有跟帖
+	 * 
 	 * @param postId
 	 * @return
 	 */
 	public List<Map<String, Object>> getReply(String postId, int page) {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		try {
-			String sql = "select top 5 * from reply where postId = ? and replyId not in(select top " + page*5 + " replyId from reply where postId = ?)";
+			String sql = "select top 5 * from reply where postId = ? and replyId not in(select top "
+					+ page * 5 + " replyId from reply where postId = ?)";
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, postId);
 			pst.setString(2, postId);
 			rs = pst.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("id", rs.getInt(1));
 				map.put("details", rs.getString(2));
@@ -49,14 +51,14 @@ public class ReplyDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
-				if(rs != null) {
+				if (rs != null) {
 					rs.close();
 				}
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
@@ -66,6 +68,7 @@ public class ReplyDAO {
 		}
 		return list;
 	}
+
 	/**
 	 * 根据Id号码获取发帖人名字
 	 */
@@ -77,26 +80,28 @@ public class ReplyDAO {
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, stuId);
 			rs = pst.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				return rs.getString(1);
 			}
-			
-			if(pst != null) {
+
+			if (pst != null) {
 				pst.close();
 				pst = null;
 			}
-			if(rs != null) {
+			if (rs != null) {
 				rs.close();
 				rs = null;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+
 	/**
 	 * 保存回复
+	 * 
 	 * @param reply
 	 * @return
 	 */
@@ -111,18 +116,18 @@ public class ReplyDAO {
 			pst.setString(4, reply.getToId());
 			pst.setInt(5, reply.getPostId());
 			int result = pst.executeUpdate();
-			if(result == 1) {
+			if (result == 1) {
 				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
@@ -132,5 +137,5 @@ public class ReplyDAO {
 		}
 		return false;
 	}
-	
+
 }

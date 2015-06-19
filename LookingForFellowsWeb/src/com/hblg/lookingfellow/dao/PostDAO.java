@@ -1,11 +1,9 @@
 package com.hblg.lookingfellow.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,16 +13,16 @@ import com.hblg.lookingfellow.db.DBManager;
 import com.hblg.lookingfellow.entity.Post;
 
 public class PostDAO {
-	
+
 	Connection conn = null;
-	
+
 	Map<String, String> proMap = new HashMap<String, String>();
-	
+
 	public PostDAO() {
 		conn = DBManager.getConn();
 		this.initProMap();
 	}
-	
+
 	public void initProMap() {
 		proMap.put("公告板", "post_all");
 		proMap.put("北京", "post_beijing");
@@ -59,9 +57,10 @@ public class PostDAO {
 		proMap.put("澳门", "post_aomen");
 		proMap.put("香港", "post_xianggang");
 	}
-	
+
 	/**
 	 * 保存帖子
+	 * 
 	 * @param post
 	 */
 	public boolean insertPost(Post post) {
@@ -75,18 +74,18 @@ public class PostDAO {
 			pst.setString(4, post.getAuthorId());
 			pst.setString(5, post.getImageName());
 			int result = pst.executeUpdate();
-			if(result == 1) {
+			if (result == 1) {
 				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
@@ -96,6 +95,7 @@ public class PostDAO {
 		}
 		return false;
 	}
+
 	public boolean updatePostReplyCount(int postId) {
 		PreparedStatement pst = null;
 		try {
@@ -103,18 +103,18 @@ public class PostDAO {
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, postId);
 			int result = pst.executeUpdate();
-			if(result == 1) {
+			if (result == 1) {
 				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
@@ -124,9 +124,10 @@ public class PostDAO {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 获取帖子条目信息(从视图中)
+	 * 
 	 * @return
 	 */
 	public List<Map<String, Object>> getPosts(String pro, int page) {
@@ -134,11 +135,14 @@ public class PostDAO {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
-			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-			String sql = "select top 20 * from " + postView + " where postId not in(select top " + page*20 + " postId from " + postView + " order by postId desc) order by postId desc";
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			String sql = "select top 20 * from " + postView
+					+ " where postId not in(select top " + page * 20
+					+ " postId from " + postView
+					+ " order by postId desc) order by postId desc";
 			pst = conn.prepareStatement(sql);
 			rs = pst.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("id", rs.getInt(1));
 				map.put("title", rs.getString(2));
@@ -155,18 +159,18 @@ public class PostDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
-				if(rs != null) {
+				if (rs != null) {
 					rs.close();
 				}
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
-				if(proMap != null) {
+				if (proMap != null) {
 					proMap.clear();
 					proMap = null;
 				}
@@ -176,8 +180,10 @@ public class PostDAO {
 		}
 		return null;
 	}
+
 	/**
 	 * 获取某一省份的的所有用户Id
+	 * 
 	 * @param pro
 	 * @return
 	 */
@@ -190,7 +196,7 @@ public class PostDAO {
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, pro);
 			rs = pst.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				list.add(rs.getString(1));
 			}
 			return list;
@@ -198,11 +204,11 @@ public class PostDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
-				if(rs != null) {
+				if (rs != null) {
 					rs.close();
 				}
 			} catch (Exception e) {
@@ -211,10 +217,13 @@ public class PostDAO {
 		}
 		return list;
 	}
+
 	/**
 	 * 获取数据库中帖子条目总数
+	 * 
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private int getPostsCount() {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -222,15 +231,15 @@ public class PostDAO {
 			String sql = "select COUNT(postId) from post";
 			pst = conn.prepareStatement(sql);
 			rs = pst.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				int postsCount = rs.getInt(1);
 				return postsCount;
 			}
-			if(pst != null) {
+			if (pst != null) {
 				pst.close();
 				pst = null;
 			}
-			if(rs != null) {
+			if (rs != null) {
 				rs.close();
 				rs = null;
 			}
@@ -239,6 +248,7 @@ public class PostDAO {
 		}
 		return 0;
 	}
+
 	/**
 	 * 根据Id号码获取发帖人名字
 	 */
@@ -250,33 +260,37 @@ public class PostDAO {
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, authorId);
 			rs = pst.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				return rs.getString(1);
 			}
-			
-			if(pst != null) {
+
+			if (pst != null) {
 				pst.close();
 				pst = null;
 			}
-			if(rs != null) {
+			if (rs != null) {
 				rs.close();
 				rs = null;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+
 	/**
 	 * 测试用例，用于插入帖子条目数据
 	 */
 	public boolean testInsertPosts() {
 		PreparedStatement pst = null;
 		try {
-			for(int i=1; i<=100; i++) {
-				String sql = "insert into post values('" + i + "又有老乡会啦！！！', '明天中午，中门广场，记得准时到啊', '2013-9-27 14:22:34', '3424', 0)";
+			for (int i = 1; i <= 100; i++) {
+				String sql = "insert into post values('"
+						+ i
+						+ "又有老乡会啦！！！', '明天中午，中门广场，记得准时到啊', '2013-9-27 14:22:34', '3424', 0)";
 				pst = conn.prepareStatement(sql);
+				@SuppressWarnings("unused")
 				int result = pst.executeUpdate();
 			}
 			return true;
@@ -284,11 +298,11 @@ public class PostDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
@@ -298,5 +312,5 @@ public class PostDAO {
 		}
 		return false;
 	}
-	
+
 }

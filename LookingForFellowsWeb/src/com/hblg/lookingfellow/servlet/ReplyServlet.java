@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hblg.lookingfellow.dao.PostDAO;
 import com.hblg.lookingfellow.dao.ReplyDAO;
-import com.hblg.lookingfellow.entity.Post;
 import com.hblg.lookingfellow.entity.Reply;
 
 /**

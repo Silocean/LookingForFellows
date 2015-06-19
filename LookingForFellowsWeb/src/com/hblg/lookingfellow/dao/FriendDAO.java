@@ -3,7 +3,6 @@ package com.hblg.lookingfellow.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,14 +10,16 @@ import java.util.Map;
 import com.hblg.lookingfellow.db.DBManager;
 
 public class FriendDAO {
-	
+
 	Connection conn = null;
-	
+
 	public FriendDAO() {
 		conn = DBManager.getConn();
 	}
+
 	/**
 	 * 根据用户qq号码查询他所有好友的详细信息
+	 * 
 	 * @param qq
 	 * @return
 	 */
@@ -26,15 +27,15 @@ public class FriendDAO {
 		ArrayList<String> friendsQq = this.getMyFriends(qq);
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		ArrayList<Map<String, String>> friendsInfo = new ArrayList<Map<String,String>>();
+		ArrayList<Map<String, String>> friendsInfo = new ArrayList<Map<String, String>>();
 		try {
-			for(int i=0; i<friendsQq.size(); i++) {
+			for (int i = 0; i < friendsQq.size(); i++) {
 				Map<String, String> map = new HashMap<String, String>();
 				String sql = "select * from student where stuQQ = ?";
 				pst = conn.prepareStatement(sql);
 				pst.setString(1, friendsQq.get(i));
 				rs = pst.executeQuery();
-				while(rs.next()) {
+				while (rs.next()) {
 					map.put("friendQq", friendsQq.get(i));
 					map.put("friendName", rs.getString(2));
 					map.put("friendPro", rs.getString(3));
@@ -50,14 +51,14 @@ public class FriendDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
-				if(rs != null) {
+				if (rs != null) {
 					rs.close();
 				}
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
@@ -67,8 +68,10 @@ public class FriendDAO {
 		}
 		return null;
 	}
+
 	/**
 	 * 根据用户qq号码查询他所有好友的qq号码
+	 * 
 	 * @param qq
 	 * @return
 	 */
@@ -82,7 +85,7 @@ public class FriendDAO {
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, qq);
 			rs = pst.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				list.add(rs.getString(1));
 			}
 			return list;
@@ -90,11 +93,11 @@ public class FriendDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
-				if(rs != null) {
+				if (rs != null) {
 					rs.close();
 				}
 			} catch (Exception e2) {
@@ -103,8 +106,10 @@ public class FriendDAO {
 		}
 		return null;
 	}
+
 	/**
 	 * 根据用qq号码查找跟他同省份的老乡
+	 * 
 	 * @param qq
 	 * @param hometown
 	 * @return
@@ -113,14 +118,14 @@ public class FriendDAO {
 		ArrayList<String> myFriends = this.getMyFriends(qq);
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		ArrayList<Map<String, String>> fellowsInfo = new ArrayList<Map<String,String>>();
+		ArrayList<Map<String, String>> fellowsInfo = new ArrayList<Map<String, String>>();
 		try {
-			String sql = "select * from student where stuPro = ? and stuQQ != ?" ;
+			String sql = "select * from student where stuPro = ? and stuQQ != ?";
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, pro);
 			pst.setString(2, qq);
 			rs = pst.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				boolean flag = false;
 				Map<String, String> map = new HashMap<String, String>();
 				map.put("friendQq", rs.getString(1));
@@ -130,12 +135,12 @@ public class FriendDAO {
 				map.put("friendSex", rs.getString(6));
 				map.put("friendSigns", rs.getString(7));
 				map.put("friendPhone", rs.getString(8));
-				for(int i=0; i<myFriends.size(); i++) {
-					if(myFriends.get(i).equals(rs.getString(1))) {
+				for (int i = 0; i < myFriends.size(); i++) {
+					if (myFriends.get(i).equals(rs.getString(1))) {
 						flag = true; // 表示此人已被我加为好友
 					}
 				}
-				if(!flag) {
+				if (!flag) {
 					fellowsInfo.add(map);
 				}
 			}
@@ -144,14 +149,14 @@ public class FriendDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
-				if(rs != null) {
+				if (rs != null) {
 					rs.close();
 				}
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
@@ -161,6 +166,7 @@ public class FriendDAO {
 		}
 		return fellowsInfo;
 	}
+
 	public boolean addFriend(String qq, String friendQq) {
 		PreparedStatement pst = null;
 		try {
@@ -177,11 +183,11 @@ public class FriendDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(pst != null) {
+				if (pst != null) {
 					pst.close();
 					pst = null;
 				}
-				if(conn != null) {
+				if (conn != null) {
 					conn.close();
 					conn = null;
 				}
@@ -191,5 +197,5 @@ public class FriendDAO {
 		}
 		return false;
 	}
-	
+
 }

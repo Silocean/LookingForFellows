@@ -20,68 +20,71 @@ public class ModifyUserInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		StudentDAO dao = new StudentDAO();
 		String qq = "";
+		@SuppressWarnings("rawtypes")
 		Enumeration enu = request.getParameterNames();
 		List<String> list = new ArrayList<String>();
-		while(enu.hasMoreElements()) {
+		while (enu.hasMoreElements()) {
 			String param = (String) enu.nextElement();
 			list.add(param);
-			if(param.equals("qq")) {
+			if (param.equals("qq")) {
 				qq = request.getParameter("qq");
 			}
 		}
-		for(int i=0; i<list.size(); i++) {
+		for (int i = 0; i < list.size(); i++) {
 			String param = list.get(i);
-			if(param.equals("mobile")) {
+			if (param.equals("mobile")) {
 				String mobile = request.getParameter("mobile");
-				if(dao.modifyMobile(mobile, qq)) {
+				if (dao.modifyMobile(mobile, qq)) {
 					out.write("true");
 					out.flush();
 					out.close();
 					return;
 				}
-			} else if(param.equals("name")) {
+			} else if (param.equals("name")) {
 				String name = request.getParameter("name");
-				if(dao.modifyName(name, qq)) {
+				if (dao.modifyName(name, qq)) {
 					out.write("true");
 					out.flush();
 					out.close();
 					return;
 				}
-			} else if(param.equals("sex")) {
+			} else if (param.equals("sex")) {
 				String sex = request.getParameter("sex");
-				if(dao.modifySex(sex, qq)) {
+				if (dao.modifySex(sex, qq)) {
 					out.write("true");
 					out.flush();
 					out.close();
 					return;
 				}
-			} else if(param.equals("hometown")) {
+			} else if (param.equals("hometown")) {
 				String hometown = request.getParameter("hometown");
 				String province = hometown.split(" ")[0];
 				String city = hometown.split(" ")[1];
-				if(dao.modifyHometown(province, city, qq)) {
+				if (dao.modifyHometown(province, city, qq)) {
 					out.write("true");
 					out.flush();
 					out.close();
 					return;
 				}
-			} else if(param.equals("signs")) {
+			} else if (param.equals("signs")) {
 				String signs = request.getParameter("signs");
-				if(dao.modifySigns(signs, qq)) {
+				if (dao.modifySigns(signs, qq)) {
 					out.write("true");
 					out.flush();
 					out.close();
 					return;
 				}
-			} else if(param.equals("password")) {
+			} else if (param.equals("password")) {
 				String password = request.getParameter("password");
-				if(dao.modifyPassword(password, qq)) {
+				if (dao.modifyPassword(password, qq)) {
 					out.write("true");
 					out.flush();
 					out.close();
@@ -92,9 +95,11 @@ public class ModifyUserInfoServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 

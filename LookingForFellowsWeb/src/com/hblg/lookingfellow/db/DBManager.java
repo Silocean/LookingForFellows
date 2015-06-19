@@ -2,13 +2,11 @@ package com.hblg.lookingfellow.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class DBManager {
-	
+
 	static Connection conn = null;
-	
+
 	public static Connection getConn() {
 		String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 		String url = "jdbc:sqlserver://localhost:1433; DatabaseName=lookingfellow";
@@ -22,5 +20,5 @@ public class DBManager {
 		}
 		return null;
 	}
-	
+
 }
