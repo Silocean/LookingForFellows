@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-	<!--定义按下的图片  -->
-    <item android:state_pressed="true"   
-		android:drawable="@drawable/personsigns_icon_pressed" />
-	<!-- 定义按钮默认的图片 -->   
-	<item android:drawable="@drawable/personsigns_icon_normal" />   
+
+    <!-- 定义按下的图片 -->
+    <item android:drawable="@drawable/personsigns_icon_pressed" android:state_pressed="true"/>
+    <!-- 定义按钮默认的图片 -->
+    <item android:drawable="@drawable/personsigns_icon_normal"/>
+
 </selector>

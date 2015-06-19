@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-	<!--定义按下的图片  -->
-    <item android:state_pressed="true"   
-		android:drawable = "@drawable/leftmenu_itembg_pressed" />
-	<!--定义选定状态下的图片  -->
-    <item android:state_selected="true"   
-		android:drawable = "@drawable/leftmenu_itembg_pressed" />
-	<!-- 定义按钮默认的图片 -->   
-	<item android:drawable="@drawable/leftmenu_itembg_normal" />   
+
+    <!-- 定义按下的图片 -->
+    <item android:drawable="@drawable/leftmenu_itembg_pressed" android:state_pressed="true"/>
+    <!-- 定义选定状态下的图片 -->
+    <item android:drawable="@drawable/leftmenu_itembg_pressed" android:state_selected="true"/>
+    <!-- 定义按钮默认的图片 -->
+    <item android:drawable="@drawable/leftmenu_itembg_normal"/>
+
 </selector>

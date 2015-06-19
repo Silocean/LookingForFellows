@@ -22,8 +22,8 @@
             android:id="@+id/line"
             android:layout_width="fill_parent"
             android:layout_height="2px"
-            layout="@layout/line"
-            android:layout_below="@id/title" >
+            android:layout_below="@id/title"
+            layout="@layout/line" >
         </include>
 
         <ListView
@@ -32,7 +32,6 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/line" >
         </ListView>
-        
     </RelativeLayout>
 
 </RelativeLayout>

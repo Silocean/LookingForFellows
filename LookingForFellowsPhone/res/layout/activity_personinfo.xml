@@ -1,331 +1,380 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-      android:id="@+id/content"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent" >
-     <RelativeLayout
-		android:layout_width="fill_parent"
-      	android:layout_height="45dip"
-      	android:id="@+id/personinfo_titlebar"
-      	android:background="@drawable/main_titlebarbg" >
-		<Button
-			android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/personinfo_goback_button"
-      		android:background="@drawable/goback_icon_selector" />
-      	<TextView
-      		android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/titlebar_title"
-      		android:text="个人信息"
-      		android:layout_centerHorizontal="true"
-      		android:layout_centerVertical="true"
-      		android:textColor="@color/white"
-      		android:textSize="18sp"
-      		/>
-  </RelativeLayout>
-	<ScrollView 
-		android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:layout_below="@id/personinfo_titlebar"
-	    android:scrollbars="none"
-	    android:background="@color/bg_color" >
-		<RelativeLayout
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent" >
-			<!--第一组菜单  -->
-			<LinearLayout 
-			  	android:orientation="vertical" 
-			  	android:layout_width="290dip"
-			  	android:id="@+id/personinfo_first_linearlayout"
-			  	android:layout_height="wrap_content"
-			  	android:layout_centerHorizontal="true"
-			  	android:paddingTop="20dip" >
-			  	<RelativeLayout
-			  		android:layout_width="fill_parent"
-			  		android:layout_height="40dip" >
-			  		<Button 
-			  			android:layout_width="fill_parent"
-			  			android:layout_height="fill_parent"
-			  			android:id="@+id/personinfo_headimage_button"
-			  			android:background="@drawable/leftmenuitem_selector" />
-			  		<TextView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:text="头像"
-			  			android:layout_alignParentLeft="true"
-			  			android:paddingLeft="10dip"
-			  			android:layout_centerVertical="true"
-			  			style="@style/personinfo_textstyle" />
-			  		<ImageView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:id="@+id/go_more_icon"
-			  			android:src="@drawable/go_more_icon"
-			  			android:layout_alignParentRight="true"
-			  			android:paddingRight="10dip"
-			  			android:layout_centerVertical="true" />
-			  		<ImageView 
-			  			android:layout_width="40dip"
-			  			android:layout_height="40dip"
-			  			android:id="@+id/personinfo_headimage_icon"
-			  			android:layout_toLeftOf="@id/go_more_icon"
-			  			android:paddingRight="8dip" />
-			  	</RelativeLayout>
-			  	<RelativeLayout
-			  		android:layout_width="fill_parent"
-			  		android:layout_height="40dip" >
-			  		<Button 
-			  			android:layout_width="fill_parent"
-			  			android:layout_height="fill_parent"
-			  			android:id="@+id/personinfo_personhomepagebg_button"
-			  			android:background="@drawable/leftmenuitem_selector" />
-			  		<TextView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:text="个人主页背景设置"
-			  			android:layout_alignParentLeft="true"
-			  			android:paddingLeft="10dip"
-			  			android:layout_centerVertical="true"
-			  			style="@style/personinfo_textstyle" />
-			  		<ImageView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:id="@+id/go_more_icon"
-			  			android:src="@drawable/go_more_icon"
-			  			android:layout_alignParentRight="true"
-			  			android:paddingRight="10dip"
-			  			android:layout_centerVertical="true" />
-			  	</RelativeLayout>
-			</LinearLayout>
-			<!--第二组菜单  -->
-			<LinearLayout 
-			  	android:orientation="vertical" 
-			  	android:layout_width="290dip"
-			  	android:id="@+id/personinfo_second_linearlayout"
-			  	android:layout_below="@id/personinfo_first_linearlayout"
-			  	android:layout_height="wrap_content"
-			  	android:layout_centerHorizontal="true"
-			  	android:paddingTop="20dip" >
-			  	<RelativeLayout
-			  		android:layout_width="fill_parent"
-			  		android:layout_height="40dip" >
-			  		<Button 
-			  			android:layout_width="fill_parent"
-			  			android:layout_height="fill_parent"
-			  			android:id="@+id/personinfo_name_button"
-			  			android:background="@drawable/leftmenuitem_selector" />
-			  		<TextView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:text="名字"
-			  			android:layout_alignParentLeft="true"
-			  			android:paddingLeft="10dip"
-			  			android:layout_centerVertical="true"
-			  			style="@style/personinfo_textstyle" />
-			  		<ImageView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:id="@+id/go_more_icon"
-			  			android:src="@drawable/go_more_icon"
-			  			android:layout_alignParentRight="true"
-			  			android:paddingRight="10dip"
-			  			android:layout_centerVertical="true" />
-			  		<TextView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:id="@+id/personinfo_name"
-			  			android:text="Silocean"
-			  			android:layout_toLeftOf="@id/go_more_icon"
-			  			android:paddingRight="10dip"
-			  			android:layout_centerVertical="true"
-			  			style="@style/personinfo_settings_right_textstyle" />
-			  	</RelativeLayout>
-			  	<RelativeLayout
-			  		android:layout_width="fill_parent"
-			  		android:layout_height="40dip" >
-			  		<Button 
-			  			android:layout_width="fill_parent"
-			  			android:layout_height="fill_parent"
-			  			android:id="@+id/personinfo_sex_button"
-			  			android:background="@drawable/leftmenuitem_selector" />
-			  		<TextView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:text="性别"
-			  			android:layout_alignParentLeft="true"
-			  			android:paddingLeft="10dip"
-			  			android:layout_centerVertical="true"
-			  			style="@style/personinfo_textstyle" />
-			  		<ImageView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:id="@+id/go_more_icon"
-			  			android:src="@drawable/go_more_icon"
-			  			android:layout_alignParentRight="true"
-			  			android:paddingRight="10dip"
-			  			android:layout_centerVertical="true" />
-			  		<TextView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:id="@+id/personinfo_sex"
-			  			android:text="未设置"
-			  			android:layout_toLeftOf="@id/go_more_icon"
-			  			android:paddingRight="10dip"
-			  			android:layout_centerVertical="true"
-			  			style="@style/personinfo_settings_right_textstyle" />
-			  	</RelativeLayout>
-			  	<RelativeLayout
-			  		android:layout_width="fill_parent"
-			  		android:layout_height="40dip" >
-			  		<Button 
-			  			android:layout_width="fill_parent"
-			  			android:layout_height="fill_parent"
-			  			android:id="@+id/personinfo_hometown_button"
-			  			android:background="@drawable/leftmenuitem_selector" />
-			  		<TextView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:text="老家"
-			  			android:layout_alignParentLeft="true"
-			  			android:paddingLeft="10dip"
-			  			android:layout_centerVertical="true"
-			  			style="@style/personinfo_textstyle" />
-			  		<ImageView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:id="@+id/go_more_icon"
-			  			android:src="@drawable/go_more_icon"
-			  			android:layout_alignParentRight="true"
-			  			android:paddingRight="10dip"
-			  			android:layout_centerVertical="true" />
-			  		<TextView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:id="@+id/personinfo_hometown"
-			  			android:text="湖北  黄石"
-			  			android:layout_toLeftOf="@id/go_more_icon"
-			  			android:paddingRight="10dip"
-			  			android:layout_centerVertical="true"
-			  			style="@style/personinfo_settings_right_textstyle" />
-			  	</RelativeLayout>
-			  	<RelativeLayout
-			  		android:layout_width="fill_parent"
-			  		android:layout_height="40dip" >
-			  		<Button 
-			  			android:layout_width="fill_parent"
-			  			android:layout_height="fill_parent"
-			  			android:id="@+id/personinfo_signs_button"
-			  			android:background="@drawable/leftmenuitem_selector" />
-			  		<TextView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:text="签名"
-			  			android:layout_alignParentLeft="true"
-			  			android:paddingLeft="10dip"
-			  			android:layout_centerVertical="true"
-			  			style="@style/personinfo_textstyle" />
-			  		<ImageView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:id="@+id/go_more_icon"
-			  			android:src="@drawable/go_more_icon"
-			  			android:layout_alignParentRight="true"
-			  			android:paddingRight="10dip"
-			  			android:layout_centerVertical="true" />
-			  		<TextView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:id="@+id/personinfo_personsigns"
-			  			android:text="未设置"
-			  			android:layout_toLeftOf="@id/go_more_icon"
-			  			android:paddingRight="10dip"
-			  			android:layout_centerVertical="true"
-			  			style="@style/personinfo_settings_right_textstyle" />
-			  	</RelativeLayout>
-			</LinearLayout>
-			<!--第三组菜单  -->
-			<LinearLayout 
-			  	android:orientation="vertical" 
-			  	android:layout_width="290dip"
-			  	android:id="@+id/personinfo_third_linearlayout"
-			  	android:layout_below="@id/personinfo_second_linearlayout"
-			  	android:layout_height="wrap_content"
-			  	android:layout_centerHorizontal="true"
-			  	android:paddingTop="20dip" >
-			  	<RelativeLayout
-			  		android:layout_width="fill_parent"
-			  		android:layout_height="25dip" >
-			  		<TextView
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:text="账号信息"
-			  			android:textColor="#aaaaaa"
-			  			android:textSize="16sp"
-			  			android:paddingLeft="5dip"
-			  			android:layout_alignParentLeft="true"
-			  			android:paddingBottom="5dip" />
-			  	</RelativeLayout>
-			  	<RelativeLayout
-			  		android:layout_width="fill_parent"
-			  		android:layout_height="40dip" >
-			  		<Button 
-			  			android:layout_width="fill_parent"
-			  			android:layout_height="fill_parent"
-			  			android:id="@+id/personinfo_mobile_button"
-			  			android:background="@drawable/leftmenuitem_selector" />
-			  		<TextView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:text="手机号"
-			  			android:layout_alignParentLeft="true"
-			  			android:paddingLeft="10dip"
-			  			android:layout_centerVertical="true"
-			  			style="@style/personinfo_textstyle" />
-			  		<TextView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:id="@+id/personinfo_mobile"
-			  			android:text="18271633177"
-			  			android:layout_toLeftOf="@id/go_more_icon"
-			  			android:paddingRight="10dip"
-			  			android:layout_centerVertical="true"
-			  			style="@style/personinfo_settings_right_textstyle" />
-			  		<ImageView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:id="@+id/go_more_icon"
-			  			android:src="@drawable/go_more_icon"
-			  			android:layout_alignParentRight="true"
-			  			android:paddingRight="10dip"
-			  			android:layout_centerVertical="true" />
-			  	</RelativeLayout>
-			  	<RelativeLayout
-			  		android:layout_width="fill_parent"
-			  		android:layout_height="40dip" >
-			  		<Button 
-			  			android:layout_width="fill_parent"
-			  			android:layout_height="fill_parent"
-			  			android:id="@+id/personinfo_password_button"
-			  			android:background="@drawable/leftmenuitem_selector" />
-			  		<TextView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:text="密码"
-			  			android:layout_alignParentLeft="true"
-			  			android:paddingLeft="10dip"
-			  			android:layout_centerVertical="true"
-			  			style="@style/personinfo_textstyle" />
-			  		<ImageView 
-			  			android:layout_width="wrap_content"
-			  			android:layout_height="wrap_content"
-			  			android:id="@+id/go_more_icon"
-			  			android:src="@drawable/go_more_icon"
-			  			android:layout_alignParentRight="true"
-			  			android:paddingRight="10dip"
-			  			android:layout_centerVertical="true" />
-			  	</RelativeLayout>
-			</LinearLayout>
-		</RelativeLayout>
-	</ScrollView>
+    android:id="@+id/content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/personinfo_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/main_titlebarbg" >
+
+        <Button
+            android:id="@+id/personinfo_goback_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/goback_icon_selector" />
+
+        <TextView
+            android:id="@+id/titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="个人信息"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/personinfo_titlebar"
+        android:background="@color/bg_color"
+        android:scrollbars="none" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <!-- 第一组菜单 -->
+
+            <LinearLayout
+                android:id="@+id/personinfo_first_linearlayout"
+                android:layout_width="290dip"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:paddingTop="20dip" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
+
+                    <Button
+                        android:id="@+id/personinfo_headimage_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+
+                    <TextView
+                        style="@style/personinfo_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:text="头像" />
+
+                    <ImageView
+                        android:id="@+id/go_more_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="10dip"
+                        android:src="@drawable/go_more_icon" />
+
+                    <ImageView
+                        android:id="@+id/personinfo_headimage_icon"
+                        android:layout_width="40dip"
+                        android:layout_height="40dip"
+                        android:layout_toLeftOf="@id/go_more_icon"
+                        android:paddingRight="8dip" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
+
+                    <Button
+                        android:id="@+id/personinfo_personhomepagebg_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+
+                    <TextView
+                        style="@style/personinfo_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:text="个人主页背景设置" />
+
+                    <ImageView
+                        android:id="@+id/go_more_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="10dip"
+                        android:src="@drawable/go_more_icon" />
+                </RelativeLayout>
+            </LinearLayout>
+            <!-- 第二组菜单 -->
+
+            <LinearLayout
+                android:id="@+id/personinfo_second_linearlayout"
+                android:layout_width="290dip"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/personinfo_first_linearlayout"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:paddingTop="20dip" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
+
+                    <Button
+                        android:id="@+id/personinfo_name_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+
+                    <TextView
+                        style="@style/personinfo_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:text="名字" />
+
+                    <ImageView
+                        android:id="@+id/go_more_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="10dip"
+                        android:src="@drawable/go_more_icon" />
+
+                    <TextView
+                        android:id="@+id/personinfo_name"
+                        style="@style/personinfo_settings_right_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/go_more_icon"
+                        android:paddingRight="10dip"
+                        android:text="Silocean" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
+
+                    <Button
+                        android:id="@+id/personinfo_sex_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+
+                    <TextView
+                        style="@style/personinfo_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:text="性别" />
+
+                    <ImageView
+                        android:id="@+id/go_more_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="10dip"
+                        android:src="@drawable/go_more_icon" />
+
+                    <TextView
+                        android:id="@+id/personinfo_sex"
+                        style="@style/personinfo_settings_right_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/go_more_icon"
+                        android:paddingRight="10dip"
+                        android:text="未设置" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
+
+                    <Button
+                        android:id="@+id/personinfo_hometown_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+
+                    <TextView
+                        style="@style/personinfo_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:text="老家" />
+
+                    <ImageView
+                        android:id="@+id/go_more_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="10dip"
+                        android:src="@drawable/go_more_icon" />
+
+                    <TextView
+                        android:id="@+id/personinfo_hometown"
+                        style="@style/personinfo_settings_right_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/go_more_icon"
+                        android:paddingRight="10dip"
+                        android:text="湖北  黄石" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
+
+                    <Button
+                        android:id="@+id/personinfo_signs_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+
+                    <TextView
+                        style="@style/personinfo_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:text="签名" />
+
+                    <ImageView
+                        android:id="@+id/go_more_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="10dip"
+                        android:src="@drawable/go_more_icon" />
+
+                    <TextView
+                        android:id="@+id/personinfo_personsigns"
+                        style="@style/personinfo_settings_right_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/go_more_icon"
+                        android:paddingRight="10dip"
+                        android:text="未设置" />
+                </RelativeLayout>
+            </LinearLayout>
+            <!-- 第三组菜单 -->
+
+            <LinearLayout
+                android:id="@+id/personinfo_third_linearlayout"
+                android:layout_width="290dip"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/personinfo_second_linearlayout"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:paddingTop="20dip" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="25dip" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:paddingBottom="5dip"
+                        android:paddingLeft="5dip"
+                        android:text="账号信息"
+                        android:textColor="#aaaaaa"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
+
+                    <Button
+                        android:id="@+id/personinfo_mobile_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+
+                    <TextView
+                        style="@style/personinfo_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:text="手机号" />
+
+                    <TextView
+                        android:id="@+id/personinfo_mobile"
+                        style="@style/personinfo_settings_right_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/go_more_icon"
+                        android:paddingRight="10dip"
+                        android:text="18271633177" />
+
+                    <ImageView
+                        android:id="@+id/go_more_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="10dip"
+                        android:src="@drawable/go_more_icon" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
+
+                    <Button
+                        android:id="@+id/personinfo_password_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+
+                    <TextView
+                        style="@style/personinfo_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:text="密码" />
+
+                    <ImageView
+                        android:id="@+id/go_more_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="10dip"
+                        android:src="@drawable/go_more_icon" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
 </RelativeLayout>

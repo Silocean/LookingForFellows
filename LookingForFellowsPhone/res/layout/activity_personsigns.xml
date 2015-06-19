@@ -1,70 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:background="@color/bg_color" >
-  <RelativeLayout
-		android:layout_width="fill_parent"
-      	android:layout_height="45dip"
-      	android:id="@+id/personsigns_titlebar"
-      	android:background="@drawable/main_titlebarbg" >
-		<Button 
-			android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/personsigns_goback"
-      		android:background="@drawable/goback_icon_selector" />
-      	<TextView
-      		android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/titlebar_title"
-      		android:text="个性签名"
-      		android:layout_centerHorizontal="true"
-      		android:layout_centerVertical="true"
-      		android:textColor="@color/white"
-      		android:textSize="18sp"
-      		/>
-      	<Button 
-      		android:layout_width="60dip"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/personsigns_save"
-      		android:text="保存"
-      		android:textColor="@color/white"
-      		android:background="@drawable/personsigns_icon_selector"
-      		android:layout_centerVertical="true"
-      		android:layout_alignParentRight="true"
-      		android:layout_marginRight="5dip" />
-	</RelativeLayout>
-	<RelativeLayout
-		android:layout_width="wrap_content"
-      	android:layout_height="wrap_content"
-      	android:layout_centerHorizontal="true"
-      	android:layout_below="@id/personsigns_titlebar"
-      	android:paddingTop="25dip" >
-		<RelativeLayout
-			android:layout_width="280dip"
-	      	android:layout_height="120dip"
-	      	android:id="@+id/personsigns_content_relativelayout" >
-			<EditText
-				 android:layout_width="fill_parent"
-	      		 android:layout_height="fill_parent"
-	      		 android:background="@drawable/leftmenu_itembg_normal"
-	      		 android:id="@+id/personsigns_content"
-	      		 android:gravity="top" />
-				<RelativeLayout
-					android:layout_width="280dip"
-			      	android:layout_height="25dip"
-			      	android:layout_below="@id/personsigns_content_relativelayout"
-			      	android:layout_alignParentBottom="true" >
-			      	<TextView
-			      		 android:layout_width="wrap_content"
-			      		 android:layout_height="wrap_content"
-			      		 android:id="@+id/pesonsigns_wordnum"
-			      		 android:text="0/30"
-			      		 android:layout_alignParentRight="true"
-			      		 android:paddingRight="10dip"
-			      		 android:paddingBottom="5dip" />
-				</RelativeLayout>
-		</RelativeLayout>
-	</RelativeLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bg_color" >
+
+    <RelativeLayout
+        android:id="@+id/personsigns_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/main_titlebarbg" >
+
+        <Button
+            android:id="@+id/personsigns_goback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/goback_icon_selector" />
+
+        <TextView
+            android:id="@+id/titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="个性签名"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/personsigns_save"
+            android:layout_width="60dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/personsigns_icon_selector"
+            android:text="保存"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/personsigns_titlebar"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="25dip" >
+
+        <RelativeLayout
+            android:id="@+id/personsigns_content_relativelayout"
+            android:layout_width="280dip"
+            android:layout_height="120dip" >
+
+            <EditText
+                android:id="@+id/personsigns_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/leftmenu_itembg_normal"
+                android:gravity="top" />
+
+            <RelativeLayout
+                android:layout_width="280dip"
+                android:layout_height="25dip"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/personsigns_content_relativelayout" >
+
+                <TextView
+                    android:id="@+id/pesonsigns_wordnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingBottom="5dip"
+                    android:paddingRight="10dip"
+                    android:text="0/30" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
 </RelativeLayout>

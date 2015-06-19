@@ -42,8 +42,9 @@ public class LeftFragment extends Fragment {
 	
 	Button leftmenuInvite;
 	
-	MainFragment mainFragment;
+	
 	PersonFragment personFragment;
+	MainFragment mainFragment;
 	FriendsFragment friendsFragment;
 	MsgFragment msgFragment;
 	SettingsFragment settingsFragment;
@@ -60,9 +61,6 @@ public class LeftFragment extends Fragment {
 		leftmenuNear = (Button)view.findViewById(R.id.leftmenu_near_button);
 		leftmenuShare = (Button)view.findViewById(R.id.leftmenu_share_button);
 		leftmenuInvite = (Button)view.findViewById(R.id.leftmenu_invite_button);
-		mainFragment = new MainFragment();
-		personFragment = new PersonFragment();
-		settingsFragment = new SettingsFragment();
 		return view;
 	}
 
@@ -87,6 +85,9 @@ public class LeftFragment extends Fragment {
 				leftmenuFriends.setSelected(false);
 				leftmenuMsg.setSelected(false);
 				leftmenuSettings.setSelected(false);
+				if(personFragment == null) {
+					personFragment = new PersonFragment();
+				}
 				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, personFragment);
 				((SlidingActivity)getActivity()).showLeft();
 			}
@@ -112,7 +113,6 @@ public class LeftFragment extends Fragment {
 				leftmenuFriends.setSelected(false);
 				leftmenuMsg.setSelected(true);
 				leftmenuSettings.setSelected(false);
-				msgFragment = new MsgFragment();
 				if(msgFragment == null) {
 					msgFragment = new MsgFragment();
 				}
@@ -127,6 +127,9 @@ public class LeftFragment extends Fragment {
 				leftmenuFriends.setSelected(false);
 				leftmenuMsg.setSelected(false);
 				leftmenuSettings.setSelected(true);
+				if(settingsFragment == null) {
+					settingsFragment = new SettingsFragment();
+				}
 				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, settingsFragment);
 				((SlidingActivity)getActivity()).showLeft();
 			}

@@ -14,10 +14,6 @@ import android.graphics.RectF;
  *
  */
 public class ImageTool {
-	
-	static Bitmap output;
-	static Canvas canvas;
-	
 	/**
 	 * 把图像处理成圆形
 	 * @param bitmap
@@ -26,9 +22,10 @@ public class ImageTool {
 	 */
 	public static Bitmap toRoundCorner(Bitmap bitmap, float pixels) {
 		System.out.println("图片是否变成圆角模式了+++++++++++++");
-		output = Bitmap.createBitmap(bitmap.getWidth(),
+		Bitmap output = Bitmap.createBitmap(bitmap.getWidth(),
 				bitmap.getHeight(), Config.ARGB_8888);
-		canvas = new Canvas(output);
+		Canvas canvas = new Canvas(output);
+
 		final int color = 0xff424242;
 		final Paint paint = new Paint();
 		final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());

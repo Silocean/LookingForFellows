@@ -1,54 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:background="@color/bg_color" >
-  <RelativeLayout
-		android:layout_width="fill_parent"
-      	android:layout_height="45dip"
-      	android:id="@+id/modifyname_titlebar"
-      	android:background="@drawable/main_titlebarbg" >
-		<Button
-			android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/modifyname_goback_button"
-      		android:background="@drawable/goback_icon_selector" />
-      	<TextView
-      		android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/titlebar_title"
-      		android:text="名字"
-      		android:layout_centerHorizontal="true"
-      		android:layout_centerVertical="true"
-      		android:textColor="@color/white"
-      		android:textSize="18sp"
-      		/>
-      	<Button 
-      		android:layout_width="60dip"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/modifyname_save"
-      		android:text="保存"
-      		android:textColor="@color/white"
-      		android:background="@drawable/personsigns_icon_selector"
-      		android:layout_centerVertical="true"
-      		android:layout_alignParentRight="true"
-      		android:layout_marginRight="5dip" />
-  </RelativeLayout>
-  <RelativeLayout
-  		android:layout_width="270dip"
-      	android:layout_height="50dip"
-      	android:layout_below="@id/modifyname_titlebar"
-      	android:layout_marginTop="25dip"
-      	android:layout_centerHorizontal="true" >
-  		<com.hblg.lookingfellow.selfdefinedwidget.ModifyNameEditText
-  			android:layout_width="fill_parent"
-      		android:layout_height="fill_parent"
-      		android:id="@+id/modifyname_editText"
-      		android:background="@drawable/leftmenu_itembg_normal"
-      		android:text="silocean"
-      		android:hint="请输入名字"
-      		android:drawableRight="@drawable/modifyname_edittext_delete"
-      		 />
-  </RelativeLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bg_color" >
+
+    <RelativeLayout
+        android:id="@+id/modifyname_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/main_titlebarbg" >
+
+        <Button
+            android:id="@+id/modifyname_goback_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/goback_icon_selector" />
+
+        <TextView
+            android:id="@+id/titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="名字"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/modifyname_save"
+            android:layout_width="60dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/personsigns_icon_selector"
+            android:text="保存"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="270dip"
+        android:layout_height="50dip"
+        android:layout_below="@id/modifyname_titlebar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dip" >
+
+        <com.hblg.lookingfellow.selfdefinedwidget.ModifyNameEditText
+            android:id="@+id/modifyname_editText"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/leftmenu_itembg_normal"
+            android:drawableRight="@drawable/modifyname_edittext_delete"
+            android:hint="请输入名字"
+            android:text="silocean" />
+    </RelativeLayout>
+
 </RelativeLayout>

@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical" >
+
         <TextView
             android:id="@+id/chat_item_sendtime"
             android:layout_width="wrap_content"
@@ -23,6 +24,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp" >
+
         <ImageView
             android:id="@+id/chat_item_headimage"
             android:layout_width="40dip"
@@ -30,6 +32,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:focusable="false" />
+
         <TextView
             android:id="@+id/chat_item_chatcontent"
             android:layout_width="wrap_content"
@@ -39,10 +42,10 @@
             android:background="@drawable/chat_item_right_chatcontent_bg_selector"
             android:clickable="true"
             android:focusable="true"
-            android:textSize="16sp"
-            android:textColor="#f0f0f0"
             android:gravity="left|center"
-            android:lineSpacingExtra="2dp" />
+            android:lineSpacingExtra="2dp"
+            android:textColor="#f0f0f0"
+            android:textSize="16sp" />
     </RelativeLayout>
 
 </LinearLayout>

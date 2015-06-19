@@ -23,9 +23,10 @@ public class StartActivity extends Activity {
 				}
 			}
 		}
+		SQLiteService service = new SQLiteService(getApplicationContext());
 		Intent intent = new Intent(getApplicationContext(), RegisterAndLoginActivity.class);
 		startActivity(intent);
-		SQLiteService service = new SQLiteService(getApplicationContext());
+		//SQLiteService service = new SQLiteService(getApplicationContext());
 	}
 	
 }

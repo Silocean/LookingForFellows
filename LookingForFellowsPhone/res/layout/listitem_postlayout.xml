@@ -1,80 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent" >
-  <!--上半部分  -->
-  <RelativeLayout
-  	android:layout_width="fill_parent"
-  	android:layout_height="fill_parent"
-  	android:id="@+id/upRelativeLayout" >
-  	<RelativeLayout
-  		android:layout_width="fill_parent"
-  		android:layout_height="fill_parent" >
-  		<ImageView
-  			android:layout_width="50dip"
-  			android:layout_height="50dip"
-  			android:id="@+id/postlayout_headimage"
-  			android:layout_marginLeft="5dip"
-  			android:layout_marginTop="5dip" />
-  		<TextView
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:id="@+id/postlayout_title"
-  			android:textSize="16sp"
-  			android:textColor="#373737"
-  			android:layout_toRightOf="@id/postlayout_headimage"
-  			android:layout_marginLeft="15dip"
-  			android:layout_alignTop="@id/postlayout_headimage"
-  			android:ellipsize="end"
-  			android:singleLine="true" />
-  		<TextView
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:id="@+id/postlayout_content"
-  			style="@style/listitem_postlayout_textstyle"
-  			android:layout_toRightOf="@id/postlayout_headimage"
-  			android:layout_marginRight="5dip"
-  			android:layout_alignLeft="@id/postlayout_title"
-  			android:layout_below="@id/postlayout_title"
-  			android:layout_marginTop="5dip"
-  			android:ellipsize="end" />
-  	</RelativeLayout>
-  </RelativeLayout>
-  
-  <!--下半部分  -->
-  <RelativeLayout
-  	android:layout_width="fill_parent"
-  	android:layout_height="fill_parent"
-  	android:id="@+id/downRelativeLayout"
-  	android:layout_below="@id/upRelativeLayout" >
-  	<ImageView
-  		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content"
-  		android:id="@+id/postlayout_replay_icon"
-  		android:src="@drawable/listitem_postlayout_replay_icon"
-  		android:layout_marginLeft="15dip" />
-  	<TextView
-  		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content"
-  		android:id="@+id/postlayout_replay_count"
-  		android:layout_toRightOf="@id/postlayout_replay_icon"
-  		android:layout_marginLeft="3dip"
-  		style="@style/listitem_postlayout_textstyle" />
-  	<TextView
-  		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content"
-  		android:id="@+id/postlayout_publish_time"
-  		android:layout_alignParentRight="true"
-  		android:layout_marginRight="10dip"
-  		style="@style/listitem_postlayout_textstyle" />
-  	<TextView
-  		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content"
-  		android:id="@+id/postlayout_publish_name"
-  		android:layout_toLeftOf="@id/postlayout_publish_time"
-  		android:layout_marginRight="5dip"
-  		style="@style/listitem_postlayout_textstyle" />
-  </RelativeLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <!-- 上半部分 -->
+
+    <RelativeLayout
+        android:id="@+id/upRelativeLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <ImageView
+                android:id="@+id/postlayout_headimage"
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:layout_marginLeft="5dip"
+                android:layout_marginTop="5dip" />
+
+            <TextView
+                android:id="@+id/postlayout_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/postlayout_headimage"
+                android:layout_marginLeft="15dip"
+                android:layout_toRightOf="@id/postlayout_headimage"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="#373737"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/postlayout_content"
+                style="@style/listitem_postlayout_textstyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/postlayout_title"
+                android:layout_below="@id/postlayout_title"
+                android:layout_marginRight="5dip"
+                android:layout_marginTop="5dip"
+                android:layout_toRightOf="@id/postlayout_headimage"
+                android:ellipsize="end" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <!-- 下半部分 -->
+
+    <RelativeLayout
+        android:id="@+id/downRelativeLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/upRelativeLayout" >
+
+        <ImageView
+            android:id="@+id/postlayout_replay_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:src="@drawable/listitem_postlayout_replay_icon" />
+
+        <TextView
+            android:id="@+id/postlayout_replay_count"
+            style="@style/listitem_postlayout_textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dip"
+            android:layout_toRightOf="@id/postlayout_replay_icon" />
+
+        <TextView
+            android:id="@+id/postlayout_publish_time"
+            style="@style/listitem_postlayout_textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip" />
+
+        <TextView
+            android:id="@+id/postlayout_publish_name"
+            style="@style/listitem_postlayout_textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dip"
+            android:layout_toLeftOf="@id/postlayout_publish_time" />
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:descendantFocusability="blocksDescendants" >
-  	<RelativeLayout
-  		android:layout_width="290dip"
-  		android:layout_height="wrap_content"
-  		android:layout_centerHorizontal="true" >
-  		<Button 
-  			android:layout_width="fill_parent"
-  			android:layout_height="fill_parent"
-  			android:id="@+id/bgbutton"
-  			android:background="@drawable/leftmenuitem_selector" />
-  		<TextView 
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:paddingLeft="10dip"
-  			android:id="@+id/areaname"
-  			android:layout_alignParentLeft="true"
-  			android:layout_centerVertical="true"
-  			style="@style/personinfo_textstyle" />
-  		<ImageView 
-  			android:layout_width="wrap_content"
-  			android:layout_height="wrap_content"
-  			android:id="@+id/go_more_icon"
-  			android:src="@drawable/go_more_icon"
-  			android:layout_alignParentRight="true"
-  			android:paddingRight="10dip"
-  			android:layout_centerVertical="true" />
-  	</RelativeLayout>
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants" >
+
+    <RelativeLayout
+        android:layout_width="290dip"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" >
+
+        <Button
+            android:id="@+id/bgbutton"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/leftmenuitem_selector" />
+
+        <TextView
+            android:id="@+id/areaname"
+            style="@style/personinfo_textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dip" />
+
+        <ImageView
+            android:id="@+id/go_more_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="10dip"
+            android:src="@drawable/go_more_icon" />
+    </RelativeLayout>
+
 </RelativeLayout>

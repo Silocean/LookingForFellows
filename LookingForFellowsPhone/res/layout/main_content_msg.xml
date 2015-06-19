@@ -1,49 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-      android:id="@+id/content"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
-      android:orientation="vertical"
-      android:background="#d3d3d3" >
+    android:id="@+id/content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#d3d3d3"
+    android:orientation="vertical" >
 
-	<RelativeLayout
-			android:layout_width="fill_parent"
-	      	android:layout_height="45dip"
-	      	android:id="@+id/main_titlebar_relativelayout"
-	      	android:background="@drawable/main_titlebarbg" >
-			<ImageView 
-			android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/main_titlebar_msg_leftmenu"
-      		android:src="@drawable/main_titlebar_leftmenu" />
-      		<TextView
-      		android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/titlebar_title"
-      		android:text="我的消息"
-      		android:layout_centerHorizontal="true"
-      		android:layout_centerVertical="true"
-      		android:textColor="@color/white"
-      		android:textSize="18sp"
-      		/>
-      		<Button
-      		android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/main_titlebar_msg_rightmenu"
-      		android:background="@drawable/main_titlebar_friend_rightmenu_icon_selector"
-      		android:layout_centerVertical="true"
-      		android:layout_alignParentRight="true"
-      		android:layout_marginRight="5dip" />
-		</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/main_titlebar_relativelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/main_titlebarbg" >
+
+        <ImageView
+            android:id="@+id/main_titlebar_msg_leftmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/main_titlebar_leftmenu" />
+
+        <TextView
+            android:id="@+id/titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="我的消息"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/main_titlebar_msg_rightmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/main_titlebar_friend_rightmenu_icon_selector" />
+    </RelativeLayout>
 
     <ListView
-          android:id="@+id/msgList"
-          android:layout_width="fill_parent"
-          android:layout_height="fill_parent"
-          android:scrollbars="none"
-          android:cacheColorHint="#00000000"
-          android:divider="@color/black_half"
-          android:dividerHeight="1dip"
-          android:listSelector="@drawable/listitem_postlayout_bg_selector" >
-     </ListView>
+        android:id="@+id/msgList"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
+        android:divider="@color/black_half"
+        android:dividerHeight="1dip"
+        android:listSelector="@drawable/listitem_postlayout_bg_selector"
+        android:scrollbars="none" >
+    </ListView>
+
 </LinearLayout>

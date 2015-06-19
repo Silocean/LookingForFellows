@@ -1,217 +1,246 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:background="@color/bg_color" >
-  <RelativeLayout
-		android:layout_width="fill_parent"
-      	android:layout_height="45dip"
-      	android:id="@+id/register_titlebar"
-      	android:background="@drawable/main_titlebarbg" >
-		<Button
-			android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/register_goback_button"
-      		android:background="@drawable/goback_icon_selector" />
-      	<TextView
-      		android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/titlebar_title"
-      		android:text="注册"
-      		android:layout_centerHorizontal="true"
-      		android:layout_centerVertical="true"
-      		android:textColor="@color/white"
-      		android:textSize="18sp"
-      		style="@style/personinfo_textstyle" />
-      	<Button 
-      		android:layout_width="60dip"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/register_sure"
-      		android:text="确定"
-      		android:textColor="@color/white"
-      		android:background="@drawable/personsigns_icon_selector"
-      		android:layout_centerVertical="true"
-      		android:layout_alignParentRight="true"
-      		android:layout_marginRight="5dip" />
-  </RelativeLayout>
-  <RelativeLayout
-  		android:layout_width="270dip"
-      	android:layout_height="50dip"
-      	android:id="@+id/first"
-      	android:layout_below="@id/register_titlebar"
-      	android:layout_marginTop="25dip"
-      	android:layout_centerHorizontal="true" >
-  		<RelativeLayout
-	  		android:layout_width="fill_parent"
-	  		android:layout_height="50dip" >
-	  		<Button 
-	  			android:layout_width="fill_parent"
-	  			android:layout_height="fill_parent"
-	  			android:id="@+id/register_hometown_bg_button"
-	  			android:background="@drawable/leftmenuitem_selector" />
-	  		<TextView
-	  			android:layout_width="wrap_content"
-	  			android:layout_height="wrap_content"
-	  			android:id="@+id/left_textview"
-	  			android:layout_alignParentLeft="true"
-	  			android:paddingLeft="10dip"
-	  			android:text="家乡"
-	  			android:layout_centerVertical="true"
-	  			style="@style/personinfo_textstyle" />
-	  		<TextView 
-	  			android:layout_width="wrap_content"
-	  			android:layout_height="wrap_content"
-	  			android:text="请选择你的老家"
-	  			android:id="@+id/hometown_textView"
-	  			style="@style/personinfo_settings_right_textstyle"
-	  			android:layout_toRightOf="@id/left_textview"
-	  			android:layout_marginLeft="30dip"
-	  			android:layout_centerVertical="true" />
-	  		<ImageView 
-	  			android:layout_width="wrap_content"
-	  			android:layout_height="wrap_content"
-	  			android:id="@+id/go_more_icon"
-	  			android:src="@drawable/go_more_icon"
-	  			android:layout_alignParentRight="true"
-	  			android:paddingRight="10dip"
-	  			android:layout_centerVertical="true" />
-	  	</RelativeLayout>
-  </RelativeLayout>
-  <RelativeLayout
-  		android:layout_width="270dip"
-      	android:layout_height="50dip"
-      	android:id="@+id/second"
-      	android:layout_below="@id/first"
-      	android:layout_marginTop="25dip"
-      	android:layout_centerHorizontal="true" >
-  		<RelativeLayout
-	  		android:layout_width="fill_parent"
-	  		android:layout_height="50dip" >
-	  		<Button 
-	  			android:layout_width="fill_parent"
-	  			android:layout_height="fill_parent"
-	  			android:id="@+id/register_name_bg_button"
-	  			android:background="@drawable/leftmenuitem_selector" />
-	  		<TextView
-	  			android:layout_width="wrap_content"
-	  			android:layout_height="wrap_content"
-	  			android:id="@+id/left_textview"
-	  			android:layout_alignParentLeft="true"
-	  			android:paddingLeft="10dip"
-	  			android:text="名字"
-	  			android:layout_centerVertical="true"
-	  			style="@style/personinfo_textstyle" />
-	  		<EditText
-	  			android:layout_width="fill_parent"
-	  			android:layout_height="wrap_content"
-	  			android:hint="请填写你的姓名"
-	  			android:background="@null"
-	  			android:id="@+id/name_editText"
-	  			style="@style/personinfo_settings_right_textstyle"
-	  			android:layout_toRightOf="@id/left_textview"
-	  			android:layout_marginLeft="30dip"
-	  			android:layout_centerVertical="true" />
-	  	</RelativeLayout>
-  </RelativeLayout>
-  <RelativeLayout
-  		android:layout_width="270dip"
-      	android:layout_height="50dip"
-      	android:id="@+id/third"
-      	android:layout_below="@id/second"
-      	android:layout_marginTop="25dip"
-      	android:layout_centerHorizontal="true" >
-  		<RelativeLayout
-	  		android:layout_width="fill_parent"
-	  		android:layout_height="50dip" >
-	  		<Button
-	  			android:layout_width="fill_parent"
-	  			android:layout_height="fill_parent"
-	  			android:id="@+id/register_qq_bg_button"
-	  			android:background="@drawable/leftmenuitem_selector" />
-	  		<TextView
-	  			android:layout_width="wrap_content"
-	  			android:layout_height="wrap_content"
-	  			android:id="@+id/left_textview"
-	  			android:layout_alignParentLeft="true"
-	  			android:paddingLeft="10dip"
-	  			android:text="QQ"
-	  			android:layout_centerVertical="true"
-	  			style="@style/personinfo_textstyle" />
-	  		<EditText
-	  			android:layout_width="fill_parent"
-	  			android:layout_height="wrap_content"
-	  			android:hint="请填写你的QQ号"
-	  			android:background="@null"
-	  			android:numeric="integer"
-	  			android:id="@+id/qq_editText"
-	  			style="@style/personinfo_settings_right_textstyle"
-	  			android:layout_toRightOf="@id/left_textview"
-	  			android:layout_marginLeft="30dip"
-	  			android:layout_centerVertical="true" />
-	  	</RelativeLayout>
-  </RelativeLayout>
-  <RelativeLayout
-  		android:layout_width="270dip"
-      	android:layout_height="50dip"
-      	android:id="@+id/fourth"
-      	android:layout_below="@id/third"
-      	android:layout_marginTop="5dip"
-      	android:layout_centerHorizontal="true" >
-  		<TextView
-  			android:layout_width="fill_parent"
-	  		android:layout_height="wrap_content"
-	  		android:text="此QQ号只是为了便于记忆、登录使用，不会涉及你的个人信息"
-	  		style="@style/listitem_postlayout_textstyle" />
-  </RelativeLayout>
-  <RelativeLayout
-  		android:layout_width="270dip"
-      	android:layout_height="50dip"
-      	android:id="@+id/fifth"
-      	android:layout_marginTop="-8dip"
-      	android:layout_below="@id/fourth"
-      	android:layout_centerHorizontal="true" >
-  		<RelativeLayout
-	  		android:layout_width="fill_parent"
-	  		android:layout_height="50dip" >
-	  		<Button
-	  			android:layout_width="fill_parent"
-	  			android:layout_height="fill_parent"
-	  			android:id="@+id/register_qq_bg_button"
-	  			android:background="@drawable/leftmenuitem_selector" />
-	  		<TextView
-	  			android:layout_width="wrap_content"
-	  			android:layout_height="wrap_content"
-	  			android:id="@+id/left_textview"
-	  			android:layout_alignParentLeft="true"
-	  			android:paddingLeft="10dip"
-	  			android:text="密码"
-	  			android:layout_centerVertical="true"
-	  			style="@style/personinfo_textstyle" />
-	  		<EditText
-	  			android:layout_width="fill_parent"
-	  			android:layout_height="wrap_content"
-	  			android:hint="请填写你的密码"
-	  			android:background="@null"
-	  			android:numeric="integer"
-	  			android:id="@+id/password_editText"
-	  			style="@style/personinfo_settings_right_textstyle"
-	  			android:layout_toRightOf="@id/left_textview"
-	  			android:layout_marginLeft="30dip"
-	  			android:layout_centerVertical="true" />
-	  	</RelativeLayout>
-  </RelativeLayout>
-  <RelativeLayout
-  		android:layout_width="270dip"
-      	android:layout_height="50dip"
-      	android:id="@+id/sixth"
-      	android:layout_below="@id/fifth"
-      	android:layout_marginTop="5dip"
-      	android:layout_centerHorizontal="true" >
-  		<TextView
-  			android:layout_width="fill_parent"
-	  		android:layout_height="wrap_content"
-	  		android:text="此密码不等同于你的qq号密码，你可以随意设置"
-	  		style="@style/listitem_postlayout_textstyle" />
-  </RelativeLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bg_color" >
+
+    <RelativeLayout
+        android:id="@+id/register_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/main_titlebarbg" >
+
+        <Button
+            android:id="@+id/register_goback_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/goback_icon_selector" />
+
+        <TextView
+            android:id="@+id/titlebar_title"
+            style="@style/personinfo_textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="注册"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/register_sure"
+            android:layout_width="60dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/personsigns_icon_selector"
+            android:text="确定"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/first"
+        android:layout_width="270dip"
+        android:layout_height="50dip"
+        android:layout_below="@id/register_titlebar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dip" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dip" >
+
+            <Button
+                android:id="@+id/register_hometown_bg_button"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/leftmenuitem_selector" />
+
+            <TextView
+                android:id="@+id/left_textview"
+                style="@style/personinfo_textstyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dip"
+                android:text="家乡" />
+
+            <TextView
+                android:id="@+id/hometown_textView"
+                style="@style/personinfo_settings_right_textstyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dip"
+                android:layout_toRightOf="@id/left_textview"
+                android:text="请选择你的老家" />
+
+            <ImageView
+                android:id="@+id/go_more_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingRight="10dip"
+                android:src="@drawable/go_more_icon" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/second"
+        android:layout_width="270dip"
+        android:layout_height="50dip"
+        android:layout_below="@id/first"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dip" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dip" >
+
+            <Button
+                android:id="@+id/register_name_bg_button"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/leftmenuitem_selector" />
+
+            <TextView
+                android:id="@+id/left_textview"
+                style="@style/personinfo_textstyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dip"
+                android:text="名字" />
+
+            <EditText
+                android:id="@+id/name_editText"
+                style="@style/personinfo_settings_right_textstyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dip"
+                android:layout_toRightOf="@id/left_textview"
+                android:background="@null"
+                android:hint="请填写你的姓名" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/third"
+        android:layout_width="270dip"
+        android:layout_height="50dip"
+        android:layout_below="@id/second"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dip" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dip" >
+
+            <Button
+                android:id="@+id/register_qq_bg_button"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/leftmenuitem_selector" />
+
+            <TextView
+                android:id="@+id/left_textview"
+                style="@style/personinfo_textstyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dip"
+                android:text="QQ" />
+
+            <EditText
+                android:id="@+id/qq_editText"
+                style="@style/personinfo_settings_right_textstyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dip"
+                android:layout_toRightOf="@id/left_textview"
+                android:background="@null"
+                android:hint="请填写你的QQ号"
+                android:numeric="integer" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/fourth"
+        android:layout_width="270dip"
+        android:layout_height="50dip"
+        android:layout_below="@id/third"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dip" >
+
+        <TextView
+            style="@style/listitem_postlayout_textstyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="此QQ号只是为了便于记忆、登录使用，不会涉及你的个人信息" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/fifth"
+        android:layout_width="270dip"
+        android:layout_height="50dip"
+        android:layout_below="@id/fourth"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-8dip" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dip" >
+
+            <Button
+                android:id="@+id/register_qq_bg_button"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/leftmenuitem_selector" />
+
+            <TextView
+                android:id="@+id/left_textview"
+                style="@style/personinfo_textstyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dip"
+                android:text="密码" />
+
+            <EditText
+                android:id="@+id/password_editText"
+                style="@style/personinfo_settings_right_textstyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dip"
+                android:layout_toRightOf="@id/left_textview"
+                android:background="@null"
+                android:hint="请填写你的密码"
+                android:numeric="integer" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/sixth"
+        android:layout_width="270dip"
+        android:layout_height="50dip"
+        android:layout_below="@id/fifth"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dip" >
+
+        <TextView
+            style="@style/listitem_postlayout_textstyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="此密码不等同于你的qq号密码，你可以随意设置" />
+    </RelativeLayout>
+
 </RelativeLayout>

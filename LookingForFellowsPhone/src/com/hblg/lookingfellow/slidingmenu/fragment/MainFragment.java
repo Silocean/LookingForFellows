@@ -15,186 +15,66 @@
  */
 package com.hblg.lookingfellow.slidingmenu.fragment;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.ListView;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.PostsListViewAdapter;
-import com.hblg.lookingfellow.cache.ACache;
-import com.hblg.lookingfellow.entity.Post;
-import com.hblg.lookingfellow.selfdefinedwidget.DropDownListView;
-import com.hblg.lookingfellow.selfdefinedwidget.DropDownListView.OnDropDownListener;
+import com.hblg.lookingfellow.selfdefinedwidget.PullDownView;
+import com.hblg.lookingfellow.selfdefinedwidget.PullDownView.OnPullDownListener;
+import com.hblg.lookingfellow.slidingmenu.activity.PostDetailActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SendPostActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
 import com.hblg.lookingfellow.sqlite.DBOpenHelper;
-import com.hblg.lookingfellow.tools.StreamTool;
 
-public class MainFragment extends Fragment {
-	
-	DropDownListView listView;
-	LinkedList<Map<String, Object>> list = new LinkedList<Map<String, Object>>();
+public class MainFragment extends Fragment  implements OnPullDownListener,OnItemClickListener {
+	/*ListView listView;
+	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 	private PostsListViewAdapter adapter;
 	ImageView titlebarLeftmenu;
 	ImageView titlebarRightmenu;
-	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.main_content_posts, null);
-		listView = (DropDownListView)view.findViewById(R.id.contentList);
-		listView.setOnDropDownListener(new OnDropDownListener() {
-			
-			@Override
-			public void onDropDown() {
-				new GetDataTask(true).execute();
-			}
-		});
-		listView.setOnBottomListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				new GetDataTask(false).execute();
-			}
-		});
+		listView = (ListView)view.findViewById(R.id.contentList);
 		titlebarLeftmenu = (ImageView)view.findViewById(R.id.main_titlebar_leftmenu);
 		titlebarRightmenu = (ImageView)view.findViewById(R.id.main_titlebar_rightmenu);
 		return view;
 	}
-	
-	private class GetDataTask extends AsyncTask<Void, Void, LinkedList<Map<String, Object>>> {
-		private boolean isDropDown;
-		public GetDataTask(boolean isDropDown) {
-			this.isDropDown = isDropDown;
-		}
-		@Override
-		protected LinkedList<Map<String, Object>> doInBackground(Void... params) {
-			try {
-				Thread.sleep(2000);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return list;
-		}
-
-		@Override
-		protected void onPostExecute(LinkedList<Map<String, Object>> result) {
-			if(isDropDown) {
-				Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-						R.drawable.headimage);
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("headimage", bitmap);
-				map.put("title", "上啦刷新");
-				map.put("content", "在这里你可以找到你所在高校中的老乡，你可以在这里发帖召集失散已久的老乡，还可以在侧边栏里搜索你的好友们!");
-				map.put("replaycount", 35+"");
-				map.put("publishname", "linxiaonan");
-				map.put("publishtime", "10:17");
-				result.addFirst(map);
-				adapter.notifyDataSetChanged();
-				SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd HH:mm:ss");
-	            listView.onDropDownComplete(getString(R.string.update_at) + dateFormat.format(new Date()));
-			} else {
-				Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-						R.drawable.headimage);
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("headimage", bitmap);
-				map.put("title", "下啦刷新");
-				map.put("content", "在这里你可以找到你所在高校中的老乡，你可以在这里发帖召集失散已久的老乡，还可以在侧边栏里搜索你的好友们!");
-				map.put("replaycount", 35+"");
-				map.put("publishname", "linxiaonan");
-				map.put("publishtime", "10:17");
-				result.add(map);
-				adapter.notifyDataSetChanged();
-	            listView.onBottomComplete();
-			}
-		}
-		
-	}
-	
-	private List<Post> getPosts(String tag) throws Exception {
-		List<Post> posts = new ArrayList<Post>();
-		String path = "http://192.168.1.152:8080/lookingfellowWeb0.2/getPostsServlet?tag=";
-		path = path + tag;
-		HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();
-		conn.setRequestMethod("GET");
-		conn.setConnectTimeout(5000);
-		if(conn.getResponseCode() == 200) {
-			InputStream in = conn.getInputStream();
-			byte[] data = StreamTool.read(in);
-			String str = new String(data);
-			if(str.equals("error")) {
-				Toast.makeText(getActivity(), "服务器端出现问题，请稍后再试", 0).show();
-			} else {
-				JSONArray array = new JSONArray(str);
-				//saveToCache(array); // 保存帖子条目数据到缓存
-				for(int i=0; i<array.length(); i++) {
-					JSONObject obj = array.getJSONObject(i);
-					Post post = new Post();
-					post.setId(obj.getInt("id"));
-					post.setTitle(obj.getString("title"));
-					post.setDetails(obj.getString("details"));
-					post.setTime(obj.getString("time"));
-					post.setAuthorId(obj.getString("authorId"));
-					post.setAuthorName(obj.getString("authorName"));
-					post.setReplyNum(obj.getInt("replyNum"));
-					posts.add(post);
-				}
-				return posts;
-			}
-		}
-		Toast.makeText(getActivity(), "网络连接出现问题", 0).show();
-		return null;
-	}
-
-	private void saveToCache(JSONArray array) {
-		ACache cache = ACache.get(getActivity());
-		cache.put("jsonarray", array);
-	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		try {
-			
-			List<Post> posts = this.getPosts("head");
-			if(posts != null) {
-				for(int i=0; i<posts.size(); i++) {
-					Post post = posts.get(i);
-					Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.headimage);
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("headimage", bitmap);
-					map.put("title", post.getTitle());
-					map.put("content", post.getDetails());
-					map.put("replycount", post.getReplyNum()+"");
-					map.put("publishname", post.getAuthorName());
-					map.put("publishtime", post.getTime());
-					list.add(map);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+				R.drawable.headimage);
+		for(int i=0; i<10; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("headimage", bitmap);
+			map.put("title", "欢迎加入湖北老乡群");
+			map.put("content", "在这里你可以找到你所在高校中的老乡，你可以在这里发帖召集失散已久的老乡，还可以在侧边栏里搜索你的好友们!");
+			map.put("replaycount", 35+"");
+			map.put("publishname", "linxiaonan");
+			map.put("publishtime", "10:17");
+			list.add(map);
 		}
 		adapter = new PostsListViewAdapter(getActivity(), list, R.layout.listitem_postlayout);
 		
@@ -213,6 +93,208 @@ public class MainFragment extends Fragment {
 				dbOpenHelper.getWritableDatabase();
 			}
 		});
+	}*/
+	/**本类的布局*/
+	private View thisLayout;
+	
+	/**Fragment所在的Activity*/
+	private FragmentActivity fragmentActivity;
+	
+	private ImageView titlebarLeftmenu;
+	private ImageView titlebarRightmenu;
+	
+	/**Handler What加载数据完毕**/
+	private static final int WHAT_DID_LOAD_DATA = 0;
+	/**Handler What更新数据完毕**/
+	private static final int WHAT_DID_REFRESH = 1;
+	/**Handler What更多数据完毕**/
+	private static final int WHAT_DID_MORE = 2;
+	/**Handler What加载数据失败**/
+	private static final int WHAT_DID_FAILED=3;
+	
+	/**加载更多页码，默认为第二页，当刷新时重置为2，当一次加载更多完成*时加1*/
+	private int currentPage=2;
+    
+	private Bitmap bitmap;
+	
+	private ListView mListView;
+	private PullDownView mPullDownView;
+	PostsListViewAdapter adapter;
+	/**数据*/
+	private ArrayList<Map<String, Object>> data=new ArrayList<Map<String, Object>>();
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		thisLayout=inflater.inflate(R.layout.main_content_posts, null);
+		fragmentActivity=getActivity();
+	    bitmap = BitmapFactory.decodeResource(getResources(),
+				R.drawable.headimage);
+		return thisLayout;
+	}
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		    mPullDownView = (PullDownView)thisLayout.findViewById(R.id.contentList);
+
+			mPullDownView.setOnPullDownListener(this);
+			
+			mListView = mPullDownView.getListView();
+			
+			
+			mListView.setOnItemClickListener(this);
+			adapter=new PostsListViewAdapter(getActivity(), data, R.layout.listitem_postlayout,mListView);
+			adapter.setData(data);
+			mListView.setAdapter(adapter);
+			//当进入时，加载数据过程中，设置为不可见
+			mListView.setVisibility(View.GONE);
+			
+			//设置可以自动获取更多 滑到最后一个自动获取  改成false将禁用自动获取更多
+			mPullDownView.enableAutoFetchMore(false, 1);
+			//隐藏 并禁用尾部
+			mPullDownView.setHideFooter();
+			//显示并启用自动获取更多
+			mPullDownView.setShowFooter();
+			//隐藏并且禁用头部刷新
+			mPullDownView.setHideHeader();
+			//显示并且可以使用头部刷新
+			mPullDownView.setShowHeader();
+
+		   //加载数据  本类使用
+		   loadData();
+		   titlebarLeftmenu=(ImageView)thisLayout.findViewById(R.id.main_titlebar_leftmenu);
+		   titlebarLeftmenu.setOnClickListener(new OnClickListener() {
+			  @Override
+			  public void onClick(View v) {
+				 ((SlidingActivity)fragmentActivity).showLeft();
+			  }
+		   });
+		   titlebarRightmenu = (ImageView)thisLayout.findViewById(R.id.main_titlebar_rightmenu);
+		   titlebarRightmenu.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					Intent intent = new Intent(getActivity(), SendPostActivity.class);
+					startActivity(intent);
+					DBOpenHelper dbOpenHelper = new DBOpenHelper(getActivity());
+					dbOpenHelper.getWritableDatabase();
+				}
+			});
+		
+	}
+	public ArrayList<Map<String,Object>> getData() {
+		ArrayList<Map<String,Object>> tempList = new ArrayList<Map<String,Object>>();
+		for(int i=0; i<10; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("headimage", "http://g.hiphotos.baidu.com/album/w%3D230/sign=a94d197c8435e5dd902ca2dc46c7a7f5/838ba61ea8d3fd1fa7bb5b14314e251f95ca5f6a.jpg");
+			map.put("title", "欢迎加入湖北老乡群");
+			map.put("content", "在这里你可以找到你所在高校中的老乡，你可以在这里发帖召集失散已久的老乡，还可以在侧边栏里搜索你的好友们!");
+			map.put("replaycount", 35+"");
+			map.put("publishname", "linxiaonan");
+			map.put("publishtime", "10:17");
+			tempList.add(map);
+			map=null;
+		}
+		return tempList;
 	}
 
+	/**刷新事件接口  这里要注意的是获取更多完 要关闭 刷新的进度条RefreshComplete()**/
+	@Override
+	public void onRefresh() {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				/** 关闭 刷新完毕 ***/
+				mPullDownView.RefreshComplete();//这个事线程安全的 可看源代码
+
+				
+				Message msg = mUIHandler.obtainMessage(WHAT_DID_REFRESH);
+				msg.obj = "After refresh " + System.currentTimeMillis();
+				msg.sendToTarget();
+			}
+		}).start();
+
+	}
+
+	/**刷新事件接口  这里要注意的是获取更多完 要关闭 更多的进度条 notifyDidMore()**/
+	@Override
+	public void onMore() {
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				//告诉它获取更多完毕  这个事线程安全的 可看源代码
+				mPullDownView.notifyDidMore();
+				Message msg = mUIHandler.obtainMessage(WHAT_DID_MORE);
+				msg.obj = "After more " + System.currentTimeMillis();
+				msg.sendToTarget();
+			}
+		}).start();
+	}
+
+	private Handler mUIHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case WHAT_DID_LOAD_DATA: {
+				data.clear();
+				data.addAll(getData());
+				adapter.setData(data);
+				mListView.setVisibility(View.VISIBLE);
+				// 诉它数据加载完毕;
+				break;
+			}
+			case WHAT_DID_REFRESH: {
+				data.clear();
+				data.addAll(getData());
+				adapter.setData(data);
+				// 告诉它更新完毕
+				break;
+			}
+
+			case WHAT_DID_MORE: {
+				data.addAll(getData());
+				adapter.setData(data);
+				break;
+			}
+			}
+
+		}
+
+	};
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		startActivity(new Intent(fragmentActivity, PostDetailActivity.class));
+		
+	}
+
+	private void loadData() {
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(0000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				Message msg=new Message();
+				msg.what=WHAT_DID_LOAD_DATA;
+				mUIHandler.sendMessage(msg);
+			}
+		}).start();
+	}
 }

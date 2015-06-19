@@ -1,144 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-      android:id="@+id/content"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent" >
-      <!--这里用imagbutton作为fragment的背景，为了防止一些bug  -->
-      <ImageButton
-	      android:layout_width="fill_parent"
-	      android:layout_height="fill_parent"
-	      android:background="#d3d3d3" />
-	  
-      	<RelativeLayout
-			android:layout_width="fill_parent"
-	      	android:layout_height="45dip"
-	      	android:id="@+id/main_titlebar_relativelayout"
-	      	android:background="@drawable/main_titlebarbg" >
-			<ImageView 
-			android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/main_titlebar_edit_leftmenu"
-      		android:src="@drawable/main_titlebar_leftmenu" />
-      		<TextView
-      		android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/titlebar_title"
-      		android:text="Silocean"
-      		android:layout_centerHorizontal="true"
-      		android:layout_centerVertical="true"
-      		android:textColor="@color/white"
-      		android:textSize="18sp"
-      		/>
-      		<ImageView 
-      		android:layout_width="wrap_content"
-      		android:layout_height="wrap_content"
-      		android:id="@+id/main_titlebar_edit_rightmenu"
-      		android:background="@drawable/main_titlebar_edit_rightmenu_icon"
-      		android:layout_centerVertical="true"
-      		android:layout_alignParentRight="true"
-      		android:layout_marginRight="10dip" />
-		</RelativeLayout>
-    	
-    	<RelativeLayout
-	    	android:layout_width="fill_parent"
-	      	android:layout_height="200dip"
-	      	android:id="@+id/personinfo_headimage_relativelayout"
-	      	android:layout_below="@id/main_titlebar_relativelayout" >
-	      	<ImageButton
-      		android:layout_width="fill_parent"
-      		android:layout_height="fill_parent"
-      		android:id="@+id/personinfo_headimage_bg"
-      		android:background="@drawable/personinfo_headimage_bg" />
-   			<ImageView
-   			android:layout_width="100dip"
-      		android:layout_height="100dip"
-      		android:id="@+id/personinfo_headimage"
-      		android:background="@drawable/bg_border"
-      		android:layout_centerHorizontal="true"
-      		android:layout_centerInParent="true" />
-   		</RelativeLayout>
-    	<RelativeLayout
-    		android:layout_width="fill_parent"
-      		android:layout_height="60dip"
-      		android:id="@+id/personinfo_hometown_relativelayout"
-      		android:layout_below="@id/personinfo_headimage_relativelayout" >
-    		<Button
-    			android:layout_width="fill_parent"
-      			android:layout_height="fill_parent"
-      			android:id="@+id/personinfo_hometown_button"
-      			android:background="#f7f7f7" />
-      		<ImageView
-      			android:layout_width="wrap_content"
-      			android:layout_height="wrap_content"
-      			android:id="@+id/personinfo_hometown_icon"
-      			android:src="@drawable/personinfo_hometown_icon"
-      			android:layout_centerVertical="true"
-      			android:layout_alignParentLeft="true"
-      			android:paddingLeft="15dip" />
-      		<TextView
-      			android:layout_width="wrap_content"
-      			android:layout_height="wrap_content"
-      			android:id="@+id/hometown_textview"
-      			android:layout_centerVertical="true"
-      			android:text="湖北  黄石"
-      			android:layout_toRightOf="@id/personinfo_hometown_icon"
-      			android:paddingLeft="13dip"
-      			style="@style/personinfo_textstyle" />
-    	</RelativeLayout>
-     	<RelativeLayout
-    		android:layout_width="fill_parent"
-      		android:layout_height="60dip"
-      		android:id="@+id/personinfo_signs_relativelayout"
-      		android:layout_below="@id/personinfo_hometown_relativelayout" >
-    		<Button
-    			android:layout_width="fill_parent"
-      			android:layout_height="fill_parent"
-      			android:id="@+id/personinfo_signs_button"
-      			android:background="#dbdbdb" />
-      		<ImageView
-      			android:layout_width="wrap_content"
-      			android:layout_height="wrap_content"
-      			android:id="@+id/personinfo_signs_icon"
-      			android:src="@drawable/personinfo_signs_icon"
-      			android:layout_centerVertical="true"
-      			android:layout_alignParentLeft="true"
-      			android:paddingLeft="15dip" />
-      		<TextView
-      			android:layout_width="wrap_content"
-      			android:layout_height="wrap_content"
-      			android:id="@+id/signs_textview"
-      			android:layout_centerVertical="true"
-      			android:text="未设置"
-      			android:layout_toRightOf="@id/personinfo_signs_icon"
-      			android:paddingLeft="15dip"
-      			style="@style/personinfo_textstyle" />
-    	</RelativeLayout>
-    	<RelativeLayout
-    		android:layout_width="fill_parent"
-      		android:layout_height="60dip"
-      		android:id="@+id/personinfo_mobile_relativelayout"
-      		android:layout_below="@id/personinfo_signs_relativelayout" >
-    		<Button
-    			android:layout_width="fill_parent"
-      			android:layout_height="fill_parent"
-      			android:id="@+id/personinfo_mobile_button"
-      			android:background="#f7f7f7" />
-      		<ImageView
-      			android:layout_width="wrap_content"
-      			android:layout_height="wrap_content"
-      			android:id="@+id/personinfo_mobile_icon"
-      			android:src="@drawable/personinfo_mobile_icon"
-      			android:layout_centerVertical="true"
-      			android:layout_alignParentLeft="true"
-      			android:paddingLeft="15dip" />
-      		<TextView
-      			android:layout_width="wrap_content"
-      			android:layout_height="wrap_content"
-      			android:id="@+id/phone_textview"
-      			android:layout_centerVertical="true"
-      			android:text="18271633177"
-      			android:layout_toRightOf="@id/personinfo_mobile_icon"
-      			android:paddingLeft="15dip"
-      			style="@style/personinfo_textstyle" />
-    	</RelativeLayout>
+    android:id="@+id/content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <!-- 这里用imagbutton作为fragment的背景，为了防止一些bug -->
+
+    <ImageButton
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#d3d3d3" />
+
+    <RelativeLayout
+        android:id="@+id/main_titlebar_relativelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/main_titlebarbg" >
+
+        <ImageView
+            android:id="@+id/main_titlebar_edit_leftmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/main_titlebar_leftmenu" />
+
+        <TextView
+            android:id="@+id/titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Silocean"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/main_titlebar_edit_rightmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/main_titlebar_edit_rightmenu_icon" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/personinfo_headimage_relativelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="200dip"
+        android:layout_below="@id/main_titlebar_relativelayout" >
+
+        <ImageButton
+            android:id="@+id/personinfo_headimage_bg"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/personinfo_headimage_bg" />
+
+        <ImageView
+            android:id="@+id/personinfo_headimage"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_border" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/personinfo_hometown_relativelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="60dip"
+        android:layout_below="@id/personinfo_headimage_relativelayout" >
+
+        <Button
+            android:id="@+id/personinfo_hometown_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#f7f7f7" />
+
+        <ImageView
+            android:id="@+id/personinfo_hometown_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15dip"
+            android:src="@drawable/personinfo_hometown_icon" />
+
+        <TextView
+            android:id="@+id/hometown_textview"
+            style="@style/personinfo_textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/personinfo_hometown_icon"
+            android:paddingLeft="13dip"
+            android:text="湖北  黄石" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/personinfo_signs_relativelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="60dip"
+        android:layout_below="@id/personinfo_hometown_relativelayout" >
+
+        <Button
+            android:id="@+id/personinfo_signs_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#dbdbdb" />
+
+        <ImageView
+            android:id="@+id/personinfo_signs_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15dip"
+            android:src="@drawable/personinfo_signs_icon" />
+
+        <TextView
+            android:id="@+id/signs_textview"
+            style="@style/personinfo_textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/personinfo_signs_icon"
+            android:paddingLeft="15dip"
+            android:text="未设置" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/personinfo_mobile_relativelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="60dip"
+        android:layout_below="@id/personinfo_signs_relativelayout" >
+
+        <Button
+            android:id="@+id/personinfo_mobile_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#f7f7f7" />
+
+        <ImageView
+            android:id="@+id/personinfo_mobile_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15dip"
+            android:src="@drawable/personinfo_mobile_icon" />
+
+        <TextView
+            android:id="@+id/phone_textview"
+            style="@style/personinfo_textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/personinfo_mobile_icon"
+            android:paddingLeft="15dip"
+            android:text="18271633177" />
+    </RelativeLayout>
+
 </RelativeLayout>

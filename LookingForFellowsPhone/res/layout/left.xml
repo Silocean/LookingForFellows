@@ -1,207 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	  android:layout_width="wrap_content"
-	  android:layout_height="fill_parent"
-	  android:background="#d3d3d3" >
-	  <ScrollView
-	  	android:layout_width="wrap_content"
-	    android:layout_height="fill_parent"
-	    android:background="#d3d3d3" >
-		<RelativeLayout 
-		  android:layout_width="270dip"
-		  android:layout_height="fill_parent"
-		  android:background="#d3d3d3" >
-		  <Button
-		  	android:layout_width="fill_parent"
-		  	android:layout_height="fill_parent"
-		  	android:background="@color/bg_color"/>
-		  <!--第一组菜单  -->
-		  <LinearLayout 
-		  	android:orientation="vertical" 
-		  	android:layout_width="240dip"
-		  	android:id="@+id/leftmenu_first_linearlayout"
-		  	android:layout_height="wrap_content"
-		  	android:layout_centerHorizontal="true"
-		  	android:paddingTop="40dip" >
-		  	<RelativeLayout
-		  		android:layout_width="fill_parent"
-		  		android:layout_height="40dip" >
-		  		<Button 
-		  			android:layout_width="fill_parent"
-		  			android:layout_height="fill_parent"
-		  			android:id="@+id/leftmenu_posts_button"
-		  			android:background="@drawable/leftmenuitem_selector" />
-		  		<ImageView 
-		  			android:layout_width="wrap_content"
-		  			android:layout_height="wrap_content"
-		  			android:id="@+id/leftmenu_posts_icon"
-		  			android:src="@drawable/leftmenu_posts_icon"
-		  			android:layout_alignParentLeft="true"
-		  			android:paddingLeft="10dip"
-		  			android:layout_centerVertical="true" />
-		  		<TextView 
-		  			android:layout_width="wrap_content"
-		  			android:layout_height="wrap_content"
-		  			android:text="公告板"
-		  			android:layout_toRightOf="@id/leftmenu_posts_icon"
-		  			style="@style/leftmenu_listitem_textstyle" />
-		  	</RelativeLayout>
-		  	<RelativeLayout
-		  		android:layout_width="fill_parent"
-		  		android:layout_height="40dip" >
-		  		<Button 
-		  			android:layout_width="fill_parent"
-		  			android:layout_height="fill_parent"
-		  			android:id="@+id/leftmenu_person_button"
-		  			android:background="@drawable/leftmenuitem_selector" />
-		  		<ImageView 
-		  			android:layout_width="wrap_content"
-		  			android:layout_height="wrap_content"
-		  			android:id="@+id/leftmenu_person_icon"
-		  			android:src="@drawable/leftmenu_person_icon"
-		  			android:layout_alignParentLeft="true"
-		  			android:paddingLeft="10dip"
-		  			android:layout_centerVertical="true" />
-		  		<TextView 
-		  			android:layout_width="wrap_content"
-		  			android:layout_height="wrap_content"
-		  			android:text="我的资料"
-		  			android:layout_toRightOf="@id/leftmenu_person_icon"
-		  			style="@style/leftmenu_listitem_textstyle" />
-		  	</RelativeLayout>
-		  </LinearLayout>
-		  <!--第二组菜单  -->
-		  <LinearLayout 
-		  	android:orientation="vertical" 
-		  	android:layout_width="240dip"
-		  	android:id="@+id/leftmenu_second_linearlayout"
-		  	android:layout_height="wrap_content"
-		  	android:layout_centerHorizontal="true"
-		  	android:layout_below="@id/leftmenu_first_linearlayout"
-		  	android:paddingTop="10dip" >
-		  	<RelativeLayout
-		  		android:layout_width="fill_parent"
-		  		android:layout_height="40dip" >
-		  		<Button 
-		  			android:layout_width="fill_parent"
-		  			android:layout_height="fill_parent"
-		  			android:id="@+id/leftmenu_friends_button"
-		  			android:background="@drawable/leftmenuitem_selector" />
-		  		<ImageView 
-		  			android:layout_width="wrap_content"
-		  			android:layout_height="wrap_content"
-		  			android:id="@+id/leftmenu_friends_icon"
-		  			android:src="@drawable/leftmenu_friends_icon"
-		  			android:layout_alignParentLeft="true"
-		  			android:paddingLeft="10dip"
-		  			android:layout_centerVertical="true" />
-		  		<TextView 
-		  			android:layout_width="wrap_content"
-		  			android:layout_height="wrap_content"
-		  			android:text="我的好友"
-		  			android:layout_toRightOf="@id/leftmenu_friends_icon"
-		  			style="@style/leftmenu_listitem_textstyle" />
-		  	</RelativeLayout>
-		  	<RelativeLayout
-		  		android:layout_width="fill_parent"
-		  		android:layout_height="40dip" >
-		  		<Button 
-		  			android:layout_width="fill_parent"
-		  			android:layout_height="fill_parent"
-		  			android:id="@+id/leftmenu_msg_button"
-		  			android:background="@drawable/leftmenuitem_selector" />
-		  		<ImageView 
-		  			android:layout_width="wrap_content"
-		  			android:layout_height="wrap_content"
-		  			android:id="@+id/leftmenu_msg_icon"
-		  			android:src="@drawable/leftmenu_msg_icon"
-		  			android:layout_alignParentLeft="true"
-		  			android:paddingLeft="10dip"
-		  			android:layout_centerVertical="true" />
-		  		<TextView 
-		  			android:layout_width="wrap_content"
-		  			android:layout_height="wrap_content"
-		  			android:text="我的消息"
-		  			android:layout_toRightOf="@id/leftmenu_msg_icon"
-		  			style="@style/leftmenu_listitem_textstyle" />
-		  	</RelativeLayout>
-		  	<RelativeLayout
-		  		android:layout_width="fill_parent"
-		  		android:layout_height="40dip" >
-		  		<Button 
-		  			android:layout_width="fill_parent"
-		  			android:layout_height="fill_parent"
-		  			android:id="@+id/leftmenu_settings_button"
-		  			android:background="@drawable/leftmenuitem_selector" />
-		  		<ImageView 
-		  			android:layout_width="wrap_content"
-		  			android:layout_height="wrap_content"
-		  			android:id="@+id/leftmenu_settings_icon"
-		  			android:src="@drawable/leftmenu_settings_icon"
-		  			android:layout_alignParentLeft="true"
-		  			android:paddingLeft="10dip"
-		  			android:layout_centerVertical="true" />
-		  		<TextView 
-		  			android:layout_width="wrap_content"
-		  			android:layout_height="wrap_content"
-		  			android:text="设置"
-		  			android:layout_toRightOf="@id/leftmenu_settings_icon"
-		  			style="@style/leftmenu_listitem_textstyle" />
-		  	</RelativeLayout>
-		  </LinearLayout>
-		  <!--第三组菜单  -->
-		  <LinearLayout 
-		  	  android:layout_width="240dip"
-			  android:layout_height="wrap_content"
-			  android:layout_below="@id/leftmenu_second_linearlayout"
-			  android:id="@+id/leftmenu_third_linerlayout"
-			  android:paddingTop="10dip"
-			  android:layout_centerHorizontal="true" >
-			  <RelativeLayout
-			 	 android:layout_width="fill_parent"
-			  	 android:layout_height="wrap_content" >
-		  	 	<Button 
-			  	 	 android:layout_width="65dip"
-			  	 	 android:layout_height="65dip"
-			  	 	 android:text="穿墙"
-			  	 	 style="@style/leftmenu_listitem_textstyle"
-			  	 	 android:id="@+id/leftmenu_cross_button"
-			  	 	 android:background="@drawable/leftmenu_button_bg" />
-		  		 <Button 
-			  	 	 android:layout_width="65dip"
-			  	 	 android:layout_height="65dip"
-			  	 	 android:text="附近"
-			  	 	 style="@style/leftmenu_listitem_textstyle"
-			  	 	 android:layout_toRightOf="@id/leftmenu_cross_button"
-			  	 	 android:layout_marginLeft="7dip"
-			  	 	 android:id="@+id/leftmenu_near_button"
-			  	 	 android:background="@drawable/leftmenu_button_bg" />
-		  	 	<Button 
-			  	 	 android:layout_width="65dip"
-			  	 	 android:layout_height="65dip"
-			  	 	 android:text="分享"
-			  	 	 style="@style/leftmenu_listitem_textstyle"
-			  	 	 android:layout_toRightOf="@id/leftmenu_near_button"
-			  	 	 android:layout_marginLeft="7dip"
-			  	 	 android:id="@+id/leftmenu_share_button"
-			  	 	 android:background="@drawable/leftmenu_button_bg" />
-		  	 </RelativeLayout>
-		  </LinearLayout>
-		  <LinearLayout 
-		  	  android:layout_width="240dip"
-			  android:layout_height="wrap_content"
-			  android:layout_below="@id/leftmenu_third_linerlayout"
-			  android:paddingTop="15dip"
-			  android:layout_centerHorizontal="true" >
-		  	  <Button
-		  	  	  android:layout_width="fill_parent"
-			  	  android:layout_height="wrap_content"
-			  	  android:text="邀请好友"
-			  	  android:textColor="@color/black_half"
-			  	  android:textSize="18sp"
-			  	  android:id="@+id/leftmenu_invite_button"
-			  	  android:background="@drawable/leftmenuitem_invitebutton_selector" />
-		  </LinearLayout>
-		</RelativeLayout>
-	</ScrollView>
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:background="#d3d3d3" >
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:background="#d3d3d3" >
+
+        <RelativeLayout
+            android:layout_width="270dip"
+            android:layout_height="fill_parent"
+            android:background="#d3d3d3" >
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/bg_color" />
+            <!-- 第一组菜单 -->
+
+            <LinearLayout
+                android:id="@+id/leftmenu_first_linearlayout"
+                android:layout_width="240dip"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:paddingTop="40dip" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
+
+                    <Button
+                        android:id="@+id/leftmenu_posts_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+
+                    <ImageView
+                        android:id="@+id/leftmenu_posts_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:src="@drawable/leftmenu_posts_icon" />
+
+                    <TextView
+                        style="@style/leftmenu_listitem_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/leftmenu_posts_icon"
+                        android:text="公告板" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
+
+                    <Button
+                        android:id="@+id/leftmenu_person_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+
+                    <ImageView
+                        android:id="@+id/leftmenu_person_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:src="@drawable/leftmenu_person_icon" />
+
+                    <TextView
+                        style="@style/leftmenu_listitem_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/leftmenu_person_icon"
+                        android:text="我的资料" />
+                </RelativeLayout>
+            </LinearLayout>
+            <!-- 第二组菜单 -->
+
+            <LinearLayout
+                android:id="@+id/leftmenu_second_linearlayout"
+                android:layout_width="240dip"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/leftmenu_first_linearlayout"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:paddingTop="10dip" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
+
+                    <Button
+                        android:id="@+id/leftmenu_friends_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+
+                    <ImageView
+                        android:id="@+id/leftmenu_friends_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:src="@drawable/leftmenu_friends_icon" />
+
+                    <TextView
+                        style="@style/leftmenu_listitem_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/leftmenu_friends_icon"
+                        android:text="我的好友" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
+
+                    <Button
+                        android:id="@+id/leftmenu_msg_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+
+                    <ImageView
+                        android:id="@+id/leftmenu_msg_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:src="@drawable/leftmenu_msg_icon" />
+
+                    <TextView
+                        style="@style/leftmenu_listitem_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/leftmenu_msg_icon"
+                        android:text="我的消息" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
+
+                    <Button
+                        android:id="@+id/leftmenu_settings_button"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+
+                    <ImageView
+                        android:id="@+id/leftmenu_settings_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:src="@drawable/leftmenu_settings_icon" />
+
+                    <TextView
+                        style="@style/leftmenu_listitem_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/leftmenu_settings_icon"
+                        android:text="设置" />
+                </RelativeLayout>
+            </LinearLayout>
+            <!-- 第三组菜单 -->
+
+            <LinearLayout
+                android:id="@+id/leftmenu_third_linerlayout"
+                android:layout_width="240dip"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/leftmenu_second_linearlayout"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="10dip" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" >
+
+                    <Button
+                        android:id="@+id/leftmenu_cross_button"
+                        style="@style/leftmenu_listitem_textstyle"
+                        android:layout_width="65dip"
+                        android:layout_height="65dip"
+                        android:background="@drawable/leftmenu_button_bg"
+                        android:text="穿墙" />
+
+                    <Button
+                        android:id="@+id/leftmenu_near_button"
+                        style="@style/leftmenu_listitem_textstyle"
+                        android:layout_width="65dip"
+                        android:layout_height="65dip"
+                        android:layout_marginLeft="7dip"
+                        android:layout_toRightOf="@id/leftmenu_cross_button"
+                        android:background="@drawable/leftmenu_button_bg"
+                        android:text="附近" />
+
+                    <Button
+                        android:id="@+id/leftmenu_share_button"
+                        style="@style/leftmenu_listitem_textstyle"
+                        android:layout_width="65dip"
+                        android:layout_height="65dip"
+                        android:layout_marginLeft="7dip"
+                        android:layout_toRightOf="@id/leftmenu_near_button"
+                        android:background="@drawable/leftmenu_button_bg"
+                        android:text="分享" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="240dip"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/leftmenu_third_linerlayout"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="15dip" >
+
+                <Button
+                    android:id="@+id/leftmenu_invite_button"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/leftmenuitem_invitebutton_selector"
+                    android:text="邀请好友"
+                    android:textColor="@color/black_half"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
 </RelativeLayout>
