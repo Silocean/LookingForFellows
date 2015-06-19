@@ -33,7 +33,7 @@ public class SlidingActivity extends FragmentActivity {
 	public SlidingMenu mSlidingMenu;
 	LeftFragment leftFragment;
 	RightFragment rightFragment;
-	MainFragment mainFragment;
+	public static MainFragment mainFragment;
 
 	@Override
 	protected void onCreate(Bundle arg0) {

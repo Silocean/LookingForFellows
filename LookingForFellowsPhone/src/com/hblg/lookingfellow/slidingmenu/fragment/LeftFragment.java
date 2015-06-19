@@ -42,9 +42,8 @@ public class LeftFragment extends Fragment {
 	
 	Button leftmenuInvite;
 	
-	
-	PersonFragment personFragment;
 	MainFragment mainFragment;
+	PersonFragment personFragment;
 	FriendsFragment friendsFragment;
 	MsgFragment msgFragment;
 	SettingsFragment settingsFragment;
@@ -61,6 +60,7 @@ public class LeftFragment extends Fragment {
 		leftmenuNear = (Button)view.findViewById(R.id.leftmenu_near_button);
 		leftmenuShare = (Button)view.findViewById(R.id.leftmenu_share_button);
 		leftmenuInvite = (Button)view.findViewById(R.id.leftmenu_invite_button);
+		mainFragment = new MainFragment();
 		personFragment = new PersonFragment();
 		settingsFragment = new SettingsFragment();
 		return view;
@@ -76,8 +76,7 @@ public class LeftFragment extends Fragment {
 				leftmenuFriends.setSelected(false);
 				leftmenuMsg.setSelected(false);
 				leftmenuSettings.setSelected(false);
-				mainFragment = new MainFragment();
-				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, mainFragment);
+				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, SlidingActivity.mainFragment);
 				((SlidingActivity)getActivity()).showLeft();
 			}
 		});
@@ -88,11 +87,7 @@ public class LeftFragment extends Fragment {
 				leftmenuFriends.setSelected(false);
 				leftmenuMsg.setSelected(false);
 				leftmenuSettings.setSelected(false);
-				
-				// 更新主界面
-				
 				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, personFragment);
-				
 				((SlidingActivity)getActivity()).showLeft();
 			}
 		});
@@ -103,7 +98,9 @@ public class LeftFragment extends Fragment {
 				leftmenuFriends.setSelected(true);
 				leftmenuMsg.setSelected(false);
 				leftmenuSettings.setSelected(false);
-				friendsFragment = new FriendsFragment();
+				if(friendsFragment == null) {
+					friendsFragment = new FriendsFragment();
+				}
 				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, friendsFragment);
 				((SlidingActivity)getActivity()).showLeft();
 			}
@@ -116,6 +113,9 @@ public class LeftFragment extends Fragment {
 				leftmenuMsg.setSelected(true);
 				leftmenuSettings.setSelected(false);
 				msgFragment = new MsgFragment();
+				if(msgFragment == null) {
+					msgFragment = new MsgFragment();
+				}
 				((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, msgFragment);
 				((SlidingActivity)getActivity()).showLeft();
 			}

@@ -59,7 +59,7 @@ public class PostsListViewAdapter extends BaseAdapter {
 		String content = (String)map.get("content");
 		contentTextView.setText(content);
 		TextView replycountTextView = (TextView)convertView.findViewById(R.id.postlayout_replay_count);
-		String replycount = (String)map.get("replaycount");
+		String replycount = (String)map.get("replycount");
 		replycountTextView.setText(replycount);
 		TextView publishnameTextView = (TextView)convertView.findViewById(R.id.postlayout_publish_name);
 		String publishname = (String)map.get("publishname");
