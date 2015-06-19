@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.hblg.lookingfellow"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <application android:icon="@drawable/ic_launcher" android:label="@string/app_name"
+    	android:theme="@android:style/Theme.NoTitleBar" >
+        <activity android:name=".slidingmenu.activity.StartActivity"
+                  android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".slidingmenu.activity.RegisterAndLoginActivity" ></activity>
+		<activity android:name=".slidingmenu.activity.AddFriendsActivity" ></activity>
+        <activity android:name=".slidingmenu.activity.SlidingActivity" ></activity>
+		<activity android:name=".slidingmenu.activity.AddFriendsActivity" ></activity>
+		<activity android:name=".slidingmenu.activity.SendPostActivity" ></activity>
+		<activity android:name=".slidingmenu.activity.PersonSignsActivity" ></activity>
+		<activity android:name=".slidingmenu.activity.PersonInfoActivity" android:launchMode="singleTask"></activity>
+		<activity android:name=".slidingmenu.activity.ModifyNameActivity" ></activity>
+		<activity android:name=".slidingmenu.activity.ModifySexActivity" ></activity>
+		<activity android:name=".slidingmenu.activity.ModifyMobileActivity" ></activity>
+		<activity android:name=".slidingmenu.activity.ModifyPasswordActivity" ></activity>
+		<activity android:name=".slidingmenu.activity.ChatActivity" ></activity>
+		<activity android:name=".slidingmenu.activity.FriendInfoActivity" ></activity>
+		<activity android:name=".slidingmenu.activity.ChooseProvinceActivity" ></activity>
+		<activity android:name=".slidingmenu.activity.ChooseCityActivity" ></activity>
+		<activity android:name=".slidingmenu.activity.RegisterActivity" android:launchMode="singleTask"></activity>
+		<activity android:name=".slidingmenu.activity.LoginActivity" ></activity>
+		
+		<service android:name=".service.GetUserInfoService" />
+		
+    </application>
+    <uses-sdk android:minSdkVersion="8" />
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+</manifest> 
