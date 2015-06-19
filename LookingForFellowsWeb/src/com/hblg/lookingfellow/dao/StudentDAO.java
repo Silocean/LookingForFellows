@@ -28,12 +28,13 @@ public class StudentDAO {
 	public boolean save(Student stu) {
 		PreparedStatement pst = null;
 		try {
-			String sql = "insert into student (stuQQ, stuName, stuHometown, stuPassword) values(?, ?, ?, ?)";
+			String sql = "insert into student (stuQQ, stuName, stuPro, stuCity, stuPassword) values(?, ?, ?, ?, ?)";
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, stu.getQq().trim());
 			pst.setString(2, stu.getName().trim());
-			pst.setString(3, stu.getHometown().trim());
-			pst.setString(4, stu.getPassword().trim());
+			pst.setString(3, stu.getProvince().trim());
+			pst.setString(4, stu.getCity().trim());
+			pst.setString(5, stu.getPassword().trim());
 			int result = pst.executeUpdate();
 			if(result == 1) {
 				return true;
@@ -64,7 +65,7 @@ public class StudentDAO {
 		ResultSet rs = null;
 		try {
 			List<String> list = new ArrayList<String>();
-			String sql = "select stuQQ from student;";
+			String sql = "select stuQQ from student";
 			pst = conn.prepareStatement(sql);
 			rs = pst.executeQuery();
 			while(rs.next()) {
@@ -136,11 +137,12 @@ public class StudentDAO {
 			while(rs.next()) {
 				map.put("stuQQ", qq);
 				map.put("stuName", rs.getString(2));
-				map.put("stuHometown", rs.getString(3));
-				map.put("stuPassword", rs.getString(4));
-				map.put("stuSex", rs.getString(5));
-				map.put("stuSigns", rs.getString(6));
-				map.put("stuPhone", rs.getString(7));
+				map.put("stuPro", rs.getString(3));
+				map.put("stuCity", rs.getString(4));
+				map.put("stuPassword", rs.getString(5));
+				map.put("stuSex", rs.getString(6));
+				map.put("stuSigns", rs.getString(7));
+				map.put("stuPhone", rs.getString(8));
 			}
 			return map;
 		} catch (Exception e) {
@@ -280,13 +282,14 @@ public class StudentDAO {
 	 * @param qq
 	 * @return
 	 */
-	public boolean modifyHometown(String hometown, String qq) {
+	public boolean modifyHometown(String pro, String city, String qq) {
 		PreparedStatement pst = null;
 		try {
-			String sql = "update student set stuHometown = ? where stuQQ = ?";
+			String sql = "update student set stuPro = ? , stuCity = ? where stuQQ = ?";
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, hometown);
-			pst.setString(2, qq);
+			pst.setString(1, pro);
+			pst.setString(2, city);
+			pst.setString(3, qq);
 			int result = pst.executeUpdate();
 			if(result == 1) {
 				return true;

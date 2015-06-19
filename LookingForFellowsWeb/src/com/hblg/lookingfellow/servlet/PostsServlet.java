@@ -25,10 +25,11 @@ public class PostsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
+		String pro = request.getParameter("province");
 		String tag = request.getParameter("page");
 		int page = Integer.parseInt(tag);
 		PostDAO dao = new PostDAO();
-		List<Map<String, Object>> posts = dao.getPosts(page);
+		List<Map<String, Object>> posts = dao.getPosts(pro, page);
 		if(posts == null) {
 			out.write("error");
 		} else {
@@ -56,7 +57,7 @@ public class PostsServlet extends HttpServlet {
 				if(entry.getValue() == null) {
 					sb.append("");
 				} else {
-					sb.append(entry.getValue());
+					sb.append(entry.getValue().toString().replaceAll("\"", "\\\\\""));
 				}
 				sb.append("\",");
 			}
@@ -77,16 +78,14 @@ public class PostsServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("details");
 		String time = request.getParameter("time");
-		System.out.println("qq："+qq);
-		System.out.println("标题："+title);
-		System.out.println("内容："+content);
-		System.out.println("时间："+time);
+		String imageName = request.getParameter("imageName");
 		PostDAO dao = new PostDAO();
 		Post post = new Post();
 		post.setTitle(title);
 		post.setDetails(content);
 		post.setTime(time);
 		post.setAuthorId(qq);
+		post.setImageName(imageName);
 		if(dao.insertPost(post)) {
 			System.out.println("success");
 			out.write("success");

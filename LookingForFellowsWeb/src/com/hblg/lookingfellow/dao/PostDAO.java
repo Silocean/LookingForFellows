@@ -18,8 +18,46 @@ public class PostDAO {
 	
 	Connection conn = null;
 	
+	Map<String, String> proMap = new HashMap<String, String>();
+	
 	public PostDAO() {
 		conn = DBManager.getConn();
+		this.initProMap();
+	}
+	
+	public void initProMap() {
+		proMap.put("公告板", "post_all");
+		proMap.put("北京", "post_beijing");
+		proMap.put("天津", "post_tianjin");
+		proMap.put("上海", "post_shanghai");
+		proMap.put("重庆", "post_chongqing");
+		proMap.put("河北", "post_hebei");
+		proMap.put("山西", "post_shanxi");
+		proMap.put("台湾", "post_taiwan");
+		proMap.put("辽宁", "post_liaoning");
+		proMap.put("吉林", "post_jilin");
+		proMap.put("黑龙江", "post_heilongjiang");
+		proMap.put("江苏", "post_jiangsu");
+		proMap.put("浙江", "post_zhejiang");
+		proMap.put("安徽", "post_anhui");
+		proMap.put("福建", "post_fujian");
+		proMap.put("山东", "post_shandong");
+		proMap.put("河南", "post_henan");
+		proMap.put("湖北", "post_hubei");
+		proMap.put("湖南", "post_hunan");
+		proMap.put("广东", "post_guangdong");
+		proMap.put("甘肃", "post_gansu");
+		proMap.put("四川", "post_sichuan");
+		proMap.put("贵州", "post_guizhou");
+		proMap.put("海南", "post_hainan");
+		proMap.put("云南", "post_yunnan");
+		proMap.put("青海", "post_qinghai");
+		proMap.put("西藏", "post_xizang");
+		proMap.put("宁夏", "post_ningxia");
+		proMap.put("新疆", "post_xinjiang");
+		proMap.put("内蒙古", "post_neimenggu");
+		proMap.put("澳门", "post_aomen");
+		proMap.put("香港", "post_xianggang");
 	}
 	
 	/**
@@ -29,12 +67,13 @@ public class PostDAO {
 	public boolean insertPost(Post post) {
 		PreparedStatement pst = null;
 		try {
-			String sql = "insert into post values(?, ?, ?, ?, 0)";
+			String sql = "insert into post values(?, ?, ?, ?, 0, ?)";
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, post.getTitle());
 			pst.setString(2, post.getDetails());
 			pst.setString(3, post.getTime());
 			pst.setString(4, post.getAuthorId());
+			pst.setString(5, post.getImageName());
 			int result = pst.executeUpdate();
 			if(result == 1) {
 				return true;
@@ -51,26 +90,53 @@ public class PostDAO {
 					conn.close();
 					conn = null;
 				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		return false;
 	}
-			
+	public boolean updatePostReplyCount(int postId) {
+		PreparedStatement pst = null;
+		try {
+			String sql = "update post set replyNum = replyNum + 1 where postId = ?";
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, postId);
+			int result = pst.executeUpdate();
+			if(result == 1) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pst != null) {
+					pst.close();
+					pst = null;
+				}
+				if(conn != null) {
+					conn.close();
+					conn = null;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
 	/**
-	 * 获取帖子条目信息
+	 * 获取帖子条目信息(从视图中)
 	 * @return
 	 */
-	public List<Map<String, Object>> getPosts(int page) {
+	public List<Map<String, Object>> getPosts(String pro, int page) {
+		String postView = proMap.get(pro);
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		try {
 			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-			int total = this.getPostsCount();
-			String sql = "select top 20 * from post where postId not in(select top "+ page*20 + " postId from post order by postId desc) order by postId desc";
+			String sql = "select top 20 * from " + postView + " where postId not in(select top " + page*20 + " postId from " + postView + " order by postId desc) order by postId desc";
 			pst = conn.prepareStatement(sql);
-			//pst.setInt(1, page*20);
 			rs = pst.executeQuery();
 			while(rs.next()) {
 				Map<String, Object> map = new HashMap<String, Object>();
@@ -80,10 +146,10 @@ public class PostDAO {
 				map.put("time", rs.getString(4));
 				map.put("authorId", rs.getString(5));
 				map.put("authorName", this.getAuthorName(rs.getString(5)));
-				map.put("replyNum", rs.getString(6));
+				map.put("replyNum", rs.getInt(6));
+				map.put("imageName", rs.getString(7));
 				list.add(map);
 			}
-			
 			return list;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,11 +166,50 @@ public class PostDAO {
 					conn.close();
 					conn = null;
 				}
+				if(proMap != null) {
+					proMap.clear();
+					proMap = null;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		return null;
+	}
+	/**
+	 * 获取某一省份的的所有用户Id
+	 * @param pro
+	 * @return
+	 */
+	public List<String> getAuthorIdByPro(String pro) {
+		List<String> list = new ArrayList<String>();
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select stuQQ from student where stuPro like ?";
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, pro);
+			rs = pst.executeQuery();
+			while(rs.next()) {
+				list.add(rs.getString(1));
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pst != null) {
+					pst.close();
+					pst = null;
+				}
+				if(rs != null) {
+					rs.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
 	}
 	/**
 	 * 获取数据库中帖子条目总数

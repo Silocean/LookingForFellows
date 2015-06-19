@@ -25,14 +25,16 @@ public class UserRegisterServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String qq = request.getParameter("qq");
 		String name = request.getParameter("name");
-		String hometown = request.getParameter("hometown");
+		String province = request.getParameter("province");
+		String city = request.getParameter("city");
 		String password = request.getParameter("password");
 		System.out.println("qq:" + qq);
 		System.out.println("name:" + name);
-		System.out.println("hometown:" + hometown);
+		System.out.println("province:" + province);
+		System.out.println("city:" + city);
 		System.out.println("password:" + password);
 		StudentDAO dao = new StudentDAO();
-		Student student = new Student(qq, name, hometown, password);
+		Student student = new Student(qq, name, province, city, password);
 		boolean flag = checkQQ(qq);
 		if(flag) {
 			if(dao.save(student)) {

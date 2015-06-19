@@ -38,19 +38,31 @@ public class GetImageServlet extends HttpServlet {
 				ServletFileUpload upload = new ServletFileUpload(factory);
 				// Parse the request
 				List<FileItem> items = upload.parseRequest(request);
-				String dir = request.getSession().getServletContext().getRealPath("/head");
-				File dirFile = new File(dir);
-				if(!dirFile.exists()) {
-					dirFile.mkdirs();
-				}
+				String dir = null;
+				String imageName = null;
 				for(FileItem item : items) {
-					if (item.isFormField()) {   // 如果是文本类型参数
-						String name = item.getFieldName(); 
-						String value = item.getString();  
-						System.out.println(name + " " + value);
+					if (item.isFormField()) { // 如果是文本类型参数
+						String name = item.getFieldName();
+						String value = item.getString();
+						if(name.equals("tag")) {
+							if(value.equals("head")) {
+								dir = request.getSession().getServletContext().getRealPath("/head");
+							} else if(value.equals("headbg")) {
+								dir = request.getSession().getServletContext().getRealPath("/headbg");
+							} else if(value.equals("post")) {
+								dir = request.getSession().getServletContext().getRealPath("/post");
+							}
+							File dirFile = new File(dir);
+							if(!dirFile.exists()) {
+								dirFile.mkdirs();
+							}
+						} else if(name.equals("imageName")) {
+							imageName = value;
+						}
+						//System.out.println(name + " " + value);
 					} else { // 如果是文件类型参数
 						System.out.println(dir);
-						File file = new File(dir, item.getName());
+						File file = new File(dir, imageName);
 						item.write(file);
 						out.write("sueecss");
 						out.flush();

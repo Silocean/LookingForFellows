@@ -37,10 +37,11 @@ public class FriendDAO {
 				while(rs.next()) {
 					map.put("friendQq", friendsQq.get(i));
 					map.put("friendName", rs.getString(2));
-					map.put("friendHometown", rs.getString(3));
-					map.put("friendSex", rs.getString(5));
-					map.put("friendSigns", rs.getString(6));
-					map.put("friendPhone", rs.getString(7));
+					map.put("friendPro", rs.getString(3));
+					map.put("friendCity", rs.getString(4));
+					map.put("friendSex", rs.getString(6));
+					map.put("friendSigns", rs.getString(7));
+					map.put("friendPhone", rs.getString(8));
 				}
 				friendsInfo.add(map);
 			}
@@ -108,25 +109,27 @@ public class FriendDAO {
 	 * @param hometown
 	 * @return
 	 */
-	public ArrayList<Map<String, String>> getFellowsInfo(String qq, String hometown) {
+	public ArrayList<Map<String, String>> getFellowsInfo(String qq, String pro) {
 		ArrayList<String> myFriends = this.getMyFriends(qq);
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		ArrayList<Map<String, String>> fellowsInfo = new ArrayList<Map<String,String>>();
 		try {
-			String sql = "select * from student where stuHometown like '" + hometown.split(" ")[0] + "%' and stuQQ != ?" ;
+			String sql = "select * from student where stuPro = ? and stuQQ != ?" ;
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, qq);
+			pst.setString(1, pro);
+			pst.setString(2, qq);
 			rs = pst.executeQuery();
 			while(rs.next()) {
 				boolean flag = false;
 				Map<String, String> map = new HashMap<String, String>();
 				map.put("friendQq", rs.getString(1));
 				map.put("friendName", rs.getString(2));
-				map.put("friendHometown", hometown);
-				map.put("friendSex", rs.getString(5));
-				map.put("friendSigns", rs.getString(6));
-				map.put("friendPhone", rs.getString(7));
+				map.put("friendPro", pro);
+				map.put("friendCity", rs.getString(4));
+				map.put("friendSex", rs.getString(6));
+				map.put("friendSigns", rs.getString(7));
+				map.put("friendPhone", rs.getString(8));
 				for(int i=0; i<myFriends.size(); i++) {
 					if(myFriends.get(i).equals(rs.getString(1))) {
 						flag = true; // 表示此人已被我加为好友
@@ -156,7 +159,7 @@ public class FriendDAO {
 				e.printStackTrace();
 			}
 		}
-		return null;
+		return fellowsInfo;
 	}
 	public boolean addFriend(String qq, String friendQq) {
 		PreparedStatement pst = null;

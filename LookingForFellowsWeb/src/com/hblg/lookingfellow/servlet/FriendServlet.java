@@ -32,10 +32,10 @@ public class FriendServlet extends HttpServlet {
 			String str = constructJson(friendsInfo);
 			out.write(str);
 		} else if(tag.equals("searchfriends")) { // 如果是获取用户的老乡
-			String hometown = request.getParameter("hometown");
+			String province = request.getParameter("province");
 			String qq = request.getParameter("qq");
 			FriendDAO dao = new FriendDAO();
-			ArrayList<Map<String, String>> fellowsInfo = dao.getFellowsInfo(qq, hometown);
+			ArrayList<Map<String, String>> fellowsInfo = dao.getFellowsInfo(qq, province);
 			String str = constructJson(fellowsInfo);
 			out.write(str);
 		}

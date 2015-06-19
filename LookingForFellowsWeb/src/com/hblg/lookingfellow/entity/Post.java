@@ -8,18 +8,20 @@ public class Post {
 	String authorId;
 	String authorName;
 	int replyNum;
+	String imageName;
 	
 	public Post() {
 	}
 
 	public Post(int id, String title, String details, String time,
-			String authorId, String authorName) {
+			String authorId, String authorName, String imageName) {
 		this.id = id;
 		this.title = title;
 		this.details = details;
 		this.time = time;
 		this.authorId = authorId;
 		this.authorName = authorName;
+		this.imageName = imageName;
 	}
 
 	public int getId() {
@@ -78,11 +80,20 @@ public class Post {
 		this.authorName = authorName;
 	}
 
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+
 	@Override
 	public String toString() {
 		return "Post [id=" + id + ", title=" + title + ", details=" + details
 				+ ", time=" + time + ", authorId=" + authorId + ", authorName="
-				+ authorName + ", replyNum=" + replyNum + "]";
+				+ authorName + ", replyNum=" + replyNum + ", imageName="
+				+ imageName + "]";
 	}
 
 }

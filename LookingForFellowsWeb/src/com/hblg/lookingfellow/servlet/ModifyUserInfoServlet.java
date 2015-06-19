@@ -63,7 +63,9 @@ public class ModifyUserInfoServlet extends HttpServlet {
 				}
 			} else if(param.equals("hometown")) {
 				String hometown = request.getParameter("hometown");
-				if(dao.modifyHometown(hometown, qq)) {
+				String province = hometown.split(" ")[0];
+				String city = hometown.split(" ")[1];
+				if(dao.modifyHometown(province, city, qq)) {
 					out.write("true");
 					out.flush();
 					out.close();
