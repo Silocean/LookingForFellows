@@ -123,6 +123,7 @@ public class ServerConnClientThread extends Thread {
 				}
 				ManageServerConClient.removeAllClientThread();// 从线程池中移除所有线程
 				System.out.println("所有用户被迫下线");
+				e.printStackTrace();
 			}
 		}
 	}
