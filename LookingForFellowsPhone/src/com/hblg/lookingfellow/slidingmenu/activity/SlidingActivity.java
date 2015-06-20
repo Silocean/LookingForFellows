@@ -15,6 +15,9 @@
  */
 package com.hblg.lookingfellow.slidingmenu.activity;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +26,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.entity.Message;
+import com.hblg.lookingfellow.entity.MessageType;
+import com.hblg.lookingfellow.entity.User;
+import com.hblg.lookingfellow.model.ClientConnServerThread;
+import com.hblg.lookingfellow.model.ManageActivity;
+import com.hblg.lookingfellow.model.ManageClientConnServer;
 import com.hblg.lookingfellow.service.GetUserInfoService;
 import com.hblg.lookingfellow.slidingmenu.fragment.LeftFragment;
 import com.hblg.lookingfellow.slidingmenu.fragment.MainFragment;
@@ -38,6 +47,7 @@ public class SlidingActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
+		ManageActivity.addActiviy("SlidingActivity", this);
 		setContentView(R.layout.main);
 		init();
 	}
@@ -85,11 +95,35 @@ public class SlidingActivity extends FragmentActivity {
 			Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
 			touchTime = currentTime;
 		}else {
-			Intent intent = new Intent(getApplicationContext(), StartActivity.class);
-			intent.putExtra("tag", "close");
-			//最关键是这句 Intent.FLAG_ACTIVITY_CLEAR_TOP使得处于栈底的A发挥推土机的作用，从最底层把栈里所有的activity都清理掉，再在自己的oncreate方法加一句finish结束自己，即可实现退出。
-	        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  
-	        startActivity(intent);
+			// 返回到桌面，不是真正的退出
+			/*Intent i = new Intent(Intent.ACTION_MAIN);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			i.addCategory(Intent.CATEGORY_HOME);
+			startActivity(i);*/
+			
+			if(ManageActivity.getActivity("LoginActivity")!=null){
+	    		ManageActivity.getActivity("LoginActivity").finish();
+	    	}
+			
+			// 给服务器发出一条消息告知自己下线了
+			try {
+				Message msg = new Message();
+				msg.setType(MessageType.MSG_EXIT);
+				msg.setSender(User.qq);
+				ObjectOutputStream oos = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
+				oos.writeObject(msg);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			// 将线程从线程池里移除
+			ClientConnServerThread cct = ManageClientConnServer.getClientConServerThread(User.qq);
+			cct.flag = false; // 停止线程
+			ManageClientConnServer.removeClientConServerThread(User.qq);
+			
+			System.out.println("用户：" + User.qq + "下线");
+			
+	    	this.finish();
 	        
 	        //停止获取用户信息服务
 	        Intent service = new Intent(getApplicationContext(), GetUserInfoService.class);

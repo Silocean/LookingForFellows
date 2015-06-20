@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.User;
+import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
 import com.hblg.lookingfellow.selfdefinedwidget.SendpostEditText;
 import com.hblg.lookingfellow.slidingmenu.fragment.MainFragment;
@@ -77,6 +78,7 @@ public class SendPostActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ManageActivity.addActiviy("SendPostActivity", this);
 		mainFragment = (MainFragment) getIntent().getSerializableExtra("mainFragment");
 		setContentView(R.layout.activity_sendpost);
 		goback = (Button)this.findViewById(R.id.sendpost_goback);

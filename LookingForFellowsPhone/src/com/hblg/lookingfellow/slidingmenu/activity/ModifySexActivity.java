@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.User;
+import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
 
@@ -37,6 +38,7 @@ public class ModifySexActivity extends Activity implements OnClickListener, OnCh
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		ManageActivity.addActiviy("ModifySexActivity", this);
 		setContentView(R.layout.activity_modifysex);
 		gobackButton = (Button)this.findViewById(R.id.modifysex_goback_button);
 		gobackButton.setOnClickListener(this);

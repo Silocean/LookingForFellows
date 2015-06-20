@@ -17,6 +17,7 @@ import android.widget.ListView;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.PostDetailListViewAdapter;
+import com.hblg.lookingfellow.model.ManageActivity;
 //具体的公告 2013/9/27
 public class PostDetailActivity extends Activity{
 	private String TAG="PostDetailActivity";
@@ -46,6 +47,7 @@ public class PostDetailActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ManageActivity.addActiviy("PostDetailActivity", this);
 		setContentView(R.layout.activity_postdetail);
 		
 		headView=this.getLayoutInflater().inflate(R.layout.posts_detail_header, null);

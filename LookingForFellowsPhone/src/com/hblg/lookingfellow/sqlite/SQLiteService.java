@@ -189,18 +189,27 @@ public class SQLiteService {
 		db.close();
 	}
 	/**
-	 * 把聊天记录保存到本地
+	 * 把从服务器获取的暂存消息保存到本地
 	 * @param messages
 	 */
 	public void saveMessage(ArrayList<Map<String, Object>> messages) {
 		SQLiteDatabase db = openHelper.getWritableDatabase();
-		String sql = "insert into message values (?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into message values (?, ?, ?, ?, ?, ?)";
 		for(int i=0; i<messages.size(); i++) {
 			Map<String, Object> map = messages.get(i);
-			// 这里注意发送者，接收者位置要颠倒一下，在客户端看来，用户以外的人都是接收者
-			db.execSQL(sql, new Object[]{null, map.get("msgType"), map.get("msgReceiver"), map.get("msgSender"), map.get("msgSenderName"), map.get("msgDetails"), map.get("msgTime")});
+			db.execSQL(sql, new Object[]{null, map.get("msgType"), map.get("msgSender"), map.get("msgReceiver"), map.get("msgDetails"), map.get("msgTime")});
 		}
 		System.out.println("添加聊天记录成功");
+		db.close();
+	}
+	/**
+	 * 把自己聊天记录保存在本地
+	 * @param msg
+	 */
+	public void saveMessage(Message msg) {
+		SQLiteDatabase db = openHelper.getWritableDatabase();
+		String sql = "insert into message values (?, ?, ?, ?, ?, ?)";
+		db.execSQL(sql, new Object[]{null, msg.getType(), msg.getSender(), msg.getReceiver(), msg.getDetails(), msg.getTime()});
 		db.close();
 	}
 	/**
@@ -208,19 +217,19 @@ public class SQLiteService {
 	 * @return
 	 */
 	public ArrayList<Map<String, Object>> getMessages() {
-		List<String> chatToPersons = this.getAllChatTo();
 		ArrayList<Map<String, Object>> messages = new ArrayList<Map<String,Object>>();
+		List<String> chatToPersons = this.getAllChatTo();
 		SQLiteDatabase db = openHelper.getReadableDatabase();
-		for(int i=0; i<chatToPersons.size(); i++) {
-			String sql = "select * from message where msgSender = ? and msgReceiver = ?";
-			Cursor cursor = db.rawQuery(sql, new String[]{User.qq, chatToPersons.get(i)});
+		String sql = "select * from message where (msgSender=? and msgReceiver=?) or (msgSender=? and msgReceiver=?) order by msgId desc";
+		Cursor cursor = null;
+		for(int i=chatToPersons.size()-1; i>=0; i--) {
+			cursor = db.rawQuery(sql, new String[]{User.qq, chatToPersons.get(i), chatToPersons.get(i), User.qq});
 			cursor.moveToFirst();
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("headimage", imagePath + "head_" + cursor.getString(cursor.getColumnIndex("msgReceiver")) + ".jpg");
+			map.put("headimage", imagePath + "head_" + chatToPersons.get(i) + ".jpg");
 			map.put("msgType", cursor.getInt(cursor.getColumnIndex("msgType")));
 			map.put("msgSender", cursor.getString(cursor.getColumnIndex("msgSender")));
 			map.put("msgReceiver", cursor.getString(cursor.getColumnIndex("msgReceiver")));
-			map.put("msgReceiverName", cursor.getString(cursor.getColumnIndex("msgReceiverName")));
 			map.put("msgDetails", cursor.getString(cursor.getColumnIndex("msgDetails")));
 			map.put("msgTime", cursor.getString(cursor.getColumnIndex("msgTime")));
 			messages.add(map);
@@ -230,20 +239,89 @@ public class SQLiteService {
 		return messages;
 	}
 	/**
-	 * 取得所有聊天对象（相对于客户端而言）
+	 * 根据聊天对象获取聊天记录
+	 * @param receiver
+	 * @return
+	 */
+	public ArrayList<Map<String, Object>> getChatMessages(String sender, String receiver) {
+		ArrayList<Map<String, Object>> messages = new ArrayList<Map<String,Object>>();
+		SQLiteDatabase db = openHelper.getReadableDatabase();
+		String sql = "select * from message where (msgSender=? and msgReceiver=?) or (msgSender=? and msgReceiver=?)";
+		Cursor cursor = db.rawQuery(sql, new String[]{sender, receiver, receiver, sender});
+		while(cursor.moveToNext()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("msgId", cursor.getInt(cursor.getColumnIndex("msgId")));
+			map.put("msgType", cursor.getInt(cursor.getColumnIndex("msgType")));
+			map.put("msgSender", cursor.getString(cursor.getColumnIndex("msgSender")));
+			map.put("msgReceiver", cursor.getString(cursor.getColumnIndex("msgReceiver")));
+			map.put("msgDetails", cursor.getString(cursor.getColumnIndex("msgDetails")));
+			map.put("msgTime", cursor.getString(cursor.getColumnIndex("msgTime")));
+			messages.add(map);
+		}
+		cursor.close();
+		db.close();
+		return messages;
+	}
+	/**
+	 * 更新我的消息列表
+	 * @param qq
+	 */
+	public void updateMyMessageList(String qq) {
+		List<String> list = this.getAllChatTo();
+		SQLiteDatabase db = openHelper.getWritableDatabase();
+		String sql = "insert into chatTo values (?, ?)";
+		boolean flag = false;
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).equals(qq)) { // 如果列表中已有此人的记录
+				flag = true;
+			}
+		}
+		if(!flag) {
+			db.execSQL(sql, new Object[]{null, qq});
+		}
+		db.close();
+	}
+	/**
+	 * 取得所有聊天对象
 	 * @return
 	 */
 	public List<String> getAllChatTo() {
 		List<String> senders = new ArrayList<String>();
 		SQLiteDatabase db = openHelper.getReadableDatabase();
-		String sql = "select msgReceiver from message group by msgReceiver";
+		String sql = "select chatToQq from chatTo";
 		Cursor cursor = db.rawQuery(sql, null);
 		while(cursor.moveToNext()) {
-			senders.add(cursor.getString(cursor.getColumnIndex("msgReceiver")));
+			senders.add(cursor.getString(cursor.getColumnIndex("chatToQq")));
 		}
 		cursor.close();
 		db.close();
 		return senders;
+	}
+	public Map<String, Object> getLastMessage(Message msg) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		SQLiteDatabase db = openHelper.getReadableDatabase();
+		String sql = "select * from message where msgSender=? and msgReceiver=? order by msgId desc";
+		Cursor cursor = db.rawQuery(sql, new String[]{msg.getSender(), msg.getReceiver()});
+		cursor.moveToFirst();
+		map.put("msgId", cursor.getInt(cursor.getColumnIndex("msgId")));
+		map.put("msgType", cursor.getInt(cursor.getColumnIndex("msgType")));
+		map.put("msgSender", cursor.getString(cursor.getColumnIndex("msgSender")));
+		map.put("msgReceiver", cursor.getString(cursor.getColumnIndex("msgReceiver")));
+		map.put("msgDetails", cursor.getString(cursor.getColumnIndex("msgDetails")));
+		map.put("msgTime", cursor.getString(cursor.getColumnIndex("msgTime")));
+		cursor.close();
+		db.close();
+		return map;
+	}
+	/**
+	 * 根据消息Id号删除信息
+	 * @param id
+	 */
+	public void deleteMsg(int id) {
+		SQLiteDatabase db = openHelper.getWritableDatabase();
+		String sql = "delete from message where msgId = ?";
+		db.execSQL(sql, new Object[]{id});
+		db.close();
 	}
 	
 }

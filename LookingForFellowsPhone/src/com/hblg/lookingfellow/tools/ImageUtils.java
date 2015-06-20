@@ -121,7 +121,6 @@ public class ImageUtils {
 			public void handleMessage(Message msg) {
 				if (msg.obj != null) {
 					Bitmap bitmap = (Bitmap) msg.obj;
-					System.out.println(imageUrl + "===========");
 					callBack.loadImage(bitmap,imageUrl);
 				}
 			}

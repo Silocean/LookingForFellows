@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.User;
+import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
@@ -32,6 +33,7 @@ public class ModifyNameActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		ManageActivity.addActiviy("ModifyNameActivity", this);
 		setContentView(R.layout.activity_modifyname);
 		gobackButton = (Button)this.findViewById(R.id.modifyname_goback_button);
 		gobackButton.setOnClickListener(this);

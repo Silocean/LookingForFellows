@@ -25,6 +25,7 @@ import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.model.ChatClient;
+import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.model.ManageClientConnServer;
 import com.hblg.lookingfellow.service.GetUserInfoService;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
@@ -44,6 +45,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		ManageActivity.addActiviy("LoginActivity", this);
 		setContentView(R.layout.activity_login);
 		sureButton = (Button)this.findViewById(R.id.login_sure);
 		sureButton.setOnClickListener(this);
@@ -51,6 +53,9 @@ public class LoginActivity extends Activity implements OnClickListener{
 		gobackButton.setOnClickListener(this);
 		qqEditText = (EditText)this.findViewById(R.id.qq_editText);
 		passwordEditText = (EditText)this.findViewById(R.id.password_editText);
+		
+		SQLiteService service = new SQLiteService(getApplicationContext());
+		
 	}
 	
 	private class UIHandler extends Handler {

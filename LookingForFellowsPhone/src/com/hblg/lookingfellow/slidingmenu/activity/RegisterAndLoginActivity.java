@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.model.ManageActivity;
 
 public class RegisterAndLoginActivity extends Activity implements OnClickListener{
 	Button registerButton;
@@ -17,6 +18,7 @@ public class RegisterAndLoginActivity extends Activity implements OnClickListene
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		ManageActivity.addActiviy("RegisterAndLoginActivity", this);
 		setContentView(R.layout.activity_regandlogin);
 		registerButton = (Button)this.findViewById(R.id.registerButton);
 		registerButton.setOnClickListener(this);

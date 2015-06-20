@@ -25,6 +25,7 @@ import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.SearchfriendsListViewAdapter;
 import com.hblg.lookingfellow.entity.Student;
 import com.hblg.lookingfellow.entity.User;
+import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.StreamTool;
 
@@ -42,6 +43,7 @@ public class AddFriendsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		ManageActivity.addActiviy("AddFriendsActivity", this);
 		setContentView(R.layout.activity_addfriends);
 		listView = (ListView)this.findViewById(R.id.searchFriendList);
 		adapter = new SearchfriendsListViewAdapter(getApplicationContext(), list, R.layout.listitem_searchfriendslayout, listView);

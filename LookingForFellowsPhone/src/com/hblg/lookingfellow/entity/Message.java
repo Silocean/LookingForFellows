@@ -7,7 +7,7 @@ public class Message implements Serializable{
 	int type; //消息类型
 	String details; // 消息内容
 	String sender; // 消息发送者
-	String reveiver; // 消息接收者
+	String receiver; // 消息接收者
 	String time; // 消息发送时间
 	
 	public int getType() {
@@ -28,11 +28,11 @@ public class Message implements Serializable{
 	public void setSender(String sender) {
 		this.sender = sender;
 	}
-	public String getReveiver() {
-		return reveiver;
+	public String getReceiver() {
+		return receiver;
 	}
-	public void setReveiver(String reveiver) {
-		this.reveiver = reveiver;
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
 	}
 	public String getTime() {
 		return time;
@@ -43,7 +43,7 @@ public class Message implements Serializable{
 	@Override
 	public String toString() {
 		return "Message [type=" + type + ", details=" + details + ", sender="
-				+ sender + ", reveiver=" + reveiver + ", time=" + time + "]";
+				+ sender + ", reveiver=" + receiver + ", time=" + time + "]";
 	}
 	
 }

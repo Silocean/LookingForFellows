@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -19,7 +17,7 @@ import android.widget.Toast;
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.CityListViewAdapter;
 import com.hblg.lookingfellow.entity.User;
-import com.hblg.lookingfellow.slidingmenu.fragment.PersonFragment;
+import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
 
@@ -38,6 +36,7 @@ public class ChooseCityActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ManageActivity.addActiviy("ChooseCityActivity", this);
 		setContentView(R.layout.activity_choosecity);
 		gobackButton = (Button)this.findViewById(R.id.choosecity_goback_button);
 		gobackButton.setOnClickListener(new OnClickListener() {

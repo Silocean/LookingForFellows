@@ -50,7 +50,7 @@ import com.hblg.lookingfellow.tools.StreamTool;
 
 public class FriendsFragment extends Fragment implements OnItemClickListener {
 	ListView listView;
-	ArrayList<Map<String, String>> list = new ArrayList<Map<String, String>>();
+	ArrayList<Map<String, String>> data = new ArrayList<Map<String, String>>();
 	private friendsListViewAdapter adapter;
 	ImageView titlebarLeftmenu;
 	ImageView titlebarRightmenu;
@@ -73,9 +73,9 @@ public class FriendsFragment extends Fragment implements OnItemClickListener {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		adapter = new friendsListViewAdapter(getActivity(), list, R.layout.listitem_friendslayout, listView);
+		adapter = new friendsListViewAdapter(getActivity(), data, R.layout.listitem_friendslayout, listView);
 		ArrayList<Map<String, String>> data = this.getFriends();
-		list = data;
+		this.data = data;
 		adapter.setData(data);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(this);
@@ -131,7 +131,7 @@ public class FriendsFragment extends Fragment implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		String qq = list.get(position).get("friendQq");
+		String qq = this.data.get(position).get("friendQq");
 		Intent intent = new Intent(getActivity(), ChatActivity.class);
 		intent.putExtra("friendQq", qq);
 		startActivity(intent);

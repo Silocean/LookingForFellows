@@ -15,14 +15,10 @@
  */
 package com.hblg.lookingfellow.slidingmenu.fragment;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,8 +34,6 @@ import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.slidingmenu.activity.PersonInfoActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
-import com.hblg.lookingfellow.tools.CheckSDCard;
-import com.hblg.lookingfellow.tools.ImageLoader;
 import com.hblg.lookingfellow.tools.ImageTool;
 
 public class PersonFragment extends Fragment {
@@ -104,11 +98,6 @@ public class PersonFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		//对头像做圆形处理
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.head_default);
-		Bitmap output = ImageTool.toRoundCorner(bitmap, 360.0f);
-		headImage.setImageBitmap(output);
 		titlebarLeftmenu.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				((SlidingActivity) getActivity()).showLeft();

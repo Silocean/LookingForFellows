@@ -16,7 +16,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// messgae表
 		db.execSQL("create table message (msgId integer primary key autoincrement, msgType integer, msgSender varchar(11)," +
-				" msgReceiver varchar(11), msgReceiverName varchar(20), msgDetails varchar(60), msgTime varchar(19))");
+				" msgReceiver varchar(11), msgDetails varchar(60), msgTime varchar(19))");
+		// chatTo表（我的消息列表）
+		db.execSQL("create table chatTo (id integer primary key autoincrement, chatToQq varchar(11))");
 		// province表
 		db.execSQL("create table province (proID varchar(2) primary key, proName varchar(50) not null)");
 		// city表

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
 import com.hblg.lookingfellow.tools.StreamTool;
 
@@ -42,6 +43,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ManageActivity.addActiviy("RegisterActivity", this);
 		setContentView(R.layout.activity_register);
 		gobackButton = (Button)this.findViewById(R.id.register_goback_button);
 		gobackButton.setOnClickListener(this);

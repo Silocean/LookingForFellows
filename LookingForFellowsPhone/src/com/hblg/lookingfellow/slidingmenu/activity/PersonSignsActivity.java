@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.User;
+import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.selfdefinedwidget.SignsTextWatcher;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
@@ -34,6 +35,7 @@ public class PersonSignsActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		ManageActivity.addActiviy("PersonSignsActivity", this);
 		setContentView(R.layout.activity_personsigns);
 		gobackButton = (Button)this.findViewById(R.id.personsigns_goback);
 		saveButton = (Button)this.findViewById(R.id.personsigns_save);

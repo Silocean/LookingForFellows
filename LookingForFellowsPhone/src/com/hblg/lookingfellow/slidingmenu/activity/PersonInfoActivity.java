@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.Student;
 import com.hblg.lookingfellow.entity.User;
+import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.CheckSDCard;
 import com.hblg.lookingfellow.tools.FormFile;
@@ -92,6 +93,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		ManageActivity.addActiviy("PersonInfoActivity", this);
 		setContentView(R.layout.activity_personinfo);
 		headImage = (ImageView)this.findViewById(R.id.personinfo_headimage_icon);
 		gobackButton = (Button)this.findViewById(R.id.personinfo_goback_button);

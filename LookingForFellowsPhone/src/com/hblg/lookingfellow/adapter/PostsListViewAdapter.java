@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
-import com.hblg.lookingfellow.slidingmenu.activity.StartActivity;
 import com.hblg.lookingfellow.tools.ImageUtils;
 import com.hblg.lookingfellow.tools.ImageUtils.ImageCallBack;
 

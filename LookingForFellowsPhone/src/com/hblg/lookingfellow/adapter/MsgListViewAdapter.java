@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.tools.ImageUtils;
 import com.hblg.lookingfellow.tools.ImageUtils.ImageCallBack;
 
@@ -65,17 +66,24 @@ public class MsgListViewAdapter extends BaseAdapter {
 			holder.nameTextView = (TextView)convertView.findViewById(R.id.msglayout_name);
 			holder.contentTextView = (TextView)convertView.findViewById(R.id.msglayout_content);
 			holder.timeTextView = (TextView)convertView.findViewById(R.id.msglayout_time);
+			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder)convertView.getTag();
 		}
+		
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
-		
-		String name = (String)map.get("msgReceiverName");
+		// 名字
+		String name;
+		if(User.qq.equals((String)map.get("msgSender"))) {
+			name = (String)map.get("msgReceiver");
+		} else {
+			name = (String)map.get("msgSender");
+		}
 		holder.nameTextView.setText(name);
-		
+		// 内容
 		String content = (String)map.get("msgDetails");
 		holder.contentTextView.setText(content);
-		
+		// 时间
 		String time = (String)map.get("msgTime");
 		holder.timeTextView.setText(time);
 		//头像

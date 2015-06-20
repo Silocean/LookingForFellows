@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.ProvinceListViewAdapter;
+import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 
 public class ChooseProvinceActivity extends Activity {
@@ -24,6 +25,7 @@ public class ChooseProvinceActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		ManageActivity.addActiviy("ChooseProvinceActivity", this);
 		setContentView(R.layout.activity_chooseprovince);
 		gobackButton = (Button)this.findViewById(R.id.chooseprovince_goback_button);
 		gobackButton.setOnClickListener(new OnClickListener() {
