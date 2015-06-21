@@ -11,7 +11,7 @@
 
         <RelativeLayout
             android:layout_width="270dip"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:background="#d3d3d3" >
 
             <Button
@@ -145,6 +145,17 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/leftmenu_msg_icon"
                         android:text="我的消息" />
+                    
+                    <ImageView
+                        android:id="@+id/leftmenu_msg_new_notification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dip"
+                        android:src="@drawable/leftmenu_msg_new_notification"
+                        android:visibility="invisible" />
+                    
                 </RelativeLayout>
 
                 <RelativeLayout

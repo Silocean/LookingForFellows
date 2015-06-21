@@ -130,7 +130,6 @@ public class SQLiteService {
 		SQLiteDatabase db = openHelper.getWritableDatabase();
 		String sql = "update student set stuPhone = ? where stuQQ = ?";
 		db.execSQL(sql, new Object[]{mobile, qq});
-		System.out.println("save to local successfully");
 		db.close();
 	}
 	/**
@@ -141,7 +140,6 @@ public class SQLiteService {
 		SQLiteDatabase db = openHelper.getWritableDatabase();
 		String sql = "update student set stuName = ? where stuQQ = ?";
 		db.execSQL(sql, new Object[]{name, qq});
-		System.out.println("save to local successfully");
 		db.close();
 	}
 	/**
@@ -152,7 +150,6 @@ public class SQLiteService {
 		SQLiteDatabase db = openHelper.getWritableDatabase();
 		String sql = "update student set stuSigns = ? where stuQQ = ?";
 		db.execSQL(sql, new Object[]{signs, qq});
-		System.out.println("save to local successfully");
 		db.close();
 	}
 	/**
@@ -163,7 +160,6 @@ public class SQLiteService {
 		SQLiteDatabase db = openHelper.getWritableDatabase();
 		String sql = "update student set stuSex = ? where stuQQ = ?";
 		db.execSQL(sql, new Object[]{sex, qq});
-		System.out.println("save to local successfully");
 		db.close();
 	}
 	/**
@@ -174,7 +170,6 @@ public class SQLiteService {
 		SQLiteDatabase db = openHelper.getWritableDatabase();
 		String sql = "update student set stuHometown = ? where stuQQ = ?";
 		db.execSQL(sql, new Object[]{hometown, qq});
-		System.out.println("save to local successfully");
 		db.close();
 	}
 	/**
@@ -185,7 +180,6 @@ public class SQLiteService {
 		SQLiteDatabase db = openHelper.getWritableDatabase();
 		String sql = "update student set stuPassword = ? where stuQQ = ?";
 		db.execSQL(sql, new Object[]{newPassword, qq});
-		System.out.println("save to local successfully");
 		db.close();
 	}
 	/**
@@ -199,7 +193,6 @@ public class SQLiteService {
 			Map<String, Object> map = messages.get(i);
 			db.execSQL(sql, new Object[]{null, map.get("msgType"), map.get("msgSender"), map.get("msgReceiver"), map.get("msgDetails"), map.get("msgTime")});
 		}
-		System.out.println("添加聊天记录成功");
 		db.close();
 	}
 	/**
@@ -282,6 +275,27 @@ public class SQLiteService {
 		db.close();
 	}
 	/**
+	 * 把好友从消息列表中移除
+	 * @param qq
+	 */
+	public void deleteFromMyMessageList(String qq) {
+		SQLiteDatabase db = openHelper.getWritableDatabase();
+		String sql = "delete from chatTo where chatToQq = ?";
+		db.execSQL(sql, new Object[]{qq});
+		db.close();
+	}
+	/**
+	 * 删除与某好友的所有聊天记录
+	 * @param qq
+	 * @param friendQq
+	 */
+	public void deleteMsg(String qq, String friendQq) {
+		SQLiteDatabase db = openHelper.getReadableDatabase();
+		String sql = "delete from message where (msgSender=? and msgReceiver=?) or (msgSender=? and msgReceiver=?)";
+		db.execSQL(sql, new Object[]{qq, friendQq, friendQq, qq});
+		db.close();
+	}
+	/**
 	 * 取得所有聊天对象
 	 * @return
 	 */
@@ -297,6 +311,11 @@ public class SQLiteService {
 		db.close();
 		return senders;
 	}
+	/**
+	 * 获取聊天记录中最新的一条
+	 * @param msg
+	 * @return
+	 */
 	public Map<String, Object> getLastMessage(Message msg) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SQLiteDatabase db = openHelper.getReadableDatabase();

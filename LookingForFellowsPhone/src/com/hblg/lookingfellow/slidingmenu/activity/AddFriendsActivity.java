@@ -41,15 +41,15 @@ public class AddFriendsActivity extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		ManageActivity.addActiviy("AddFriendsActivity", this);
 		setContentView(R.layout.activity_addfriends);
 		listView = (ListView)this.findViewById(R.id.searchFriendList);
-		adapter = new SearchfriendsListViewAdapter(getApplicationContext(), list, R.layout.listitem_searchfriendslayout, listView);
-		listView.setAdapter(adapter);
 		ArrayList<Map<String, String>> tempData = this.getFriends();
-		list.addAll(tempData);
+		this.list = tempData;
+		adapter = new SearchfriendsListViewAdapter(getApplicationContext(), list, R.layout.listitem_searchfriendslayout, listView);
+		adapter.setData(tempData);
+		listView.setAdapter(adapter);
 		gobackButton = (Button)this.findViewById(R.id.addfriends_goback_button);
 		gobackButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -57,7 +57,10 @@ public class AddFriendsActivity extends Activity {
 			}
 		});
 	}
-
+	/**
+	 * 获取用户好友列表
+	 * @return
+	 */
 	private ArrayList<Map<String, String>> getFriends() {
 		ArrayList<Map<String, String>> tempList = new ArrayList<Map<String, String>>();
 		try {
@@ -72,7 +75,7 @@ public class AddFriendsActivity extends Activity {
 			if(conn.getResponseCode() == 200) {
 				InputStream in = conn.getInputStream();
 				String str = new String(StreamTool.read(in));
-				if(str.equals("error")) {
+				if(str.equals("]")) {
 					Toast.makeText(getApplicationContext(), "没有和你同省份的好友", 0).show();
 				} else {
 					JSONArray array = new JSONArray(str);

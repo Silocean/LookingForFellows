@@ -69,11 +69,11 @@ public class LoginActivity extends Activity implements OnClickListener{
 				//保存qq和密码到User类中，以便使用
 				String qq = qqEditText.getText().toString().trim();
 				String password = passwordEditText.getText().toString().trim();
-				User user = new User();
-				user.saveQqAndPassword(qq, password);
+				User.qq = qq;
+				User.password = password;
 				
 				// 启动聊天客户端
-				ChatClient cc = new ChatClient(getApplicationContext());
+				new ChatClient(getApplicationContext());
 				
 				// 请求暂存在服务器的消息
 				try {

@@ -11,7 +11,7 @@ public class Student {
 	private String phone;
 	
 	public Student() {
-		super();
+		
 	}
 	
 	public Student(String qq, String name, String hometown, String password,

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
+import com.hblg.lookingfellow.tools.ImageTool;
 import com.hblg.lookingfellow.tools.ImageUtils;
 import com.hblg.lookingfellow.tools.ImageUtils.ImageCallBack;
 
@@ -66,12 +69,21 @@ public class MsgListViewAdapter extends BaseAdapter {
 			holder.nameTextView = (TextView)convertView.findViewById(R.id.msglayout_name);
 			holder.contentTextView = (TextView)convertView.findViewById(R.id.msglayout_content);
 			holder.timeTextView = (TextView)convertView.findViewById(R.id.msglayout_time);
+			holder.newMsgImageView = (ImageView)convertView.findViewById(R.id.msglayout_newMsg);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder)convertView.getTag();
 		}
 		
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
+		// 类型(根据消息类型设置头像)
+		int type = (Integer)map.get("msgType");
+		if(type == MessageType.MSG_REQUESTADDFRIEND) {
+			bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.addfriend_msg_icon_unchecked);;
+		} else if(type == MessageType.MSG_CHAT) {
+			bm = ImageTool.getHeadImageFromLocalOrNet(context, (String)map.get("msgSender"));
+		}
+		holder.headImage.setImageBitmap(bm);
 		// 名字
 		String name;
 		if(User.qq.equals((String)map.get("msgSender"))) {
@@ -86,21 +98,6 @@ public class MsgListViewAdapter extends BaseAdapter {
 		// 时间
 		String time = (String)map.get("msgTime");
 		holder.timeTextView.setText(time);
-		//头像
-		ImageUtils.ImageCallBack callBack = new ImageCallBack() {
-			public void loadImage(Bitmap bitMap, String imageTag) {
-				ImageView imageView = (ImageView)listView.findViewWithTag(imageTag);
-				if(null==bitMap){
-					imageView.setBackgroundResource(R.drawable.head_default);
-				}else if(null==imageView){
-					holder.headImage.setBackgroundResource(R.drawable.head_default);
-					return;
-				}
-				imageView.setImageBitmap(bitMap);
-			}
-		};
-		String headUrl = (String)map.get("headimage");
-		ImageUtils.setImageView(holder.headImage, headUrl, context, callBack);
 		
 		return convertView;
 	}
@@ -110,6 +107,7 @@ public class MsgListViewAdapter extends BaseAdapter {
 		private TextView nameTextView;
 		private TextView contentTextView;
 		private TextView timeTextView;
+		private ImageView newMsgImageView;
 	}
 
 }

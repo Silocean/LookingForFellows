@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 
+import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.entity.Message;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
@@ -45,18 +46,23 @@ public class ClientConnServerThread extends Thread {
 				switch (type) {
 				case MessageType.MSG_CHAT: // 如果接收到的消息是聊天信息
 					
-					System.out.println(msg);
 					// 把从服务器获得的消息通过广播发送
 					Intent intent = new Intent("com.hblg.lookingfellow.msg");
 					intent.putExtra("msg", msg);
 					context.sendBroadcast(intent);
 					
 					// 保存对方聊天记录到本地
-					SQLiteService service = new SQLiteService(context);
-					service.saveMessage(msg);
+					new SQLiteService(context).saveMessage(msg);
 					
 					break;
 				case MessageType.MSG_REQUESTADDFRIEND: // 如果接收到的消息是加好友信息
+					// 把从服务器获得的消息通过广播发送
+					Intent intent2 = new Intent("com.hblg.lookingfellow.msg");
+					intent2.putExtra("msg", msg);
+					context.sendBroadcast(intent2);
+					
+					// 保存请求添加好友消息到本地
+					new SQLiteService(context).saveMessage(msg);
 					
 					break;
 				case MessageType.MSG_REQUESTCHATMSG: // 如果接收到的是服务器暂存的消息
@@ -77,12 +83,19 @@ public class ClientConnServerThread extends Thread {
 							map.put("msgDetails", obj.getString("msgDetails"));
 							map.put("msgTime", obj.getString("msgTime"));
 							messages.add(map);
+							
 							// 更新我的消息列表
 							new SQLiteService(context).updateMyMessageList(obj.getString("msgSender"));
+							
+							Common.msgSenders.add(obj.getString("msgSender"));
+							
 						}
+						
 						// 保存聊天信息到本地
-						SQLiteService service2 = new SQLiteService(context);
-						service2.saveMessage(messages);
+						new SQLiteService(context).saveMessage(messages);
+						
+						// 全局变量:是否有未读消息到来，设置为true
+						Common.newMsg = true;
 						
 					}
 					

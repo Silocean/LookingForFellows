@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/popupwindow_bg"
+    android:padding="20dip" >
+
+    <Button
+        android:id="@+id/headimage_popupwindow_takenewpicture"
+        style="@style/personinfo_textstyle"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/listitem_postlayout_bg_selector"
+        android:text="拍摄" />
+
+    <Button
+        android:id="@+id/headimage_popupwindow_takeoldpicture"
+        style="@style/personinfo_textstyle"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headimage_popupwindow_takenewpicture"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/listitem_postlayout_bg_selector"
+        android:text="从相册选择" />
+
+    <Button
+        android:id="@+id/headimage_popupwindow_cancel"
+        style="@style/personinfo_textstyle"
+        android:layout_width="250dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headimage_popupwindow_takeoldpicture"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/popupwindow_cancel_bg_icon_selector"
+        android:text="取消"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

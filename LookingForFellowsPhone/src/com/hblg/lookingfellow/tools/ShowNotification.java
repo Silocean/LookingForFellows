@@ -18,7 +18,11 @@ public class ShowNotification {
 	private static Notification notification;
 	private static NotificationManager manager;
 	private static PendingIntent pendingIntent;
-	
+	/**
+	 * 显示通知
+	 * @param context 上下文对象
+	 * @param msg 通知中包含的消息
+	 */
 	public static void showNotification(Context context, Message msg) {
 		String details = msg.getDetails();
 		String sender = msg.getSender();

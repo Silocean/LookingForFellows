@@ -84,8 +84,6 @@ public class ChatListViewAdapter extends BaseAdapter {
 		
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
 		
-		System.out.println(position+"====="+list.get(position).get("msgSender"));
-		
 		if(list.get(position).get("msgSender").equals(User.qq)) {
 			// 如果是自己发的，聊天内容显示在左边
 			convertView = inflater.inflate( R.layout.chat_item_msg_text_right, null);
@@ -159,7 +157,7 @@ public class ChatListViewAdapter extends BaseAdapter {
 	}
 	private void initPopupWindow() {
 		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		popupView = inflater.inflate(R.layout.msg_popupwindow, null);
+		popupView = inflater.inflate(R.layout.popupwindow_chatmsg, null);
 		popupWindow = new PopupWindow(popupView, 100, 50, false);
 		// 设置此参数获得焦点，否则无法点击
 		popupWindow.setFocusable(true);

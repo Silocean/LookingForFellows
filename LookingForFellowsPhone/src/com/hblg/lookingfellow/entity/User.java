@@ -1,14 +1,13 @@
 package com.hblg.lookingfellow.entity;
 
-import java.io.Serializable;
-
+/**
+ * 全局用户
+ * @author Silocean
+ *
+ */
 public class User{
-	public static String qq;
-	public static String password;
 	
-	public void saveQqAndPassword(String qq, String password) {
-		this.qq = qq;
-		this.password = password;
-	}
+	public static String qq; // 登录用户的QQ
+	public static String password; // 登录用户的密码
 	
 }

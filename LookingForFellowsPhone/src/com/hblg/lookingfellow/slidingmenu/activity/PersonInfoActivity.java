@@ -335,7 +335,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 	}
 	private void initHeadimagePopupWindow() {
 		inflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		popupView = inflater.inflate(R.layout.headimage_popupwindow, null);
+		popupView = inflater.inflate(R.layout.popupwindow_headimage, null);
 		popupWindow = new PopupWindow(popupView, LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, false);
 		// 设置此参数获得焦点，否则无法点击
 		popupWindow.setFocusable(true);  
