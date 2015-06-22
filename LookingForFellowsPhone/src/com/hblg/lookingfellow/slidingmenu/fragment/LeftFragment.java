@@ -66,7 +66,7 @@ public class LeftFragment extends Fragment implements OnClickListener{
 		mainFragment = new MainFragment();
 		return view;
 	}
-
+	
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		leftmenuPosts.setSelected(true); // 默认选中“公告板”

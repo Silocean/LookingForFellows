@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,8 +19,6 @@ import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.tools.ImageTool;
-import com.hblg.lookingfellow.tools.ImageUtils;
-import com.hblg.lookingfellow.tools.ImageUtils.ImageCallBack;
 
 public class MsgListViewAdapter extends BaseAdapter {
 	Context context;
@@ -69,21 +68,14 @@ public class MsgListViewAdapter extends BaseAdapter {
 			holder.nameTextView = (TextView)convertView.findViewById(R.id.msglayout_name);
 			holder.contentTextView = (TextView)convertView.findViewById(R.id.msglayout_content);
 			holder.timeTextView = (TextView)convertView.findViewById(R.id.msglayout_time);
-			holder.newMsgImageView = (ImageView)convertView.findViewById(R.id.msglayout_newMsg);
+			holder.newMsgImageView = (Button)convertView.findViewById(R.id.msglayout_newMsg);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder)convertView.getTag();
 		}
 		
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
-		// 类型(根据消息类型设置头像)
-		int type = (Integer)map.get("msgType");
-		if(type == MessageType.MSG_REQUESTADDFRIEND) {
-			bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.addfriend_msg_icon_unchecked);;
-		} else if(type == MessageType.MSG_CHAT) {
-			bm = ImageTool.getHeadImageFromLocalOrNet(context, (String)map.get("msgSender"));
-		}
-		holder.headImage.setImageBitmap(bm);
+		
 		// 名字
 		String name;
 		if(User.qq.equals((String)map.get("msgSender"))) {
@@ -99,6 +91,16 @@ public class MsgListViewAdapter extends BaseAdapter {
 		String time = (String)map.get("msgTime");
 		holder.timeTextView.setText(time);
 		
+		bm = ImageTool.getHeadImageFromLocalOrNet(context, (String)map.get("msgSender"));
+		// 类型(根据消息类型设置头像)
+		int type = (Integer)map.get("msgType");
+		if(type == MessageType.MSG_REQUESTADDFRIEND) {
+			bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.addfriend_msg_icon_unchecked);; 
+			holder.nameTextView.setText("系统消息");
+			holder.contentTextView.setText(name + "请求添加你为好友");
+		}
+		holder.headImage.setImageBitmap(bm);
+		
 		return convertView;
 	}
 	
@@ -107,7 +109,7 @@ public class MsgListViewAdapter extends BaseAdapter {
 		private TextView nameTextView;
 		private TextView contentTextView;
 		private TextView timeTextView;
-		private ImageView newMsgImageView;
+		private Button newMsgImageView;
 	}
 
 }

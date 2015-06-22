@@ -28,6 +28,10 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		db.execSQL("create table student (stuQQ varchar(15) primary key, stuName varchar(20)," +
 				" stuHometown varchar(50), stuPassword varchar(20), stuSex varchar(2)," +
 				" stuSigns varchar(60), stuPhone varchar(11))");
+		// friend表
+		db.execSQL("create table friend (friQQ varchar(15) primary key, friName varchar(20)," +
+				" friHometown varchar(50), friSex varchar(2)," +
+				" friSigns varchar(60), friPhone varchar(11))");
 		db.execSQL("insert into province values('01','北京市')");
 		db.execSQL("insert into province values('02','天津市')");
 		db.execSQL("insert into province values('03','上海市')");

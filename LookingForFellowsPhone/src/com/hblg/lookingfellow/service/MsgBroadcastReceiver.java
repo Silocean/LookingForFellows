@@ -25,8 +25,6 @@ public class MsgBroadcastReceiver extends BroadcastReceiver {
 			} else { // 如果聊天窗口不再最前端
 				ShowNotification.showNotification(context, msg);
 			}
-		} else if(msg.getType() == MessageType.MSG_REQUESTADDFRIEND) { // 如果收到的是请求加好友的消息
-			
 		}
 	}
 

@@ -1,34 +1,38 @@
 package com.hblg.lookingfellow.slidingmenu.activity;
 
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.hblg.lookingfellow.R;
-import com.hblg.lookingfellow.entity.Student;
-import com.hblg.lookingfellow.entity.User;
-import com.hblg.lookingfellow.model.ManageActivity;
-import com.hblg.lookingfellow.sqlite.SQLiteService;
-import com.hblg.lookingfellow.tools.ImageTool;
-import com.hblg.lookingfellow.tools.StreamTool;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FriendInfoActivity extends Activity {
+import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.entity.Friend;
+import com.hblg.lookingfellow.entity.Message;
+import com.hblg.lookingfellow.entity.MessageType;
+import com.hblg.lookingfellow.entity.Student;
+import com.hblg.lookingfellow.entity.User;
+import com.hblg.lookingfellow.model.ManageActivity;
+import com.hblg.lookingfellow.model.ManageClientConnServer;
+import com.hblg.lookingfellow.sqlite.SQLiteService;
+import com.hblg.lookingfellow.tools.ImageTool;
+import com.hblg.lookingfellow.tools.StreamTool;
+import com.hblg.lookingfellow.tools.TimeConvertTool;
+
+public class FriendInfoActivity extends Activity implements OnClickListener {
 	
 	Button titlebarLeftmenu;
 	Button titlebarRightmenu;
@@ -44,12 +48,22 @@ public class FriendInfoActivity extends Activity {
 	TextView signsTextView;
 	TextView mobileTextView;
 	
+	Button addfriendButton;
+	
+	String qq = null;
+	String  tag = null;
+	
+	ObjectOutputStream oos = null;
+	
+	Friend friend;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		ManageActivity.addActiviy("FriendInfoActivity", this);
-		String qq = getIntent().getStringExtra("qq");
+		qq = getIntent().getStringExtra("qq");
+		tag = getIntent().getStringExtra("tag");
 		setContentView(R.layout.activity_friendinfo);
 		titlebarLeftmenu = (Button)this.findViewById(R.id.main_titlebar_goback_leftmenu);
 		titlebarRightmenu = (Button)this.findViewById(R.id.main_titlebar_gomore_rightmenu);
@@ -61,17 +75,10 @@ public class FriendInfoActivity extends Activity {
 		hometowntTextView = (TextView)this.findViewById(R.id.hometown);
 		signsTextView = (TextView)this.findViewById(R.id.signs);
 		mobileTextView = (TextView)this.findViewById(R.id.mobile);
-		titlebarLeftmenu.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				finish();
-			}
-		});
-		titlebarRightmenu.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				//TODO
-				Toast.makeText(getApplicationContext(), "moreInfo", 0).show();
-			}
-		});
+		addfriendButton = (Button)this.findViewById(R.id.addfriend_button);
+		addfriendButton.setOnClickListener(this);
+		titlebarLeftmenu.setOnClickListener(this);
+		titlebarRightmenu.setOnClickListener(this);
 		initFriendInfo(qq);
 	}
 
@@ -86,18 +93,18 @@ public class FriendInfoActivity extends Activity {
 				InputStream in = conn.getInputStream();
 				byte[] data = StreamTool.read(in);
 				String json = new String(data, "utf-8");
-				Student student = parseJson(json);
-				titleTextView.setText(student.getName());
-				hometowntTextView.setText(student.getHometown());
-				if(student.getSigns().equals("")) {
+				friend = parseJson(json);
+				titleTextView.setText(friend.getName());
+				hometowntTextView.setText(friend.getHometown());
+				if(friend.getSigns().equals("")) {
 					signsTextView.setText("未设置");
 				} else {
-					signsTextView.setText(student.getSigns());
+					signsTextView.setText(friend.getSigns());
 				}
-				if(student.getPhone().equals("")) {
+				if(friend.getPhone().equals("")) {
 					mobileTextView.setText("未设置");
 				} else {
-					mobileTextView.setText(student.getPhone());
+					mobileTextView.setText(friend.getPhone());
 				}
 				Bitmap bitmap = ImageTool.getHeadImageFromLocalOrNet(getApplicationContext(), qq);
 				Bitmap output = ImageTool.toRoundCorner(bitmap, 360.0f);
@@ -108,17 +115,49 @@ public class FriendInfoActivity extends Activity {
 		}
 	}
 	
-	private Student parseJson(String json) throws JSONException {
+	private Friend parseJson(String json) throws JSONException {
 		JSONObject obj = new JSONObject(json);
-		Student student = new Student();
-		student.setQq(obj.getString("stuQQ"));
-		student.setName(obj.getString("stuName"));
-		student.setPassword(obj.getString("stuPassword"));
-		student.setHometown(obj.getString("stuHometown"));
-		student.setSex(obj.getString("stuSex"));
-		student.setSigns(obj.getString("stuSigns"));
-		student.setPhone(obj.getString("stuPhone"));
-		return student;
+		Friend friend = new Friend();
+		friend.setQq(obj.getString("stuQQ"));
+		friend.setName(obj.getString("stuName"));
+		friend.setHometown(obj.getString("stuHometown"));
+		friend.setSex(obj.getString("stuSex"));
+		friend.setSigns(obj.getString("stuSigns"));
+		friend.setPhone(obj.getString("stuPhone"));
+		return friend;
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.main_titlebar_goback_leftmenu:
+			finish();
+			break;
+		case R.id.main_titlebar_gomore_rightmenu:
+			//TODO
+			Toast.makeText(getApplicationContext(), "moreInfo", 0).show();
+		case R.id.addfriend_button:
+			if(tag != null && tag.equals("agreeRequest")) { // 表示是同意好友添加请求
+				try {
+					oos = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
+					Message msg = new Message();
+					msg.setType(MessageType.MSG_AGREEADDFRIEND);
+					msg.setSender(User.qq);
+					msg.setReceiver(qq);
+					msg.setDetails("我们已经是好友啦，现在找我聊天吧");
+					String time = TimeConvertTool.convertToString(new Date(System.currentTimeMillis()));
+					msg.setTime(time);
+					oos.writeObject(msg);
+					System.out.println("send agree add friend message");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				// 添加好友信息到本地
+				new SQLiteService(getApplicationContext()).addFriend(friend);
+			}
+		default:
+			break;
+		}
 	}
 	
 

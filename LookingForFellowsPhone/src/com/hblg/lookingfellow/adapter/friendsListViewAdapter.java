@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.slidingmenu.activity.ChatActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
+import com.hblg.lookingfellow.tools.ImageTool;
 import com.hblg.lookingfellow.tools.ImageUtils;
 import com.hblg.lookingfellow.tools.ImageUtils.ImageCallBack;
 
@@ -77,12 +78,12 @@ public class friendsListViewAdapter extends BaseAdapter {
 		}
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
 		// qq号码
-		final String qq = (String)map.get("friendQq");
+		final String qq = (String)map.get("friQQ");
 		// 名字
-		String name = (String)map.get("friendName");
+		String name = (String)map.get("friName");
 		holder.nameTextView.setText(name);
 		// 老家
-		String hometown = (String)map.get("friendHometown");
+		String hometown = (String)map.get("friHometown");
 		holder.hometownTextView.setText(hometown);
 		
 		Button chat = (Button)convertView.findViewById(R.id.friendslayout_chat);
@@ -95,23 +96,9 @@ public class friendsListViewAdapter extends BaseAdapter {
 				context.startActivity(intent);
 			}
 		});
-		
-		//头像
-		ImageUtils.ImageCallBack callBack = new ImageCallBack() {
-			public void loadImage(Bitmap bitMap, String imageTag) {
-				ImageView imageView = (ImageView)listView.findViewWithTag(imageTag);
-				if(null==bitMap){
-					imageView.setBackgroundResource(R.drawable.head_default);
-				}else if(null==imageView){
-					holder.headImage.setBackgroundResource(R.drawable.head_default);
-					return;
-				}
-				imageView.setImageBitmap(bitMap);
-			}
-		};
-		String headUrl = (String)map.get("headimage");
-		ImageUtils.setImageView(holder.headImage, headUrl, context, callBack);
-		
+		// 头像
+		bm = ImageTool.getHeadImageFromLocalOrNet(context, qq);
+		holder.headImage.setImageBitmap(bm);
 		holder.headImage.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(context, FriendInfoActivity.class);

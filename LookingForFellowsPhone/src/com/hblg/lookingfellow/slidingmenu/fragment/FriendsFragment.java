@@ -1,18 +1,10 @@
 package com.hblg.lookingfellow.slidingmenu.fragment;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -31,7 +23,7 @@ import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.slidingmenu.activity.AddFriendsActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.ChatActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
-import com.hblg.lookingfellow.tools.StreamTool;
+import com.hblg.lookingfellow.sqlite.SQLiteService;
 
 public class FriendsFragment extends Fragment implements OnItemClickListener {
 	ListView listView;
@@ -41,8 +33,6 @@ public class FriendsFragment extends Fragment implements OnItemClickListener {
 	ImageView titlebarRightmenu;
 	
 	Bitmap bitmap;
-	
-	String imagePath = "http://192.168.1.152:8080/lookingfellowWeb0.2/head/";
 	
 	String qq = null;
 	
@@ -54,7 +44,14 @@ public class FriendsFragment extends Fragment implements OnItemClickListener {
 		titlebarRightmenu = (ImageView)view.findViewById(R.id.main_titlebar_friend_rightmenu);
 		return view;
 	}
-
+	@Override
+	public void onResume() {
+		super.onResume();
+		ArrayList<Map<String, String>> data = this.getFriends();
+		this.data = data;
+		adapter.setData(data);
+		listView.setAdapter(adapter);
+	}
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -79,36 +76,10 @@ public class FriendsFragment extends Fragment implements OnItemClickListener {
 	
 	private ArrayList<Map<String, String>> getFriends() {
 		ArrayList<Map<String, String>> tempList = new ArrayList<Map<String, String>>();
-		try {
-			String path = "http://192.168.1.152:8080/lookingfellowWeb0.2/FriendServlet?tag=myfriends&qq=" + User.qq;
-			HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();
-			conn.setRequestMethod("GET");
-			conn.setConnectTimeout(5000);
-			if(conn.getResponseCode() == 200) {
-				InputStream in = conn.getInputStream();
-				String str = new String(StreamTool.read(in));
-				if(str.equals("]")) {
-					Toast.makeText(getActivity(), "你还没有任何好友", 0).show();
-				} else {
-					JSONArray array = new JSONArray(str);
-					bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.head_default);
-					for(int i=0; i<array.length(); i++) {
-						JSONObject obj = array.getJSONObject(i);
-						Map<String, String> map = new HashMap<String, String>();
-						map.put("headimage", imagePath + "head_" + obj.get("friendQq") + ".jpg");
-						map.put("friendQq", obj.getString("friendQq"));
-						map.put("friendName", obj.getString("friendName"));
-						map.put("friendHometown", obj.getString("friendHometown"));
-						map.put("friendSex", obj.getString("friendSex"));
-						map.put("friendSigns", obj.getString("friendSigns"));
-						map.put("friendPhone", obj.getString("friendPhone"));
-						tempList.add(map);
-					}
-					return tempList;
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		SQLiteService service = new SQLiteService(getActivity());
+		tempList = service.getAllFriendsInfo(User.qq);
+		if(tempList.size() == 0) {
+			Toast.makeText(getActivity(), "你还没有好友啊", 0).show();
 		}
 		return tempList;
 	}
@@ -116,7 +87,7 @@ public class FriendsFragment extends Fragment implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		String qq = this.data.get(position).get("friendQq");
+		String qq = this.data.get(position).get("friQQ");
 		Intent intent = new Intent(getActivity(), ChatActivity.class);
 		intent.putExtra("friendQq", qq);
 		startActivity(intent);

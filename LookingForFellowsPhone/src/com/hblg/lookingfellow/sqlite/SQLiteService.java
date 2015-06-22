@@ -10,6 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.hblg.lookingfellow.entity.Friend;
 import com.hblg.lookingfellow.entity.Message;
 import com.hblg.lookingfellow.entity.Student;
 import com.hblg.lookingfellow.entity.User;
@@ -70,6 +71,46 @@ public class SQLiteService {
 		values.put("stuSigns", stu.getSigns());
 		values.put("stuPhone", stu.getPhone());
 		db.insert("student", null, values);
+		db.close();
+	}
+	/**
+	 * 获取用户所有好友信息
+	 * @param qq
+	 * @return
+	 */
+	public ArrayList<Map<String, String>> getAllFriendsInfo(String qq) {
+		ArrayList<Map<String, String>> friends = new ArrayList<Map<String,String>>();
+		SQLiteDatabase db = openHelper.getReadableDatabase();
+		String sql = "select * from friend where friQQ != ?";
+		Cursor cursor = db.rawQuery(sql, new String[]{qq});
+		while(cursor.moveToNext()) {
+			Map<String, String> friend = new HashMap<String, String>();
+			friend.put("friQQ", cursor.getString(cursor.getColumnIndex("friQQ")));
+			friend.put("friName", cursor.getString(cursor.getColumnIndex("friName")));
+			friend.put("friHometown", cursor.getString(cursor.getColumnIndex("friHometown")));
+			friend.put("friSex", cursor.getString(cursor.getColumnIndex("friSex")));
+			friend.put("friSigns", cursor.getString(cursor.getColumnIndex("friSigns")));
+			friend.put("friPhone", cursor.getString(cursor.getColumnIndex("friPhone")));
+			friends.add(friend);
+		}
+		cursor.close();
+		db.close();
+		return friends;
+	}
+	/**
+	 * 添加好友信息到本地
+	 * @param friend
+	 */
+	public void addFriend(Friend friend) {
+		SQLiteDatabase db = openHelper.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put("friQQ", friend.getQq());
+		values.put("friName", friend.getName());
+		values.put("friHometown", friend.getHometown());
+		values.put("friSex", friend.getSex());
+		values.put("friSigns", friend.getSigns());
+		values.put("friPhone", friend.getPhone());
+		db.insert("friend", null, values);
 		db.close();
 	}
 	/**
@@ -204,6 +245,7 @@ public class SQLiteService {
 		String sql = "insert into message values (?, ?, ?, ?, ?, ?)";
 		db.execSQL(sql, new Object[]{null, msg.getType(), msg.getSender(), msg.getReceiver(), msg.getDetails(), msg.getTime()});
 		db.close();
+		System.out.println("保存聊天信息到本地");
 	}
 	/**
 	 * 取得本地所有聊天信息

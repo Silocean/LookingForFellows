@@ -1,21 +1,28 @@
 package com.hblg.lookingfellow.model;
 
+import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.net.HttpURLConnection;
 import java.net.Socket;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
 
 import com.hblg.lookingfellow.entity.Common;
+import com.hblg.lookingfellow.entity.Friend;
 import com.hblg.lookingfellow.entity.Message;
 import com.hblg.lookingfellow.entity.MessageType;
+import com.hblg.lookingfellow.entity.Student;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
+import com.hblg.lookingfellow.tools.StreamTool;
 /**
  * 此线程用于接收来自服务器的消息
  * @author Silocean
@@ -53,22 +60,34 @@ public class ClientConnServerThread extends Thread {
 					
 					// 保存对方聊天记录到本地
 					new SQLiteService(context).saveMessage(msg);
+					// 更新我的消息列表
+					new SQLiteService(context).updateMyMessageList(msg.getSender());
+					// 全局变量:是否有未读消息到来，设置为true
+					Common.newMsg = true;
 					
 					break;
 				case MessageType.MSG_REQUESTADDFRIEND: // 如果接收到的消息是加好友信息
-					// 把从服务器获得的消息通过广播发送
-					Intent intent2 = new Intent("com.hblg.lookingfellow.msg");
-					intent2.putExtra("msg", msg);
-					context.sendBroadcast(intent2);
-					
 					// 保存请求添加好友消息到本地
 					new SQLiteService(context).saveMessage(msg);
-					
+					// 更新我的消息列表
+					new SQLiteService(context).updateMyMessageList(msg.getSender());
+					// 全局变量:是否有未读消息到来，设置为true
+					Common.newMsg = true;
+					break;
+				case MessageType.MSG_AGREEADDFRIEND: // 如果收到的消息是同意添加好友消息
+					// 保存同意添加好友消息到本地
+					new SQLiteService(context).saveMessage(msg);
+					// 更新我的消息列表
+					new SQLiteService(context).updateMyMessageList(msg.getSender());
+					// 添加好友信息到本地
+					Friend friend = getFriend(msg.getSender());
+					new SQLiteService(context).addFriend(friend);
+					// 全局变量:是否有未读消息到来，设置为true
+					Common.newMsg = true;
 					break;
 				case MessageType.MSG_REQUESTCHATMSG: // 如果接收到的是服务器暂存的消息
-					
+					System.out.println(Common.newMsg);
 					String msgStr = msg.getDetails();
-					
 					if(msgStr.equals("]")) {
 						// 表示没有未读消息
 					} else {
@@ -107,5 +126,36 @@ public class ClientConnServerThread extends Thread {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private Friend getFriend(String qq) {
+		try {
+			String path = "http://192.168.1.152:8080/lookingfellowWeb0.2/GetUserInfoServlet?qq=";
+			path = path + qq;
+			HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();
+			conn.setRequestMethod("GET");
+			conn.setConnectTimeout(5000);
+			if(conn.getResponseCode() == 200) {
+				InputStream in = conn.getInputStream();
+				byte[] data = StreamTool.read(in);
+				String json = new String(data, "utf-8");
+				Friend friend = parseJson(json);
+				return friend;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	private Friend parseJson(String json) throws JSONException {
+		JSONObject obj = new JSONObject(json);
+		Friend friend = new Friend();
+		friend.setQq(obj.getString("stuQQ"));
+		friend.setName(obj.getString("stuName"));
+		friend.setHometown(obj.getString("stuHometown"));
+		friend.setSex(obj.getString("stuSex"));
+		friend.setSigns(obj.getString("stuSigns"));
+		friend.setPhone(obj.getString("stuPhone"));
+		return friend;
 	}
 }

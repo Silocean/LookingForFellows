@@ -119,7 +119,7 @@ public class PostsListViewAdapter extends BaseAdapter {
 				Intent intent = new Intent(context, FriendInfoActivity.class);
 				// 防止 Calling startActivity() from outside of an Activity问题发生
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				intent.putExtra("authorId", qq);
+				intent.putExtra("qq", qq);
 				context.startActivity(intent);
 			}
 		});

@@ -26,8 +26,10 @@ import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.MsgListViewAdapter;
+import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.slidingmenu.activity.ChatActivity;
+import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 
@@ -103,10 +105,22 @@ public class MsgFragment extends Fragment implements OnItemClickListener, OnItem
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+		int type = (Integer)data.get(position).get("msgType");
 		String qq = chatToPersons.get(chatToPersons.size()-1 - position);
-		Intent intent = new Intent(getActivity(), ChatActivity.class);
-		intent.putExtra("friendQq", qq);
-		startActivity(intent);
+		if(type == MessageType.MSG_CHAT) {
+			Intent intent = new Intent(getActivity(), ChatActivity.class);
+			intent.putExtra("friendQq", qq);
+			startActivity(intent);
+		} else if(type == MessageType.MSG_REQUESTADDFRIEND) {
+			Intent intent = new Intent(getActivity(), FriendInfoActivity.class);
+			intent.putExtra("qq", qq);
+			intent.putExtra("tag", "agreeRequest");
+			startActivity(intent);
+		} else if(type == MessageType.MSG_AGREEADDFRIEND) {
+			Intent intent = new Intent(getActivity(), ChatActivity.class);
+			intent.putExtra("friendQq", qq);
+			startActivity(intent);
+		}
 	}
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -143,6 +157,10 @@ public class MsgFragment extends Fragment implements OnItemClickListener, OnItem
 					new SQLiteService(getActivity()).deleteFromMyMessageList(friendQq);
 					// 从数据库中删除与该好友的所有聊天记录
 					new SQLiteService(getActivity()).deleteMsg(User.qq, friendQq);
+					popupWindow.dismiss();
+					ArrayList<Map<String, Object>> data = getMessages();
+					adapter.setData(data);
+					listView.setAdapter(adapter);
 				}
 			});
 		}

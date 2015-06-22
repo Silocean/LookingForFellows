@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.hblg.lookingfellow.entity.Message;
+import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.slidingmenu.activity.ChatActivity;
+import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
 /**
  * 显示通知类
  * @author Silocean
@@ -26,9 +28,13 @@ public class ShowNotification {
 	public static void showNotification(Context context, Message msg) {
 		String details = msg.getDetails();
 		String sender = msg.getSender();
+		int type = msg.getType();
+		Intent intent = null;
 		notification = new Notification(android.R.drawable.stat_notify_chat, details, System.currentTimeMillis());
-		Intent intent = new Intent(context, ChatActivity.class);
-		intent.putExtra("friendQq", sender);
+		if(type == MessageType.MSG_CHAT) {
+			intent = new Intent(context, ChatActivity.class);
+			intent.putExtra("friendQq", sender);
+		}
 		pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 		notification.setLatestEventInfo(context, sender, details, pendingIntent);
 		notification.defaults = Notification.DEFAULT_SOUND;

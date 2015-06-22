@@ -9,7 +9,7 @@ import java.util.List;
  *
  */
 public class Common {
-	public static boolean newMsg; // 是否有未读消息到来
-	public static boolean ListnewMsg; // msgList中的item是否未读
+	public static boolean newMsg = false; // 是否有未读消息到来
+	public static boolean ListnewMsg = false; // msgList中的item是否未读
 	public static List<String> msgSenders = new ArrayList<String>(); // 存放消息发送者的list
 }
