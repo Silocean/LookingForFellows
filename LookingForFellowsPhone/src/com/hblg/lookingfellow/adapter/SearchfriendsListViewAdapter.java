@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.Message;
@@ -100,6 +101,7 @@ public class SearchfriendsListViewAdapter extends BaseAdapter {
 		holder.addFriend.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				sendAddFriendRequest(User.qq, friendQq);
+				Toast.makeText(context, "请求已发送", 0).show();
 			}
 
 		});
@@ -132,7 +134,7 @@ public class SearchfriendsListViewAdapter extends BaseAdapter {
 			msg.setType(MessageType.MSG_REQUESTADDFRIEND);
 			msg.setSender(qq);
 			msg.setReceiver(friendQq);
-			msg.setDetails("我是XXX");
+			msg.setDetails("老乡，交个朋友吧！");
 			String time = TimeConvertTool.convertToString(new Date(System.currentTimeMillis()));
 			msg.setTime(time);
 			oos.writeObject(msg);

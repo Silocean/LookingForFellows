@@ -58,7 +58,6 @@
         android:cacheColorHint="#00000000"
         android:divider="@color/black_half"
         android:dividerHeight="1dip"
-        android:listSelector="@drawable/listitem_postlayout_bg_selector"
         android:scrollbars="none" >
     </ListView>
 

@@ -81,7 +81,7 @@ public class SQLiteService {
 	public ArrayList<Map<String, String>> getAllFriendsInfo(String qq) {
 		ArrayList<Map<String, String>> friends = new ArrayList<Map<String,String>>();
 		SQLiteDatabase db = openHelper.getReadableDatabase();
-		String sql = "select * from friend where friQQ != ?";
+		String sql = "select * from friend where ownerId = ?";
 		Cursor cursor = db.rawQuery(sql, new String[]{qq});
 		while(cursor.moveToNext()) {
 			Map<String, String> friend = new HashMap<String, String>();
@@ -104,6 +104,7 @@ public class SQLiteService {
 	public void addFriend(Friend friend) {
 		SQLiteDatabase db = openHelper.getWritableDatabase();
 		ContentValues values = new ContentValues();
+		values.put("ownerId", User.qq);
 		values.put("friQQ", friend.getQq());
 		values.put("friName", friend.getName());
 		values.put("friHometown", friend.getHometown());
@@ -304,7 +305,7 @@ public class SQLiteService {
 	public void updateMyMessageList(String qq) {
 		List<String> list = this.getAllChatTo();
 		SQLiteDatabase db = openHelper.getWritableDatabase();
-		String sql = "insert into chatTo values (?, ?)";
+		String sql = "insert into chatTo values (?, ?, ?)";
 		boolean flag = false;
 		for(int i=0; i<list.size(); i++) {
 			if(list.get(i).equals(qq)) { // 如果列表中已有此人的记录
@@ -312,7 +313,7 @@ public class SQLiteService {
 			}
 		}
 		if(!flag) {
-			db.execSQL(sql, new Object[]{null, qq});
+			db.execSQL(sql, new Object[]{null, User.qq, qq});
 		}
 		db.close();
 	}
@@ -322,8 +323,8 @@ public class SQLiteService {
 	 */
 	public void deleteFromMyMessageList(String qq) {
 		SQLiteDatabase db = openHelper.getWritableDatabase();
-		String sql = "delete from chatTo where chatToQq = ?";
-		db.execSQL(sql, new Object[]{qq});
+		String sql = "delete from chatTo where ownerId = ? and chatToQq = ?";
+		db.execSQL(sql, new Object[]{User.qq, qq});
 		db.close();
 	}
 	/**
@@ -344,8 +345,8 @@ public class SQLiteService {
 	public List<String> getAllChatTo() {
 		List<String> senders = new ArrayList<String>();
 		SQLiteDatabase db = openHelper.getReadableDatabase();
-		String sql = "select chatToQq from chatTo";
-		Cursor cursor = db.rawQuery(sql, null);
+		String sql = "select chatToQq from chatTo where ownerId = ?";
+		Cursor cursor = db.rawQuery(sql, new String[]{User.qq});
 		while(cursor.moveToNext()) {
 			senders.add(cursor.getString(cursor.getColumnIndex("chatToQq")));
 		}
