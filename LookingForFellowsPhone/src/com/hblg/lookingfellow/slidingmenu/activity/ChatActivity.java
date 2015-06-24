@@ -66,7 +66,12 @@ public class ChatActivity extends Activity implements OnClickListener{
 		personinfoButton = (Button)this.findViewById(R.id.chat_personinfo_button);
 		personinfoButton.setOnClickListener(this);
 		titleTextView = (TextView)this.findViewById(R.id.titlebar_title);
-		titleTextView.setText(friendQq);
+		String friName = new SQLiteService(getApplicationContext()).getFriendNameByQq(friendQq);
+		if(friName != null) {
+			titleTextView.setText(friName);
+		} else {
+			titleTextView.setText(friendQq);
+		}
 		/*SQLiteService service = new SQLiteService(getApplicationContext());
 		Student student = service.getStuInfo(friendQq);
 		titleTextView.setText(student.getName());*/
@@ -78,7 +83,12 @@ public class ChatActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onNewIntent(Intent intent) {
 		friendQq = intent.getStringExtra("friendQq");
-		titleTextView.setText(friendQq);
+		String friName = new SQLiteService(getApplicationContext()).getFriendNameByQq(friendQq);
+		if(friName != null) {
+			titleTextView.setText(friName);
+		} else {
+			titleTextView.setText(friendQq);
+		}
 		initListData();
 		super.onNewIntent(intent);
 	}
@@ -113,6 +123,8 @@ public class ChatActivity extends Activity implements OnClickListener{
 			break;
 		case R.id.chat_personinfo_button:
 			Intent intent = new Intent(getApplicationContext(), FriendInfoActivity.class);
+			intent.putExtra("qq", friendQq);
+			intent.putExtra("tag", "unfriendRequest");
 			startActivity(intent);
 			break;
 		case R.id.chat_bottombar_sendbutton: 
@@ -156,6 +168,7 @@ public class ChatActivity extends Activity implements OnClickListener{
 	public static void updateChatView(Context context, Message msg) {
 		SQLiteService service = new SQLiteService(context);
 		Map<String, Object> map = service.getLastMessage(msg);
+		System.out.println("最后一条消息："+map);
 		data.add(map);
 		adapter.setData(data);
 		listView.setSelection(listView.getCount() - 1); // listView显示最后一项

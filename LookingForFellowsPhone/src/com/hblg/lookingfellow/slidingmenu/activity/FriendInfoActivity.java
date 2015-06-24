@@ -48,7 +48,7 @@ public class FriendInfoActivity extends Activity implements OnClickListener {
 	TextView signsTextView;
 	TextView mobileTextView;
 	
-	Button addfriendButton;
+	Button friendButton;
 	
 	String qq = null;
 	String  tag = null;
@@ -62,9 +62,9 @@ public class FriendInfoActivity extends Activity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		ManageActivity.addActiviy("FriendInfoActivity", this);
+		setContentView(R.layout.activity_friendinfo);
 		qq = getIntent().getStringExtra("qq");
 		tag = getIntent().getStringExtra("tag");
-		setContentView(R.layout.activity_friendinfo);
 		titlebarLeftmenu = (Button)this.findViewById(R.id.main_titlebar_goback_leftmenu);
 		titlebarRightmenu = (Button)this.findViewById(R.id.main_titlebar_gomore_rightmenu);
 		headImage = (ImageView)this.findViewById(R.id.friendinfo_headimage);
@@ -75,8 +75,15 @@ public class FriendInfoActivity extends Activity implements OnClickListener {
 		hometowntTextView = (TextView)this.findViewById(R.id.hometown);
 		signsTextView = (TextView)this.findViewById(R.id.signs);
 		mobileTextView = (TextView)this.findViewById(R.id.mobile);
-		addfriendButton = (Button)this.findViewById(R.id.addfriend_button);
-		addfriendButton.setOnClickListener(this);
+		friendButton = (Button)this.findViewById(R.id.addfriend_button);
+		if(tag.equals("agreeRequest")) {
+			friendButton.setText("同意并添加对方为好友");
+		} else if(tag.equals("addRequest")) {
+			friendButton.setText("加为好友");
+		} else if(tag.equals("unfriendRequest")) {
+			friendButton.setText("解除好友关系");
+		}
+		friendButton.setOnClickListener(this);
 		titlebarLeftmenu.setOnClickListener(this);
 		titlebarRightmenu.setOnClickListener(this);
 		initFriendInfo(qq);
@@ -148,14 +155,42 @@ public class FriendInfoActivity extends Activity implements OnClickListener {
 					String time = TimeConvertTool.convertToString(new Date(System.currentTimeMillis()));
 					msg.setTime(time);
 					oos.writeObject(msg);
-					System.out.println("send agree add friend message");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				// 添加好友信息到本地
 				new SQLiteService(getApplicationContext()).addFriend(friend);
+			} else if(tag != null && tag.equals("addRequest")) { // 表示是请求添加好友请求
+				try {
+					oos = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
+					Message msg = new Message();
+					msg.setType(MessageType.MSG_REQUESTADDFRIEND);
+					msg.setSender(User.qq);
+					msg.setReceiver(qq);
+					msg.setDetails("老乡，交个朋友吧！");
+					String time = TimeConvertTool.convertToString(new Date(System.currentTimeMillis()));
+					msg.setTime(time);
+					oos.writeObject(msg);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else if(tag != null && tag.equals("unfriendRequest")) {
+				try {
+					oos = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
+					Message msg = new Message();
+					msg.setType(MessageType.MSG_UNFRINEDMSG);
+					msg.setSender(User.qq);
+					msg.setReceiver(qq);
+					String time = TimeConvertTool.convertToString(new Date(System.currentTimeMillis()));
+					msg.setTime(time);
+					oos.writeObject(msg);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				// 从本地删除好友信息
+				new SQLiteService(getApplicationContext()).deleteFriendInfo(qq);
 			}
-		default:
+ 		default:
 			break;
 		}
 	}

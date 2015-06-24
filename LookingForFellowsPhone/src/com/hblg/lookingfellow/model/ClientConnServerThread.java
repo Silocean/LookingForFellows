@@ -1,5 +1,6 @@
 package com.hblg.lookingfellow.model;
 
+import java.io.DataInputStream;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.HttpURLConnection;
@@ -51,12 +52,7 @@ public class ClientConnServerThread extends Thread {
 				Message msg = (Message)ois.readObject();
 				int type = msg.getType();
 				switch (type) {
-				case MessageType.MSG_CHAT: // 如果接收到的消息是聊天信息
-					
-					// 把从服务器获得的消息通过广播发送
-					Intent intent = new Intent("com.hblg.lookingfellow.msg");
-					intent.putExtra("msg", msg);
-					context.sendBroadcast(intent);
+				case MessageType.MSG_CHAT: // 如果接收到的消息是聊天信息（注意，先保存消息到本地，然后再广播）
 					
 					// 保存对方聊天记录到本地
 					new SQLiteService(context).saveMessage(msg);
@@ -65,14 +61,30 @@ public class ClientConnServerThread extends Thread {
 					// 全局变量:是否有未读消息到来，设置为true
 					Common.newMsg = true;
 					
+					// 把从服务器获得的消息通过广播发送
+					Intent intent = new Intent("com.hblg.lookingfellow.msg");
+					intent.putExtra("msg", msg);
+					context.sendBroadcast(intent);
+					
 					break;
-				case MessageType.MSG_REQUESTADDFRIEND: // 如果接收到的消息是加好友信息
+				case MessageType.MSG_REQUESTADDFRIEND: // 如果接收到的消息是请求加好友信息
+					
 					// 保存请求添加好友消息到本地
-					new SQLiteService(context).saveMessage(msg);
-					// 更新我的消息列表
-					new SQLiteService(context).updateMyMessageList(msg.getSender());
+					new SQLiteService(context).saveRequestAddFriendMessage(msg);
+					
+					// 把从服务器获得的消息通过广播发送
+					Intent intent2 = new Intent("com.hblg.lookingfellow.msg");
+					intent2.putExtra("msg", msg);
+					context.sendBroadcast(intent2);
+					
 					// 全局变量:是否有未读消息到来，设置为true
 					Common.newMsg = true;
+					break;
+				case MessageType.MSG_UNFRINEDMSG: // 如果是解除好友关系消息
+					
+					// 从本地删除好友信息
+					new SQLiteService(context).deleteFriendInfo(msg.getSender());
+					
 					break;
 				case MessageType.MSG_AGREEADDFRIEND: // 如果收到的消息是同意添加好友消息
 					// 保存同意添加好友消息到本地
@@ -85,14 +97,14 @@ public class ClientConnServerThread extends Thread {
 					// 全局变量:是否有未读消息到来，设置为true
 					Common.newMsg = true;
 					break;
-				case MessageType.MSG_REQUESTCHATMSG: // 如果接收到的是服务器暂存的消息
-					System.out.println(Common.newMsg);
-					String msgStr = msg.getDetails();
-					if(msgStr.equals("]")) {
+				case MessageType.MSG_REQUESTRETURNCHATMSG: // 如果接收到的是服务器暂存的消息
+					String str = msg.getDetails();
+					System.out.println("接收到服务器暂存的信息" + str);
+					if(str.equals("]")) {
 						// 表示没有未读消息
 					} else {
 						ArrayList<Map<String, Object>> messages = new ArrayList<Map<String, Object>>();
-						JSONArray array = new JSONArray(msgStr);
+						JSONArray array = new JSONArray(str);
 						for(int i=0; i<array.length(); i++) {
 							JSONObject obj = array.getJSONObject(i);
 							Map<String, Object> map = new HashMap<String, Object>();
@@ -102,22 +114,35 @@ public class ClientConnServerThread extends Thread {
 							map.put("msgDetails", obj.getString("msgDetails"));
 							map.put("msgTime", obj.getString("msgTime"));
 							messages.add(map);
-							
 							// 更新我的消息列表
 							new SQLiteService(context).updateMyMessageList(obj.getString("msgSender"));
-							
 							Common.msgSenders.add(obj.getString("msgSender"));
-							
 						}
-						
 						// 保存聊天信息到本地
-						new SQLiteService(context).saveMessage(messages);
-						
-						// 全局变量:是否有未读消息到来，设置为true
-						Common.newMsg = true;
-						
+						new SQLiteService(context).saveMessages(messages);
 					}
-					
+					break;
+				case MessageType.MSG_REQUESTRETURNADDFRIENDMSG: // 如果接收到的是服务器暂存的请求添加好友消息
+					String str2 = msg.getDetails();
+					System.out.println("接收到服务器暂存的添加好友信息" + str2);
+					if(str2.equals("]")) {
+						// 表示没有未读请求添加好友消息
+					} else {
+						ArrayList<Map<String, Object>> messages = new ArrayList<Map<String, Object>>();
+						JSONArray array = new JSONArray(str2);
+						for(int i=0; i<array.length(); i++) {
+							JSONObject obj = array.getJSONObject(i);
+							Map<String, Object> map = new HashMap<String, Object>();
+							map.put("msgType", obj.getInt("msgType"));
+							map.put("msgSender", obj.getString("msgSender"));
+							map.put("msgReceiver",obj.getString("msgReceiver"));
+							map.put("msgDetails", obj.getString("msgDetails"));
+							map.put("msgTime", obj.getString("msgTime"));
+							messages.add(map);
+						}
+						// 保存请求添加好友信息到本地
+						new SQLiteService(context).saveRequestAddFriendMessages(messages);
+					}
 					break;
 				default:
 					break;

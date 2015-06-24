@@ -10,6 +10,7 @@ import com.hblg.lookingfellow.entity.Message;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.slidingmenu.activity.ChatActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
+import com.hblg.lookingfellow.slidingmenu.activity.RequestAddFriendMsgActivity;
 /**
  * 显示通知类
  * @author Silocean
@@ -34,6 +35,8 @@ public class ShowNotification {
 		if(type == MessageType.MSG_CHAT) {
 			intent = new Intent(context, ChatActivity.class);
 			intent.putExtra("friendQq", sender);
+		} else if(type == MessageType.MSG_REQUESTADDFRIEND) {
+			intent = new Intent(context, RequestAddFriendMsgActivity.class);
 		}
 		pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 		notification.setLatestEventInfo(context, sender, details, pendingIntent);

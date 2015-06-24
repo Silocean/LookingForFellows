@@ -22,9 +22,11 @@ public class MsgBroadcastReceiver extends BroadcastReceiver {
 				} else { // 如果没有跟发消息者聊天，则通知栏显示通知
 					ShowNotification.showNotification(context, msg);
 				}
-			} else { // 如果聊天窗口不再最前端
+			} else { // 如果聊天窗口不在最前端
 				ShowNotification.showNotification(context, msg);
 			}
+		} else if(msg.getType() == MessageType.MSG_REQUESTADDFRIEND) { // 如果收到的是请求添加好友消息
+			ShowNotification.showNotification(context, msg);
 		}
 	}
 

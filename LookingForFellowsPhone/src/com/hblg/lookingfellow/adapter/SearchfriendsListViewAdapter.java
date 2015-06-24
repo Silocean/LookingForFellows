@@ -1,17 +1,12 @@
 package com.hblg.lookingfellow.adapter;
 
-import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,9 +24,9 @@ import com.hblg.lookingfellow.entity.Message;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.model.ManageClientConnServer;
-import com.hblg.lookingfellow.tools.ImageUtils;
+import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
+import com.hblg.lookingfellow.tools.ImageTool;
 import com.hblg.lookingfellow.tools.TimeConvertTool;
-import com.hblg.lookingfellow.tools.ImageUtils.ImageCallBack;
 
 public class SearchfriendsListViewAdapter extends BaseAdapter {
 	
@@ -103,23 +98,11 @@ public class SearchfriendsListViewAdapter extends BaseAdapter {
 				sendAddFriendRequest(User.qq, friendQq);
 				Toast.makeText(context, "请求已发送", 0).show();
 			}
-
 		});
 		//头像
-		ImageUtils.ImageCallBack callBack = new ImageCallBack() {
-			public void loadImage(Bitmap bitMap, String imageTag) {
-				ImageView imageView = (ImageView)listView.findViewWithTag(imageTag);
-				if(null==bitMap){
-					imageView.setBackgroundResource(R.drawable.head_default);
-				}else if(null==imageView){
-					holder.headImage.setBackgroundResource(R.drawable.head_default);
-					return;
-				}
-				imageView.setImageBitmap(bitMap);
-			}
-		};
-		String headUrl = (String)map.get("headimage");
-		ImageUtils.setImageView(holder.headImage, headUrl, context, callBack);
+		bm = ImageTool.getHeadImageFromLocalOrNet(context, friendQq);
+		holder.headImage.setImageBitmap(bm);
+		
 		return convertView;
 	}
 	/**

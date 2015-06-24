@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
+import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.ImageTool;
 
 public class MsgListViewAdapter extends BaseAdapter {
@@ -77,13 +78,19 @@ public class MsgListViewAdapter extends BaseAdapter {
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
 		
 		// 名字
-		String name;
+		String qq;
 		if(User.qq.equals((String)map.get("msgSender"))) {
-			name = (String)map.get("msgReceiver");
+			qq = (String)map.get("msgReceiver");
 		} else {
-			name = (String)map.get("msgSender");
+			qq = (String)map.get("msgSender");
 		}
-		holder.nameTextView.setText(name);
+		// 名字
+		String name = new SQLiteService(context).getFriendNameByQq(qq);
+		if(name != null) {
+			holder.nameTextView.setText(name); // 如果不为空， 显示名字
+		} else {
+			holder.nameTextView.setText(qq); // 如果为空，显示qq号码
+		}
 		// 内容
 		String content = (String)map.get("msgDetails");
 		holder.contentTextView.setText(content);
@@ -91,13 +98,17 @@ public class MsgListViewAdapter extends BaseAdapter {
 		String time = (String)map.get("msgTime");
 		holder.timeTextView.setText(time);
 		
-		bm = ImageTool.getHeadImageFromLocalOrNet(context, (String)map.get("msgSender"));
+		bm = ImageTool.getHeadImageFromLocalOrNet(context, (String)map.get("headimage"));
 		// 类型(根据消息类型设置头像)
 		int type = (Integer)map.get("msgType");
 		if(type == MessageType.MSG_REQUESTADDFRIEND) {
 			bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.addfriend_msg_icon_unchecked);; 
-			holder.nameTextView.setText("系统消息");
-			holder.contentTextView.setText(name + "请求添加你为好友");
+			holder.nameTextView.setText("系统消息");// 根据好友qq号找到好友名字
+			if(name != null) {
+				holder.contentTextView.setText(name + "请求添加你为好友"); // 如果不为空， 显示名字
+			} else {
+				holder.contentTextView.setText(qq + "请求添加你为好友"); // 如果为空，显示qq号码
+			}
 		}
 		holder.headImage.setImageBitmap(bm);
 		

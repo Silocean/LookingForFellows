@@ -6,7 +6,8 @@
 
     <RelativeLayout
         android:layout_width="270dp"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:id="@+id/titlebar_layout" >
 
         <TextView
             android:id="@+id/title"
@@ -14,24 +15,33 @@
             android:layout_height="50dp"
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
-            android:text="搜老乡"
+            android:text="添加好友请求"
             android:textColor="@color/black"
             android:textSize="15sp" />
 
-        <include
+	    <include
             android:id="@+id/line"
             android:layout_width="fill_parent"
             android:layout_height="2px"
             android:layout_below="@id/title"
             layout="@layout/line" >
-        </include>
-
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/line" >
-        </ListView>
+	    </include>
+	    <RelativeLayout 
+		   android:layout_width="fill_parent"
+		   android:layout_height="fill_parent"
+		   android:layout_below="@id/line" >
+	       <ListView
+		        android:id="@+id/requestAddFriendList"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:cacheColorHint="#00000000"
+		        android:divider="@color/black_half"
+		        android:dividerHeight="1dip"
+		        android:scrollbars="none" >
+           </ListView>
+		</RelativeLayout>
     </RelativeLayout>
+	
+      
 
 </RelativeLayout>

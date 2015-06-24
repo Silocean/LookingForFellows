@@ -12,11 +12,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -29,15 +32,13 @@ import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.StreamTool;
 
-public class AddFriendsActivity extends Activity {
+public class AddFriendsActivity extends Activity implements OnItemClickListener {
 	Button gobackButton;
 	ListView listView;
 	ArrayList<Map<String, String>> list = new ArrayList<Map<String, String>>();
 	private SearchfriendsListViewAdapter adapter;
 	
 	Bitmap bitmap;
-	
-	String imagePath = "http://192.168.1.152:8080/lookingfellowWeb0.2/head/";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +51,22 @@ public class AddFriendsActivity extends Activity {
 		adapter = new SearchfriendsListViewAdapter(getApplicationContext(), list, R.layout.listitem_searchfriendslayout, listView);
 		adapter.setData(tempData);
 		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(this);
 		gobackButton = (Button)this.findViewById(R.id.addfriends_goback_button);
 		gobackButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				finish();
 			}
 		});
+	}
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		String qq = this.list.get(position).get("friendQq");
+		Intent intent = new Intent(getApplicationContext(), FriendInfoActivity.class);
+		intent.putExtra("qq", qq);
+		intent.putExtra("tag", "addRequest");
+		startActivity(intent);
 	}
 	/**
 	 * 获取用户好友列表
@@ -83,7 +94,6 @@ public class AddFriendsActivity extends Activity {
 					for(int i=0; i<array.length(); i++) {
 						JSONObject obj = array.getJSONObject(i);
 						Map<String, String> map = new HashMap<String, String>();
-						map.put("headimage", imagePath + "head_" + obj.get("friendQq") + ".jpg");
 						map.put("friendQq", obj.getString("friendQq"));
 						map.put("friendName", obj.getString("friendName"));
 						map.put("friendHometown", obj.getString("friendHometown"));

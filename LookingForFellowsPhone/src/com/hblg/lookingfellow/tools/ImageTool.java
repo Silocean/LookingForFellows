@@ -80,6 +80,8 @@ public class ImageTool {
 						}
 						FileOutputStream fos = new FileOutputStream(path + headName);
 						boolean flag = bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+					} else {
+						System.out.println("SDø®≤ªø…”√");
 					}
 				}
 			} catch (Exception e) {

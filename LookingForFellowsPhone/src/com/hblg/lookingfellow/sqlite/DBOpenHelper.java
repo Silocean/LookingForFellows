@@ -17,6 +17,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		// messgae表
 		db.execSQL("create table message (msgId integer primary key autoincrement, msgType integer, msgSender varchar(11)," +
 				" msgReceiver varchar(11), msgDetails varchar(60), msgTime varchar(19))");
+		// requestAddMsg表（请求添加好友消息）
+		db.execSQL("create table requestAddMsg (msgId integer primary key autoincrement, msgType integer, msgSender varchar(11)," +
+				" msgReceiver varchar(11), msgDetails varchar(60), msgTime varchar(19))");
 		// chatTo表（我的消息列表）
 		db.execSQL("create table chatTo (id integer primary key autoincrement, ownerId varchar(11), chatToQq varchar(11))");
 		// province表
@@ -29,7 +32,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 				" stuHometown varchar(50), stuPassword varchar(20), stuSex varchar(2)," +
 				" stuSigns varchar(60), stuPhone varchar(11))");
 		// friend表
-		db.execSQL("create table friend (ownerId varchar(11), friQQ varchar(15) primary key, friName varchar(20)," +
+		db.execSQL("create table friend (ownerId varchar(11), friQQ varchar(15), friName varchar(20)," +
 				" friHometown varchar(50), friSex varchar(2)," +
 				" friSigns varchar(60), friPhone varchar(11))");
 		db.execSQL("insert into province values('01','北京市')");

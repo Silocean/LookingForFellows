@@ -98,6 +98,23 @@ public class SQLiteService {
 		return friends;
 	}
 	/**
+	 * 根据好友qq号码查询好友名字
+	 * @param qq
+	 * @return
+	 */
+	public String getFriendNameByQq(String qq) {
+		SQLiteDatabase db = openHelper.getReadableDatabase();
+		String sql = "select friName from friend where ownerId = ? and friQQ = ?";
+		Cursor cursor = db.rawQuery(sql, new String[]{User.qq, qq});
+		String friName = null;
+		if(cursor.moveToFirst()) {
+			friName = cursor.getString(cursor.getColumnIndex("friName"));
+		}
+		cursor.close();
+		db.close();
+		return friName;
+	}
+	/**
 	 * 添加好友信息到本地
 	 * @param friend
 	 */
@@ -113,6 +130,18 @@ public class SQLiteService {
 		values.put("friPhone", friend.getPhone());
 		db.insert("friend", null, values);
 		db.close();
+		System.out.println("添加好友信息到本地");
+	}
+	/**
+	 * 删除好友信息
+	 * @param sender
+	 */
+	public void deleteFriendInfo(String sender) {
+		SQLiteDatabase db = openHelper.getWritableDatabase();
+		String sql = "delete from friend where ownerId = ? and friQQ = ?";
+		db.execSQL(sql, new String[]{User.qq, sender});
+		db.close();
+		System.out.println("删除好友信息成功");
 	}
 	/**
 	 * 从本地删除用户信息
@@ -228,13 +257,27 @@ public class SQLiteService {
 	 * 把从服务器获取的暂存消息保存到本地
 	 * @param messages
 	 */
-	public void saveMessage(ArrayList<Map<String, Object>> messages) {
+	public void saveMessages(ArrayList<Map<String, Object>> messages) {
 		SQLiteDatabase db = openHelper.getWritableDatabase();
 		String sql = "insert into message values (?, ?, ?, ?, ?, ?)";
 		for(int i=0; i<messages.size(); i++) {
 			Map<String, Object> map = messages.get(i);
 			db.execSQL(sql, new Object[]{null, map.get("msgType"), map.get("msgSender"), map.get("msgReceiver"), map.get("msgDetails"), map.get("msgTime")});
 		}
+		db.close();
+	}
+	/**
+	 * 把从服务器获取的暂存的请求添加好友消息保存到本地
+	 * @param messages
+	 */
+	public void saveRequestAddFriendMessages(ArrayList<Map<String, Object>> messages) {
+		SQLiteDatabase db = openHelper.getWritableDatabase();
+		String sql = "insert into requestAddMsg values (?, ?, ?, ?, ?, ?)";
+		for(int i=0; i<messages.size(); i++) {
+			Map<String, Object> map = messages.get(i);
+			db.execSQL(sql, new Object[]{null, map.get("msgType"), map.get("msgSender"), map.get("msgReceiver"), map.get("msgDetails"), map.get("msgTime")});
+		}
+		System.out.println("把从服务器获取的暂存的请求添加好友消息保存到本地");
 		db.close();
 	}
 	/**
@@ -249,6 +292,17 @@ public class SQLiteService {
 		System.out.println("保存聊天信息到本地");
 	}
 	/**
+	 * 把请求添加好友消息保存在本地
+	 * @param msg
+	 */
+	public void saveRequestAddFriendMessage(Message msg) {
+		SQLiteDatabase db = openHelper.getWritableDatabase();
+		String sql = "insert into requestAddMsg values (?, ?, ?, ?, ?, ?)";
+		db.execSQL(sql, new Object[]{null, msg.getType(), msg.getSender(), msg.getReceiver(), msg.getDetails(), msg.getTime()});
+		db.close();
+		System.out.println("保存请求添加好友消息到本地");
+	}
+	/**
 	 * 取得本地所有聊天信息
 	 * @return
 	 */
@@ -260,17 +314,49 @@ public class SQLiteService {
 		Cursor cursor = null;
 		for(int i=chatToPersons.size()-1; i>=0; i--) {
 			cursor = db.rawQuery(sql, new String[]{User.qq, chatToPersons.get(i), chatToPersons.get(i), User.qq});
-			cursor.moveToFirst();
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("headimage", imagePath + "head_" + chatToPersons.get(i) + ".jpg");
-			map.put("msgType", cursor.getInt(cursor.getColumnIndex("msgType")));
-			map.put("msgSender", cursor.getString(cursor.getColumnIndex("msgSender")));
-			map.put("msgReceiver", cursor.getString(cursor.getColumnIndex("msgReceiver")));
-			map.put("msgDetails", cursor.getString(cursor.getColumnIndex("msgDetails")));
-			map.put("msgTime", cursor.getString(cursor.getColumnIndex("msgTime")));
-			messages.add(map);
+			if(cursor.moveToFirst()) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("headimage", chatToPersons.get(i));
+				map.put("msgType", cursor.getInt(cursor.getColumnIndex("msgType")));
+				map.put("msgSender", cursor.getString(cursor.getColumnIndex("msgSender")));
+				map.put("msgReceiver", cursor.getString(cursor.getColumnIndex("msgReceiver")));
+				map.put("msgDetails", cursor.getString(cursor.getColumnIndex("msgDetails")));
+				map.put("msgTime", cursor.getString(cursor.getColumnIndex("msgTime")));
+				messages.add(map);
+			}
 			cursor.close();
 		}
+		db.close();
+		return messages;
+	}
+	/**
+	 * 取得本地所有请求添加好友信息
+	 * @return
+	 */
+	public ArrayList<Map<String, Object>> getRequestAddFriendMessages() {
+		ArrayList<Map<String, Object>> messages = new ArrayList<Map<String,Object>>();
+		SQLiteDatabase db = openHelper.getReadableDatabase();
+		String sql = "select * from requestAddMsg where msgReceiver = ? order by msgId desc";
+		Cursor cursor = db.rawQuery(sql, new String[]{User.qq});
+		while(cursor.moveToNext()) {
+			boolean flag = false;
+			for(int i=0; i<messages.size(); i++) {
+				if(messages.get(i).get("msgSender").equals(cursor.getString(cursor.getColumnIndex("msgSender")))) {
+					flag = true;
+					break;
+				}
+			}
+			if(!flag) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("msgType", cursor.getInt(cursor.getColumnIndex("msgType")));
+				map.put("msgSender", cursor.getString(cursor.getColumnIndex("msgSender")));
+				map.put("msgReceiver", cursor.getString(cursor.getColumnIndex("msgReceiver")));
+				map.put("msgDetails", cursor.getString(cursor.getColumnIndex("msgDetails")));
+				map.put("msgTime", cursor.getString(cursor.getColumnIndex("msgTime")));
+				messages.add(map);
+			}
+		}
+		cursor.close();
 		db.close();
 		return messages;
 	}
@@ -339,6 +425,17 @@ public class SQLiteService {
 		db.close();
 	}
 	/**
+	 * 删除某好友的请求添加好友请求
+	 * @param qq
+	 * @param friendQq
+	 */
+	public void deleteRequestAddFriendMsg(String qq, String friendQq) {
+		SQLiteDatabase db = openHelper.getReadableDatabase();
+		String sql = "delete from requestAddMsg where (msgSender=? and msgReceiver=?) or (msgSender=? and msgReceiver=?)";
+		db.execSQL(sql, new Object[]{qq, friendQq, friendQq, qq});
+		db.close();
+	}
+	/**
 	 * 取得所有聊天对象
 	 * @return
 	 */
@@ -384,6 +481,20 @@ public class SQLiteService {
 		String sql = "delete from message where msgId = ?";
 		db.execSQL(sql, new Object[]{id});
 		db.close();
+	}
+	/**
+	 * 检查此人是不是我的好友
+	 * @param qq
+	 * @return
+	 */
+	public boolean checkIsFriend(String qq) {
+		SQLiteDatabase db = openHelper.getWritableDatabase();
+		String sql = "select * from friend where ownerId = ? and friQQ = ?";
+		Cursor cursor = db.rawQuery(sql, new String[]{User.qq, qq});
+		if(cursor.moveToFirst()) {
+			return true; // 表示是好友关系
+		}
+		return false;
 	}
 	
 }

@@ -280,7 +280,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 					String url = "http://192.168.1.152:8080/lookingfellowWeb0.2/GetImageServlet";
 					File imageFile = new File(path, headName);
 					if(imageFile.exists()) {
-						FormFile formFile = new FormFile(imageFile, "imaga", "image/*");
+						FormFile formFile = new FormFile(imageFile, "image", "image/*");
 						Map<String, String> params = new HashMap<String, String>();
 						params.put("title", "title");
 						params.put("content", "content");

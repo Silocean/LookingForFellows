@@ -48,6 +48,8 @@
         </activity>
         <activity android:name=".slidingmenu.activity.ChooseCityActivity" >
         </activity>
+        <activity android:name=".slidingmenu.activity.RequestAddFriendMsgActivity" >
+        </activity>
         <activity
             android:name=".slidingmenu.activity.RegisterActivity"
             android:launchMode="singleTask" >

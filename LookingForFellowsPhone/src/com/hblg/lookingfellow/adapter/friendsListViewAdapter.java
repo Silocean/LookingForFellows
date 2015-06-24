@@ -105,6 +105,7 @@ public class friendsListViewAdapter extends BaseAdapter {
 				// 防止 Calling startActivity() from outside of an Activity问题发生
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				intent.putExtra("qq", qq);
+				intent.putExtra("tag", "unfriendRequest");
 				context.startActivity(intent);
 			}
 		});

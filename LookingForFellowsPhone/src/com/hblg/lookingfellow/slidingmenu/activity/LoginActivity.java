@@ -1,5 +1,6 @@
 package com.hblg.lookingfellow.slidingmenu.activity;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
@@ -20,8 +21,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.hblg.lookingfellow.entity.*;
+
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.entity.LoginUser;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.model.ChatClient;
@@ -64,8 +66,6 @@ public class LoginActivity extends Activity implements OnClickListener{
 		public void handleMessage(Message msg) {
 			if(msg.arg1 == 1) {
 				dialog.dismiss();
-				Toast.makeText(getApplicationContext(), "登录成功", 0).show();
-				
 				//保存qq和密码到User类中，以便使用
 				String qq = qqEditText.getText().toString().trim();
 				String password = passwordEditText.getText().toString().trim();
@@ -75,28 +75,48 @@ public class LoginActivity extends Activity implements OnClickListener{
 				// 启动聊天客户端
 				new ChatClient(getApplicationContext());
 				
-				// 请求暂存在服务器的消息
 				try {
-					com.hblg.lookingfellow.entity.Message msgChatMsg = new com.hblg.lookingfellow.entity.Message();
-					msgChatMsg.setType(MessageType.MSG_REQUESTCHATMSG);
-					msgChatMsg.setSender(User.qq);
-					ObjectOutputStream oos = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
-					oos.writeObject(msgChatMsg);
-				} catch (IOException e) {
+					DataInputStream dis = new DataInputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getInputStream());
+					if(dis.readUTF().equals("error")) { // 已有用户登录
+						Toast.makeText(getApplicationContext(), "该用户已登录", 0).show();
+					} else {
+						Toast.makeText(getApplicationContext(), "登录成功", 0).show();
+						// 请求暂存在服务器的消息
+						new Runnable() {
+							public void run() {
+								try {
+									com.hblg.lookingfellow.entity.Message msgChatMsg = new com.hblg.lookingfellow.entity.Message();
+									msgChatMsg.setType(MessageType.MSG_REQUESTRETURNCHATMSG);
+									msgChatMsg.setSender(User.qq);
+									ObjectOutputStream oos = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
+									oos.writeObject(msgChatMsg);
+									
+									com.hblg.lookingfellow.entity.Message msgRequestAddFriend = new com.hblg.lookingfellow.entity.Message();
+									msgRequestAddFriend.setType(MessageType.MSG_REQUESTRETURNADDFRIENDMSG);
+									msgRequestAddFriend.setSender(User.qq);
+									ObjectOutputStream oos2 = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
+									oos2.writeObject(msgRequestAddFriend);
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+						};
+						
+						//启动程序主窗体
+						Intent intent = new Intent(getApplicationContext(), SlidingActivity.class);
+						startActivity(intent);
+						
+						if(checkIsNotFirstLogin(qq)) {
+							//如果已有用户登录过的话，就不启动服务来获取用户信息了
+							System.out.println("already has one login");
+						} else {
+							//启动服务，获取用户用信息
+							Intent service = new Intent(getApplicationContext(), GetUserInfoService.class);
+							startService(service);
+						}
+					}
+				} catch (Exception e) {
 					e.printStackTrace();
-				}
-				
-				//启动程序主窗体
-				Intent intent = new Intent(getApplicationContext(), SlidingActivity.class);
-				startActivity(intent);
-				
-				if(checkIsNotFirstLogin(qq)) {
-					//如果已有用户登录过的话，就不启动服务来获取用户信息了
-					System.out.println("already has one login");
-				} else {
-					//启动服务，获取用户用信息
-					Intent service = new Intent(getApplicationContext(), GetUserInfoService.class);
-					startService(service);
 				}
 				
 			} else if(msg.arg1 == 2) {

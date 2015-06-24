@@ -51,6 +51,7 @@ public class FriendsFragment extends Fragment implements OnItemClickListener {
 		this.data = data;
 		adapter.setData(data);
 		listView.setAdapter(adapter);
+		System.out.println(data);
 	}
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -81,6 +82,7 @@ public class FriendsFragment extends Fragment implements OnItemClickListener {
 		if(tempList.size() == 0) {
 			Toast.makeText(getActivity(), "你还没有好友啊", 0).show();
 		}
+		System.out.println(tempList);
 		return tempList;
 	}
 

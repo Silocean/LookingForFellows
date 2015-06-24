@@ -30,6 +30,7 @@ import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.slidingmenu.activity.ChatActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
+import com.hblg.lookingfellow.slidingmenu.activity.RequestAddFriendMsgActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 
@@ -84,7 +85,8 @@ public class MsgFragment extends Fragment implements OnItemClickListener, OnItem
 		});
 		titlebarRightmenu.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "复选", 0).show();
+				Intent intent = new Intent(getActivity(), RequestAddFriendMsgActivity.class);
+				startActivity(intent);
 			}
 		});
 		SQLiteService service = new SQLiteService(getActivity());
@@ -137,7 +139,12 @@ public class MsgFragment extends Fragment implements OnItemClickListener, OnItem
 		} else {
 			popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
 			chatToNameTextView = (TextView)popupView.findViewById(R.id.chatToName);
-			chatToNameTextView.setText(friendQq);
+			String name = new SQLiteService(getActivity()).getFriendNameByQq(friendQq);
+			if(name != null) {
+				chatToNameTextView.setText(name);
+			} else {
+				chatToNameTextView.setText(friendQq);
+			}
 			deleteFromMsgListtTextView = (TextView)popupView.findViewById(R.id.deleteFromMsgList);
 			deleteFromMsgListtTextView.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
@@ -158,6 +165,7 @@ public class MsgFragment extends Fragment implements OnItemClickListener, OnItem
 					// 从数据库中删除与该好友的所有聊天记录
 					new SQLiteService(getActivity()).deleteMsg(User.qq, friendQq);
 					popupWindow.dismiss();
+					// 更新我的消息列表
 					ArrayList<Map<String, Object>> data = getMessages();
 					adapter.setData(data);
 					listView.setAdapter(adapter);
