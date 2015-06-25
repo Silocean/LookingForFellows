@@ -3,19 +3,36 @@ package com.hblg.lookingfellow.slidingmenu.activity;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.ChatListViewAdapter;
@@ -24,10 +41,33 @@ import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.model.ManageClientConnServer;
+import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
+import com.hblg.lookingfellow.selfdefinedwidget.MyGridView;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
+import com.hblg.lookingfellow.tools.Expressions;
 import com.hblg.lookingfellow.tools.TimeConvertTool;
 
 public class ChatActivity extends Activity implements OnClickListener{
+	private Button faceBtn;//添加表情
+	private Button faceFoucsBtn;//当表情展开时
+	
+	private int[] expressionImages;
+	private String[] expressionImageNames;
+	private int[] expressionImages1;
+	private String[] expressionImageNames1;
+	private int[] expressionImages2;
+	private String[] expressionImageNames2;
+	private ViewPager viewPager;
+	private ArrayList<GridView> grids;
+	private MyGridView gView1;
+	private MyGridView gView2;
+	private MyGridView gView3;
+	private LinearLayout page_select;
+	private ImageView page0;
+	private ImageView page1;
+	private ImageView page2;
+	
+	
 	Button gobackButton;
 	Button personinfoButton;
 	
@@ -58,39 +98,242 @@ public class ChatActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		friendQq = getIntent().getStringExtra("friendQq");
 		ManageActivity.addActiviy("ChatActivity", this);
 		setContentView(R.layout.activity_chat);
+		initView();
+		initListData();
+		initEmotionView();
+	}
+	private void initView() {
 		gobackButton = (Button)this.findViewById(R.id.chat_goback_button);
 		gobackButton.setOnClickListener(this);
 		personinfoButton = (Button)this.findViewById(R.id.chat_personinfo_button);
 		personinfoButton.setOnClickListener(this);
 		titleTextView = (TextView)this.findViewById(R.id.titlebar_title);
+		friendQq = getIntent().getStringExtra("friendQq");
 		String friName = new SQLiteService(getApplicationContext()).getFriendNameByQq(friendQq);
 		if(friName != null) {
 			titleTextView.setText(friName);
 		} else {
 			titleTextView.setText(friendQq);
 		}
-		/*SQLiteService service = new SQLiteService(getApplicationContext());
-		Student student = service.getStuInfo(friendQq);
-		titleTextView.setText(student.getName());*/
 		sendButton = (Button)this.findViewById(R.id.chat_bottombar_sendbutton);
 		sendButton.setOnClickListener(this);
 		contentEditText = (EditText)this.findViewById(R.id.chat_bottombar_edittext);
-		initListData();
+		contentEditText.addTextChangedListener(new MaxLengthWatcher(60, contentEditText, this));
 	}
+	private void initEmotionView(){
+		faceBtn=(Button)findViewById(R.id.chat_bottombar_addbutton);
+		faceFoucsBtn=(Button)findViewById(R.id.chat_bottombar_addbutton_focused);
+
+		faceBtn.setOnClickListener(this);
+		faceFoucsBtn.setOnClickListener(this);
+		
+		page_select = (LinearLayout) findViewById(R.id.page_select);
+		page0 = (ImageView) findViewById(R.id.page0_select);
+		page1 = (ImageView) findViewById(R.id.page1_select);
+		page2 = (ImageView) findViewById(R.id.page2_select);
+		
+		// 引入表情
+		expressionImages = Expressions.expressionImgs;
+		expressionImageNames = Expressions.expressionImgNames;
+		expressionImages1 = Expressions.expressionImgs1;
+		expressionImageNames1 = Expressions.expressionImgNames1;
+		expressionImages2 = Expressions.expressionImgs2;
+		expressionImageNames2 = Expressions.expressionImgNames2;
+		// 创建ViewPager
+		viewPager = (ViewPager) findViewById(R.id.chat_viewpager);
+		initViewPager();
+	}
+	private void initViewPager() {
+		LayoutInflater inflater = LayoutInflater.from(this);
+		grids = new ArrayList<GridView>();
+		gView1 = (MyGridView) inflater.inflate(R.layout.gridview_face, null);
+		List<Map<String, Object>> listItems = new ArrayList<Map<String, Object>>();
+		// 生成24个表情
+		for (int i = 0; i < 24; i++) {
+			Map<String, Object> listItem = new HashMap<String, Object>();
+			listItem.put("image", expressionImages[i]);
+			listItems.add(listItem);
+		}
+
+		SimpleAdapter simpleAdapter = new SimpleAdapter(ChatActivity.this, listItems,
+				R.layout.griditem_face, new String[] { "image" },
+				new int[] { R.id.image });
+		gView1.setAdapter(simpleAdapter);
+		gView1.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+					long arg3) {
+				Bitmap bitmap = null;
+				bitmap = BitmapFactory.decodeResource(getResources(),expressionImages[position % expressionImages.length]);
+				ImageSpan imageSpan = new ImageSpan(ChatActivity.this, bitmap);
+				SpannableString spannableString = new SpannableString(
+						expressionImageNames[position].substring(1,expressionImageNames[position].length() - 1));
+				spannableString.setSpan(imageSpan, 0,
+						expressionImageNames[position].length() - 2,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				// 编辑框设置数据
+				contentEditText.append(spannableString);
+				System.out.println("edit的内容 = " + spannableString);
+			}
+		});
+		grids.add(gView1);
+
+		gView2 = (MyGridView) inflater.inflate(R.layout.gridview_face, null);
+		grids.add(gView2);
+
+		gView3 = (MyGridView) inflater.inflate(R.layout.gridview_face, null);
+		grids.add(gView3);
+		System.out.println("GridView的长度 = " + grids.size());
+
+		// 填充ViewPager的数据适配器
+		PagerAdapter mPagerAdapter = new PagerAdapter() {
+			@Override
+			public boolean isViewFromObject(View arg0, Object arg1) {
+				return arg0 == arg1;
+			}
+
+			@Override
+			public int getCount() {
+				return grids.size();
+			}
+
+			@Override
+			public void destroyItem(View container, int position, Object object) {
+				((ViewPager) container).removeView(grids.get(position));
+			}
+
+			@Override
+			public Object instantiateItem(View container, int position) {
+				((ViewPager) container).addView(grids.get(position));
+				return grids.get(position);
+			}
+		};
+
+		viewPager.setAdapter(mPagerAdapter);
+		// viewPager.setAdapter();
+
+		viewPager.setOnPageChangeListener(new GuidePageChangeListener());
+	}
+	// ** 指引页面改监听器 */
+	private	class GuidePageChangeListener implements OnPageChangeListener {
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				System.out.println("页面滚动" + arg0);
+
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				System.out.println("换页了" + arg0);
+			}
+
+			@Override
+			public void onPageSelected(int arg0) {
+				switch (arg0) {
+				case 0:
+					page0.setImageDrawable(getResources().getDrawable(
+							R.drawable.page_focused));
+					page1.setImageDrawable(getResources().getDrawable(
+							R.drawable.page_unfocused));
+
+					break;
+				case 1:
+					page1.setImageDrawable(getResources().getDrawable(
+							R.drawable.page_focused));
+					page0.setImageDrawable(getResources().getDrawable(
+							R.drawable.page_unfocused));
+					page2.setImageDrawable(getResources().getDrawable(
+							R.drawable.page_unfocused));
+					List<Map<String, Object>> listItems = new ArrayList<Map<String, Object>>();
+					// 生成24个表情
+					for (int i = 0; i < 24; i++) {
+						Map<String, Object> listItem = new HashMap<String, Object>();
+						listItem.put("image", expressionImages1[i]);
+						listItems.add(listItem);
+					}
+
+					SimpleAdapter simpleAdapter = new SimpleAdapter(ChatActivity.this,
+							listItems, R.layout.griditem_face,
+							new String[] { "image" }, new int[] { R.id.image });
+					gView2.setAdapter(simpleAdapter);
+					gView2.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(AdapterView<?> arg0, View arg1,
+								int arg2, long arg3) {
+							Bitmap bitmap = null;
+							bitmap = BitmapFactory.decodeResource(getResources(),
+									expressionImages1[arg2
+											% expressionImages1.length]);
+							ImageSpan imageSpan = new ImageSpan(ChatActivity.this, bitmap);
+							SpannableString spannableString = new SpannableString(
+									expressionImageNames1[arg2]
+											.substring(1,
+													expressionImageNames1[arg2]
+															.length() - 1));
+							spannableString.setSpan(imageSpan, 0,
+									expressionImageNames1[arg2].length() - 2,
+									Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+							// 编辑框设置数据
+							contentEditText.append(spannableString);
+							System.out.println("edit的内容 = " + spannableString);
+						}
+					});
+					break;
+				case 2:
+					page2.setImageDrawable(getResources().getDrawable(
+							R.drawable.page_focused));
+					page1.setImageDrawable(getResources().getDrawable(
+							R.drawable.page_unfocused));
+					page0.setImageDrawable(getResources().getDrawable(
+							R.drawable.page_unfocused));
+					List<Map<String, Object>> listItems1 = new ArrayList<Map<String, Object>>();
+					// 生成24个表情
+					for (int i = 0; i < 24; i++) {
+						Map<String, Object> listItem = new HashMap<String, Object>();
+						listItem.put("image", expressionImages2[i]);
+						listItems1.add(listItem);
+					}
+
+					SimpleAdapter simpleAdapter1 = new SimpleAdapter(ChatActivity.this,
+							listItems1, R.layout.griditem_face,
+							new String[] { "image" }, new int[] { R.id.image });
+					gView3.setAdapter(simpleAdapter1);
+					gView3.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(AdapterView<?> arg0, View arg1,
+								int arg2, long arg3) {
+							Bitmap bitmap = null;
+							bitmap = BitmapFactory.decodeResource(getResources(),
+									expressionImages2[arg2
+											% expressionImages2.length]);
+							ImageSpan imageSpan = new ImageSpan(ChatActivity.this, bitmap);
+							SpannableString spannableString = new SpannableString(
+									expressionImageNames2[arg2]
+											.substring(1,expressionImageNames2[arg2].length() - 1));
+							spannableString.setSpan(imageSpan, 0,
+									expressionImageNames2[arg2].length() - 2,
+									Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+							// 编辑框设置数据
+							contentEditText.append(spannableString);
+							System.out.println("edit的内容 = " + spannableString);
+						}
+					});
+					break;
+					
+				}
+			}
+	}
+
 	@Override
 	protected void onNewIntent(Intent intent) {
-		friendQq = intent.getStringExtra("friendQq");
-		String friName = new SQLiteService(getApplicationContext()).getFriendNameByQq(friendQq);
-		if(friName != null) {
-			titleTextView.setText(friName);
-		} else {
-			titleTextView.setText(friendQq);
-		}
-		initListData();
+		System.out.println("before:" + intent.getStringExtra("friendQq"));
 		super.onNewIntent(intent);
+		setIntent(intent);//must store the new intent unless getIntent() will return the old one
+		System.out.println("after:" + intent.getStringExtra("friendQq"));
+		initView();
+		initListData();
 	}
 	/**
 	 * 获取本地聊天记录
@@ -118,6 +361,18 @@ public class ChatActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.chat_bottombar_addbutton://展开表情
+			faceBtn.setVisibility(faceBtn.GONE);
+			faceFoucsBtn.setVisibility(faceBtn.VISIBLE);
+			viewPager.setVisibility(viewPager.VISIBLE);
+			page_select.setVisibility(page_select.VISIBLE);
+			break;
+		case R.id.chat_bottombar_addbutton_focused://关闭表情
+			faceBtn.setVisibility(faceBtn.VISIBLE);
+			faceFoucsBtn.setVisibility(faceBtn.GONE);
+			viewPager.setVisibility(viewPager.GONE);
+			page_select.setVisibility(page_select.GONE);
+			break;
 		case R.id.chat_goback_button:
 			this.finish();
 			break;
@@ -129,6 +384,12 @@ public class ChatActivity extends Activity implements OnClickListener{
 			break;
 		case R.id.chat_bottombar_sendbutton: 
 			try {
+				//表情相关处理
+				viewPager.setVisibility(ViewPager.GONE);
+				page_select.setVisibility(page_select.GONE);
+				faceBtn.setVisibility(faceBtn.VISIBLE);
+				faceFoucsBtn.setVisibility(View.GONE);
+				
 				// 发送消息到服务器
 				oos = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
 				Message msg = new Message();
@@ -136,6 +397,7 @@ public class ChatActivity extends Activity implements OnClickListener{
 				msg.setSender(User.qq);
 				msg.setReceiver(friendQq);
 				msg.setDetails(contentEditText.getText().toString());
+				
 				String time = TimeConvertTool.convertToString(new Date(System.currentTimeMillis()));
 				msg.setTime(time);
 				oos.writeObject(msg);

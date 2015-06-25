@@ -19,9 +19,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/postdetail_title"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="Silocean的帖子"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
@@ -36,6 +36,7 @@
         android:focusableInTouchMode="true" >
 
         <RelativeLayout
+            android:id="@+id/main_content_reg_temp1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true" >
@@ -47,6 +48,15 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/chat_bottombar_add_icon" />
+
+            <Button
+                android:id="@+id/post_detail_add_btn_focused"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/chat_bottombar_add_icon"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/post_detail_comment"
@@ -65,16 +75,59 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dip"
+                android:layout_marginLeft="40dp"
                 android:layout_marginRight="5dip"
                 android:layout_marginTop="5dp"
                 android:layout_toLeftOf="@id/post_detail_comment"
-                android:layout_toRightOf="@id/post_detail_add_btn"
                 android:background="@drawable/leftmenu_itembg_normal"
-                android:hint="评论点什么咯"
+                android:hint="评论点什么"
                 android:maxLines="3"
+                android:paddingLeft="3dp"
                 android:textSize="13sp" />
         </RelativeLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/post_detail_viewpager"
+            android:layout_width="wrap_content"
+            android:layout_height="135dip"
+            android:layout_below="@+id/main_content_reg_temp1"
+            android:layout_gravity="center"
+            android:background="#ddd"
+            android:visibility="gone" >
+        </android.support.v4.view.ViewPager>
+
+        <LinearLayout
+            android:id="@+id/page_select"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/post_detail_viewpager"
+            android:background="#ddd"
+            android:gravity="center_horizontal"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/page0_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="matrix"
+                android:src="@drawable/page_focused" />
+
+            <ImageView
+                android:id="@+id/page1_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:scaleType="matrix"
+                android:src="@drawable/page_unfocused" />
+
+            <ImageView
+                android:id="@+id/page2_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:scaleType="matrix"
+                android:src="@drawable/page_unfocused" />
+        </LinearLayout>
     </RelativeLayout>
 
     <ListView
@@ -87,5 +140,4 @@
         android:cacheColorHint="#00000000"
         android:divider="@color/bg_color"
         android:dividerHeight="5dip" />
-
 </RelativeLayout>

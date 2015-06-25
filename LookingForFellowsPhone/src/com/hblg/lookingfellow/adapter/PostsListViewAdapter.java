@@ -6,6 +6,7 @@ import java.util.Map;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
+import com.hblg.lookingfellow.sqlite.SQLiteService;
+import com.hblg.lookingfellow.tools.ExpressionUtil;
 import com.hblg.lookingfellow.tools.ImageUtils;
 import com.hblg.lookingfellow.tools.ImageUtils.ImageCallBack;
 
@@ -84,10 +87,12 @@ public class PostsListViewAdapter extends BaseAdapter {
 		holder.titleTextView.setText(title);
 		//内容
 		String content = (String)map.get("content");
-		holder.contentTextView.setText(content);
+		String zhengze = "f0[0-9]{2}|f10[0-7]"; // 正则表达式，用来判断回复里是否有表情
+		SpannableString spannableString = ExpressionUtil.getExpressionString(context, content, zhengze);
+		holder.contentTextView.setText(spannableString);
 		//回复
-		String replycount = (String)map.get("replycount");
-		holder.replycountTextView.setText(replycount);
+		int replycount = (Integer)map.get("replycount");
+		holder.replycountTextView.setText(replycount+"");
 		//名字
 		String publishname = (String)map.get("publishname");
 		holder.publishnameTextView.setText(publishname);
@@ -120,6 +125,13 @@ public class PostsListViewAdapter extends BaseAdapter {
 				// 防止 Calling startActivity() from outside of an Activity问题发生
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				intent.putExtra("qq", qq);
+				SQLiteService service = new SQLiteService(context);
+				boolean flag = service.checkIsFriend(qq);
+				if(flag) {
+					intent.putExtra("tag", "unfriendRequest");
+				} else {
+					intent.putExtra("tag", "addRequest");
+				}
 				context.startActivity(intent);
 			}
 		});

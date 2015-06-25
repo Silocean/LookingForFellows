@@ -38,7 +38,9 @@ public class ShowNotification {
 		} else if(type == MessageType.MSG_REQUESTADDFRIEND) {
 			intent = new Intent(context, RequestAddFriendMsgActivity.class);
 		}
-		pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+		System.out.println("sender:"+intent.getStringExtra("friendQq"));
+		// 这里注意第四个参数一定要是FLAG_UPDATE_CURRENT，否则传过去的intent仍旧是旧值
+		pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		notification.setLatestEventInfo(context, sender, details, pendingIntent);
 		notification.defaults = Notification.DEFAULT_SOUND;
 		notification.flags = Notification.FLAG_AUTO_CANCEL;

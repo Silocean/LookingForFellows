@@ -64,8 +64,6 @@ public class MainFragment extends Fragment  implements OnPullDownListener, OnIte
 	/**加载更多页码，默认为第二页，当刷新时重置为2，当一次加载更多完成*时加1*/
 	private int currentPage=2;
     
-	private Bitmap bitmap;
-	
 	private ListView mListView;
 	private PullDownView mPullDownView;
 	PostsListViewAdapter adapter;
@@ -153,20 +151,20 @@ public class MainFragment extends Fragment  implements OnPullDownListener, OnIte
 				String str = new String(data);
 				if(str.equals("error")) {
 					//Toast.makeText(getActivity(), "服务器端出现问题，请稍后再试", 0).show();
-				} else if(str.equals("[")){
+				} else if(str.equals("]")){
 					Toast.makeText(getActivity(), "暂没有人发帖", 0).show();
 				} else {
 					JSONArray array = new JSONArray(str);
 					//saveToCache(array); // 保存帖子条目数据到缓存
-					bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.head_default);
 					for(int i=0; i<array.length(); i++) {
 						JSONObject obj = array.getJSONObject(i);
 						Map<String, Object> map = new HashMap<String, Object>();
 						map.put("headimage", imagePath + "head_" + obj.get("authorId") + ".jpg");
-						map.put("authorId", obj.get("authorId"));
+						map.put("postId", obj.getInt("id"));
+						map.put("authorId", obj.getString("authorId"));
 						map.put("title", obj.getString("title"));
 						map.put("content", obj.getString("details"));
-						map.put("replycount", obj.getString("replyNum"));
+						map.put("replycount", obj.getInt("replyNum"));
 						map.put("publishname", obj.getString("authorName"));
 						map.put("publishtime", obj.getString("time"));
 						tempList.add(map);
@@ -279,9 +277,19 @@ public class MainFragment extends Fragment  implements OnPullDownListener, OnIte
 	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		Map<String, Object> map = data.get(position-1);
+		Post post = new Post();
+		post.setId((Integer)map.get("postId"));
+		post.setAuthorId((String)map.get("authorId"));
+		post.setAuthorName((String)map.get("publishname"));
+		post.setTitle((String)map.get("title"));
+		post.setDetails((String)map.get("content"));
+		post.setReplyNum((Integer)map.get("replycount"));
+		post.setTime((String)map.get("publishtime"));
 		Intent intent = new Intent(getActivity(), PostDetailActivity.class);
-		
+		intent.putExtra("post", post);
 		startActivity(intent);
+		System.out.println("你点击了"+position);
 	}
 
 	private void loadData() {

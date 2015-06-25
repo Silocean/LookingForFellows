@@ -98,6 +98,7 @@ public class friendsListViewAdapter extends BaseAdapter {
 		});
 		// Í·Ïñ
 		bm = ImageTool.getHeadImageFromLocalOrNet(context, qq);
+		bm = ImageTool.toRoundCorner(bm, 15);
 		holder.headImage.setImageBitmap(bm);
 		holder.headImage.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {

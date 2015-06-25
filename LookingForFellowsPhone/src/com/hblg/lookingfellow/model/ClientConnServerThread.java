@@ -1,6 +1,5 @@
 package com.hblg.lookingfellow.model;
 
-import java.io.DataInputStream;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.HttpURLConnection;
@@ -21,7 +20,6 @@ import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.entity.Friend;
 import com.hblg.lookingfellow.entity.Message;
 import com.hblg.lookingfellow.entity.MessageType;
-import com.hblg.lookingfellow.entity.Student;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.StreamTool;
 /**

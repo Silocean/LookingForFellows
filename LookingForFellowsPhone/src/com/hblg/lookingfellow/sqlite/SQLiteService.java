@@ -143,6 +143,13 @@ public class SQLiteService {
 		db.close();
 		System.out.println("删除好友信息成功");
 	}
+	public void deleteAllFriendInfo() {
+		SQLiteDatabase db = openHelper.getWritableDatabase();
+		String sql = "delete from friend";
+		db.execSQL(sql);
+		db.close();
+		System.out.println("删除所有好友信息成功");
+	}
 	/**
 	 * 从本地删除用户信息
 	 */

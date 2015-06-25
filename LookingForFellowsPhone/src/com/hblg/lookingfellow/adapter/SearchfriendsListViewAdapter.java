@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Map;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,6 @@ import com.hblg.lookingfellow.entity.Message;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.model.ManageClientConnServer;
-import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
 import com.hblg.lookingfellow.tools.ImageTool;
 import com.hblg.lookingfellow.tools.TimeConvertTool;
 
@@ -101,6 +99,7 @@ public class SearchfriendsListViewAdapter extends BaseAdapter {
 		});
 		//Í·Ïñ
 		bm = ImageTool.getHeadImageFromLocalOrNet(context, friendQq);
+		bm = ImageTool.toRoundCorner(bm, 15);
 		holder.headImage.setImageBitmap(bm);
 		
 		return convertView;

@@ -1,6 +1,8 @@
 package com.hblg.lookingfellow.entity;
 
-public class Post {
+import java.io.Serializable;
+
+public class Post implements Serializable{
 	int id;
 	String title;
 	String details;

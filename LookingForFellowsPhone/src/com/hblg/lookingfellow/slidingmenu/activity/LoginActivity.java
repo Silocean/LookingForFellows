@@ -81,26 +81,21 @@ public class LoginActivity extends Activity implements OnClickListener{
 						Toast.makeText(getApplicationContext(), "该用户已登录", 0).show();
 					} else {
 						Toast.makeText(getApplicationContext(), "登录成功", 0).show();
+						
 						// 请求暂存在服务器的消息
-						new Runnable() {
-							public void run() {
-								try {
-									com.hblg.lookingfellow.entity.Message msgChatMsg = new com.hblg.lookingfellow.entity.Message();
-									msgChatMsg.setType(MessageType.MSG_REQUESTRETURNCHATMSG);
-									msgChatMsg.setSender(User.qq);
-									ObjectOutputStream oos = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
-									oos.writeObject(msgChatMsg);
-									
-									com.hblg.lookingfellow.entity.Message msgRequestAddFriend = new com.hblg.lookingfellow.entity.Message();
-									msgRequestAddFriend.setType(MessageType.MSG_REQUESTRETURNADDFRIENDMSG);
-									msgRequestAddFriend.setSender(User.qq);
-									ObjectOutputStream oos2 = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
-									oos2.writeObject(msgRequestAddFriend);
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
-						};
+						com.hblg.lookingfellow.entity.Message msgChatMsg = new com.hblg.lookingfellow.entity.Message();
+						msgChatMsg.setType(MessageType.MSG_REQUESTRETURNCHATMSG);
+						msgChatMsg.setSender(User.qq);
+						ObjectOutputStream oos = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
+						oos.writeObject(msgChatMsg);
+						
+						com.hblg.lookingfellow.entity.Message msgRequestAddFriend = new com.hblg.lookingfellow.entity.Message();
+						msgRequestAddFriend.setType(MessageType.MSG_REQUESTRETURNADDFRIENDMSG);
+						msgRequestAddFriend.setSender(User.qq);
+						ObjectOutputStream oos2 = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
+						oos2.writeObject(msgRequestAddFriend);
+						
+						ManageClientConnServer.getClientConServerThread(User.qq).start();
 						
 						//启动程序主窗体
 						Intent intent = new Intent(getApplicationContext(), SlidingActivity.class);
