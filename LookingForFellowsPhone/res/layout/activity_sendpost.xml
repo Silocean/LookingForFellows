@@ -66,7 +66,7 @@
         android:layout_height="fill_parent"
         android:layout_below="@id/sendpost_third_relativelayout" >
 
-        <EditText
+        <com.hblg.lookingfellow.selfdefinedwidget.SendpostEditText
             android:id="@+id/sendpost_content"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -82,87 +82,29 @@
         android:layout_alignParentBottom="true"
         android:padding="10dip" >
 
-        <RelativeLayout
-            android:id="@+id/sendpost_bottombar_temp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-
-            <Button
-                android:id="@+id/senpost_bottombar_emotionbutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="5dip"
-                android:background="@drawable/sendpost_bottombar_emotion_icon_selector" />
-
-            <Button
-                android:id="@+id/senpost_bottombar_emotionbutton_focused"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="5dip"
-                android:background="@drawable/sendpost_bottombar_emotion_icon_selector"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/senpost_bottombar_atbutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="45dip"
-                android:background="@drawable/sendpost_bottombar_at_icon_selector" />
-
-            <Button
-                android:id="@+id/senpost_bottombar_picturebutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dip"
-                android:layout_toRightOf="@id/senpost_bottombar_atbutton"
-                android:background="@drawable/sendpost_bottombar_picture_icon_selector" />
-        </RelativeLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/sendpost_viewpager"
+        <Button
+            android:id="@+id/senpost_bottombar_emotionbutton"
             android:layout_width="wrap_content"
-            android:layout_height="135dip"
-            android:layout_below="@+id/sendpost_bottombar_temp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:background="@color/bg_color"
-            android:visibility="gone" >
-        </android.support.v4.view.ViewPager>
-
-        <LinearLayout
-            android:id="@+id/page_select"
-            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/sendpost_viewpager"
-            android:background="#ddd"
-            android:gravity="center_horizontal"
-            android:visibility="gone" >
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dip"
+            android:background="@drawable/sendpost_bottombar_emotion_icon_selector" />
 
-            <ImageView
-                android:id="@+id/page0_select"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="matrix"
-                android:src="@drawable/page_focused" />
+        <Button
+            android:id="@+id/senpost_bottombar_atbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_toRightOf="@id/senpost_bottombar_emotionbutton"
+            android:background="@drawable/sendpost_bottombar_at_icon_selector" />
 
-            <ImageView
-                android:id="@+id/page1_select"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:scaleType="matrix"
-                android:src="@drawable/page_unfocused" />
-
-            <ImageView
-                android:id="@+id/page2_select"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:scaleType="matrix"
-                android:src="@drawable/page_unfocused" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/senpost_bottombar_picturebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:layout_toRightOf="@id/senpost_bottombar_atbutton"
+            android:background="@drawable/sendpost_bottombar_picture_icon_selector" />
     </RelativeLayout>
 
 </RelativeLayout>

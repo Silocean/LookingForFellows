@@ -3,29 +3,25 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/bg_color" >
-
     <RelativeLayout
         android:id="@+id/main_content_top_temp"
         android:layout_width="fill_parent"
         android:layout_height="45dip"
         android:background="@drawable/main_titlebarbg" >
-
         <Button
             android:id="@+id/post_detail_back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/goback_icon_selector" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/postdetail_title"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
+            android:text="Silocean的帖子"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
-
     <RelativeLayout
         android:id="@+id/main_content_reg_temp"
         android:layout_width="fill_parent"
@@ -34,13 +30,11 @@
         android:background="@drawable/chat_bottombar_bg"
         android:focusable="true"
         android:focusableInTouchMode="true" >
-
         <RelativeLayout
             android:id="@+id/main_content_reg_temp1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true" >
-
             <Button
                 android:id="@+id/post_detail_add_btn"
                 android:layout_width="wrap_content"
@@ -48,7 +42,6 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/chat_bottombar_add_icon" />
-
             <Button
                 android:id="@+id/post_detail_add_btn_focused"
                 android:layout_width="wrap_content"
@@ -57,7 +50,6 @@
                 android:layout_centerVertical="true"
                 android:background="@drawable/chat_bottombar_add_icon"
                 android:visibility="gone" />
-
             <Button
                 android:id="@+id/post_detail_comment"
                 android:layout_width="wrap_content"
@@ -68,7 +60,6 @@
                 android:paddingRight="5dip"
                 android:text="评论"
                 android:textColor="@color/white" />
-
             <EditText
                 android:id="@+id/chat_bottombar_edittext"
                 android:layout_width="fill_parent"
@@ -80,12 +71,11 @@
                 android:layout_marginTop="5dp"
                 android:layout_toLeftOf="@id/post_detail_comment"
                 android:background="@drawable/leftmenu_itembg_normal"
-                android:hint="评论点什么"
+                android:hint="评论点什么咯"
                 android:maxLines="3"
                 android:paddingLeft="3dp"
                 android:textSize="13sp" />
         </RelativeLayout>
-
         <android.support.v4.view.ViewPager
             android:id="@+id/post_detail_viewpager"
             android:layout_width="wrap_content"
@@ -95,7 +85,6 @@
             android:background="#ddd"
             android:visibility="gone" >
         </android.support.v4.view.ViewPager>
-
         <LinearLayout
             android:id="@+id/page_select"
             android:layout_width="fill_parent"
@@ -104,14 +93,12 @@
             android:background="#ddd"
             android:gravity="center_horizontal"
             android:visibility="gone" >
-
             <ImageView
                 android:id="@+id/page0_select"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="matrix"
                 android:src="@drawable/page_focused" />
-
             <ImageView
                 android:id="@+id/page1_select"
                 android:layout_width="wrap_content"
@@ -119,7 +106,6 @@
                 android:layout_marginLeft="10dp"
                 android:scaleType="matrix"
                 android:src="@drawable/page_unfocused" />
-
             <ImageView
                 android:id="@+id/page2_select"
                 android:layout_width="wrap_content"
@@ -129,7 +115,6 @@
                 android:src="@drawable/page_unfocused" />
         </LinearLayout>
     </RelativeLayout>
-
     <ListView
         android:id="@+id/post_detail_list"
         android:layout_width="fill_parent"

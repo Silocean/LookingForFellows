@@ -6,7 +6,6 @@ import java.util.Map;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.text.SpannableString;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +19,6 @@ import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
-import com.hblg.lookingfellow.sqlite.SQLiteService;
-import com.hblg.lookingfellow.tools.ExpressionUtil;
 import com.hblg.lookingfellow.tools.ImageUtils;
 import com.hblg.lookingfellow.tools.ImageUtils.ImageCallBack;
 
@@ -69,7 +66,6 @@ public class PostsListViewAdapter extends BaseAdapter {
 			holder.titleTextView = (TextView)convertView.findViewById(R.id.postlayout_title);
 			holder.contentTextView = (TextView)convertView.findViewById(R.id.postlayout_content);
 			holder.replycountTextView = (TextView)convertView.findViewById(R.id.postlayout_replay_count);
-			holder.replycountTextView = (TextView)convertView.findViewById(R.id.postlayout_replay_count);
 			holder.publishnameTextView = (TextView)convertView.findViewById(R.id.postlayout_publish_name);
 			holder.publishtimeTextView = (TextView)convertView.findViewById(R.id.postlayout_publish_time);
 			convertView.setTag(holder);
@@ -82,17 +78,15 @@ public class PostsListViewAdapter extends BaseAdapter {
 		// 发帖人ID
 		final String qq = (String)map.get("authorId");
 		
-		//标题
+		/*//标题
 		String title = (String)map.get("title");
 		holder.titleTextView.setText(title);
 		//内容
 		String content = (String)map.get("content");
-		String zhengze = "f0[0-9]{2}|f10[0-7]"; // 正则表达式，用来判断回复里是否有表情
-		SpannableString spannableString = ExpressionUtil.getExpressionString(context, content, zhengze);
-		holder.contentTextView.setText(spannableString);
+		holder.contentTextView.setText(content);
 		//回复
-		int replycount = (Integer)map.get("replycount");
-		holder.replycountTextView.setText(replycount+"");
+		String replycount = (String)map.get("replycount");
+		holder.replycountTextView.setText(replycount);
 		//名字
 		String publishname = (String)map.get("publishname");
 		holder.publishnameTextView.setText(publishname);
@@ -100,6 +94,7 @@ public class PostsListViewAdapter extends BaseAdapter {
 		String publishtime = (String)map.get("publishtime");
 		publishtime = publishtime.substring(5, 16);
 		holder.publishtimeTextView.setText(publishtime);
+		
 		
 		//头像
 		ImageUtils.ImageCallBack callBack = new ImageCallBack() {
@@ -125,17 +120,16 @@ public class PostsListViewAdapter extends BaseAdapter {
 				// 防止 Calling startActivity() from outside of an Activity问题发生
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				intent.putExtra("qq", qq);
-				SQLiteService service = new SQLiteService(context);
-				boolean flag = service.checkIsFriend(qq);
-				if(flag) {
-					intent.putExtra("tag", "unfriendRequest");
-				} else {
-					intent.putExtra("tag", "addRequest");
-				}
 				context.startActivity(intent);
 			}
 		});
-		
+		*/
+		holder.titleTextView.setText("理工聚会咯");
+		holder.contentTextView.setText("在湖北理工的同学都去溜冰场聚聚哦");
+		holder.replycountTextView.setText("100");
+		holder.replycountTextView.setText("望月枫眠");
+		holder.publishtimeTextView.setText("2013/10/17");
+		holder.headImage.setImageDrawable(context.getResources().getDrawable(R.drawable.head_default));
 		return convertView;
 	}
 	

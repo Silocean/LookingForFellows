@@ -17,7 +17,6 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/postdetails_title"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:text="我只是爱拍而已"
@@ -34,7 +33,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="3dp" />
+                android:layout_marginRight="3dp"
+                android:text="1164" />
 
             <TextView
                 android:id="@+id/comment_count_temp"
@@ -49,7 +49,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/comment_count_temp" />
+                android:layout_toLeftOf="@id/comment_count_temp"
+                android:text="2013/9/27 15:39" />
 
             <TextView
                 android:id="@+id/comment_time_temp"

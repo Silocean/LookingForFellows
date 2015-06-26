@@ -75,9 +75,9 @@
                 android:layout_marginLeft="10dip"
                 android:layout_toRightOf="@id/QQimageView"
                 android:background="@null"
+                android:text="65"
                 android:hint="请输入QQ号码"
-                android:numeric="integer"
-                android:text="65" />
+                android:numeric="integer" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -117,9 +117,9 @@
                 android:layout_marginLeft="10dip"
                 android:layout_toRightOf="@id/passwordimageView"
                 android:background="@null"
+                android:text="321"
                 android:hint="请输入密码"
-                android:password="true"
-                android:text="321" />
+                android:password="true" />
         </RelativeLayout>
     </RelativeLayout>
 

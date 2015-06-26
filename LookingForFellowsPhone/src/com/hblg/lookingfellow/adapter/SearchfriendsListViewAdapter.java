@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Map;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.hblg.lookingfellow.entity.Message;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.model.ManageClientConnServer;
+import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
 import com.hblg.lookingfellow.tools.ImageTool;
 import com.hblg.lookingfellow.tools.TimeConvertTool;
 
@@ -81,7 +83,7 @@ public class SearchfriendsListViewAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder)convertView.getTag();
 		}
-		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
+		/*Map<String, Object> map = (Map<String, Object>)this.getItem(position);
 		//qq
 		final String friendQq = (String)map.get("friendQq");
 		// 姓名
@@ -99,8 +101,12 @@ public class SearchfriendsListViewAdapter extends BaseAdapter {
 		});
 		//头像
 		bm = ImageTool.getHeadImageFromLocalOrNet(context, friendQq);
-		bm = ImageTool.toRoundCorner(bm, 15);
-		holder.headImage.setImageBitmap(bm);
+		holder.headImage.setImageBitmap(bm);*/
+		
+		//临时用的
+		holder.nameTextView.setText("望月枫眠");
+		holder.hometownTextView.setText("湖北省大冶市");
+		holder.headImage.setImageDrawable(context.getResources().getDrawable(R.drawable.head_default));
 		
 		return convertView;
 	}

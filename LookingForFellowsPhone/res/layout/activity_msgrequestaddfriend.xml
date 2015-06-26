@@ -27,16 +27,17 @@
             android:text="添加好友请求"
             android:textColor="@color/white"
             android:textSize="18sp" />
+
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/requestAddFriendList"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:cacheColorHint="#00000000"
-        android:divider="@color/black_half"
-        android:dividerHeight="1dip"
-        android:scrollbars="none" >
+	       android:id="@+id/requestAddFriendList"
+	       android:layout_width="fill_parent"
+	       android:layout_height="fill_parent"
+	       android:cacheColorHint="#00000000"
+	       android:divider="@color/black_half"
+	       android:dividerHeight="1dip"
+	       android:scrollbars="none" >
     </ListView>
 
 </LinearLayout>

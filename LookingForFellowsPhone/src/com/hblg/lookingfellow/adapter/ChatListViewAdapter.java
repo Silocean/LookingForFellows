@@ -8,7 +8,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.ClipboardManager;
-import android.text.SpannableString;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +20,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.slidingmenu.activity.ChatActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
-import com.hblg.lookingfellow.tools.ExpressionUtil;
 import com.hblg.lookingfellow.tools.ImageTool;
 
 
@@ -111,18 +108,7 @@ public class ChatListViewAdapter extends BaseAdapter {
 		
 		// 内容
 		final String chatContent = (String)map.get("msgDetails");
-		
-		
-		//解析数据
-		String zhengze = "f0[0-9]{2}|f10[0-7]"; // 正则表达式，用来判断消息内是否有表情
-		try {
-			SpannableString spannableString = 
-					ExpressionUtil.getExpressionString(context, chatContent, zhengze);
-			holder.contentTextView.setText(spannableString);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		holder.contentTextView.setText(chatContent);
 		holder.contentTextView.setOnLongClickListener(new OnLongClickListener() {
 		
 			@Override

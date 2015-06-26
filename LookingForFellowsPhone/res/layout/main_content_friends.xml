@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#d3d3d3"
-    android:orientation="vertical" >
-
+    android:orientation="vertical"
+    tools:context=".slidingmenu.fragment.FriendsFragment" >
     <RelativeLayout
         android:id="@+id/main_titlebar_relativelayout"
         android:layout_width="fill_parent"
         android:layout_height="45dip"
         android:background="@drawable/main_titlebarbg" >
-
         <ImageView
             android:id="@+id/main_titlebar_friend_leftmenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/main_titlebar_leftmenu" />
-
         <TextView
             android:id="@+id/titlebar_title"
             android:layout_width="wrap_content"
@@ -27,7 +26,6 @@
             android:text="我的好友"
             android:textColor="@color/white"
             android:textSize="18sp" />
-
         <ImageView
             android:id="@+id/main_titlebar_friend_rightmenu"
             android:layout_width="wrap_content"
@@ -37,7 +35,6 @@
             android:layout_marginRight="5dip"
             android:src="@drawable/main_titlebar_friend_rightmenu_icon" />
     </RelativeLayout>
-
     <com.hblg.lookingfellow.selfdefinedwidget.PullDownView
         android:id="@+id/friendList"
         android:layout_width="fill_parent"
@@ -47,5 +44,4 @@
         android:dividerHeight="1dip"
         android:scrollbars="none" >
     </com.hblg.lookingfellow.selfdefinedwidget.PullDownView>
-
 </LinearLayout>

@@ -5,35 +5,30 @@ import java.util.List;
 import java.util.Map;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
-import com.hblg.lookingfellow.entity.User;
-import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
-import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.ExpressionUtil;
-import com.hblg.lookingfellow.tools.ImageTool;
 
 public class PostDetailListViewAdapter extends BaseAdapter{
 	private ListView listview;
 	Context context;
 	List<Map<String, Object>>list;
-	Map<String,Object> map = null;
+	Map<String,Object> daoMap=null;
 	Holder holder=null;
 	LayoutInflater inflater;
 	LinearLayout linearLayout;
-	Bitmap bitmap;
 	public PostDetailListViewAdapter(Context context,ListView listview){
 		this.context=context;
 		inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -65,15 +60,32 @@ public class PostDetailListViewAdapter extends BaseAdapter{
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		holder=new Holder();
-		map = list.get(position);
+		daoMap=list.get(position);
 		if(null==convertView){
 			convertView=inflater.inflate(R.layout.listitem_postsdetail, null);
+			linearLayout=(LinearLayout)convertView.findViewById(R.id.posts_list_layout);
 			
 			holder.headImg=(ImageView)convertView.findViewById(R.id.posts_list_headImg);
 			holder.nameTxt=(TextView)convertView.findViewById(R.id.posts_list_nameTxt);
 			holder.timeTxt=(TextView)convertView.findViewById(R.id.posts_list_time);
 			holder.floorTxt=(TextView)convertView.findViewById(R.id.posts_list_floor);
 			holder.contentTxt=(TextView)convertView.findViewById(R.id.posts_list_content);
+			holder.oneNameTxt=(TextView)convertView.findViewById(R.id.one_name);
+			holder.oneTxt=(TextView)convertView.findViewById(R.id.one_txt);
+			holder.twoNameTxt=(TextView)convertView.findViewById(R.id.two_name);
+			holder.twoTxt=(TextView)convertView.findViewById(R.id.two_txt);
+			holder.expandTxt=(TextView)convertView.findViewById(R.id.expand_comments);
+			holder.commentBtn=(Button)convertView.findViewById(R.id.posts_list_commentBtn);
+			
+			//解析数据
+			/*String zhengze = "f0[0-9]{2}|f10[0-7]"; // 正则表达式，用来判断消息内是否有表情
+			try {
+				SpannableString spannableString = 
+						ExpressionUtil.getExpressionString(context, "内容（String）", zhengze);
+				holder.contentTxt.setText(spannableString);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}*/
 
 			convertView.setTag(holder);
 		}else{
@@ -86,43 +98,25 @@ public class PostDetailListViewAdapter extends BaseAdapter{
 		}else{
 			holder.floorTxt.setText(position+1+"楼");
 		}
-		// 头像
-		final String authorId = (String)map.get("authorId");
-		bitmap = ImageTool.getHeadImageFromLocalOrNet(context, authorId);
-		bitmap = ImageTool.toRoundCorner(bitmap, 15);
-		holder.headImg.setImageBitmap(bitmap);
-		if(!authorId.equals(User.qq)) {
-			holder.headImg.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					Intent intent = new Intent(context, FriendInfoActivity.class);
-					// 防止 Calling startActivity() from outside of an Activity问题发生
-					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					intent.putExtra("qq", authorId);
-					SQLiteService service = new SQLiteService(context);
-					boolean flag = service.checkIsFriend(authorId);
-					if(flag) {
-						intent.putExtra("tag", "unfriendRequest");
-					} else {
-						intent.putExtra("tag", "addRequest");
-					}
-					context.startActivity(intent);
-				}
-			});
-		}
 		
-		// 名字
-		String authorName = (String)map.get("authorName");
-		holder.nameTxt.setText(authorName);
+		//查看剩余评论
+		holder.expandTxt.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//临时测试
+				Toast.makeText(context,"查看"+(position+1)+"楼剩余评论", 2000).show();
+			}
+		});
 		
-		// 时间
-		String time = (String)map.get("time");
-		holder.timeTxt.setText(time);
 		
-		// 内容
-		String details = (String)map.get("details");
-		String zhengze = "f0[0-9]{2}|f10[0-7]"; // 正则表达式，用来判断回复里是否有表情
-		SpannableString spannableString = ExpressionUtil.getExpressionString(context, details, zhengze);
-		holder.contentTxt.setText(spannableString);
+		//评论
+		holder.commentBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//临时测试
+				Toast.makeText(context,""+(position+1), 2000).show();
+			}
+		});
 		
 		return convertView;
 	}
@@ -130,10 +124,17 @@ public class PostDetailListViewAdapter extends BaseAdapter{
 	//优化
 	private class Holder{
 		ImageView headImg;//层主头像
+		ImageView contentImg;//内容照片
 		TextView nameTxt;//层主昵称
-		TextView timeTxt;//时间
+		TextView  timeTxt;//时间
 		TextView floorTxt;//多少楼（1楼，2楼）
 		TextView contentTxt;//帖子内容
+		TextView oneNameTxt;//第一个评论人昵称
+		TextView oneTxt;//第一个评论人评论内容
+		TextView twoNameTxt;//第二个评论人昵称
+		TextView twoTxt;//第二个评论人内容
+		Button commentBtn;//评论
+		TextView expandTxt;//展开评论
 		
 	}
 	

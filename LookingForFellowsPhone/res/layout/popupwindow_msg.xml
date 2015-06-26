@@ -3,33 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/popupwindow_bg" >
-
-    <TextView
-        android:id="@+id/chatToName"
+   	
+    <TextView 
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="7dip"
-        android:layout_marginTop="10dip" />
-
+    	android:layout_height="wrap_content"
+    	android:id="@+id/chatToName"
+    	android:layout_alignParentTop="true"
+    	android:layout_marginTop="10dip"
+    	android:layout_alignParentLeft="true"
+    	android:layout_marginLeft="7dip" />
+	
     <TextView
-        android:id="@+id/deleteFromMsgList"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/chatToName"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dip"
-        android:text="从消息列表中移除" />
-
+    	android:layout_height="wrap_content"
+    	android:text="从消息列表中移除"
+    	android:id="@+id/deleteFromMsgList"
+    	android:layout_below="@id/chatToName"
+    	android:layout_marginTop="10dip"
+    	android:layout_centerHorizontal="true" />
+    
     <TextView
-        android:id="@+id/delete"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/deleteFromMsgList"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dip"
-        android:text="删除与该好友的聊天记录" />
-"
-
+    	android:layout_height="wrap_content"
+    	android:text="删除与该好友的聊天记录"
+    	android:id="@+id/delete"
+    	android:layout_below="@id/deleteFromMsgList"
+    	android:layout_marginTop="10dip"
+    	android:layout_centerHorizontal="true" />"
+    
 </RelativeLayout>

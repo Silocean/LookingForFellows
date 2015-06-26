@@ -3,19 +3,16 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/bg_color" >
-
     <RelativeLayout
         android:id="@+id/addfriends_titlebar"
         android:layout_width="fill_parent"
         android:layout_height="45dip"
         android:background="@drawable/main_titlebarbg" >
-
         <Button
             android:id="@+id/addfriends_goback_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/goback_icon_selector" />
-
         <TextView
             android:id="@+id/titlebar_title"
             android:layout_width="wrap_content"
@@ -26,7 +23,6 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
-
     <RelativeLayout
         android:id="@+id/addfriends_searchother"
         android:layout_width="wrap_content"
@@ -36,11 +32,9 @@
         android:layout_centerVertical="true"
         android:paddingBottom="15dip"
         android:paddingTop="15dip" >
-
         <RelativeLayout
             android:layout_width="280dip"
             android:layout_height="wrap_content" >
-
             <Button
                 android:id="@+id/addfriends_searchother_button"
                 android:layout_width="fill_parent"
@@ -49,8 +43,7 @@
                 android:text="搜索其他省份好友" />
         </RelativeLayout>
     </RelativeLayout>
-
-    <ListView
+    <com.hblg.lookingfellow.selfdefinedwidget.PullDownView
         android:id="@+id/searchFriendList"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -59,6 +52,5 @@
         android:divider="@color/black_half"
         android:dividerHeight="1dip"
         android:scrollbars="none" >
-    </ListView>
-
+    </com.hblg.lookingfellow.selfdefinedwidget.PullDownView>
 </RelativeLayout>

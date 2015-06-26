@@ -29,7 +29,7 @@ public class ChatClient {
 			//创建一个该账号和服务器保持连接的线程
 			ClientConnServerThread ccst = new ClientConnServerThread(context, s);
 			//启动该线程
-			//ccst.start();
+			ccst.start();
 			//加入到管理类中
 			ManageClientConnServer.addClientConServerThread(User.qq, ccst);
 		} catch (Exception e) {

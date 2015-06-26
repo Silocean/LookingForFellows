@@ -1,23 +1,20 @@
 package com.hblg.lookingfellow.slidingmenu.fragment;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,25 +27,27 @@ import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.friendsListViewAdapter;
-import com.hblg.lookingfellow.entity.Friend;
-import com.hblg.lookingfellow.entity.Student;
-import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.selfdefinedwidget.PullDownView;
 import com.hblg.lookingfellow.selfdefinedwidget.PullDownView.OnPullDownListener;
 import com.hblg.lookingfellow.slidingmenu.activity.AddFriendsActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.ChatActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
-import com.hblg.lookingfellow.sqlite.SQLiteService;
-import com.hblg.lookingfellow.tools.StreamTool;
+import com.hblg.lookingfellow.tools.NetWorkHelper;
 
-public class FriendsFragment extends Fragment implements OnItemClickListener, OnPullDownListener {
-	ListView listView;
-	static ArrayList<Map<String, String>> data = new ArrayList<Map<String, String>>();
+public class FriendsFragment extends Fragment implements  OnPullDownListener, OnItemClickListener {
+	private PullDownView mPullDownView;
+	private ListView listView;
+	ArrayList<Map<String, String>> data = new ArrayList<Map<String, String>>();
 	private friendsListViewAdapter adapter;
-	ImageView titlebarLeftmenu;
-	ImageView titlebarRightmenu;
+	private ImageView titlebarLeftmenu;
+	private ImageView titlebarRightmenu;
 	
-	String qq = null;
+	private Bitmap bitmap;
+	
+	private String qq = null;
+	
+	private View thisLayout;
+	private FragmentActivity fragmentActivity;
 	
 	/**Handler What加载数据完毕**/
 	private static final int WHAT_DID_LOAD_DATA = 0;
@@ -59,23 +58,22 @@ public class FriendsFragment extends Fragment implements OnItemClickListener, On
 	/**Handler What加载数据失败**/
 	private static final int WHAT_DID_FAILED=3;
 	
-	private PullDownView mPullDownView;
+	/**加载更多页码，默认为第二页，当刷新时重置为2，当一次加载更多完成*时加1*/
+	private int currentPage=2;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.main_content_friends, null);
-		mPullDownView = (PullDownView)view.findViewById(R.id.friendList);
-		listView = mPullDownView.getListView();
-		mPullDownView.setOnPullDownListener(this);
-		titlebarLeftmenu = (ImageView)view.findViewById(R.id.main_titlebar_friend_leftmenu);
-		titlebarRightmenu = (ImageView)view.findViewById(R.id.main_titlebar_friend_rightmenu);
-		return view;
+		thisLayout = inflater.inflate(R.layout.main_content_friends, null);
+		fragmentActivity=getActivity();
+		titlebarLeftmenu = (ImageView)thisLayout.findViewById(R.id.main_titlebar_friend_leftmenu);
+		titlebarRightmenu = (ImageView)thisLayout.findViewById(R.id.main_titlebar_friend_rightmenu);
+		return thisLayout;
 	}
 	@Override
 	public void onResume() {
 		super.onResume();
 		ArrayList<Map<String, String>> data = this.getFriends();
-		FriendsFragment.data = data;
+		this.data = data;
 		adapter.setData(data);
 		listView.setAdapter(adapter);
 		System.out.println(data);
@@ -83,82 +81,70 @@ public class FriendsFragment extends Fragment implements OnItemClickListener, On
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+	    mPullDownView = (PullDownView)thisLayout.findViewById(R.id.friendList);
+	    mPullDownView.setOnPullDownListener(this);
+	    listView = mPullDownView.getListView();
+	    listView.setOnItemClickListener(this);
 		adapter = new friendsListViewAdapter(getActivity(), data, R.layout.listitem_friendslayout, listView);
-		ArrayList<Map<String, String>> data = this.getFriends();
-		FriendsFragment.data = data;
 		adapter.setData(data);
 		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(this);
+		
+		//当进入时，加载数据过程中，设置为不可见
+		listView.setVisibility(View.GONE);
+		
 		//设置可以自动获取更多 滑到最后一个自动获取  改成false将禁用自动获取更多
 		mPullDownView.enableAutoFetchMore(false, 1);
+		//隐藏 并禁用尾部
+		mPullDownView.setHideFooter();
+		//显示并启用自动获取更多
+		mPullDownView.setShowFooter();
+		//隐藏并且禁用头部刷新
+		mPullDownView.setHideHeader();
 		//显示并且可以使用头部刷新
 		mPullDownView.setShowHeader();
+				
+		
 		titlebarLeftmenu.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				((SlidingActivity) getActivity()).showLeft();
+				((SlidingActivity) fragmentActivity).showLeft();
 			}
 		});
 		titlebarRightmenu.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(), AddFriendsActivity.class);
+				Intent intent = new Intent(fragmentActivity, AddFriendsActivity.class);
 				startActivity(intent);
 			}
 		});
+		loadData();
 	}
 	
 	private ArrayList<Map<String, String>> getFriends() {
-		ArrayList<Map<String, String>> tempList = new ArrayList<Map<String, String>>();
+		/*ArrayList<Map<String, String>> tempList = new ArrayList<Map<String, String>>();
 		SQLiteService service = new SQLiteService(getActivity());
 		tempList = service.getAllFriendsInfo(User.qq);
 		if(tempList.size() == 0) {
 			Toast.makeText(getActivity(), "你还没有好友啊", 0).show();
 		}
-		return tempList;
-	}
-	/**
-	 * 从服务器取得用户所有好友信息，保存到本地
-	 */
-	private void getFriendsFromNet() {
-		try {
-			String path = "http://192.168.1.152:8080/lookingfellowWeb0.2/FriendServlet?tag=myfriends";
-			path = path + "&qq=" + User.qq;
-			HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();
-			conn.setRequestMethod("GET");
-			conn.setConnectTimeout(5000);
-			if(conn.getResponseCode() == 200) {
-				InputStream in = conn.getInputStream();
-				String str = new String(StreamTool.read(in));
-				if(str.equals("]")) {
-					Toast.makeText(getActivity(), "你还没有好友啊", 0).show();
-				} else {
-					JSONArray array = new JSONArray(str);
-					// 先删除本地所有好友记录
-					new SQLiteService(getActivity()).deleteAllFriendInfo();
-					for(int i=0; i<array.length(); i++) {
-						JSONObject obj = array.getJSONObject(i);
-						Friend friend = new Friend();
-						friend.setQq(obj.getString("friendQq"));
-						friend.setName(obj.getString("friendName"));
-						friend.setHometown(obj.getString("friendHometown"));
-						friend.setSex(obj.getString("friendSex"));
-						friend.setSigns(obj.getString("friendSigns"));
-						friend.setPhone(obj.getString("friendPhone"));
-						new SQLiteService(getActivity()).addFriend(friend);
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		System.out.println(tempList);*/
+		ArrayList<Map<String, String>> tempList = new ArrayList<Map<String, String>>();
+		for(int index=0;index<10;index++){
+			Map<String,String>map=new HashMap<String, String>();
+			tempList.add(map);
+			map=null;
 		}
+		
+		return tempList;
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		String qq = FriendsFragment.data.get(position-1).get("friQQ"); // 注意这里的position要-1
+		//临时测试
+	/*	String qq = this.data.get(position).get("friQQ");
 		Intent intent = new Intent(getActivity(), ChatActivity.class);
 		intent.putExtra("friendQq", qq);
-		startActivity(intent);
+		startActivity(intent);*/
+		
 	}
 	@Override
 	public void onRefresh() {
@@ -174,12 +160,19 @@ public class FriendsFragment extends Fragment implements OnItemClickListener, On
 				
 				/** 关闭 刷新完毕 ***/
 				mPullDownView.RefreshComplete();//这个事线程安全的 可看源代码
-
-				Message msg = handler.obtainMessage(WHAT_DID_REFRESH);
-				msg.obj = "After refresh " + System.currentTimeMillis();
+				Log.v("News","onRefresh");
+				Message msg=new Message();
+				ArrayList<Map<String, String>> newdatas =getFriends();
+				if((null==newdatas)||newdatas.equals(null)){
+					msg=mUIHandler.obtainMessage(WHAT_DID_FAILED);//加载数据失败
+				}else{
+					msg = mUIHandler.obtainMessage(WHAT_DID_REFRESH);
+					msg.obj = newdatas;
+				}
 				msg.sendToTarget();
 			}
 		}).start();
+		
 	}
 	@Override
 	public void onMore() {
@@ -188,39 +181,100 @@ public class FriendsFragment extends Fragment implements OnItemClickListener, On
 			@Override
 			public void run() {
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				
+				Log.v("News","onMore");
 				//告诉它获取更多完毕  这个事线程安全的 可看源代码
 				mPullDownView.notifyDidMore();
-				Message msg = handler.obtainMessage(WHAT_DID_MORE);
-				msg.obj = "After more " + System.currentTimeMillis();
+				Message msg=new Message();
+				 NameValuePair page_pair=new BasicNameValuePair("page",currentPage+"");		
+				ArrayList<Map<String, String>> moredatas =getFriends(); 
+				if((null==moredatas)||moredatas.equals(null)){
+					msg=mUIHandler.obtainMessage(WHAT_DID_FAILED);//加载数据失败
+				}else{
+					msg = mUIHandler.obtainMessage(WHAT_DID_MORE);
+					msg.obj = moredatas;
+				}
+				msg.sendToTarget();
+			}
+		}).start();
+		
+	}
+	private void loadData() {
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(0000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				Message msg=new Message();
+				ArrayList<Map<String, String>> loaddatas = getFriends();
+				if((null==loaddatas)||loaddatas.equals(null)){
+					msg=mUIHandler.obtainMessage(WHAT_DID_FAILED);//加载数据失败
+				}else{
+					msg = mUIHandler.obtainMessage(WHAT_DID_LOAD_DATA);
+					msg.obj = loaddatas;
+				}
 				msg.sendToTarget();
 			}
 		}).start();
 	}
-	public Handler handler = new Handler(){
+	private Handler mUIHandler = new Handler() {
 
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case WHAT_DID_REFRESH:
-				getFriendsFromNet();
-				ArrayList<Map<String, String>> data = getFriends();
-				FriendsFragment.data = data;
-				System.out.println(FriendsFragment.data);
-				adapter.setData(data);
-				listView.setAdapter(adapter);
+			case WHAT_DID_FAILED:
+				if(!(NetWorkHelper.isNetWorkConnection(fragmentActivity))){
+					Toast.makeText(fragmentActivity,"",2000).show();
+					return;
+				}
 				break;
-			case WHAT_DID_MORE:
-				
-				break;
-			default:
+			case WHAT_DID_LOAD_DATA: {
+				if (msg.obj != null) {
+					ArrayList<Map<String, String>> loaddatas = (ArrayList<Map<String, String>>) msg.obj;
+					Log.v("response","data-->"+ loaddatas.toString());
+					if (!(null==loaddatas)) {
+						data.addAll(loaddatas);
+						adapter.setData(data);
+						currentPage=2;
+					}
+				}
+				listView.setVisibility(View.VISIBLE);
+
+				// 诉它数据加载完毕;
 				break;
 			}
+			case WHAT_DID_REFRESH: {
+				if (msg.obj != null) {
+					ArrayList<Map<String, String>> newsdatas = (ArrayList<Map<String, String>>) msg.obj;
+					if (!(null==newsdatas)) {
+						data.clear();
+						data.addAll(newsdatas);
+						adapter.setData(data);
+						currentPage=2;
+					}
+				}
+				// 告诉它更新完毕
+				break;
+			}
+			case WHAT_DID_MORE: {
+				if (msg.obj != null) {
+					ArrayList<Map<String, String>> moredatas = (ArrayList<Map<String, String>>) msg.obj;
+					if (!(null==moredatas)) {
+						data.addAll(moredatas);
+						adapter.setData(data);
+						++currentPage;
+					}
+				}
+				break;
+			}
+			}
 		}
-		
 	};
 }

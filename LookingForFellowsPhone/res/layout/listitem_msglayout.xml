@@ -43,13 +43,13 @@
         android:layout_alignTop="@id/msglayout_headimage"
         android:paddingRight="10dip"
         android:textColor="#737373" />
-
-    <Button
+    
+    <Button 
         android:id="@+id/msglayout_newMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@id/msglayout_time"
         android:layout_centerHorizontal="true"
+        android:layout_alignRight="@id/msglayout_time"
         android:background="@drawable/leftmenu_msg_new_notification"
         android:visibility="gone" />
 

@@ -223,8 +223,8 @@
                 android:layout_marginLeft="30dip"
                 android:layout_toRightOf="@id/left_textview"
                 android:background="@null"
-                android:hint="请填写你的密码 "
-                android:password="true" />
+                android:password="true"
+                android:hint="请填写你的密码 " />
         </RelativeLayout>
     </RelativeLayout>
 
