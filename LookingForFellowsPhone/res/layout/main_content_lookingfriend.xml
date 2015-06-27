@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bg_color" >
+
+    <RelativeLayout
+        android:id="@+id/addfriends_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/main_titlebarbg" >
+
+        <ImageView
+            android:id="@+id/main_titlebar_friend_leftmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/main_titlebar_leftmenu" />
+		
+        <TextView
+            android:id="@+id/titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="添加好友"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+        <ImageView
+            android:id="@+id/main_titlebar_friend_rightmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:src="@drawable/main_titlebar_friend_rightmenu_icon" />
+        
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/addfriends_searchother"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addfriends_titlebar"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:paddingBottom="15dip"
+        android:paddingTop="15dip" >
+
+        <RelativeLayout
+            android:layout_width="280dip"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/addfriends_searchother_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/leftmenuitem_invitebutton_selector"
+                android:text="搜索其他省份好友" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/searchFriendList"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/addfriends_searchother"
+        android:cacheColorHint="#00000000"
+        android:divider="@color/black_half"
+        android:dividerHeight="1dip"
+        android:scrollbars="none" >
+    </ListView>
+
+</RelativeLayout>

@@ -8,14 +8,12 @@
 
     <include layout="@layout/titlebar" />
 
-    <com.hblg.lookingfellow.selfdefinedwidget.PullDownView
-        android:id="@+id/contentList"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:cacheColorHint="#00000000"
-        android:divider="@color/black_half"
-        android:dividerHeight="1dip"
-        android:scrollbars="none" >
-    </com.hblg.lookingfellow.selfdefinedwidget.PullDownView>
+    <com.hblg.lookingfellow.pla.view.XListView
+      android:id="@+id/list"
+      android:scrollbars="vertical"
+      android:fastScrollEnabled="true"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+    
 
 </LinearLayout>

@@ -12,7 +12,7 @@ public class Expressions {
 			R.drawable.f021, R.drawable.f022, R.drawable.f023 };
 
 	/**
-	 * 本地表情的名�?
+	 * 鏈湴琛ㄦ儏鐨勫悕锟�
 	 */
 	public static String[] expressionImgNames = new String[] { "[f000]",
 			"[f001]", "[f002]", "[f003]", "[f004]", "[f005]", "[f006]",
@@ -29,7 +29,7 @@ public class Expressions {
 			R.drawable.f045, R.drawable.f046, R.drawable.f047 };
 
 	/**
-	 * 本地表情的名�?
+	 * 鏈湴琛ㄦ儏鐨勫悕锟�
 	 */
 	public static String[] expressionImgNames1 = new String[] { "[f024]",
 			"[f025]", "[f026]", "[f027]", "[f028]", "[f029]", "[f030]",
@@ -46,7 +46,7 @@ public class Expressions {
 			R.drawable.f069, R.drawable.f070, R.drawable.f071 };
 
 	/**
-	 * 本地表情的名�?
+	 * 鏈湴琛ㄦ儏鐨勫悕锟�
 	 */
 	public static String[] expressionImgNames2 = new String[] { "[f048]",
 			"[f049]", "[f050]", "[f051]", "[f052]", "[f053]", "[f054]",
@@ -54,13 +54,8 @@ public class Expressions {
 			"[f061]", "[f062]", "[f063]", "[f064]", "[f065]", "[f066]",
 			"[f067]", "[f068]", "[f069]", "[f070]", "[f071]" };
 
-	/**
- * 
- * 
- * 
- */
 	/*
-	 * 服务器存储的表情名字
+	 * 鏈嶅姟鍣ㄥ瓨鍌ㄧ殑琛ㄦ儏鍚嶅瓧
 	 */
 	public static String[] expressionRegImgNames = new String[] {
 			"\\U0001F601", "f0asd01", "f00asd2", "fasd003", "f0gf04", "f00fg5",
@@ -70,7 +65,7 @@ public class Expressions {
 
 	/**
 	 * 
-	 * 在存入数据库时，将表情名字进行替换即�?
+	 * 鍦ㄥ瓨鍏ユ暟鎹簱鏃讹紝灏嗚〃鎯呭悕瀛楄繘琛屾浛鎹㈠嵆锟�
 	 * 
 	 */
 	public static String[] replaceStrings(String[] str, String[] str2) {

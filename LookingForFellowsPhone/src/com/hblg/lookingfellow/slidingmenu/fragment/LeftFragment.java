@@ -23,6 +23,7 @@ public class LeftFragment extends Fragment implements OnClickListener{
 	
 	Button leftmenuPosts;
 	Button leftmenuPerson;
+	Button leftmenuLookingfellow;
 	Button leftmenuFriends;
 	Button leftmenuMsg;
 	ImageView newMsgNotificationImageView;
@@ -37,6 +38,7 @@ public class LeftFragment extends Fragment implements OnClickListener{
 	
 	PersonFragment personFragment;
 	MainFragment mainFragment;
+	LookingFriendFragment lookingFriendFragment;
 	FriendsFragment friendsFragment;
 	MsgFragment msgFragment;
 	SettingsFragment settingsFragment;
@@ -48,6 +50,8 @@ public class LeftFragment extends Fragment implements OnClickListener{
 		leftmenuPosts.setOnClickListener(this);
 		leftmenuPerson = (Button)view.findViewById(R.id.leftmenu_person_button);
 		leftmenuPerson.setOnClickListener(this);
+		leftmenuLookingfellow = (Button)view.findViewById(R.id.leftmenu_lookingfellow);
+		leftmenuLookingfellow.setOnClickListener(this);
 		leftmenuFriends = (Button)view.findViewById(R.id.leftmenu_friends_button);
 		leftmenuFriends.setOnClickListener(this);
 		leftmenuMsg = (Button)view.findViewById(R.id.leftmenu_msg_button);
@@ -81,6 +85,7 @@ public class LeftFragment extends Fragment implements OnClickListener{
 		case R.id.leftmenu_posts_button:
 			leftmenuPosts.setSelected(true);
 			leftmenuPerson.setSelected(false);
+			leftmenuLookingfellow.setSelected(false);
 			leftmenuFriends.setSelected(false);
 			leftmenuMsg.setSelected(false);
 			leftmenuSettings.setSelected(false);
@@ -90,6 +95,7 @@ public class LeftFragment extends Fragment implements OnClickListener{
 		case R.id.leftmenu_person_button:
 			leftmenuPosts.setSelected(false);
 			leftmenuPerson.setSelected(true);
+			leftmenuLookingfellow.setSelected(false);
 			leftmenuFriends.setSelected(false);
 			leftmenuMsg.setSelected(false);
 			leftmenuSettings.setSelected(false);
@@ -99,9 +105,23 @@ public class LeftFragment extends Fragment implements OnClickListener{
 			((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, personFragment);
 			((SlidingActivity)getActivity()).showLeft();
 			break;
+		case R.id.leftmenu_lookingfellow:
+			leftmenuPosts.setSelected(false);
+			leftmenuPerson.setSelected(false);
+			leftmenuLookingfellow.setSelected(true);
+			leftmenuFriends.setSelected(false);
+			leftmenuMsg.setSelected(false);
+			leftmenuSettings.setSelected(false);
+			if(lookingFriendFragment == null) {
+				lookingFriendFragment = new LookingFriendFragment();
+			}
+			((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, lookingFriendFragment);
+			((SlidingActivity)getActivity()).showLeft();
+			break;
 		case R.id.leftmenu_friends_button:
 			leftmenuPosts.setSelected(false);
 			leftmenuPerson.setSelected(false);
+			leftmenuLookingfellow.setSelected(false);
 			leftmenuFriends.setSelected(true);
 			leftmenuMsg.setSelected(false);
 			leftmenuSettings.setSelected(false);
@@ -114,6 +134,7 @@ public class LeftFragment extends Fragment implements OnClickListener{
 		case R.id.leftmenu_msg_button:
 			leftmenuPosts.setSelected(false);
 			leftmenuPerson.setSelected(false);
+			leftmenuLookingfellow.setSelected(false);
 			leftmenuFriends.setSelected(false);
 			leftmenuMsg.setSelected(true);
 			leftmenuSettings.setSelected(false);
@@ -126,6 +147,7 @@ public class LeftFragment extends Fragment implements OnClickListener{
 		case R.id.leftmenu_settings_button:
 			leftmenuPosts.setSelected(false);
 			leftmenuPerson.setSelected(false);
+			leftmenuLookingfellow.setSelected(false);
 			leftmenuFriends.setSelected(false);
 			leftmenuMsg.setSelected(false);
 			leftmenuSettings.setSelected(true);

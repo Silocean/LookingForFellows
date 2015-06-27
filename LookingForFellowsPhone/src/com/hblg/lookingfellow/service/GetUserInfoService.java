@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.entity.Student;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
@@ -33,7 +34,7 @@ public class GetUserInfoService extends Service {
 
 	private void getUserInfo() {
 		try {
-			String path = "http://192.168.1.152:8080/lookingfellowWeb0.2/GetUserInfoServlet?qq=";
+			String path = Common.PATH + "GetUserInfoServlet?qq=";
 			String qq = User.qq;
 			path = path + qq;
 			HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();

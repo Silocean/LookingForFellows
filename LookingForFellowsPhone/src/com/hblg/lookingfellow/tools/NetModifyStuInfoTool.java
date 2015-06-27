@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.entity.User;
 
 import android.os.Message;
@@ -14,7 +15,7 @@ public class NetModifyStuInfoTool {
 	public static Message connNet(String key, String value) throws Exception {
 		Message msg = new Message();
 		String qq = User.qq;
-		String path = "http://192.168.1.152:8080/lookingfellowWeb0.2/ModifyUserInfoServlet?qq=" + qq;
+		String path = Common.PATH + "ModifyUserInfoServlet?qq=" + qq;
 		value = URLEncoder.encode(value, "utf-8");
 		path = path + "&" + key + "=" + value;
 		HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();

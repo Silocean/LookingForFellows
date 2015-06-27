@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
 import com.hblg.lookingfellow.tools.StreamTool;
@@ -134,7 +135,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 
 	private void register(String qq, String name, String hometown, String password) {
 		try {
-			String path = "http://192.168.1.152:8080/lookingfellowWeb0.2/UserRegisterServlet";
+			String path = Common.PATH + "UserRegisterServlet";
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("qq", qq);
 			params.put("name", name);

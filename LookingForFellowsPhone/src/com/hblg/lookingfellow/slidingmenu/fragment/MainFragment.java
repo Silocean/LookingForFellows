@@ -1,317 +1,371 @@
 package com.hblg.lookingfellow.slidingmenu.fragment;
 
-import java.io.InputStream;
-import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.AsyncTask.Status;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.hblg.lookingfellow.R;
-import com.hblg.lookingfellow.adapter.PostsListViewAdapter;
+import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.entity.Post;
-import com.hblg.lookingfellow.entity.User;
-import com.hblg.lookingfellow.selfdefinedwidget.PullDownView;
-import com.hblg.lookingfellow.selfdefinedwidget.PullDownView.OnPullDownListener;
+import com.hblg.lookingfellow.pla.util.Helper;
+import com.hblg.lookingfellow.pla.util.ImageFetcher;
+import com.hblg.lookingfellow.pla.view.ScaleImageView;
+import com.hblg.lookingfellow.pla.view.XListView;
+import com.hblg.lookingfellow.pla.view.XListView.IXListViewListener;
+import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.PostDetailActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SendPostActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
-import com.hblg.lookingfellow.sqlite.DBOpenHelper;
-import com.hblg.lookingfellow.tools.StreamTool;
+import com.hblg.lookingfellow.sqlite.SQLiteService;
+import com.hblg.lookingfellow.tools.ImageTool;
 
-public class MainFragment extends Fragment  implements OnPullDownListener, OnItemClickListener {
-	/**±¾ÀàµÄ²¼¾Ö*/
+public class MainFragment extends Fragment implements IXListViewListener {
 	private View thisLayout;
-	
-	/**FragmentËùÔÚµÄActivity*/
-	private FragmentActivity fragmentActivity;
-	
 	private ImageView titlebarLeftmenu;
 	private ImageView titlebarRightmenu;
-	
-	/**Handler What¼ÓÔØÊı¾İÍê±Ï**/
-	private static final int WHAT_DID_LOAD_DATA = 0;
-	/**Handler What¸üĞÂÊı¾İÍê±Ï**/
-	private static final int WHAT_DID_REFRESH = 1;
-	/**Handler What¸ü¶àÊı¾İÍê±Ï**/
-	private static final int WHAT_DID_MORE = 2;
-	/**Handler What¼ÓÔØÊı¾İÊ§°Ü**/
-	private static final int WHAT_DID_FAILED=3;
-	
-	/**¼ÓÔØ¸ü¶àÒ³Âë£¬Ä¬ÈÏÎªµÚ¶şÒ³£¬µ±Ë¢ĞÂÊ±ÖØÖÃÎª2£¬µ±Ò»´Î¼ÓÔØ¸ü¶àÍê³É*Ê±¼Ó1*/
-	private int currentPage=2;
-    
-	private Bitmap bitmap;
-	
-	private ListView mListView;
-	private PullDownView mPullDownView;
-	PostsListViewAdapter adapter;
-	
-	String imagePath = "http://192.168.1.152:8080/lookingfellowWeb0.2/head/";
-	
-	/**Êı¾İ*/
-	private ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-	
-	private static int page = 0;
-	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		thisLayout=inflater.inflate(R.layout.main_content_posts, null);
-		fragmentActivity=getActivity();
-		return thisLayout;
-	}
-	
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		System.out.println("onActivityCreated");
-	    mPullDownView = (PullDownView)thisLayout.findViewById(R.id.contentList);
 
-		mPullDownView.setOnPullDownListener(this);
-		
-		mListView = mPullDownView.getListView();
-		
-		
-		mListView.setOnItemClickListener(this);
-		adapter=new PostsListViewAdapter(getActivity(), data, R.layout.listitem_postlayout, mListView);
-		adapter.setData(data);
-		mListView.setAdapter(adapter);
-		//µ±½øÈëÊ±£¬¼ÓÔØÊı¾İ¹ı³ÌÖĞ£¬ÉèÖÃÎª²»¿É¼û
-		mListView.setVisibility(View.GONE);
-		
-		//ÉèÖÃ¿ÉÒÔ×Ô¶¯»ñÈ¡¸ü¶à »¬µ½×îºóÒ»¸ö×Ô¶¯»ñÈ¡  ¸Ä³Éfalse½«½ûÓÃ×Ô¶¯»ñÈ¡¸ü¶à
-		mPullDownView.enableAutoFetchMore(false, 1);
-		//Òş²Ø ²¢½ûÓÃÎ²²¿
-		mPullDownView.setHideFooter();
-		//ÏÔÊ¾²¢ÆôÓÃ×Ô¶¯»ñÈ¡¸ü¶à
-		mPullDownView.setShowFooter();
-		//Òş²Ø²¢ÇÒ½ûÓÃÍ·²¿Ë¢ĞÂ
-		mPullDownView.setHideHeader();
-		//ÏÔÊ¾²¢ÇÒ¿ÉÒÔÊ¹ÓÃÍ·²¿Ë¢ĞÂ
-		mPullDownView.setShowHeader();
-		
-		//¼ÓÔØÊı¾İ  ±¾ÀàÊ¹ÓÃ
-		loadData();
-	   
-	   titlebarLeftmenu=(ImageView)thisLayout.findViewById(R.id.main_titlebar_leftmenu);
-	   titlebarLeftmenu.setOnClickListener(new OnClickListener() {
-		  @Override
-		  public void onClick(View v) {
-			 ((SlidingActivity)fragmentActivity).showLeft();
-		  }
-	   });
-	   titlebarRightmenu = (ImageView)thisLayout.findViewById(R.id.main_titlebar_rightmenu);
-	   titlebarRightmenu.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(), SendPostActivity.class);
-				startActivityForResult(intent, 1); // 1±íÊ¾·¢Ìûactivity³·Ïú£¬²¢·¢Ìû³É¹¦
+	String imagePath = Common.PATH + "head/";
+
+	private ImageFetcher mImageFetcher;
+	private XListView mAdapterView = null;
+	private StaggeredAdapter mAdapter = null;
+	private int currentPage = 0;
+	ContentTask task = new ContentTask(getActivity(), 2);
+	
+	private class ContentTask extends
+			AsyncTask<String, Integer, LinkedList<Map<String, Object>>> {
+
+		private Context mContext;
+		private int mType = 1;
+
+		public ContentTask(Context context, int type) {
+			super();
+			mContext = context;
+			mType = type;
+		}
+
+		@Override
+		protected LinkedList<Map<String, Object>> doInBackground(
+				String... params) {
+			try {
+				return parseNewsJSON(params[0]);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		});
-	}
-	
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if(resultCode == 1) {
-			loadData();
+			return null;
 		}
-	}
-	
-	
-	
-	
-	
-	private ArrayList<Map<String, Object>> getData() {
-		ArrayList<Map<String, Object>> tempList = new ArrayList<Map<String, Object>>();
-		for(int index=0;index<10;index++){
-			Map<String,Object>map=new HashMap<String, Object>();
-			tempList.add(map);
-			map=null;
-		}
-		return tempList;
-	}
 
-	/*public ArrayList<Map<String,Object>> getData(int page) {
-		ArrayList<Map<String ,Object>> tempList = new ArrayList<Map<String,Object>>(); 
-		try {
-			String path = "http://192.168.1.152:8080/lookingfellowWeb0.2/PostsServlet?page=";
-			path = path + page;
-			HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();
-			conn.setRequestMethod("GET");
-			conn.setConnectTimeout(5000);
-			if(conn.getResponseCode() == 200) {
-				InputStream in = conn.getInputStream();
-				byte[] data = StreamTool.read(in);
-				String str = new String(data);
-				if(str.equals("error")) {
-					//Toast.makeText(getActivity(), "·şÎñÆ÷¶Ë³öÏÖÎÊÌâ£¬ÇëÉÔºóÔÙÊÔ", 0).show();
-				} else if(str.equals("[")){
-					Toast.makeText(getActivity(), "ÔİÃ»ÓĞÈË·¢Ìû", 0).show();
-				} else {
-					JSONArray array = new JSONArray(str);
-					//saveToCache(array); // ±£´æÌû×ÓÌõÄ¿Êı¾İµ½»º´æ
-					bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.head_default);
-					for(int i=0; i<array.length(); i++) {
+		@Override
+		protected void onPostExecute(LinkedList<Map<String, Object>> result) {
+			if (mType == 1) {
+				//mAdapter.addItemLast(result);
+				mAdapter.addItemTop(result);
+				mAdapter.notifyDataSetChanged();
+				mAdapterView.stopRefresh();
+			} else if (mType == 2) {
+				mAdapterView.stopLoadMore();
+				mAdapter.addItemLast(result);
+				mAdapter.notifyDataSetChanged();
+			}
+
+		}
+
+		@Override
+		protected void onPreExecute() {
+		}
+
+		public LinkedList<Map<String, Object>> parseNewsJSON(String url)
+				throws IOException {
+			LinkedList<Map<String, Object>> postData = new LinkedList<Map<String, Object>>();
+			String json = "";
+			if (Helper.checkConnection(mContext)) {
+				try {
+					json = Helper.getStringFromUrl(url);
+				} catch (IOException e) {
+					Log.e("IOException is : ", e.toString());
+					e.printStackTrace();
+					return postData;
+				}
+			}
+			Log.d("MainActiivty", "json:" + json);
+
+			try {
+				if (null != json) {
+					JSONArray array = new JSONArray(json);
+					for (int i = 0; i < array.length(); i++) {
 						JSONObject obj = array.getJSONObject(i);
 						Map<String, Object> map = new HashMap<String, Object>();
 						map.put("headimage", imagePath + "head_" + obj.get("authorId") + ".jpg");
-						map.put("authorId", obj.get("authorId"));
+						map.put("postId", obj.getInt("id"));
+						map.put("authorId", obj.getString("authorId"));
 						map.put("title", obj.getString("title"));
 						map.put("content", obj.getString("details"));
-						map.put("replycount", obj.getString("replyNum"));
+						map.put("replycount", obj.getInt("replyNum"));
 						map.put("publishname", obj.getString("authorName"));
 						map.put("publishtime", obj.getString("time"));
-						tempList.add(map);
+						map.put("imageName", obj.getString("imageName"));
+						postData.add(map);
 					}
-					return tempList;
 				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-			//Toast.makeText(getActivity(), "ÍøÂçÁ¬½Ó³öÏÖÎÊÌâ", 0).show();
-		} catch (Exception e) {
-			e.printStackTrace();
+			return postData;
 		}
-		return tempList;
-	}*/
-
-	/**Ë¢ĞÂÊÂ¼ş½Ó¿Ú  ÕâÀïÒª×¢ÒâµÄÊÇ»ñÈ¡¸ü¶àÍê Òª¹Ø±Õ Ë¢ĞÂµÄ½ø¶ÈÌõRefreshComplete()**/
-	@Override
-	public void onRefresh() {
-
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				
-				/** ¹Ø±Õ Ë¢ĞÂÍê±Ï ***/
-				mPullDownView.RefreshComplete();//Õâ¸öÊÂÏß³Ì°²È«µÄ ¿É¿´Ô´´úÂë
-
-				Message msg = mUIHandler.obtainMessage(WHAT_DID_REFRESH);
-				msg.obj = "After refresh " + System.currentTimeMillis();
-				msg.sendToTarget();
-			}
-		}).start();
-
 	}
 
-	/**Ë¢ĞÂÊÂ¼ş½Ó¿Ú  ÕâÀïÒª×¢ÒâµÄÊÇ»ñÈ¡¸ü¶àÍê Òª¹Ø±Õ ¸ü¶àµÄ½ø¶ÈÌõ notifyDidMore()**/
-	@Override
-	public void onMore() {
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				
-				//¸æËßËü»ñÈ¡¸ü¶àÍê±Ï  Õâ¸öÊÂÏß³Ì°²È«µÄ ¿É¿´Ô´´úÂë
-				mPullDownView.notifyDidMore();
-				Message msg = mUIHandler.obtainMessage(WHAT_DID_MORE);
-				msg.obj = "After more " + System.currentTimeMillis();
-				msg.sendToTarget();
-			}
-		}).start();
+	/**
+	 * æ·»åŠ å†…å®¹
+	 * 
+	 * @param pageindex
+	 * @param type
+	 *            1ä¸ºä¸‹æ‹‰åˆ·æ–° 2ä¸ºåŠ è½½æ›´å¤š
+	 */
+	private void AddItemToContainer(int pageindex, int type) {
+		if (task.getStatus() != Status.RUNNING) {
+			String url = Common.PATH + "PostsServlet?page=";
+			url = url + pageindex;
+			Log.d("MainActivity", "current url:" + url);
+			ContentTask task = new ContentTask(getActivity(), type);
+			task.execute(url);
+		}
 	}
 
-	public Handler mUIHandler = new Handler() {
+	public class StaggeredAdapter extends BaseAdapter {
+		private Context mContext;
+		private LinkedList<Map<String, Object>> mInfos;
+		private XListView mListView;
+
+		public StaggeredAdapter(Context context, XListView xListView) {
+			this.mContext = context;
+			this.mInfos = new LinkedList<Map<String, Object>>();
+			this.mListView = xListView;
+		}
 
 		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-				case WHAT_DID_LOAD_DATA: {
-					data.clear();
-					ArrayList<Map<String, Object>> tempData = getData();
-					if(tempData == null) {
-						Toast.makeText(getActivity(), "»ñÈ¡Êı¾İÊ§°Ü", 0).show();
-					} else {
-						data.addAll(tempData);
-						adapter.setData(data);
-						mListView.setVisibility(View.VISIBLE);
-						// ËßËüÊı¾İ¼ÓÔØÍê±Ï;
-						page = 0;
-					}
-					break;
-				}
-				case WHAT_DID_REFRESH: {
-					data.clear();
-					ArrayList<Map<String, Object>> tempData = getData();
-					if(tempData == null) {
-						Toast.makeText(getActivity(), "»ñÈ¡Êı¾İÊ§°Ü", 0).show();
-					} else {
-						data.addAll(tempData);
-						adapter.setData(data);
-						// ¸æËßËü¸üĞÂÍê±Ï
-						page = 0;
-					}
-					break;
-				}
-				case WHAT_DID_MORE: {
-					page += 1;
-					System.out.println("µ±Ç°Ò³Êı£º"+page);
-					ArrayList<Map<String, Object>> tempData = getData();
-					if(tempData == null) {
-						Toast.makeText(getActivity(), "»ñÈ¡Êı¾İÊ§°Ü", 0).show();
-					} else {
-						data.addAll(tempData);
-						adapter.setData(data);
-					}
-					break;
-				}
+		public View getView(int position, View convertView, ViewGroup parent) {
+
+			ViewHolder holder;
+			final Map<String, Object> map = mInfos.get(position);
+
+			if (convertView == null) {
+				LayoutInflater layoutInflator = LayoutInflater.from(parent
+						.getContext());
+				convertView = layoutInflator.inflate(R.layout.infos_list, null);
+				holder = new ViewHolder();
+				holder.headimageView = (ImageView) convertView.findViewById(R.id.headimageview);
+				holder.imageView = (ScaleImageView) convertView.findViewById(R.id.news_pic);
+				holder.contentView = (TextView) convertView.findViewById(R.id.news_title);
+				holder.replycountView = (TextView) convertView.findViewById(R.id.replycountView);
+				holder.timeView = (TextView) convertView.findViewById(R.id.timeView);
+				holder.nameView = (TextView) convertView.findViewById(R.id.authorNameView);
+				
+				convertView.setTag(holder);
 			}
+
+			holder = (ViewHolder) convertView.getTag();
+			final String qq = (String)map.get("authorId");
+			String imageName = ((String)map.get("imageName")).split(";")[0];
+			int height = 200; // é»˜è®¤é«˜åº¦ä¸º200
+			if(imageName.equals("")) {
+				mImageFetcher.loadImage(Common.PATH + "head/defaultbg.png", holder.imageView);
+			} else {
+				height = Integer.parseInt(imageName.substring(imageName.indexOf('_')+1, imageName.indexOf('.')));
+				System.out.println("imageName:" + imageName);
+				mImageFetcher.loadImage(Common.PATH + "post/" + imageName, holder.imageView);
+			}
+			String content = (String) map.get("content");
+			content = this.replaceContent(content);
+			holder.imageView.setImageWidth(200);
+			holder.imageView.setImageHeight(height);
+			holder.nameView.setText((String)map.get("publishname"));
+			holder.timeView.setText((String)map.get("publishtime"));
+			holder.contentView.setText(content);
+			holder.replycountView.setText((Integer)map.get("replycount")+"");
+			Bitmap bm = ImageTool.getHeadImageFromLocalOrNet(mContext, qq);
+			holder.headimageView.setImageBitmap(bm);
+			
+			holder.headimageView.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					Intent intent = new Intent(mContext, FriendInfoActivity.class);
+					// é˜²æ­¢ Calling startActivity() from outside of an Activityé—®é¢˜å‘ç”Ÿ
+					intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					intent.putExtra("qq", qq);
+					SQLiteService service = new SQLiteService(mContext);
+					boolean flag = service.checkIsFriend(qq);
+					if(flag) {
+						intent.putExtra("tag", "unfriendRequest");
+					} else {
+						intent.putExtra("tag", "addRequest");
+					}
+					mContext.startActivity(intent);
+				}
+			});
+			convertView.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					Post post = new Post();
+					post.setId((Integer)map.get("postId"));
+					post.setAuthorId((String)map.get("authorId"));
+					post.setAuthorName((String)map.get("publishname"));
+					post.setTitle((String)map.get("title"));
+					post.setDetails((String)map.get("content"));
+					post.setReplyNum((Integer)map.get("replycount"));
+					post.setTime((String)map.get("publishtime"));
+					Intent intent = new Intent(getActivity(), PostDetailActivity.class);
+					intent.putExtra("post", post);
+					startActivity(intent);
+				}
+			});
+			return convertView;
+		}
+		/**
+		 * æ›¿æ¢æ‰å›¾ç‰‡åå­—
+		 * @param content
+		 * @return
+		 */
+		private String replaceContent(String content) {
+			String zhengze = "\\[[0-9a-z]{32}\\]_\\d+.jpg";
+			Pattern pattern = Pattern.compile(zhengze, Pattern.CASE_INSENSITIVE);
+			Matcher matcher = pattern.matcher(content);
+			while(matcher.find()) {
+				String str = matcher.group();
+				content = content.replace(str, "");
+			}
+			return content;
 		}
 
-	};
-	
+		class ViewHolder {
+			ScaleImageView imageView;
+			ImageView headimageView;
+			TextView contentView;
+			TextView nameView;
+			TextView timeView;
+			TextView replycountView;
+		}
+
+		@Override
+		public int getCount() {
+			return mInfos.size();
+		}
+
+		@Override
+		public Object getItem(int arg0) {
+			return mInfos.get(arg0);
+		}
+
+		@Override
+		public long getItemId(int arg0) {
+			return 0;
+		}
+
+		public void addItemLast(LinkedList<Map<String, Object>> datas) {
+			mInfos.addAll(datas);
+		}
+
+		public void addItemTop(LinkedList<Map<String, Object>> datas) {
+			mInfos.clear();
+			for (int i=datas.size()-1; i>=0; i--) {
+				mInfos.addFirst(datas.get(i));
+			}
+		}
+	}
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		Intent intent = new Intent(getActivity(), PostDetailActivity.class);
-		
-		startActivity(intent);
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(resultCode == 1) {
+			mImageFetcher.setExitTasksEarly(false);
+			mAdapterView.setAdapter(mAdapter);
+			AddItemToContainer(0, 1);
+		}
+	}
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		thisLayout = inflater.inflate(R.layout.main_content_posts, null);
+		return thisLayout;
 	}
 
-	private void loadData() {
-		new Thread(new Runnable() {
-
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		mAdapterView = (XListView) thisLayout.findViewById(R.id.list);
+		mAdapterView.setPullLoadEnable(true);
+		mAdapterView.setXListViewListener(this);
+		mAdapter = new StaggeredAdapter(getActivity(), mAdapterView);
+		mImageFetcher = new ImageFetcher(getActivity(), 240);
+		mImageFetcher.setLoadingImage(R.drawable.empty_photo);
+		mAdapterView.setAdapter(mAdapter);
+		AddItemToContainer(0, 1);
+		mImageFetcher.setExitTasksEarly(false);
+		titlebarLeftmenu = (ImageView) thisLayout
+				.findViewById(R.id.main_titlebar_leftmenu);
+		titlebarLeftmenu.setOnClickListener(new OnClickListener() {
 			@Override
-			public void run() {
-				try {
-					Thread.sleep(0000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				Message msg=new Message();
-				msg.what=WHAT_DID_LOAD_DATA;
-				mUIHandler.sendMessage(msg);
+			public void onClick(View v) {
+				((SlidingActivity) getActivity()).showLeft();
 			}
-		}).start();
+		});
+		titlebarRightmenu = (ImageView) thisLayout
+				.findViewById(R.id.main_titlebar_rightmenu);
+		titlebarRightmenu.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(),
+						SendPostActivity.class);
+				startActivityForResult(intent, 1); // 1è¡¨ç¤ºå‘å¸–activityæ’¤é”€ï¼Œå¹¶å‘å¸–æˆåŠŸ
+			}
+		});
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		return true;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+
+	}
+
+	@Override
+	public void onRefresh() {
+		AddItemToContainer(0, 1);
+	}
+
+	@Override
+	public void onLoadMore() {
+		AddItemToContainer(++currentPage, 2);
+
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
+import com.hblg.lookingfellow.tools.ExpressionUtil;
 import com.hblg.lookingfellow.tools.ImageTool;
 
 public class MsgListViewAdapter extends BaseAdapter {
@@ -93,7 +95,16 @@ public class MsgListViewAdapter extends BaseAdapter {
 		}
 		// 内容
 		String content = (String)map.get("msgDetails");
-		holder.contentTextView.setText(content);
+		//内容（解析数据）
+		String zhengze = "f0[0-9]{2}|f10[0-7]"; // 正则表达式，用来判断消息内是否有表情
+		try {
+			SpannableString spannableString = 
+					ExpressionUtil.getExpressionString(context, content, zhengze);
+			holder.contentTextView.setText(spannableString);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		// 时间
 		String time = (String)map.get("msgTime");
 		holder.timeTextView.setText(time);
@@ -110,6 +121,7 @@ public class MsgListViewAdapter extends BaseAdapter {
 				holder.contentTextView.setText(qq + "请求添加你为好友"); // 如果为空，显示qq号码
 			}
 		}
+		bm = ImageTool.toRoundCorner(bm, 15);
 		holder.headImage.setImageBitmap(bm);
 		
 		return convertView;

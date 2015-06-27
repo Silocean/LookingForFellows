@@ -77,12 +77,11 @@ public class friendsListViewAdapter extends BaseAdapter {
 			holder = (ViewHolder)convertView.getTag();
 		}
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
-		/*// qq号码
+		// qq号码
 		final String qq = (String)map.get("friQQ");
 		// 名字
 		String name = (String)map.get("friName");
 		holder.nameTextView.setText(name);
-		
 		// 老家
 		String hometown = (String)map.get("friHometown");
 		holder.hometownTextView.setText(hometown);
@@ -99,6 +98,7 @@ public class friendsListViewAdapter extends BaseAdapter {
 		});
 		// 头像
 		bm = ImageTool.getHeadImageFromLocalOrNet(context, qq);
+		bm = ImageTool.toRoundCorner(bm, 15);
 		holder.headImage.setImageBitmap(bm);
 		holder.headImage.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -109,13 +109,8 @@ public class friendsListViewAdapter extends BaseAdapter {
 				intent.putExtra("tag", "unfriendRequest");
 				context.startActivity(intent);
 			}
-		});*/
+		});
 		
-		//临时测试
-		holder.nameTextView.setText("望月枫眠");
-		holder.hometownTextView.setText("湖北省大冶市");
-		holder.headImage.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.head_default));
-
 		return convertView;
 		
 	}

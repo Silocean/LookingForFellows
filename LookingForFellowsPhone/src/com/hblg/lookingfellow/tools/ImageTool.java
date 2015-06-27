@@ -16,6 +16,7 @@ import android.graphics.RectF;
 import android.os.Environment;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.entity.User;
 /**
  * 用于图像处理的工具类
@@ -64,7 +65,7 @@ public class ImageTool {
 		Bitmap bitmap = null;
 		if(!file.exists()) { //如果本地不存在头像，就从服务器查询是否有该用户头像，若有,下载并显示；若没有，显示默认头像
 			System.out.println("file is not exists");
-			String headUrl = "http://192.168.1.152:8080/lookingfellowWeb0.2/head/head_" + qq + ".jpg";
+			String headUrl = Common.PATH + "head/head_" + qq + ".jpg";
 			try {
 				byte[] data = ImageLoader.getImage(headUrl);
 				if(data == null) { // 若没有，显示默认头像

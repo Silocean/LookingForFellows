@@ -3,6 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants" >
+
     <ImageView
         android:id="@+id/friendslayout_headimage"
         android:layout_width="50dip"
@@ -10,6 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:paddingLeft="10dip" />
+
     <TextView
         android:id="@+id/friendslayout_name"
         android:layout_width="wrap_content"
@@ -19,6 +21,7 @@
         android:layout_toRightOf="@id/friendslayout_headimage"
         android:textColor="#737373"
         android:textSize="16sp" />
+
     <TextView
         android:id="@+id/friendslayout_hometown"
         android:layout_width="wrap_content"
@@ -28,6 +31,7 @@
         android:layout_below="@id/friendslayout_name"
         android:textColor="#737373"
         android:textSize="12sp" />
+
     <Button
         android:id="@+id/friendslayout_chat"
         android:layout_width="wrap_content"
@@ -36,4 +40,5 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="10dip"
         android:background="@drawable/friendslayout_chat_icon" />
+
 </RelativeLayout>

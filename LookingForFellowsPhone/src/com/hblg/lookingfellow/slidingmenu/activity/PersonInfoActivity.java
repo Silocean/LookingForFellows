@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.entity.Student;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.model.ManageActivity;
@@ -277,13 +278,13 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 				boolean flag = bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos); // 保存头像到本地SD卡
 				if(flag)  { //上传头像
 					dialog = ProgressDialog.show(PersonInfoActivity.this, "", "正在上传...", true);
-					String url = "http://192.168.1.152:8080/lookingfellowWeb0.2/GetImageServlet";
+					String url = Common.PATH + "GetImageServlet";
 					File imageFile = new File(path, headName);
 					if(imageFile.exists()) {
 						FormFile formFile = new FormFile(imageFile, "image", "image/*");
 						Map<String, String> params = new HashMap<String, String>();
-						params.put("title", "title");
-						params.put("content", "content");
+						params.put("tag", "head");
+						params.put("imageName", headName);
 						boolean result = SocketHttpRequester.post(url, params, formFile);
 						if(result) {
 							msg = handler.obtainMessage(1); // 1表示上传成功

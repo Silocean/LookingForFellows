@@ -10,6 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.entity.Friend;
 import com.hblg.lookingfellow.entity.Message;
 import com.hblg.lookingfellow.entity.Student;
@@ -18,8 +19,6 @@ import com.hblg.lookingfellow.entity.User;
 public class SQLiteService {
 	
 	DBOpenHelper openHelper;
-	
-	String imagePath = "http://192.168.1.152:8080/lookingfellowWeb0.2/head/";
 	
 	public SQLiteService(Context context) {
 		openHelper = new DBOpenHelper(context);
@@ -142,6 +141,13 @@ public class SQLiteService {
 		db.execSQL(sql, new String[]{User.qq, sender});
 		db.close();
 		System.out.println("删除好友信息成功");
+	}
+	public void deleteAllFriendInfo() {
+		SQLiteDatabase db = openHelper.getWritableDatabase();
+		String sql = "delete from friend";
+		db.execSQL(sql);
+		db.close();
+		System.out.println("删除所有好友信息成功");
 	}
 	/**
 	 * 从本地删除用户信息

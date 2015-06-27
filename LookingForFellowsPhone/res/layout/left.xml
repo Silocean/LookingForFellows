@@ -7,7 +7,8 @@
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:background="#d3d3d3" >
+        android:background="#d3d3d3"
+        android:scrollbars="none" >
 
         <RelativeLayout
             android:layout_width="270dip"
@@ -82,8 +83,7 @@
                         android:text="我的资料" />
                 </RelativeLayout>
             </LinearLayout>
-            <!-- 第二组菜单 -->
-
+            
             <LinearLayout
                 android:id="@+id/leftmenu_second_linearlayout"
                 android:layout_width="240dip"
@@ -92,7 +92,45 @@
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical"
                 android:paddingTop="10dip" >
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip" >
 
+                    <Button
+                        android:id="@+id/leftmenu_lookingfellow"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@drawable/leftmenuitem_selector" />
+					
+                    <ImageView
+                        android:id="@+id/leftmenu_lookingfellow_imageview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="10dip"
+                        android:src="@drawable/leftmenu_lookingfellow_icon" />
+
+                    <TextView
+                        style="@style/leftmenu_listitem_textstyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/leftmenu_lookingfellow_imageview"
+                        android:text="找老乡" />
+                </RelativeLayout>
+            </LinearLayout>
+            
+            <!-- 第三组菜单 -->
+
+            <LinearLayout
+                android:id="@+id/leftmenu_third_linearlayout"
+                android:layout_width="240dip"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/leftmenu_second_linearlayout"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
+                android:paddingTop="10dip" >
+                
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="40dip" >
@@ -145,7 +183,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/leftmenu_msg_icon"
                         android:text="我的消息" />
-                    
+
                     <ImageView
                         android:id="@+id/leftmenu_msg_new_notification"
                         android:layout_width="wrap_content"
@@ -155,7 +193,6 @@
                         android:layout_marginRight="10dip"
                         android:src="@drawable/leftmenu_msg_new_notification"
                         android:visibility="invisible" />
-                    
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -185,13 +222,13 @@
                         android:text="设置" />
                 </RelativeLayout>
             </LinearLayout>
-            <!-- 第三组菜单 -->
+            <!-- 第四组菜单 -->
 
             <LinearLayout
-                android:id="@+id/leftmenu_third_linerlayout"
+                android:id="@+id/leftmenu_fourth_linerlayout"
                 android:layout_width="240dip"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/leftmenu_second_linearlayout"
+                android:layout_below="@id/leftmenu_third_linearlayout"
                 android:layout_centerHorizontal="true"
                 android:paddingTop="10dip" >
 
@@ -228,11 +265,11 @@
                         android:text="分享" />
                 </RelativeLayout>
             </LinearLayout>
-
+			
             <LinearLayout
                 android:layout_width="240dip"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/leftmenu_third_linerlayout"
+                android:layout_below="@id/leftmenu_fourth_linerlayout"
                 android:layout_centerHorizontal="true"
                 android:paddingTop="15dip" >
 

@@ -39,72 +39,47 @@
     <RelativeLayout
         android:id="@+id/sendpost_second_relativelayout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_below="@id/sendpost_titlebar" >
 
-        <EditText
-            android:id="@+id/sendpost_title"
+        <EditText 
             android:layout_width="fill_parent"
-            android:layout_height="45dip"
-            android:background="@null"
-            android:hint="标题"
-            android:singleLine="true" />
+        	android:layout_height="fill_parent"
+        	android:id="@+id/postTxt"
+        	android:background="@drawable/post_bg1"
+        	android:gravity="top"
+        	android:hint="骚年说点儿什么吧~" />
+        
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/sendpost_third_relativelayout"
         android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:layout_below="@id/sendpost_second_relativelayout" >
-
-        <include layout="@layout/line" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/sendpost_fourth_relativelayout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/sendpost_third_relativelayout" >
-
-        <com.hblg.lookingfellow.selfdefinedwidget.SendpostEditText
-            android:id="@+id/sendpost_content"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@null"
-            android:gravity="top"
-            android:hint="内容"
-            android:scrollbars="vertical" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:padding="10dip" >
-
-        <Button
-            android:id="@+id/senpost_bottombar_emotionbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="5dip"
-            android:background="@drawable/sendpost_bottombar_emotion_icon_selector" />
-
-        <Button
-            android:id="@+id/senpost_bottombar_atbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_toRightOf="@id/senpost_bottombar_emotionbutton"
-            android:background="@drawable/sendpost_bottombar_at_icon_selector" />
-
-        <Button
-            android:id="@+id/senpost_bottombar_picturebutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dip"
-            android:layout_toRightOf="@id/senpost_bottombar_atbutton"
-            android:background="@drawable/sendpost_bottombar_picture_icon_selector" />
+        android:layout_alignParentBottom="true" >
+		<RelativeLayout 
+		    android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_centerHorizontal="true"
+        	android:padding="10dip" >
+		    <Button 
+		        android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:id="@+id/background"
+        		android:text="编辑模版" />
+		    <Button 
+		        android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:id="@+id/atfriend"
+        		android:layout_toRightOf="@id/background"
+        		android:text="艾特好友" />
+		    <Button 
+		        android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:id="@+id/addpic"
+        		android:layout_toRightOf="@id/atfriend"
+        		android:text="添加图片" />
+		</RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/news_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/news_item_bg"
+    android:orientation="vertical" >
+
+    <com.hblg.lookingfellow.pla.view.ScaleImageView
+        android:id="@+id/news_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@null" />
+    
+    
+     <TextView
+        android:id="@+id/news_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="false"
+        android:textColor="#656565" />
+     
+    <include layout="@layout/line" />
+    "
+    <RelativeLayout 
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="10dip" >
+		<ImageView 
+		    android:layout_width="30dip"
+       		android:layout_height="30dip"
+       		android:id="@+id/headimageview"
+       		android:layout_alignParentLeft="true"
+       		android:layout_marginLeft="5dip" />
+		<TextView 
+		    android:layout_width="60dip"
+       		android:layout_height="wrap_content"
+       		android:id="@+id/authorNameView"
+       		android:singleLine="true"
+       		android:ellipsize="end"
+       		android:layout_toRightOf="@id/headimageview"
+       		android:layout_alignTop="@id/headimageview"
+       		android:layout_marginLeft="4dip"
+       		android:textColor="#656565" />  
+       	<TextView 
+		    android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+       		android:id="@+id/timeView"
+       		android:layout_toRightOf="@+id/headimageview"
+       		android:layout_below="@id/authorNameView"
+       		android:layout_marginLeft="4dip"
+       		android:textSize="10sp" />
+        <TextView 
+		    android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+       		android:id="@+id/replycountView"
+       		android:layout_alignParentRight="true"
+       		android:layout_marginRight="5dip"
+       		android:layout_alignParentBottom="true" />
+        <ImageView 
+            android:layout_width="wrap_content"
+       		android:layout_height="wrap_content"
+       		android:layout_alignParentBottom="true"
+       		android:layout_marginRight="3dip"
+       		android:layout_toLeftOf="@id/replycountView"
+       		android:src="@drawable/listitem_postlayout_replay_icon" />
+    </RelativeLayout>
+
+</LinearLayout>

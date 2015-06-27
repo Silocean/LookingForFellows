@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.entity.LoginUser;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
@@ -81,26 +82,21 @@ public class LoginActivity extends Activity implements OnClickListener{
 						Toast.makeText(getApplicationContext(), "该用户已登录", 0).show();
 					} else {
 						Toast.makeText(getApplicationContext(), "登录成功", 0).show();
+						
 						// 请求暂存在服务器的消息
-						new Runnable() {
-							public void run() {
-								try {
-									com.hblg.lookingfellow.entity.Message msgChatMsg = new com.hblg.lookingfellow.entity.Message();
-									msgChatMsg.setType(MessageType.MSG_REQUESTRETURNCHATMSG);
-									msgChatMsg.setSender(User.qq);
-									ObjectOutputStream oos = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
-									oos.writeObject(msgChatMsg);
-									
-									com.hblg.lookingfellow.entity.Message msgRequestAddFriend = new com.hblg.lookingfellow.entity.Message();
-									msgRequestAddFriend.setType(MessageType.MSG_REQUESTRETURNADDFRIENDMSG);
-									msgRequestAddFriend.setSender(User.qq);
-									ObjectOutputStream oos2 = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
-									oos2.writeObject(msgRequestAddFriend);
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
-						};
+						com.hblg.lookingfellow.entity.Message msgChatMsg = new com.hblg.lookingfellow.entity.Message();
+						msgChatMsg.setType(MessageType.MSG_REQUESTRETURNCHATMSG);
+						msgChatMsg.setSender(User.qq);
+						ObjectOutputStream oos = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
+						oos.writeObject(msgChatMsg);
+						
+						com.hblg.lookingfellow.entity.Message msgRequestAddFriend = new com.hblg.lookingfellow.entity.Message();
+						msgRequestAddFriend.setType(MessageType.MSG_REQUESTRETURNADDFRIENDMSG);
+						msgRequestAddFriend.setSender(User.qq);
+						ObjectOutputStream oos2 = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
+						oos2.writeObject(msgRequestAddFriend);
+						
+						ManageClientConnServer.getClientConServerThread(User.qq).start();
 						
 						//启动程序主窗体
 						Intent intent = new Intent(getApplicationContext(), SlidingActivity.class);
@@ -122,22 +118,9 @@ public class LoginActivity extends Activity implements OnClickListener{
 			} else if(msg.arg1 == 2) {
 				dialog.dismiss();
 				Toast.makeText(getApplicationContext(), "用户名或密码错误", 0).show();
-				
-				Intent service = new Intent(getApplicationContext(), GetUserInfoService.class);
-				startService(service);
-				
-				Intent intent = new Intent(getApplicationContext(), SlidingActivity.class);
-				startActivity(intent);
-				
 			} else if(msg.arg1 == 3) {
 				dialog.dismiss();
 				Toast.makeText(getApplicationContext(), "网络连接出现问题", 0).show();
-				
-				Intent service = new Intent(getApplicationContext(), GetUserInfoService.class);
-				startService(service);
-				
-				Intent intent = new Intent(getApplicationContext(), SlidingActivity.class);
-				startActivity(intent);
 			}
 		}
 		
@@ -180,7 +163,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 
 		private void login(String qq, String password) {
 			try {
-				String path = "http://192.168.1.152:8080/lookingfellowWeb0.2/UserLoginServlet";
+				String path = Common.PATH + "UserLoginServlet";
 				Map<String, String> params = new HashMap<String, String>();
 				params.put("qq", qq);
 				params.put("password", password);

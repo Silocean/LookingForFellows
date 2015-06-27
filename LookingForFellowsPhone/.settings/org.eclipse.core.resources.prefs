@@ -1,3 +1,9 @@
 eclipse.preferences.version=1
+encoding//src/com/hblg/lookingfellow/pla/entity/Constants.java=UTF-8
+encoding//src/com/hblg/lookingfellow/pla/entity/FlowTag.java=UTF-8
+encoding//src/com/hblg/lookingfellow/pla/view/FlowView.java=UTF-8
+encoding//src/com/hblg/lookingfellow/pla/view/XListViewHeader.java=UTF-8
+encoding//src/com/hblg/lookingfellow/slidingmenu/activity/SendPostActivity.java=UTF-8
+encoding//src/com/hblg/lookingfellow/slidingmenu/fragment/MainFragment.java=UTF-8
 encoding//src/com/hblg/lookingfellow/slidingmenu/view/SlidingMenu.java=UTF-8
 encoding//src/com/hblg/lookingfellow/tools/Expressions.java=UTF-8

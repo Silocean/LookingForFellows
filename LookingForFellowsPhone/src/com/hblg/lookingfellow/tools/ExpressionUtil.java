@@ -20,7 +20,7 @@ public class ExpressionUtil {
 	/**
 	 * 对spanableString进行正则判断，如果符合要求，则以表情图片代替
 	 */
-    public static void dealExpression(Context context,SpannableString spannableString, Pattern patten, int start) throws Exception {
+    public static void dealExpression(Context context, SpannableString spannableString, Pattern patten, int start) throws Exception {
     	Matcher matcher = patten.matcher(spannableString);
         while (matcher.find()) {
             String key = matcher.group();
@@ -43,7 +43,7 @@ public class ExpressionUtil {
         }
     }
     
-    public static SpannableString getExpressionString(Context context,String str,String zhengze){
+    public static SpannableString getExpressionString(Context context, String str, String zhengze){
     	System.out.println("进来的内容 = " + str);
     	SpannableString spannableString = new SpannableString(str);
         Pattern sinaPatten = Pattern.compile(zhengze, Pattern.CASE_INSENSITIVE);		//通过传入的正则表达式来生成一个pattern
@@ -54,4 +54,5 @@ public class ExpressionUtil {
         }
         return spannableString;
     }
+    
 }
