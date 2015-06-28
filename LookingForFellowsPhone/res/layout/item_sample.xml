@@ -3,25 +3,25 @@
     android:id="@+id/card_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="7dp"
-	android:orientation="vertical">
-    
-    <ImageView 
+    android:orientation="vertical"
+    android:padding="7dp" >
+
+    <ImageView
         android:id="@+id/thumbnail"
-        android:src="@drawable/ic_launcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="center"/>
-    
-    <TextView 
+        android:scaleType="center"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
         android:id="@android:id/text1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    
-    <Button 
+        android:layout_height="wrap_content" />
+
+    <Button
         android:id="@+id/like"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Like"/>
+        android:text="Like" />
 
 </LinearLayout>

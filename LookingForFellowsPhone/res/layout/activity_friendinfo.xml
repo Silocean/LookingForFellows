@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/content"
     android:layout_width="fill_parent"
@@ -7,178 +6,178 @@
 
     <!-- 这里用imagbutton作为fragment的背景，为了防止一些bug -->
 
-     <ImageButton
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent"
-         android:background="#d3d3d3" />
-
-     <RelativeLayout
-         android:id="@+id/main_titlebar_relativelayout"
-         android:layout_width="fill_parent"
-         android:layout_height="45dip"
-         android:background="@drawable/main_titlebarbg" >
-
-         <Button
-             android:id="@+id/main_titlebar_goback_leftmenu"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:background="@drawable/goback_icon_selector" />
-
-         <TextView
-             android:id="@+id/titlebar_title"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_centerHorizontal="true"
-             android:layout_centerVertical="true"
-             android:text="佚名"
-             android:textColor="@color/white"
-             android:textSize="18sp" />
-
-         <Button
-             android:id="@+id/main_titlebar_gomore_rightmenu"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_alignParentRight="true"
-             android:layout_centerVertical="true"
-             android:layout_marginRight="10dip"
-             android:background="@drawable/gomore_icon_selector" />
-     </RelativeLayout>
-     <ScrollView 
+    <ImageButton
         android:layout_width="fill_parent"
- 		android:layout_height="fill_parent"
- 		android:scrollbars="none"
- 		android:layout_below="@id/main_titlebar_relativelayout" >
-		<RelativeLayout 
-		    android:layout_width="fill_parent"
-		   	android:layout_height="fill_parent" >
-    
-	      	<RelativeLayout
-	          android:id="@+id/friendinfo_headimage_relativelayout"
-	          android:layout_width="fill_parent"
-	          android:layout_height="200dip" >
-	
-		          <ImageButton
-		              android:id="@+id/friendinfo_headimage_bg"
-		              android:layout_width="fill_parent"
-		              android:layout_height="fill_parent"
-		              android:background="@drawable/personinfo_headimage_bg" />
-		
-		          <ImageView
-		              android:id="@+id/friendinfo_headimage"
-		              android:layout_width="100dip"
-		              android:layout_height="100dip"
-		              android:layout_centerHorizontal="true"
-		              android:layout_centerInParent="true"
-		              android:background="@drawable/bg_border" />
-	      	</RelativeLayout>
-	
-	      	<RelativeLayout
-		          android:id="@+id/friendinfo_hometown_relativelayout"
-		          android:layout_width="fill_parent"
-		          android:layout_height="60dip"
-		          android:layout_below="@id/friendinfo_headimage_relativelayout" >
-	
-	          	<Button
-	              android:id="@+id/friendinfo_hometown_button"
-	              android:layout_width="fill_parent"
-	              android:layout_height="fill_parent"
-	              android:background="#f7f7f7" />
-	
-	         	 <ImageView
-	              android:id="@+id/friendinfo_hometown_icon"
-	              android:layout_width="wrap_content"
-	              android:layout_height="wrap_content"
-	              android:layout_alignParentLeft="true"
-	              android:layout_centerVertical="true"
-	              android:paddingLeft="15dip"
-	              android:src="@drawable/personinfo_hometown_icon" />
-	
-	         	 <TextView
-	              android:id="@+id/hometown"
-	              style="@style/personinfo_textstyle"
-	              android:layout_width="wrap_content"
-	              android:layout_height="wrap_content"
-	              android:layout_centerVertical="true"
-	              android:layout_toRightOf="@id/friendinfo_hometown_icon"
-	              android:paddingLeft="13dip" />
-	      	</RelativeLayout>
-	
-	      	<RelativeLayout
-	      	    android:id="@+id/friendinfo_signs_relativelayout"
-		        android:layout_width="fill_parent"
-		        android:layout_height="60dip"
-		        android:layout_below="@id/friendinfo_hometown_relativelayout" >
-	
-	          <Button
-	              android:id="@+id/friendinfo_signs_button"
-	              android:layout_width="fill_parent"
-	              android:layout_height="fill_parent"
-	              android:background="#dbdbdb" />
-	
-	          <ImageView
-	              android:id="@+id/friendinfo_signs_icon"
-	              android:layout_width="wrap_content"
-	              android:layout_height="wrap_content"
-	              android:layout_alignParentLeft="true"
-	              android:layout_centerVertical="true"
-	              android:paddingLeft="15dip"
-	              android:src="@drawable/personinfo_signs_icon" />
-	
-	          <TextView
-	              android:id="@+id/signs"
-	              style="@style/personinfo_textstyle"
-	              android:layout_width="wrap_content"
-	              android:layout_height="wrap_content"
-	              android:layout_centerVertical="true"
-	              android:layout_toRightOf="@id/friendinfo_signs_icon"
-	              android:paddingLeft="15dip" />
-	      </RelativeLayout>
-	
-	      <RelativeLayout
-	          android:id="@+id/friendinfo_mobile_relativelayout"
-	          android:layout_width="fill_parent"
-	          android:layout_height="60dip"
-	          android:layout_below="@id/friendinfo_signs_relativelayout" >
-	
-	          <Button
-	              android:id="@+id/friendinfo_mobile_button"
-	              android:layout_width="fill_parent"
-	              android:layout_height="fill_parent"
-	              android:background="#f7f7f7" />
-	
-	          <ImageView
-	              android:id="@+id/friendinfo_mobile_icon"
-	              android:layout_width="wrap_content"
-	              android:layout_height="wrap_content"
-	              android:layout_alignParentLeft="true"
-	              android:layout_centerVertical="true"
-	              android:paddingLeft="15dip"
-	              android:src="@drawable/personinfo_mobile_icon" />
-	
-	          <TextView
-	              android:id="@+id/mobile"
-	              style="@style/personinfo_textstyle"
-	              android:layout_width="wrap_content"
-	              android:layout_height="wrap_content"
-	              android:layout_centerVertical="true"
-	              android:layout_toRightOf="@id/friendinfo_mobile_icon"
-	              android:paddingLeft="15dip" />
-	      </RelativeLayout>
-	
-	      <Button
-	          android:id="@+id/addfriend_button"
-	          android:layout_width="250dip"
-	          android:layout_height="50dip"
-	          android:layout_below="@id/friendinfo_mobile_relativelayout"
-	          android:layout_centerHorizontal="true"
-	          android:layout_marginBottom="15dip"
-	          android:layout_marginTop="15dip"
-	          android:background="@drawable/chat_bottombar_send_icon_selector"
-	          android:text="加为好友"
-	          android:visibility="gone" />
-	      
-	    </RelativeLayout>
-          
-     </ScrollView>
-     
- </RelativeLayout>
+        android:layout_height="fill_parent"
+        android:background="#d3d3d3" />
+
+    <RelativeLayout
+        android:id="@+id/main_titlebar_relativelayout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/main_titlebarbg" >
+
+        <Button
+            android:id="@+id/main_titlebar_goback_leftmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/goback_icon_selector" />
+
+        <TextView
+            android:id="@+id/titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="佚名"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/main_titlebar_gomore_rightmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/gomore_icon_selector" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/main_titlebar_relativelayout"
+        android:scrollbars="none" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <RelativeLayout
+                android:id="@+id/friendinfo_headimage_relativelayout"
+                android:layout_width="fill_parent"
+                android:layout_height="200dip" >
+
+                <ImageButton
+                    android:id="@+id/friendinfo_headimage_bg"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/personinfo_headimage_bg" />
+
+                <ImageView
+                    android:id="@+id/friendinfo_headimage"
+                    android:layout_width="100dip"
+                    android:layout_height="100dip"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/bg_border" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/friendinfo_hometown_relativelayout"
+                android:layout_width="fill_parent"
+                android:layout_height="60dip"
+                android:layout_below="@id/friendinfo_headimage_relativelayout" >
+
+                <Button
+                    android:id="@+id/friendinfo_hometown_button"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#f7f7f7" />
+
+                <ImageView
+                    android:id="@+id/friendinfo_hometown_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="15dip"
+                    android:src="@drawable/personinfo_hometown_icon" />
+
+                <TextView
+                    android:id="@+id/hometown"
+                    style="@style/personinfo_textstyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/friendinfo_hometown_icon"
+                    android:paddingLeft="13dip" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/friendinfo_signs_relativelayout"
+                android:layout_width="fill_parent"
+                android:layout_height="60dip"
+                android:layout_below="@id/friendinfo_hometown_relativelayout" >
+
+                <Button
+                    android:id="@+id/friendinfo_signs_button"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#dbdbdb" />
+
+                <ImageView
+                    android:id="@+id/friendinfo_signs_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="15dip"
+                    android:src="@drawable/personinfo_signs_icon" />
+
+                <TextView
+                    android:id="@+id/signs"
+                    style="@style/personinfo_textstyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/friendinfo_signs_icon"
+                    android:paddingLeft="15dip" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/friendinfo_mobile_relativelayout"
+                android:layout_width="fill_parent"
+                android:layout_height="60dip"
+                android:layout_below="@id/friendinfo_signs_relativelayout" >
+
+                <Button
+                    android:id="@+id/friendinfo_mobile_button"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#f7f7f7" />
+
+                <ImageView
+                    android:id="@+id/friendinfo_mobile_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="15dip"
+                    android:src="@drawable/personinfo_mobile_icon" />
+
+                <TextView
+                    android:id="@+id/mobile"
+                    style="@style/personinfo_textstyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/friendinfo_mobile_icon"
+                    android:paddingLeft="15dip" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/addfriend_button"
+                android:layout_width="250dip"
+                android:layout_height="50dip"
+                android:layout_below="@id/friendinfo_mobile_relativelayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="15dip"
+                android:layout_marginTop="15dip"
+                android:background="@drawable/chat_bottombar_send_icon_selector"
+                android:text="加为好友"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

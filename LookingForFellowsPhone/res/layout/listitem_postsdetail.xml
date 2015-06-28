@@ -69,7 +69,6 @@
             android:padding="10dp"
             android:text="这是一沟绝望的死水，清风吹不起半点一轮，不如多扔些破铜烂铁"
             android:textColor="@color/black" />
-
     </LinearLayout>
 
 </LinearLayout>

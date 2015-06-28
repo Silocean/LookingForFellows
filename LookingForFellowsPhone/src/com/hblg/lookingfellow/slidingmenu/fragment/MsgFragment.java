@@ -34,7 +34,7 @@ import com.hblg.lookingfellow.slidingmenu.activity.RequestAddFriendMsgActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 
-public class MsgFragment extends Fragment implements OnItemClickListener, OnItemLongClickListener {
+public class MsgFragment extends Fragment  {
 	ListView listView;
 	ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
 	private MsgListViewAdapter adapter;
@@ -56,8 +56,8 @@ public class MsgFragment extends Fragment implements OnItemClickListener, OnItem
 		this.inflater = inflater;
 		View view = inflater.inflate(R.layout.main_content_msg, null);
 		listView = (ListView)view.findViewById(R.id.msgList);
-		listView.setOnItemClickListener(this);
-		listView.setOnItemLongClickListener(this);
+		//listView.setOnItemClickListener(this);
+		//listView.setOnItemLongClickListener(this);
 		titlebarLeftmenu = (ImageView)view.findViewById(R.id.main_titlebar_msg_leftmenu);
 		titlebarRightmenu = (Button)view.findViewById(R.id.main_titlebar_msg_rightmenu);
 		return view;
@@ -73,7 +73,7 @@ public class MsgFragment extends Fragment implements OnItemClickListener, OnItem
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		adapter = new MsgListViewAdapter(getActivity(), data, R.layout.listitem_msglayout, listView);
+		adapter = new MsgListViewAdapter(getActivity(), data, R.layout.listitem_msglayout, listView, this);
 		ArrayList<Map<String, Object>> data = this.getMessages();
 		this.data = data;
 		adapter.setData(data);
@@ -91,7 +91,7 @@ public class MsgFragment extends Fragment implements OnItemClickListener, OnItem
 		});
 		SQLiteService service = new SQLiteService(getActivity());
 		chatToPersons = service.getAllChatTo();
-		initPopupWindow();
+		//initPopupWindow();
 	}
 	
 	public ArrayList<Map<String, Object>> getMessages() {
@@ -103,36 +103,21 @@ public class MsgFragment extends Fragment implements OnItemClickListener, OnItem
 		}
 		return tempList;
 	}
-
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		int type = (Integer)data.get(position).get("msgType");
-		String qq = chatToPersons.get(chatToPersons.size()-1 - position);
-		if(type == MessageType.MSG_CHAT) {
-			Intent intent = new Intent(getActivity(), ChatActivity.class);
-			intent.putExtra("friendQq", qq);
-			startActivity(intent);
-		} else if(type == MessageType.MSG_REQUESTADDFRIEND) {
-			Intent intent = new Intent(getActivity(), FriendInfoActivity.class);
-			intent.putExtra("qq", qq);
-			intent.putExtra("tag", "agreeRequest");
-			startActivity(intent);
-		} else if(type == MessageType.MSG_AGREEADDFRIEND) {
-			Intent intent = new Intent(getActivity(), ChatActivity.class);
-			intent.putExtra("friendQq", qq);
-			startActivity(intent);
-		}
+	public void updataListView() {
+		ArrayList<Map<String, Object>> data = getMessages();
+		adapter.setData(data);
+		listView.setAdapter(adapter);
 	}
+	/*
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
 		String friendQq = chatToPersons.get(chatToPersons.size()-1 - position);
 		showPopwindow(view, friendQq);
 		return false;
-	}
+	}*/
 	
-	private void showPopwindow(View v, final String friendQq) {
+	/*private void showPopwindow(View v, final String friendQq) {
 		if(popupWindow.isShowing()) {
 			// 隐藏窗口，如果设置了点击窗口外小时即不需要此方式隐藏  
 			popupWindow.dismiss();
@@ -172,9 +157,9 @@ public class MsgFragment extends Fragment implements OnItemClickListener, OnItem
 				}
 			});
 		}
-	}
+	}*/
 	
-	private void initPopupWindow() {
+	/*private void initPopupWindow() {
 		inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		popupView = inflater.inflate(R.layout.popupwindow_msg, null);
 		popupWindow = new PopupWindow(popupView, 280, 100, false);
@@ -186,6 +171,6 @@ public class MsgFragment extends Fragment implements OnItemClickListener, OnItem
 		popupWindow.setOutsideTouchable(true);
 		// 设置窗口动画效果
 		//popupWindow.setAnimationStyle(R.style.AnimationPreview);
-	}
+	}*/
 
 }

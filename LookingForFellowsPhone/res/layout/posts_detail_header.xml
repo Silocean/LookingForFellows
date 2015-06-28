@@ -15,9 +15,9 @@
         android:orientation="vertical" >
 
         <TextView
+            android:id="@+id/postdetails_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/postdetails_title"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:text="我只是爱拍而已"

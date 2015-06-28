@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
@@ -21,12 +21,14 @@ import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
 
-public class ModifySexActivity extends Activity implements OnClickListener, OnCheckedChangeListener{
+public class ModifySexActivity extends Activity implements OnClickListener{
 	Button gobackButton;
 	Button modifySexButton;
-	RadioGroup radioGroup;
-	RadioButton maleRadioButton;
-	RadioButton femaleRadioButton;
+	
+	private RelativeLayout boyRel;
+	private RelativeLayout girlRel;
+	private ImageView boyImg;
+	private ImageView girlImg;
 	
 	String sex;
 	
@@ -42,17 +44,22 @@ public class ModifySexActivity extends Activity implements OnClickListener, OnCh
 		setContentView(R.layout.activity_modifysex);
 		gobackButton = (Button)this.findViewById(R.id.modifysex_goback_button);
 		gobackButton.setOnClickListener(this);
-		radioGroup = (RadioGroup)this.findViewById(R.id.radiogroup);
-		radioGroup.setOnCheckedChangeListener(this);
-		maleRadioButton = (RadioButton)this.findViewById(R.id.modifysex_radiobutton_male);
-		femaleRadioButton = (RadioButton)this.findViewById(R.id.modifysex_radiobutton_female);
+		initView();
+	}
+	private void initView(){
+		boyRel=(RelativeLayout)findViewById(R.id.modify_boy);
+		girlRel=(RelativeLayout)findViewById(R.id.modify_girl);
+		boyImg=(ImageView)findViewById(R.id.modify_boy_right);
+		girlImg=(ImageView)findViewById(R.id.modify_girl_right);
+		boyRel.setOnClickListener(this);
+		girlRel.setOnClickListener(this);
 		String sex = getIntent().getStringExtra("sex");
 		if(sex.equals("男")) {
-			Log.i("ModifySexActivity", "male");
-			maleRadioButton.setSelected(true);
+			boyImg.setImageDrawable(getResources().getDrawable(R.drawable.modifysex_radiobutton_checked));
+			girlImg.setImageDrawable(getResources().getDrawable(R.drawable.modifysex_radiobutton_unchecked));
 		} else if(sex.equals("女")) {
-			Log.i("ModifySexActivity", "female");
-			femaleRadioButton.setSelected(true);
+			girlImg.setImageDrawable(getResources().getDrawable(R.drawable.modifysex_radiobutton_checked));
+			boyImg.setImageDrawable(getResources().getDrawable(R.drawable.modifysex_radiobutton_unchecked));
 		}
 	}
 	private class UIHandler extends Handler {
@@ -79,26 +86,29 @@ public class ModifySexActivity extends Activity implements OnClickListener, OnCh
 		case R.id.modifysex_goback_button:
 			this.finish();
 			break;
-		default:
+		case R.id.modify_boy:
+			boyImg.setImageDrawable(getResources().getDrawable(R.drawable.modifysex_radiobutton_checked));
+			girlImg.setImageDrawable(getResources().getDrawable(R.drawable.modifysex_radiobutton_unchecked));
+			this.modifySex("男");
 			break;
-		}
-	}
-	@Override
-	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		switch (checkedId) {
-		case R.id.modifysex_radiobutton_male:
-			//TODO
-			changeSex();
-			break;
-		case R.id.modifysex_radiobutton_female:
-			//TODO
-			changeSex();
+		case R.id.modify_girl:
+			girlImg.setImageDrawable(getResources().getDrawable(R.drawable.modifysex_radiobutton_checked));
+			boyImg.setImageDrawable(getResources().getDrawable(R.drawable.modifysex_radiobutton_unchecked));
+			this.modifySex("女");
 			break;
 		default:
 			break;
 		}
 	}
-	private void changeSex() {
+	private void modifySex(String sex) {
+		SQLiteService service = new SQLiteService(getApplicationContext());
+		String qq = User.qq;
+		this.sex = sex;
+		service.modifySex(sex, qq);
+		dialog = ProgressDialog.show(ModifySexActivity.this, "", "正在修改...", true);
+		new ModifySexThread().start();
+	}
+	/*private void changeSex() {
 		SQLiteService service = new SQLiteService(getApplicationContext());
 		String qq = User.qq;
 		if(maleRadioButton.isChecked()) {
@@ -109,7 +119,7 @@ public class ModifySexActivity extends Activity implements OnClickListener, OnCh
 		service.modifySex(sex, qq);
 		dialog = ProgressDialog.show(ModifySexActivity.this, "", "正在修改...", true);
 		new ModifySexThread().start();
-	}
+	}*/
 	
 	private class ModifySexThread extends Thread {
 		@Override

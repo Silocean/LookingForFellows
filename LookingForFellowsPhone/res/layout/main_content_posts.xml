@@ -9,11 +9,10 @@
     <include layout="@layout/titlebar" />
 
     <com.hblg.lookingfellow.pla.view.XListView
-      android:id="@+id/list"
-      android:scrollbars="vertical"
-      android:fastScrollEnabled="true"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent" />
-    
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fastScrollEnabled="true"
+        android:scrollbars="vertical" />
 
 </LinearLayout>

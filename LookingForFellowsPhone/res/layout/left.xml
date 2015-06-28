@@ -19,8 +19,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="@color/bg_color" />
+            
             <!-- 第一组菜单 -->
-
             <LinearLayout
                 android:id="@+id/leftmenu_first_linearlayout"
                 android:layout_width="240dip"
@@ -84,6 +84,7 @@
                 </RelativeLayout>
             </LinearLayout>
             
+			 <!-- 第二组菜单 -->
             <LinearLayout
                 android:id="@+id/leftmenu_second_linearlayout"
                 android:layout_width="240dip"
@@ -92,6 +93,7 @@
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical"
                 android:paddingTop="10dip" >
+
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="40dip" >
@@ -101,7 +103,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:background="@drawable/leftmenuitem_selector" />
-					
+
                     <ImageView
                         android:id="@+id/leftmenu_lookingfellow_imageview"
                         android:layout_width="wrap_content"
@@ -119,9 +121,8 @@
                         android:text="找老乡" />
                 </RelativeLayout>
             </LinearLayout>
-            
-            <!-- 第三组菜单 -->
 
+            <!-- 第三组菜单 -->
             <LinearLayout
                 android:id="@+id/leftmenu_third_linearlayout"
                 android:layout_width="240dip"
@@ -130,7 +131,7 @@
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical"
                 android:paddingTop="10dip" >
-                
+
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="40dip" >
@@ -222,19 +223,19 @@
                         android:text="设置" />
                 </RelativeLayout>
             </LinearLayout>
+            
             <!-- 第四组菜单 -->
-
             <LinearLayout
                 android:id="@+id/leftmenu_fourth_linerlayout"
                 android:layout_width="240dip"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/leftmenu_third_linearlayout"
-                android:layout_centerHorizontal="true"
-                android:paddingTop="10dip" >
+                android:layout_centerHorizontal="true" >
 
                 <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip" >
 
                     <Button
                         android:id="@+id/leftmenu_cross_button"
@@ -249,7 +250,7 @@
                         style="@style/leftmenu_listitem_textstyle"
                         android:layout_width="65dip"
                         android:layout_height="65dip"
-                        android:layout_marginLeft="7dip"
+                        android:layout_marginLeft="10dip"
                         android:layout_toRightOf="@id/leftmenu_cross_button"
                         android:background="@drawable/leftmenu_button_bg"
                         android:text="附近" />
@@ -259,19 +260,20 @@
                         style="@style/leftmenu_listitem_textstyle"
                         android:layout_width="65dip"
                         android:layout_height="65dip"
-                        android:layout_marginLeft="7dip"
+                        android:layout_marginLeft="10dip"
                         android:layout_toRightOf="@id/leftmenu_near_button"
                         android:background="@drawable/leftmenu_button_bg"
                         android:text="分享" />
                 </RelativeLayout>
             </LinearLayout>
-			
+
             <LinearLayout
                 android:layout_width="240dip"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/leftmenu_fourth_linerlayout"
                 android:layout_centerHorizontal="true"
-                android:paddingTop="15dip" >
+                android:paddingTop="15dip"
+                android:paddingBottom="15dip" >
 
                 <Button
                     android:id="@+id/leftmenu_invite_button"

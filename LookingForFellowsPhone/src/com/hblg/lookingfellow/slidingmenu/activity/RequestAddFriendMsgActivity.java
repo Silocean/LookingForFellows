@@ -52,12 +52,12 @@ public class RequestAddFriendMsgActivity extends Activity implements OnItemLongC
 		listView = (ListView)this.findViewById(R.id.requestAddFriendList);
 		listView.setOnItemClickListener(this);
 		listView.setOnItemLongClickListener(this);
-		adapter = new MsgListViewAdapter(getApplicationContext(), data, R.layout.listitem_msglayout, listView);
+		adapter = new MsgListViewAdapter(getApplicationContext(), data, R.layout.listitem_msglayout, listView, this);
 		ArrayList<Map<String, Object>> data = this.getMessages();
 		this.data = data;
 		adapter.setData(data);
 		listView.setAdapter(adapter);
-		initPopupWindow();
+		//initPopupWindow();
 	}
 	@Override
 	protected void onResume() {
@@ -81,7 +81,7 @@ public class RequestAddFriendMsgActivity extends Activity implements OnItemLongC
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
 		String friendQq = (String)data.get(position).get("msgSender");
-		showPopwindow(view, friendQq);
+		//showPopwindow(view, friendQq);
 		return false;
 	}
 
@@ -94,7 +94,13 @@ public class RequestAddFriendMsgActivity extends Activity implements OnItemLongC
 		intent.putExtra("tag", "agreeRequest");
 		startActivity(intent);
 	}
-	private void showPopwindow(View v, final String friendQq) {
+	
+	public void updateListView() {
+		ArrayList<Map<String, Object>> data = getMessages();
+		adapter.setData(data);
+		listView.setAdapter(adapter);
+	}
+	/*private void showPopwindow(View v, final String friendQq) {
 		if(popupWindow.isShowing()) {
 			// 隐藏窗口，如果设置了点击窗口外小时即不需要此方式隐藏  
 			popupWindow.dismiss();
@@ -120,9 +126,9 @@ public class RequestAddFriendMsgActivity extends Activity implements OnItemLongC
 				}
 			});
 		}
-	}
+	}*/
 	
-	private void initPopupWindow() {
+	/*private void initPopupWindow() {
 		inflater = (LayoutInflater)getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		popupView = inflater.inflate(R.layout.popupwindow_requestaddfriendmsg, null);
 		popupWindow = new PopupWindow(popupView, 280, 100, false);
@@ -134,5 +140,5 @@ public class RequestAddFriendMsgActivity extends Activity implements OnItemLongC
 		popupWindow.setOutsideTouchable(true);
 		// 设置窗口动画效果
 		//popupWindow.setAnimationStyle(R.style.AnimationPreview);
-	}
+	}*/
 }

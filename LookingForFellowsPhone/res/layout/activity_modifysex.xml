@@ -27,45 +27,84 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/modifysex_radiobutton_linearlayout"
         android:layout_width="290dip"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_below="@id/modifysex_titlebar"
         android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:paddingTop="20dip" >
-
-        <RadioGroup
-            android:id="@+id/radiogroup"
+        android:layout_marginTop="20dp">
+        <RelativeLayout 
+            android:id="@+id/modify_boy"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            androidrientation="vertical" >
-
-            <RadioButton
-                android:id="@+id/modifysex_radiobutton_male"
-                style="@style/personinfo_textstyle"
-                android:layout_width="fill_parent"
+            android:layout_height="50dp"
+             android:background="@drawable/leftmenu_itembg_pressed"
+             android:gravity="center_vertical"
+            >
+            <ImageView 
+                android:id="@+id/modify_nan"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/leftmenu_itembg_pressed"
-                android:button="@null"
-                android:drawableLeft="@drawable/modifysex_male_icon"
-                android:drawablePadding="10dip"
-                android:drawableRight="@drawable/modifysex_icon_selector"
-                android:text="男" />
-
-            <RadioButton
-                android:id="@+id/modifysex_radiobutton_female"
-                style="@style/personinfo_textstyle"
-                android:layout_width="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/modifysex_male_icon"
+                />
+            <TextView 
+                android:layout_toRightOf="@id/modify_nan"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/leftmenu_itembg_pressed"
-                android:button="@null"
-                android:drawableLeft="@drawable/modifysex_female_icon"
-                android:drawablePadding="10dip"
-                android:drawableRight="@drawable/modifysex_icon_selector"
-                android:text="女" />
-        </RadioGroup>
-    </LinearLayout>
+                android:layout_centerVertical="true"
+                android:text="男"
+                />
+            <ImageView 
+                android:id="@+id/modify_boy_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/modifysex_radiobutton_unchecked"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="0dp"
+                />
+            
+        </RelativeLayout>
+         <RelativeLayout 
+             android:id="@+id/modify_girl"
+            android:layout_width="fill_parent"
+             android:layout_below="@id/modify_boy"
+            android:layout_height="50dp"
+             android:background="@drawable/leftmenu_itembg_pressed"
+             android:gravity="center_vertical"
+            >
+            <ImageView 
+                android:id="@+id/modify_nv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/modifysex_female_icon"
+                />
+            <TextView 
+                android:layout_toRightOf="@id/modify_nv"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="女"
+                />
+            <ImageView 
+                android:id="@+id/modify_girl_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/modifysex_radiobutton_unchecked"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="0dp"
+                />
+            
+        </RelativeLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

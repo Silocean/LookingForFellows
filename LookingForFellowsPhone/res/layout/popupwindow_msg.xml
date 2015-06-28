@@ -30,6 +30,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dip"
         android:text="删除与该好友的聊天记录" />
-"
+"
 
 </RelativeLayout>

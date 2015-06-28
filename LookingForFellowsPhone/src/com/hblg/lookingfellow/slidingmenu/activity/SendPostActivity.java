@@ -35,10 +35,13 @@ import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
@@ -52,6 +55,7 @@ import com.hblg.lookingfellow.tools.TimeConvertTool;
 import com.hblg.lookingfellow.tools.UUIDGenerator;
 
 public class SendPostActivity extends Activity implements OnClickListener {
+	private LinearLayout editBg;
 	
 	private static final int DIALOG_PIC = 1;
 	private static final int DIALOG_EXIT = 2;
@@ -263,6 +267,7 @@ public class SendPostActivity extends Activity implements OnClickListener {
 		addPicBut.setOnClickListener(this);
 		bacBut.setOnClickListener(this);
 		atBut.setOnClickListener(this);
+		
 	}
 
 	@Override
@@ -400,6 +405,7 @@ public class SendPostActivity extends Activity implements OnClickListener {
 			return true;
 		} else {
 			String url = Common.PATH + "GetImageServlet";
+			boolean flag = true;
 			for (Map.Entry<String, String> entry : imageMap.entrySet()) {
 				String imagePath = entry.getValue();
 				String imageName = entry.getKey();
@@ -410,14 +416,15 @@ public class SendPostActivity extends Activity implements OnClickListener {
 					params.put("tag", "post");
 					params.put("imageName", imageName);
 					boolean result = SocketHttpRequester.post(url, params, formFile);
-					if(result) {
-						return true; // 如果上传成功返回 true
+					if(!result) {
+						flag = false; // 如果其中任意图片上传失败，flag设为false
 					}
 				} else {
 					Toast.makeText(getApplicationContext(), "找不到图片", 0).show();
+					flag = false;
 				}
 			}
-			return false; // 如果上传失败返回false
+			return flag;
 		}
 	}
 

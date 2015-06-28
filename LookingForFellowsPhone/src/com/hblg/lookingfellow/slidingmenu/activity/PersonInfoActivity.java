@@ -79,11 +79,11 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 			switch (msg.what) {
 			case 1:
 				dialog.dismiss();
-				Toast.makeText(getApplicationContext(), "上传头像成功", 0).show();
+				Toast.makeText(getApplicationContext(), "上传成功", 0).show();
 				break;
 			case 2 :
 				dialog.dismiss();
-				Toast.makeText(getApplicationContext(), "上传头像失败", 0).show();
+				Toast.makeText(getApplicationContext(), "上传失败", 0).show();
 				break;
 			default:
 				break;
@@ -117,9 +117,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 		passwordButton.setOnClickListener(this);
 		initHeadimagePopupWindow();
 		takeNewPictureButton=(Button)popupView.findViewById(R.id.headimage_popupwindow_takenewpicture);
-		takeNewPictureButton.setOnClickListener(this);
 		takeOldPictureButton = (Button)popupView.findViewById(R.id.headimage_popupwindow_takeoldpicture);
-		takeOldPictureButton.setOnClickListener(this);
 		cancelButton = (Button)popupView.findViewById(R.id.headimage_popupwindow_cancel);
 		cancelButton.setOnClickListener(this);
 		nameTextView = (TextView)this.findViewById(R.id.personinfo_name);
@@ -175,10 +173,10 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 			this.finish();
 			break;
 		case R.id.personinfo_headimage_button:
-			this.dismissPopwindow(v);
+			this.dismissPopwindow(v, "head");
 			break;
 		case R.id.personinfo_personhomepagebg_button:
-			this.dismissPopwindow(v);
+			this.dismissPopwindow(v, "headbg");
 			break;
 		case R.id.personinfo_name_button:
 			intent = new Intent(getApplicationContext(), ModifyNameActivity.class);
@@ -221,22 +219,8 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 			intent = new Intent(getApplicationContext(), ModifyPasswordActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.headimage_popupwindow_takenewpicture:
-			this.dismissPopwindow(v);
-			Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  //调用系统照相机
-			//下面这句指定调用相机拍照后的照片存储的路径 
-			intent2.putExtra(MediaStore.EXTRA_OUTPUT, 
-					Uri.fromFile(new File(rootPath + "head/", "tempHead.jpg")));
-			startActivityForResult(intent2, 1);
-			break;
-		case R.id.headimage_popupwindow_takeoldpicture:
-			this.dismissPopwindow(v);
-			Intent intent3 = new Intent(Intent.ACTION_PICK);
-			intent3.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*"); // 调用系统图库
-			startActivityForResult(intent3, 2);
-			break;
 		case R.id.headimage_popupwindow_cancel:
-			this.dismissPopwindow(v);
+			this.dismissPopwindow(v, "");
 			break;
 		default:
 			break;
@@ -245,31 +229,59 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
-		case 1:
+		case 1: {
 			File file = new File(rootPath + "head/" + "tempHead.jpg");
-			startPhotoZoom(Uri.fromFile(file), 100, 100);
+			startPhotoZoom(Uri.fromFile(file), 100, 100, "head");
 			break;
-		case 2: 
+		}
+		case 2: {
 			if(data != null) {
-				startPhotoZoom(data.getData(), 100, 100); 
+				startPhotoZoom(data.getData(), 100, 100, "head"); 
 			}
 			break;
-		case 3:
+		}
+		case 3: {
 			if(data != null) {
 				Bitmap bitmap = data.getExtras().getParcelable("data");
-				saveImage(bitmap);
+				saveImage(bitmap, "head");
 			}
 			break;
+		}
+		case 4: {
+			File file = new File(rootPath + "headbg/" + "tempHeadBg.jpg");
+			startPhotoZoom(Uri.fromFile(file), 200, 150, "headbg");
+			break;
+		}
+		case 5: {
+			if(data != null) {
+				startPhotoZoom(data.getData(), 200, 150, "headbg"); 
+			}
+			break;
+		}
+		case 6: {
+			if(data != null) {
+				Bitmap bitmap = data.getExtras().getParcelable("data");
+				saveImage(bitmap, "headbg");
+			}
+			break;
+		}
 		default:
 			break;
 		}
 	}
-	private void saveImage(Bitmap bitmap) {
+	private void saveImage(Bitmap bitmap, String tag) {
 		FileOutputStream fos = null;
 		if(CheckSDCard.hasSdcard()) {
 			try {
-				String path = rootPath + "head/";
-				String headName = "head_" + User.qq + ".jpg";
+				String path = null;
+				String headName = null;
+				if(tag.equals("head")) {
+					path = rootPath + "head/";
+					headName = "head_" + User.qq + ".jpg";
+				} else if(tag.equals("headbg")) {
+					path = rootPath + "headbg/";
+					headName = "headbg_" + User.qq + ".jpg";
+				}
 				File file = new File(path);
 				if(!file.exists()) {
 					file.mkdirs();
@@ -283,7 +295,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 					if(imageFile.exists()) {
 						FormFile formFile = new FormFile(imageFile, "image", "image/*");
 						Map<String, String> params = new HashMap<String, String>();
-						params.put("tag", "head");
+						params.put("tag", tag);
 						params.put("imageName", headName);
 						boolean result = SocketHttpRequester.post(url, params, formFile);
 						if(result) {
@@ -312,7 +324,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 			Toast.makeText(getApplicationContext(), "SD卡不可用", 0).show();
 		}
 	}
-	private void startPhotoZoom(Uri uri, int width, int height) {
+	private void startPhotoZoom(Uri uri, int width, int height, String tag) {
 		Intent intent = new Intent("com.android.camera.action.CROP"); 
 		intent.setDataAndType(uri, "image/*"); 
 		//下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪 
@@ -323,15 +335,57 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 		// outputX outputY 是裁剪图片宽高 
 		intent.putExtra("outputX", width); 
 		intent.putExtra("outputY", height); 
-		intent.putExtra("return-data", true); 
-		startActivityForResult(intent, 3); 
+		intent.putExtra("return-data", true);
+		if(tag.equals("head")) {
+			startActivityForResult(intent, 3);
+		} else if(tag.equals("headbg")) {
+			startActivityForResult(intent, 6);
+		}
 	}
-	private void dismissPopwindow(View v) {
+	private void dismissPopwindow(View v, final String tag) {
 		if(popupWindow.isShowing()) {
 			// 隐藏窗口，如果设置了点击窗口外小时即不需要此方式隐藏  
 			popupWindow.dismiss();
 		} else {
 			popupWindow.showAtLocation(v, Gravity.BOTTOM, 0, 0);
+			if(tag.equals("head")) { // 如果是更改头像图片
+				takeNewPictureButton.setOnClickListener(new OnClickListener() {
+					public void onClick(View v) {
+						dismissPopwindow(v, tag);
+						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  //调用系统照相机
+						//下面这句指定调用相机拍照后的照片存储的路径 
+						intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(rootPath + "head/", "tempHead.jpg")));
+						startActivityForResult(intent, 1);
+					}
+				});
+				takeOldPictureButton.setOnClickListener(new OnClickListener() {
+					public void onClick(View v) {
+						dismissPopwindow(v, tag);
+						Intent intent = new Intent(Intent.ACTION_PICK);
+						intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*"); // 调用系统图库
+						startActivityForResult(intent, 2);
+					}
+				});
+			} else if(tag.equals("headbg")) { // 如果是更改个人主页背景图片
+				takeNewPictureButton.setOnClickListener(new OnClickListener() {
+					public void onClick(View v) {
+						dismissPopwindow(v, tag);
+						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  //调用系统照相机
+						//下面这句指定调用相机拍照后的照片存储的路径 
+						intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(rootPath + "headbg/", "tempHeadBg.jpg")));
+						startActivityForResult(intent, 4);
+					}
+				});
+				takeOldPictureButton.setOnClickListener(new OnClickListener() {
+					public void onClick(View v) {
+						dismissPopwindow(v, tag);
+						Intent intent = new Intent(Intent.ACTION_PICK);
+						intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*"); // 调用系统图库
+						startActivityForResult(intent, 5);
+					}
+				});
+			}
+			
 		}
 	}
 	private void initHeadimagePopupWindow() {

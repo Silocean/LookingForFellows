@@ -71,6 +71,7 @@ public class friendsListViewAdapter extends BaseAdapter {
 			convertView = inflater.inflate(resourceId, null);
 			holder.headImage = (ImageView)convertView.findViewById(R.id.friendslayout_headimage);
 			holder.nameTextView = (TextView)convertView.findViewById(R.id.friendslayout_name);
+			holder.sexImageView = (ImageView)convertView.findViewById(R.id.friendslayout_sex);
 			holder.hometownTextView = (TextView)convertView.findViewById(R.id.friendslayout_hometown);
 			convertView.setTag(holder);
 		} else {
@@ -82,6 +83,13 @@ public class friendsListViewAdapter extends BaseAdapter {
 		// 名字
 		String name = (String)map.get("friName");
 		holder.nameTextView.setText(name);
+		// 性别
+		String sex = (String)map.get("friSex");
+		if(sex.equals("男")) {
+			holder.sexImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.modifysex_male_icon));
+		} else if(sex.equals("女")){
+			holder.sexImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.modifysex_female_icon));
+		}
 		// 老家
 		String hometown = (String)map.get("friHometown");
 		holder.hometownTextView.setText(hometown);
@@ -118,6 +126,7 @@ public class friendsListViewAdapter extends BaseAdapter {
 	private class ViewHolder {
 		private ImageView headImage;
 		private TextView  nameTextView;
+		private ImageView sexImageView;
 		private TextView  hometownTextView;
 	}
 

@@ -21,6 +21,15 @@
         android:layout_toRightOf="@id/friendslayout_headimage"
         android:textColor="#737373"
         android:textSize="16sp" />
+    
+    <ImageView 
+        android:id="@+id/friendslayout_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/friendslayout_name"
+        android:layout_marginTop="3dip"
+        android:layout_toRightOf="@id/friendslayout_name"
+        android:layout_marginLeft="10dip" />
 
     <TextView
         android:id="@+id/friendslayout_hometown"

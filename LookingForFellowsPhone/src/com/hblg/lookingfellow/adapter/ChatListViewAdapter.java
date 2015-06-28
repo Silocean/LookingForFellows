@@ -80,28 +80,36 @@ public class ChatListViewAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
-
+	
+	private final int type_left=0;
+	private final int  type_right=1;
+	private int type_count=2;
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		holder = new ViewHolder();
+		int type=getItemViewType(position);
+		if(null==convertView){
+			holder = new ViewHolder();
+			switch(type){
+			case type_right:
+				convertView = inflater.inflate( R.layout.chat_item_msg_text_right, null);
+				holder.headImage = (ImageView)convertView.findViewById(R.id.chat_item_headimage);
+				holder.sendTimeTextView = (TextView)convertView.findViewById(R.id.chat_item_sendtime);
+				holder.contentTextView = (TextView)convertView.findViewById(R.id.chat_item_chatcontent);
+				break;
+			case type_left:
+				convertView = inflater.inflate( R.layout.chat_item_msg_text_left, null);
+				holder.headImage = (ImageView)convertView.findViewById(R.id.chat_item_headimage);
+				holder.sendTimeTextView = (TextView)convertView.findViewById(R.id.chat_item_sendtime);
+				holder.contentTextView = (TextView)convertView.findViewById(R.id.chat_item_chatcontent);
+				break;
+			}
+			convertView.setTag(holder);
+		}else{
+			holder=(ViewHolder)convertView.getTag();
+		}
 		
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
-		
-		if(list.get(position).get("msgSender").equals(User.qq)) {
-			// 如果是自己发的，聊天内容显示在左边
-			convertView = inflater.inflate( R.layout.chat_item_msg_text_right, null);
-			bitmap = ImageTool.getHeadImageFromLocalOrNet(context, User.qq);
-		} else {
-			// 如果是对方发的，聊天内容显示在右边
-			convertView = inflater.inflate( R.layout.chat_item_msg_text_left, null);
-			bitmap = ImageTool.getHeadImageFromLocalOrNet(context, (String)list.get(position).get("msgSender"));
-		}
-		holder.headImage = (ImageView)convertView.findViewById(R.id.chat_item_headimage);
-		holder.sendTimeTextView = (TextView)convertView.findViewById(R.id.chat_item_sendtime);
-		holder.contentTextView = (TextView)convertView.findViewById(R.id.chat_item_chatcontent);
-		//convertView.setTag(holder);
-		
-		
+
 		// ID
 		final int id = (Integer)map.get("msgId");
 		
@@ -112,20 +120,16 @@ public class ChatListViewAdapter extends BaseAdapter {
 		// 内容
 		final String chatContent = (String)map.get("msgDetails");
 		
-		
 		//解析数据
 		String zhengze = "f0[0-9]{2}|f10[0-7]"; // 正则表达式，用来判断消息内是否有表情
 		try {
-			SpannableString spannableString = 
-					ExpressionUtil.getExpressionString(context, chatContent, zhengze);
+			SpannableString spannableString = ExpressionUtil.getExpressionString(context, chatContent, zhengze);
 			holder.contentTextView.setText(spannableString);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		holder.contentTextView.setOnLongClickListener(new OnLongClickListener() {
-		
-			@Override
 			public boolean onLongClick(View v) {
 				v.getLocationOnScreen(location); // 取得该控件在屏幕中的位置,将坐标放在location数组中
 				showPopwindow(v, id, chatContent);
@@ -134,16 +138,34 @@ public class ChatListViewAdapter extends BaseAdapter {
 		});
 		
 		// 头像
+		switch(type){
+		case type_left:
+			bitmap = ImageTool.getHeadImageFromLocalOrNet(context, (String)list.get(position).get("msgSender"));
+			break;
+		case type_right:
+			bitmap = ImageTool.getHeadImageFromLocalOrNet(context, User.qq);
+			break;
+		}
 		holder.headImage.setImageBitmap(bitmap);
-		
 		return convertView;
 	}
+
+	@Override
+	public int getItemViewType(int position) {
+		return (list.get(position).get("msgSender").equals(User.qq)) ? type_right : type_left;
+	}
 	
+	@Override
+	public int getViewTypeCount() {
+		return type_count;
+	}
+
 	private class ViewHolder {
 		private ImageView headImage;
 		private TextView sendTimeTextView;
 		private TextView contentTextView;
 	}
+	
 	private void showPopwindow(View v, final int id, final String chatContent) {
 		if(popupWindow.isShowing()) {
 			// 隐藏窗口，如果设置了点击窗口外小时即不需要此方式隐藏  

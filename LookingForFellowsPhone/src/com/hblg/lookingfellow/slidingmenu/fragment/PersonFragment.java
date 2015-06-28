@@ -3,6 +3,7 @@ package com.hblg.lookingfellow.slidingmenu.fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class PersonFragment extends Fragment {
 	ImageView titlebarRightmenu;
 	
 	ImageView headImage;
+	ImageView headImageBg;
 	
 	Button hometownButton;
 	Button signsButton;
@@ -43,6 +45,7 @@ public class PersonFragment extends Fragment {
 		titlebarLeftmenu = (ImageView)view.findViewById(R.id.main_titlebar_edit_leftmenu);
 		titlebarRightmenu = (ImageView)view.findViewById(R.id.main_titlebar_edit_rightmenu);
 		headImage = (ImageView)view.findViewById(R.id.personinfo_headimage);
+		headImageBg = (ImageView)view.findViewById(R.id.personinfo_headimage_bg);
 		hometownButton = (Button)view.findViewById(R.id.personinfo_hometown_button);
 		signsButton = (Button)view.findViewById(R.id.personinfo_signs_button);
 		mobileButton = (Button)view.findViewById(R.id.personinfo_mobile_button);
@@ -60,8 +63,11 @@ public class PersonFragment extends Fragment {
 	}
 	
 	private void initStuInfo() {
-		Bitmap bitmap = ImageTool.getHeadImageFromLocalOrNet(getActivity(), User.qq);
-		Bitmap output = ImageTool.toRoundCorner(bitmap, 360.0f);
+		Bitmap headBg = ImageTool.getHeadImageBgFromLocalOrNet(getActivity(), User.qq);
+		//headImageBg.setImageBitmap(headBg);
+		headImageBg.setBackgroundDrawable(new BitmapDrawable(headBg));
+		Bitmap head = ImageTool.getHeadImageFromLocalOrNet(getActivity(), User.qq);
+		Bitmap output = ImageTool.toRoundCorner(head, 360.0f);
 		headImage.setImageBitmap(output);
 		SQLiteService service = new SQLiteService(getActivity());
 		String qq = User.qq;

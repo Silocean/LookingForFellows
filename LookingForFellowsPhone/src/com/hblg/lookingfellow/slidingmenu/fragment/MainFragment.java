@@ -14,11 +14,9 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,6 +42,7 @@ import com.hblg.lookingfellow.slidingmenu.activity.SendPostActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.ImageTool;
+import com.hblg.lookingfellow.tools.TimeConvertTool;
 
 public class MainFragment extends Fragment implements IXListViewListener {
 	private View thisLayout;
@@ -84,7 +83,6 @@ public class MainFragment extends Fragment implements IXListViewListener {
 		@Override
 		protected void onPostExecute(LinkedList<Map<String, Object>> result) {
 			if (mType == 1) {
-				//mAdapter.addItemLast(result);
 				mAdapter.addItemTop(result);
 				mAdapter.notifyDataSetChanged();
 				mAdapterView.stopRefresh();
@@ -205,7 +203,9 @@ public class MainFragment extends Fragment implements IXListViewListener {
 			holder.imageView.setImageWidth(200);
 			holder.imageView.setImageHeight(height);
 			holder.nameView.setText((String)map.get("publishname"));
-			holder.timeView.setText((String)map.get("publishtime"));
+			String time = (String)map.get("publishtime");
+			time = TimeConvertTool.calDateTime(time);
+			holder.timeView.setText(time);
 			holder.contentView.setText(content);
 			holder.replycountView.setText((Integer)map.get("replycount")+"");
 			Bitmap bm = ImageTool.getHeadImageFromLocalOrNet(mContext, qq);
