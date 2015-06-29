@@ -86,6 +86,8 @@ public class FriendsFragment extends Fragment implements OnItemClickListener, On
 		listView.setOnItemClickListener(this);
 		//设置可以自动获取更多 滑到最后一个自动获取  改成false将禁用自动获取更多
 		mPullDownView.enableAutoFetchMore(false, 1);
+		mPullDownView.removeFooterView();
+		//mPullDownView.addFooterView();
 		//显示并且可以使用头部刷新
 		mPullDownView.setShowHeader();
 		titlebarLeftmenu.setOnClickListener(new OnClickListener() {

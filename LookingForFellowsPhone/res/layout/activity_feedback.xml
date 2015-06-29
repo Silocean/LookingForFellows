@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@+id/feedback_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="45dip"
+        android:background="@drawable/main_titlebarbg" >
+        <Button
+            android:id="@+id/feedback_goback_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/goback_icon_selector" />
+        <TextView
+            android:id="@+id/titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="意见反馈"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="60dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/personsigns_icon_selector"
+            android:text="提交"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/feedback_titlebar"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="25dip" >
+
+        <RelativeLayout
+            android:id="@+id/personsigns_content_relativelayout"
+            android:layout_width="280dip"
+            android:layout_height="120dip" >
+
+            <EditText
+                android:id="@+id/personsigns_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/leftmenu_itembg_normal"
+                android:gravity="top" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

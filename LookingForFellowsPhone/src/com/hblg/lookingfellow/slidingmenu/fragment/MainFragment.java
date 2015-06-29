@@ -13,6 +13,8 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
@@ -42,7 +44,9 @@ import com.hblg.lookingfellow.slidingmenu.activity.SendPostActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.ImageTool;
+import com.hblg.lookingfellow.tools.MySharePreferences;
 import com.hblg.lookingfellow.tools.TimeConvertTool;
+import com.hblg.lookingfellow.tools.UIMode;
 
 public class MainFragment extends Fragment implements IXListViewListener {
 	private View thisLayout;
@@ -56,6 +60,8 @@ public class MainFragment extends Fragment implements IXListViewListener {
 	private StaggeredAdapter mAdapter = null;
 	private int currentPage = 0;
 	ContentTask task = new ContentTask(getActivity(), 2);
+	
+	public static boolean showPic = true;
 	
 	private class ContentTask extends
 			AsyncTask<String, Integer, LinkedList<Map<String, Object>>> {
@@ -190,17 +196,24 @@ public class MainFragment extends Fragment implements IXListViewListener {
 			holder = (ViewHolder) convertView.getTag();
 			final String qq = (String)map.get("authorId");
 			String imageName = ((String)map.get("imageName")).split(";")[0];
-			int height = 200; // 默认高度为200
-			if(imageName.equals("")) {
-				mImageFetcher.loadImage(Common.PATH + "head/defaultbg.png", holder.imageView);
+			int height = 0;
+			int width = 0;
+			if(showPic) {
+				height = 200; // 默认高度为200
+				width = 200;
+				if(imageName.equals("")) {
+					mImageFetcher.loadImage(Common.PATH + "head/defaultbg.png", holder.imageView);
+				} else {
+					height = Integer.parseInt(imageName.substring(imageName.indexOf('_')+1, imageName.indexOf('.')));
+					System.out.println("imageName:" + imageName);
+					mImageFetcher.loadImage(Common.PATH + "post/" + imageName, holder.imageView);
+				}
 			} else {
-				height = Integer.parseInt(imageName.substring(imageName.indexOf('_')+1, imageName.indexOf('.')));
-				System.out.println("imageName:" + imageName);
-				mImageFetcher.loadImage(Common.PATH + "post/" + imageName, holder.imageView);
+				// 不获取图片，也不设置图片大小
 			}
 			String content = (String) map.get("content");
 			content = this.replaceContent(content);
-			holder.imageView.setImageWidth(200);
+			holder.imageView.setImageWidth(width);
 			holder.imageView.setImageHeight(height);
 			holder.nameView.setText((String)map.get("publishname"));
 			String time = (String)map.get("publishtime");
@@ -307,6 +320,7 @@ public class MainFragment extends Fragment implements IXListViewListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		thisLayout = inflater.inflate(R.layout.main_content_posts, null);
+		initMode();
 		return thisLayout;
 	}
 
@@ -340,16 +354,33 @@ public class MainFragment extends Fragment implements IXListViewListener {
 			}
 		});
 	}
-
+	public void initMode() {
+		SharedPreferences sf = MySharePreferences.getShare(getActivity());
+		//亮度模式
+		int flag = sf.getInt(MySharePreferences.UI, 2);
+		
+		if(2 == flag) {
+			UIMode.changeUIMode(getActivity(), 0);
+		} else {
+			UIMode.changeUIMode(getActivity(), 2);
+		}
+		
+		int status=MySharePreferences.getShare(getActivity()).getInt(MySharePreferences.PHOTODEAL, 1);
+		if (1==status) {
+			showPic = true;
+		}else{
+			showPic = false;
+		}
+	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
 		return true;
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
+		initMode();
 	}
 
 	@Override

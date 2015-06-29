@@ -20,6 +20,7 @@ import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
+import com.hblg.lookingfellow.tools.UIMode;
 
 public class ChooseCityActivity extends Activity {
 	Button gobackButton;
@@ -38,6 +39,7 @@ public class ChooseCityActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		ManageActivity.addActiviy("ChooseCityActivity", this);
 		setContentView(R.layout.activity_choosecity);
+		UIMode.changeUIMode(ChooseCityActivity.this, UIMode.checkUIMode(ChooseCityActivity.this));
 		gobackButton = (Button)this.findViewById(R.id.choosecity_goback_button);
 		gobackButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {

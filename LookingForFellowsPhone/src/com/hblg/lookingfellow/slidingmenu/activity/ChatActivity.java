@@ -29,6 +29,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +46,9 @@ import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
 import com.hblg.lookingfellow.selfdefinedwidget.MyGridView;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.Expressions;
+import com.hblg.lookingfellow.tools.MySharePreferences;
 import com.hblg.lookingfellow.tools.TimeConvertTool;
+import com.hblg.lookingfellow.tools.UIMode;
 
 public class ChatActivity extends Activity implements OnClickListener{
 	private Button faceBtn;//ÃÌº”±Ì«È
@@ -66,6 +69,8 @@ public class ChatActivity extends Activity implements OnClickListener{
 	private ImageView page0;
 	private ImageView page1;
 	private ImageView page2;
+	
+	private RelativeLayout bgLayout;
 	
 	
 	Button gobackButton;
@@ -100,6 +105,7 @@ public class ChatActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		ManageActivity.addActiviy("ChatActivity", this);
 		setContentView(R.layout.activity_chat);
+		UIMode.changeUIMode(ChatActivity.this, UIMode.checkUIMode(ChatActivity.this));
 		initView();
 		initListData();
 		initEmotionView();
@@ -121,6 +127,16 @@ public class ChatActivity extends Activity implements OnClickListener{
 		sendButton.setOnClickListener(this);
 		contentEditText = (EditText)this.findViewById(R.id.chat_bottombar_edittext);
 		contentEditText.addTextChangedListener(new MaxLengthWatcher(60, contentEditText, this));
+		
+		bgLayout=(RelativeLayout)this.findViewById(R.id.chat_bg);
+		String mode=MySharePreferences.getShare(getApplicationContext()).getString(MySharePreferences.BGSKIN, "none");
+		if(MySharePreferences.BGSKIN_BLACK.equals(mode)||MySharePreferences.BGSKIN_BLACK==mode){
+			bgLayout.setBackgroundColor(this.getResources().getColor(R.color.skin_black));
+		}else if(MySharePreferences.BGSKIN_BLUE.equals(mode)||MySharePreferences.BGSKIN_BLUE==mode){
+			bgLayout.setBackgroundColor(this.getResources().getColor(R.color.skin_blue));
+		}else if(MySharePreferences.BGSKIN_RED.equals(mode)||MySharePreferences.BGSKIN_RED==mode){
+			bgLayout.setBackgroundColor(this.getResources().getColor(R.color.skin_red));
+		}
 	}
 	private void initEmotionView(){
 		faceBtn=(Button)findViewById(R.id.chat_bottombar_addbutton);

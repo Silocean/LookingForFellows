@@ -9,5 +9,13 @@
     <color name="black">#000000</color>
     <color name="text_color">#434343</color>
     <color name="black_half">#50000000</color>
-
+     <!-- 聊天背景 -->
+    <color name="skin_black">#464646</color>
+    <color name="skin_blue">#3A9AE0</color>
+    <color name="skin_red">#DD5050</color>
+	<!-- 二维码 -->
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="viewfinder_frame">#ffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
 </resources>

@@ -278,6 +278,18 @@ public class PullDownView extends LinearLayout implements OnScrollOverListener {
 		mFooterLoadingView.setVisibility(View.GONE);
 		enableAutoFetchMore(false, 1);
 	}
+	/**
+	 * 去掉底部
+	 */
+	public void removeFooterView(){
+		mListView.removeFooterView(mFooterView);
+	}
+	/**
+	 * 添加底部
+	 */
+	public void addFooterView(){
+		mListView.addFooterView(mFooterView);
+	}
 	
 	
 	/**显示底部 使用上拉更多**/

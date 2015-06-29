@@ -37,6 +37,7 @@ import com.hblg.lookingfellow.slidingmenu.fragment.LeftFragment;
 import com.hblg.lookingfellow.slidingmenu.fragment.MainFragment;
 import com.hblg.lookingfellow.slidingmenu.fragment.RightFragment;
 import com.hblg.lookingfellow.slidingmenu.view.SlidingMenu;
+import com.hblg.lookingfellow.tools.UIMode;
 
 public class SlidingActivity extends FragmentActivity {
 	public SlidingMenu mSlidingMenu;
@@ -49,6 +50,7 @@ public class SlidingActivity extends FragmentActivity {
 		super.onCreate(arg0);
 		ManageActivity.addActiviy("SlidingActivity", this);
 		setContentView(R.layout.main);
+		UIMode.changeUIMode(SlidingActivity.this, UIMode.checkUIMode(SlidingActivity.this));
 		init();
 	}
 

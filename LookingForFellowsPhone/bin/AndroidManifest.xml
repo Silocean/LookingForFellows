@@ -39,8 +39,9 @@
         </activity>
         <activity android:name=".slidingmenu.activity.ModifyPasswordActivity" >
         </activity>
-        <activity android:name=".slidingmenu.activity.ChatActivity" 
-            	  android:launchMode="singleInstance" >
+        <activity
+            android:name=".slidingmenu.activity.ChatActivity"
+            android:launchMode="singleInstance" >
         </activity>
         <activity android:name=".slidingmenu.activity.FriendInfoActivity" >
         </activity>
@@ -54,17 +55,23 @@
             android:name=".slidingmenu.activity.RegisterActivity"
             android:launchMode="singleTask" >
         </activity>
+        <activity android:name=".slidingmenu.activity.ChatBgActivity" >
+        </activity>
+        <activity android:name=".slidingmenu.activity.QRCodeActivity" />
         <activity android:name=".slidingmenu.activity.PostDetailActivity" >
+        </activity>
+        <activity android:name=".slidingmenu.activity.FeedBackActivity" >
+        </activity>
+        <activity android:name=".slidingmenu.activity.CaptureActivity" >
         </activity>
 
         <service android:name=".service.GetUserInfoService" />
-        
-        <receiver android:name=".service.MsgBroadcastReceiver">
+
+        <receiver android:name=".service.MsgBroadcastReceiver" >
             <intent-filter>
-                <action android:name="com.hblg.lookingfellow.msg"/>
+                <action android:name="com.hblg.lookingfellow.msg" />
             </intent-filter>
         </receiver>
-        
     </application>
 
     <uses-sdk android:minSdkVersion="8" />
@@ -73,12 +80,10 @@
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-        
 
 </manifest>

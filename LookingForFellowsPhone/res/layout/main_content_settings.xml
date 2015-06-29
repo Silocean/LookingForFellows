@@ -3,19 +3,16 @@
     android:id="@+id/content"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-
     <RelativeLayout
         android:id="@+id/main_titlebar_relativelayout"
         android:layout_width="fill_parent"
         android:layout_height="45dip"
         android:background="@drawable/main_titlebarbg" >
-
         <ImageView
             android:id="@+id/main_titlebar_settings_leftmenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/main_titlebar_leftmenu" />
-
         <TextView
             android:id="@+id/titlebar_title"
             android:layout_width="wrap_content"
@@ -26,20 +23,16 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/main_titlebar_relativelayout"
         android:background="#d3d3d3"
         android:scrollbars="none" >
-
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
-
             <!-- 第一组菜单 -->
-
             <LinearLayout
                 android:id="@+id/settings_first_linearlayout"
                 android:layout_width="290dip"
@@ -47,17 +40,14 @@
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical"
                 android:paddingTop="20dip" >
-
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="40dip" >
-
                     <Button
                         android:id="@+id/settings_personinfo_button"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:background="@drawable/leftmenuitem_selector" />
-
                     <ImageView
                         android:id="@+id/settings_personinfo_icon"
                         android:layout_width="wrap_content"
@@ -66,14 +56,12 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dip"
                         android:src="@drawable/settings_personinfo_icon" />
-
                     <TextView
                         style="@style/personinfo_textstyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/settings_personinfo_icon"
                         android:text="个人信息" />
-
                     <ImageView
                         android:id="@+id/go_more_icon"
                         android:layout_width="wrap_content"
@@ -83,17 +71,14 @@
                         android:paddingRight="10dip"
                         android:src="@drawable/go_more_icon" />
                 </RelativeLayout>
-
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="40dip" >
-
                     <Button
                         android:id="@+id/settings_erweima_button"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:background="@drawable/leftmenuitem_selector" />
-
                     <ImageView
                         android:id="@+id/settings_erweima_icon"
                         android:layout_width="wrap_content"
@@ -102,14 +87,12 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dip"
                         android:src="@drawable/settings_erweima_icon" />
-
                     <TextView
                         style="@style/personinfo_textstyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/settings_erweima_icon"
                         android:text="二维码名片" />
-
                     <ImageView
                         android:id="@+id/go_more_icon"
                         android:layout_width="wrap_content"
@@ -121,7 +104,6 @@
                 </RelativeLayout>
             </LinearLayout>
             <!-- 第二组菜单 -->
-
             <LinearLayout
                 android:id="@+id/settings_second_linearlayout"
                 android:layout_width="290dip"
@@ -130,17 +112,14 @@
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical"
                 android:paddingTop="20dip" >
-
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="40dip" >
-
                     <Button
-                        android:id="@+id/settings_notification_button"
+                        android:id="@+id/settings_lightmode_button"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:background="@drawable/leftmenuitem_selector" />
-
                     <ImageView
                         android:id="@+id/settings_notification_icon"
                         android:layout_width="wrap_content"
@@ -149,14 +128,13 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dip"
                         android:src="@drawable/settings_notification_icon" />
-
                     <TextView
+                        android:id="@+id/settings_uimode_txt"
                         style="@style/personinfo_textstyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/settings_notification_icon"
-                        android:text="提醒设置" />
-
+                        android:text="强光模式" />
                     <ImageView
                         android:id="@+id/go_more_icon"
                         android:layout_width="wrap_content"
@@ -166,17 +144,14 @@
                         android:paddingRight="10dip"
                         android:src="@drawable/go_more_icon" />
                 </RelativeLayout>
-
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="40dip" >
-
                     <Button
                         android:id="@+id/settings_chatbg_button"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:background="@drawable/leftmenuitem_selector" />
-
                     <ImageView
                         android:id="@+id/settings_chatbg_icon"
                         android:layout_width="wrap_content"
@@ -185,14 +160,12 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dip"
                         android:src="@drawable/settings_chatbg_icon" />
-
                     <TextView
                         style="@style/personinfo_textstyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/settings_chatbg_icon"
                         android:text="全局聊天背景" />
-
                     <ImageView
                         android:id="@+id/go_more_icon"
                         android:layout_width="wrap_content"
@@ -202,17 +175,14 @@
                         android:paddingRight="10dip"
                         android:src="@drawable/go_more_icon" />
                 </RelativeLayout>
-
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="40dip" >
-
                     <Button
-                        android:id="@+id/settings_privacy_button"
+                        android:id="@+id/settings_photo_on_button"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:background="@drawable/leftmenuitem_selector" />
-
                     <ImageView
                         android:id="@+id/settings_privacy_icon"
                         android:layout_width="wrap_content"
@@ -221,26 +191,22 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dip"
                         android:src="@drawable/settings_privacy_icon" />
-
                     <TextView
                         style="@style/personinfo_textstyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/settings_privacy_icon"
-                        android:text="权限设置" />
-
+                        android:text="是否开启图片" />
                     <ImageView
-                        android:id="@+id/go_more_icon"
+                        android:id="@+id/setting_on_off_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:paddingRight="10dip"
-                        android:src="@drawable/go_more_icon" />
+                        android:layout_marginRight="10dip" />
                 </RelativeLayout>
             </LinearLayout>
             <!-- 第三组菜单 -->
-
             <LinearLayout
                 android:id="@+id/settings_third_linearlayout"
                 android:layout_width="290dip"
@@ -249,17 +215,14 @@
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical"
                 android:paddingTop="20dip" >
-
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="40dip" >
-
                     <Button
-                        android:id="@+id/settings_tools_button"
+                        android:id="@+id/settings_update_button"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:background="@drawable/leftmenuitem_selector" />
-
                     <ImageView
                         android:id="@+id/settings_tools_icon"
                         android:layout_width="wrap_content"
@@ -268,14 +231,12 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dip"
                         android:src="@drawable/settings_tools_icon" />
-
                     <TextView
                         style="@style/personinfo_textstyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/settings_tools_icon"
-                        android:text="工具箱" />
-
+                        android:text="更新升级" />
                     <ImageView
                         android:id="@+id/go_more_icon"
                         android:layout_width="wrap_content"
@@ -285,17 +246,14 @@
                         android:paddingRight="10dip"
                         android:src="@drawable/go_more_icon" />
                 </RelativeLayout>
-
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="40dip" >
-
                     <Button
-                        android:id="@+id/settings_lock_button"
+                        android:id="@+id/settings_feedback_button"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:background="@drawable/leftmenuitem_selector" />
-
                     <ImageView
                         android:id="@+id/settings_lock_icon"
                         android:layout_width="wrap_content"
@@ -304,61 +262,12 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dip"
                         android:src="@drawable/settings_lock_icon" />
-
                     <TextView
                         style="@style/personinfo_textstyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/settings_lock_icon"
-                        android:text="密码锁定" />
-
-                    <ImageView
-                        android:id="@+id/go_more_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="10dip"
-                        android:src="@drawable/go_more_icon" />
-                </RelativeLayout>
-            </LinearLayout>
-            <!-- 第四组菜单 -->
-
-            <LinearLayout
-                android:id="@+id/settings_fourth_linearlayout"
-                android:layout_width="290dip"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/settings_third_linearlayout"
-                android:layout_centerHorizontal="true"
-                android:orientation="vertical"
-                android:paddingTop="20dip" >
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dip" >
-
-                    <Button
-                        android:id="@+id/settings_feedback_button"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@drawable/leftmenuitem_selector" />
-
-                    <ImageView
-                        android:id="@+id/settings_feedback_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:paddingLeft="10dip"
-                        android:src="@drawable/settings_feedback_icon" />
-
-                    <TextView
-                        style="@style/personinfo_textstyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/settings_feedback_icon"
                         android:text="意见反馈" />
-
                     <ImageView
                         android:id="@+id/go_more_icon"
                         android:layout_width="wrap_content"
@@ -368,17 +277,14 @@
                         android:paddingRight="10dip"
                         android:src="@drawable/go_more_icon" />
                 </RelativeLayout>
-
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="40dip" >
-
                     <Button
                         android:id="@+id/settings_about_button"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:background="@drawable/leftmenuitem_selector" />
-
                     <ImageView
                         android:id="@+id/settings_about_icon"
                         android:layout_width="wrap_content"
@@ -387,14 +293,12 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="10dip"
                         android:src="@drawable/settings_about_icon" />
-
                     <TextView
                         style="@style/personinfo_textstyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/settings_about_icon"
                         android:text="关于" />
-
                     <ImageView
                         android:id="@+id/go_more_icon"
                         android:layout_width="wrap_content"
@@ -406,21 +310,18 @@
                 </RelativeLayout>
             </LinearLayout>
             <!-- 第五组菜单 -->
-
             <LinearLayout
                 android:id="@+id/settings_fifth_linearlayout"
                 android:layout_width="290dip"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/settings_fourth_linearlayout"
+                android:layout_below="@id/settings_third_linearlayout"
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical"
                 android:paddingBottom="20dip"
                 android:paddingTop="20dip" >
-
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="40dip" >
-
                     <Button
                         android:id="@+id/settings_exit_button"
                         android:layout_width="fill_parent"
@@ -434,5 +335,4 @@
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
-
 </RelativeLayout>
