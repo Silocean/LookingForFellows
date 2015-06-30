@@ -9,7 +9,6 @@ import android.content.Intent;
 import com.hblg.lookingfellow.entity.Message;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.slidingmenu.activity.ChatActivity;
-import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.RequestAddFriendMsgActivity;
 /**
  * 显示通知类
@@ -21,6 +20,7 @@ public class ShowNotification {
 	private static Notification notification;
 	private static NotificationManager manager;
 	private static PendingIntent pendingIntent;
+	
 	/**
 	 * 显示通知
 	 * @param context 上下文对象

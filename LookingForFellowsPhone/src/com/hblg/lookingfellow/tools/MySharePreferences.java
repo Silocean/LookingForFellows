@@ -13,11 +13,8 @@ public class MySharePreferences {
 	
 	/** 屏幕亮度*/
 	public static final String UI="UIMode";
-	/**聊天背景,red,blue,black,none*/
+	/**聊天背景*/
 	public static final String BGSKIN="background";
-	public static final String BGSKIN_RED="red";
-	public static final String BGSKIN_BLUE="blue";
-	public static final String BGSKIN_BLACK="black";
 	
 	/**图片是否开启,1开启，0关闭,默认开启（1）*/
 	public static final String PHOTODEAL="photodeal";

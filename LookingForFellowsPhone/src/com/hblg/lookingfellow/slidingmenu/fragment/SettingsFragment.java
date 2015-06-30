@@ -91,7 +91,7 @@ public class SettingsFragment extends Fragment implements OnClickListener{
 			UIMode.changeUIMode(fragmentActivity, 2);
 			UIModeTxt.setText("强光模式");
 		}
-		
+
 		//是否开启图片
 		photoImg=(ImageView)view.findViewById(R.id.setting_on_off_img);
 		int status=MySharePreferences.getShare(fragmentActivity).getInt(MySharePreferences.PHOTODEAL, 1);

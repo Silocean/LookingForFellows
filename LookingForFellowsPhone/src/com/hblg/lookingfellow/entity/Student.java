@@ -4,7 +4,8 @@ public class Student {
 	
 	private String qq;
 	private String name;
-	private String hometown;
+	private String province;
+	private String city;
 	private String password;
 	private String sex;
 	private String signs;
@@ -13,22 +14,25 @@ public class Student {
 	public Student() {
 		
 	}
-	
-	public Student(String qq, String name, String hometown, String password,
-			String sex, String signs, String phone) {
+
+	public Student(String qq, String name, String province, String city,
+			String password, String sex, String signs, String phone) {
 		this.qq = qq;
 		this.name = name;
-		this.hometown = hometown;
+		this.province = province;
+		this.city = city;
 		this.password = password;
 		this.sex = sex;
 		this.signs = signs;
 		this.phone = phone;
 	}
 
-	public Student(String qq, String name, String hometown, String password) {
+	public Student(String qq, String name, String province, String city,
+			String password) {
 		this.qq = qq;
 		this.name = name;
-		this.hometown = hometown;
+		this.province = province;
+		this.city = city;
 		this.password = password;
 	}
 
@@ -48,14 +52,22 @@ public class Student {
 		this.name = name;
 	}
 
-	public String getHometown() {
-		return hometown;
+	public String getProvince() {
+		return province;
 	}
 
-	public void setHometown(String hometown) {
-		this.hometown = hometown;
+	public void setProvince(String province) {
+		this.province = province;
 	}
-	
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -63,7 +75,7 @@ public class Student {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getSex() {
 		return sex;
 	}
@@ -90,9 +102,10 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student [qq=" + qq + ", name=" + name + ", hometown="
-				+ hometown + ", password=" + password + ", sex=" + sex
-				+ ", signs=" + signs + ", phone=" + phone + "]";
+		return "Student [qq=" + qq + ", name=" + name + ", province="
+				+ province + ", city=" + city + ", password=" + password
+				+ ", sex=" + sex + ", signs=" + signs + ", phone=" + phone
+				+ "]";
 	}
 
 	

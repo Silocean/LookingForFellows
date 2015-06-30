@@ -152,7 +152,7 @@ public class PersonInfoActivity extends Activity implements OnClickListener{
 		} else {
 			sexTextView.setText(stu.getSex());
 		}
-		homeTownTextView.setText(stu.getHometown());
+		homeTownTextView.setText(stu.getProvince() + " " + stu.getCity());
 		if(stu.getSigns().equals("")) {
 			signsTextView.setText("Œ¥…Ë÷√");
 		} else {

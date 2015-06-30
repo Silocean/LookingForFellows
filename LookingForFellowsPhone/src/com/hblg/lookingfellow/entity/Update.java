@@ -74,8 +74,8 @@ public class Update implements Serializable{
 		Update mUpdate=new Update();
 		mUpdate.setUpdateLog("亲，更新咯，当前版本好为1，要更新的版本为2");
 		mUpdate.setDownloadUrl("http://www.yxcampus.com/Upload/soft/YXCampus2.0.apk");
-		mUpdate.setVersionCode(2);
-		mUpdate.setVersionName("2.0");
+		mUpdate.setVersionCode(1);
+		mUpdate.setVersionName("1.0");
 		return mUpdate;
 	}
 	

@@ -2,6 +2,7 @@ package com.hblg.lookingfellow.sqlite;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.entity.Friend;
 import com.hblg.lookingfellow.entity.Message;
 import com.hblg.lookingfellow.entity.Student;
@@ -27,9 +27,9 @@ public class SQLiteService {
 	 * 获取全国所有省份
 	 * @return
 	 */
-	public List<String> getAllProvinces() {
+	public LinkedList<String> getAllProvinces() {
 		SQLiteDatabase db = openHelper.getReadableDatabase();
-		List<String> list = new ArrayList<String>();
+		LinkedList<String> list = new LinkedList<String>();
 		Cursor cursor = db.rawQuery("select proName from province", null);
 		while(cursor.moveToNext()) {
 			list.add(cursor.getString(cursor.getColumnIndex("proName")));
@@ -64,7 +64,8 @@ public class SQLiteService {
 		ContentValues values = new ContentValues();
 		values.put("stuQQ", stu.getQq());
 		values.put("stuName", stu.getName());
-		values.put("stuHometown", stu.getHometown());
+		values.put("stuPro", stu.getProvince());
+		values.put("stuCity", stu.getCity());
 		values.put("stuPassword", stu.getPassword());
 		values.put("stuSex", stu.getSex());
 		values.put("stuSigns", stu.getSigns());
@@ -86,7 +87,8 @@ public class SQLiteService {
 			Map<String, String> friend = new HashMap<String, String>();
 			friend.put("friQQ", cursor.getString(cursor.getColumnIndex("friQQ")));
 			friend.put("friName", cursor.getString(cursor.getColumnIndex("friName")));
-			friend.put("friHometown", cursor.getString(cursor.getColumnIndex("friHometown")));
+			friend.put("friPro", cursor.getString(cursor.getColumnIndex("friPro")));
+			friend.put("friCity", cursor.getString(cursor.getColumnIndex("friCity")));
 			friend.put("friSex", cursor.getString(cursor.getColumnIndex("friSex")));
 			friend.put("friSigns", cursor.getString(cursor.getColumnIndex("friSigns")));
 			friend.put("friPhone", cursor.getString(cursor.getColumnIndex("friPhone")));
@@ -123,7 +125,8 @@ public class SQLiteService {
 		values.put("ownerId", User.qq);
 		values.put("friQQ", friend.getQq());
 		values.put("friName", friend.getName());
-		values.put("friHometown", friend.getHometown());
+		values.put("friPro", friend.getProvince());
+		values.put("friCity", friend.getCity());
 		values.put("friSex", friend.getSex());
 		values.put("friSigns", friend.getSigns());
 		values.put("friPhone", friend.getPhone());
@@ -189,7 +192,8 @@ public class SQLiteService {
 			stu = new Student();
 			stu.setQq(qq);
 			stu.setName(cursor.getString(cursor.getColumnIndex("stuName")));
-			stu.setHometown(cursor.getString(cursor.getColumnIndex("stuHometown")));
+			stu.setProvince(cursor.getString(cursor.getColumnIndex("stuPro")));
+			stu.setCity(cursor.getString(cursor.getColumnIndex("stuCity")));
 			stu.setPassword(cursor.getString(cursor.getColumnIndex("stuPassword")));
 			stu.setSex(cursor.getString(cursor.getColumnIndex("stuSex")));
 			stu.setSigns(cursor.getString(cursor.getColumnIndex("stuSigns")));
@@ -243,10 +247,10 @@ public class SQLiteService {
 	 * 根据QQ号码更改本地用户家乡
 	 * @param qq
 	 */
-	public void modifyHometown(String hometown, String qq) {
+	public void modifyHometown(String pro, String city, String qq) {
 		SQLiteDatabase db = openHelper.getWritableDatabase();
-		String sql = "update student set stuHometown = ? where stuQQ = ?";
-		db.execSQL(sql, new Object[]{hometown, qq});
+		String sql = "update student set stuPro = ?, stuCity = ? where stuQQ = ?";
+		db.execSQL(sql, new Object[]{pro, city, qq});
 		db.close();
 	}
 	/**

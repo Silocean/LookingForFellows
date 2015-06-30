@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.qr.camera.CameraManager;
 import com.hblg.lookingfellow.qr.decoding.CaptureActivityHandler;
 import com.hblg.lookingfellow.qr.decoding.InactivityTimer;
@@ -51,7 +52,7 @@ public class CaptureActivity extends Activity implements Callback {
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_scan);
-			//鍒濆鍖�CameraManager
+			ManageActivity.addActiviy("CaptureActivity", this);
 			CameraManager.init(getApplication());
 			viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
 			txtResult = (TextView) findViewById(R.id.txtResult);

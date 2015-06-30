@@ -72,7 +72,7 @@ public class RequestAddFriendMsgActivity extends Activity implements OnItemLongC
 		ArrayList<Map<String, Object>> tempList = new ArrayList<Map<String,Object>>();
 		tempList = service.getRequestAddFriendMessages();
 		if(tempList.size() == 0) { //  如果没有消息记录
-			Toast.makeText(getApplicationContext(), "暂没有请求添加好友消息记录", 0).show();
+			//Toast.makeText(getApplicationContext(), "暂没有请求添加好友消息记录", 0).show();
 		}
 		return tempList;
 	}

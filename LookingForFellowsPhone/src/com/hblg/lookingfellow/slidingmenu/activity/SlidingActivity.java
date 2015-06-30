@@ -117,7 +117,7 @@ public class SlidingActivity extends FragmentActivity {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 			// 将线程从线程池里移除
 			ClientConnServerThread cct = ManageClientConnServer.getClientConServerThread(User.qq);
 			cct.flag = false; // 停止线程

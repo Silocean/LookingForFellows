@@ -4,20 +4,24 @@ public class Reply {
 	int replyId;
 	String details;
 	String time;
-	String authorId;
-	String authorName;
-	int toPostId;
+	String fromId;
+	String toId;
+	String fromName;
+	String toName;
+	int postId;
 	public Reply() {
 		
 	}
-	public Reply(int replyId, String details, String time, String authorId,
-			String authorName, int toPostId) {
+	public Reply(int replyId, String details, String time, String fromId,
+			String toId, String fromName, String toName, int postId) {
 		this.replyId = replyId;
 		this.details = details;
 		this.time = time;
-		this.authorId = authorId;
-		this.authorName = authorName;
-		this.toPostId = toPostId;
+		this.fromId = fromId;
+		this.toId = toId;
+		this.fromName = fromName;
+		this.toName = toName;
+		this.postId = postId;
 	}
 	public int getReplyId() {
 		return replyId;
@@ -37,29 +41,42 @@ public class Reply {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public String getAuthorId() {
-		return authorId;
+	public String getFromId() {
+		return fromId;
 	}
-	public void setAuthorId(String authorId) {
-		this.authorId = authorId;
+	public void setFromId(String fromId) {
+		this.fromId = fromId;
 	}
-	public String getAuthorName() {
-		return authorName;
+	public String getToId() {
+		return toId;
 	}
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
+	public void setToId(String toId) {
+		this.toId = toId;
 	}
-	public int getToPostId() {
-		return toPostId;
+	public String getFromName() {
+		return fromName;
 	}
-	public void setToPostId(int toPostId) {
-		this.toPostId = toPostId;
+	public void setFromName(String fromName) {
+		this.fromName = fromName;
+	}
+	public String getToName() {
+		return toName;
+	}
+	public void setToName(String toName) {
+		this.toName = toName;
+	}
+	public int getPostId() {
+		return postId;
+	}
+	public void setPostId(int postId) {
+		this.postId = postId;
 	}
 	@Override
 	public String toString() {
 		return "Reply [replyId=" + replyId + ", details=" + details + ", time="
-				+ time + ", authorId=" + authorId + ", authorName="
-				+ authorName + ", toPostId=" + toPostId + "]";
+				+ time + ", fromId=" + fromId + ", toId=" + toId
+				+ ", fromName=" + fromName + ", toName=" + toName + ", postId="
+				+ postId + "]";
 	}
 	
 	

@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.model.ManageActivity;
 
 //·´À¡
 public class FeedBackActivity extends Activity{
@@ -15,7 +16,7 @@ public class FeedBackActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		ManageActivity.addActiviy("FeedBackActivity", this);
 		myListener=new MyListener();
 		setContentView(R.layout.activity_feedback);
 		backBtn=(Button)findViewById(R.id.feedback_goback_button);

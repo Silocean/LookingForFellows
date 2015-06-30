@@ -104,16 +104,16 @@ public class ImageTool {
 		String rootPath = Environment.getExternalStorageDirectory() + "/lookingfellow/";
 		File file = new File(rootPath + "headbg/" + "headbg_" + qq + ".jpg");
 		Bitmap bitmap = null;
-		if(!file.exists()) { //如果本地不存在头像，就从服务器查询是否有该用户头像，若有,下载并显示；若没有，显示默认头像
+		if(!file.exists()) { //如果本地不存在头像背景图片，就从服务器查询是否有该用户头像背景图片，若有,下载并显示；若没有，显示默认头像背景图片
 			System.out.println("file is not exists");
 			String headUrl = Common.PATH + "headbg/headbg_" + qq + ".jpg";
 			try {
 				byte[] data = ImageLoader.getImage(headUrl);
-				if(data == null) { // 若没有，显示默认头像
-					bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.head_default);
+				if(data == null) { // 若没有，显示默认头像背景图片
+					bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.personinfo_headimage_bg);
 				} else { // 若有,下载并显示
 					bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-					if(CheckSDCard.hasSdcard()) { // 保存头像到本地SD卡
+					if(CheckSDCard.hasSdcard()) { // 保存头像背景图片到本地SD卡
 						String path = rootPath + "headbg/";
 						String headName = "headbg_" + qq + ".jpg";
 						File tempFile = new File(path);
@@ -129,7 +129,7 @@ public class ImageTool {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else { // 如果本地有该用户头像，直接从本地取出头像并显示
+		} else { // 如果本地有该用户头像背景图片，直接从本地取出头像背景图片并显示
 			System.out.println("get headImageBg from local");
 			bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
 		}

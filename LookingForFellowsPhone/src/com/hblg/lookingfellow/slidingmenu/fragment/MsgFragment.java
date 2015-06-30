@@ -99,7 +99,7 @@ public class MsgFragment extends Fragment  {
 		ArrayList<Map<String, Object>> tempList = new ArrayList<Map<String,Object>>();
 		tempList = service.getMessages();
 		if(tempList.size() == 0) { //  如果没有消息记录
-			Toast.makeText(getActivity(), "暂没有消息记录", 0).show();
+			//Toast.makeText(getActivity(), "暂没有消息记录", 0).show();
 		}
 		return tempList;
 	}

@@ -20,7 +20,7 @@ public class ChatClient {
 	}
 	private void connectServer() {
 		try {
-			s = new Socket("192.168.1.152", 3456);
+			s = new Socket("10.0.2.2", 3456);
 			ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
 			LoginUser user = new LoginUser();
 			user.setQq(User.qq);

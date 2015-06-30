@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@color/bg_color"
     android:orientation="vertical" >
     <RelativeLayout
@@ -24,121 +24,25 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
-    <LinearLayout
-            android:id="@+id/first_linearlayout"
-            android:layout_width="290dip"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/chat_titlebar"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical"
-            android:paddingTop="20dip" >
-        	<RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dip" >
-                    <Button
-                        android:id="@+id/select_from_local"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@drawable/leftmenuitem_selector" />
-                    <TextView
-                        style="@style/personinfo_textstyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:paddingLeft="10dip"
-                        android:text="从相册选择" />
-                    <ImageView
-                        android:id="@+id/go_more_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="10dip"
-                        android:src="@drawable/go_more_icon" />
-                </RelativeLayout>
-    </LinearLayout>
-    
-    <LinearLayout
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_below="@id/first_linearlayout"
-        android:orientation="horizontal"
-        android:weightSum="3" >
-        <LinearLayout
-            android:id="@+id/bg_black_layout"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="15dip"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_below="@id/chat_titlebar"
+        android:scrollbars="none" >
+        <com.hblg.lookingfellow.selfdefinedwidget.MyGridView
+            android:id="@+id/chat_bg_gridview"
+            android:gravity="center"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:gravity="center" >
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="@drawable/skin_black"
-                    android:scaleType="matrix" />
-                <ImageView
-                    android:id="@+id/bg_black_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right|bottom"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/skin_ok"
-                    android:visibility="gone" />
-            </FrameLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/bg_blue_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:gravity="center" >
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="@drawable/skin_blue"
-                    android:scaleType="matrix" />
-                <ImageView
-                    android:id="@+id/bg_blue_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right|bottom"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/skin_ok"
-                    android:visibility="gone" />
-            </FrameLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/bg_red_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:gravity="center" >
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="@drawable/skin_red"
-                    android:scaleType="matrix" />
-                <ImageView
-                    android:id="@+id/bg_red_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right|bottom"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/skin_ok"
-                    android:visibility="gone" />
-            </FrameLayout>
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:columnWidth="100dp"
+            android:horizontalSpacing="5dp"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="5dp" >
+        </com.hblg.lookingfellow.selfdefinedwidget.MyGridView>
+    </ScrollView>
 </RelativeLayout>

@@ -18,6 +18,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.User;
+import com.hblg.lookingfellow.model.ManageActivity;
 /**
  * ЖўЮЌТы
  */
@@ -42,6 +43,7 @@ public class QRCodeActivity extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_qrcode);
+		ManageActivity.addActiviy("QRCodeActivity", this);
 		myListener=new MyListener();
 		initView();
 		content=User.qq;

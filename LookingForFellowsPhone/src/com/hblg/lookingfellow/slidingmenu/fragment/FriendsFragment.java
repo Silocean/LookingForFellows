@@ -107,7 +107,7 @@ public class FriendsFragment extends Fragment implements OnItemClickListener, On
 		SQLiteService service = new SQLiteService(getActivity());
 		tempList = service.getAllFriendsInfo(User.qq);
 		if(tempList.size() == 0) {
-			Toast.makeText(getActivity(), "你还没有好友啊", 0).show();
+			//Toast.makeText(getActivity(), "你还没有好友啊", 0).show();
 		}
 		return tempList;
 	}
@@ -135,7 +135,8 @@ public class FriendsFragment extends Fragment implements OnItemClickListener, On
 						Friend friend = new Friend();
 						friend.setQq(obj.getString("friendQq"));
 						friend.setName(obj.getString("friendName"));
-						friend.setHometown(obj.getString("friendHometown"));
+						friend.setProvince(obj.getString("friendPro"));
+						friend.setCity(obj.getString("friendCity"));
 						friend.setSex(obj.getString("friendSex"));
 						friend.setSigns(obj.getString("friendSigns"));
 						friend.setPhone(obj.getString("friendPhone"));

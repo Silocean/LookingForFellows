@@ -91,7 +91,7 @@ public class friendsListViewAdapter extends BaseAdapter {
 			holder.sexImageView.setImageDrawable(context.getResources().getDrawable(R.drawable.modifysex_female_icon));
 		}
 		// ¿œº“
-		String hometown = (String)map.get("friHometown");
+		String hometown = (String)map.get("friPro") + " " + (String)map.get("friCity");
 		holder.hometownTextView.setText(hometown);
 		
 		Button chat = (Button)convertView.findViewById(R.id.friendslayout_chat);

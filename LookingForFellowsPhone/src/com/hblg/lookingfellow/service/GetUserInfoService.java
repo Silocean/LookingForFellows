@@ -10,7 +10,6 @@ import org.json.JSONObject;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.entity.Student;
@@ -55,12 +54,14 @@ public class GetUserInfoService extends Service {
 	}
 
 	private Student parseJson(String json) throws JSONException {
+		System.out.println(json);
 		JSONObject obj = new JSONObject(json);
 		Student student = new Student();
 		student.setQq(obj.getString("stuQQ"));
 		student.setName(obj.getString("stuName"));
 		student.setPassword(obj.getString("stuPassword"));
-		student.setHometown(obj.getString("stuHometown"));
+		student.setProvince(obj.getString("stuPro"));
+		student.setCity(obj.getString("stuCity"));
 		student.setSex(obj.getString("stuSex"));
 		student.setSigns(obj.getString("stuSigns"));
 		student.setPhone(obj.getString("stuPhone"));

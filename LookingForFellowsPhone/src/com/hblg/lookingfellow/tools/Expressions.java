@@ -10,7 +10,7 @@ public class Expressions {
 			R.drawable.f013, R.drawable.f014, R.drawable.f015, R.drawable.f016,
 			R.drawable.f017, R.drawable.f018, R.drawable.f019, R.drawable.f020,
 			R.drawable.f021, R.drawable.f022, R.drawable.f023 };
-
+	
 	/**
 	 * 鏈湴琛ㄦ儏鐨勫悕锟�
 	 */
@@ -19,7 +19,7 @@ public class Expressions {
 			"[f007]", "[f008]", "[f009]", "[f010]", "[f011]", "[f012]",
 			"[f013]", "[f014]", "[f015]", "[f016]", "[f017]", "[f018]",
 			"[f019]", "[f020]", "[f021]", "[f022]", "[f023]" };
-
+	
 	public static int[] expressionImgs1 = new int[] { R.drawable.f024,
 			R.drawable.f025, R.drawable.f026, R.drawable.f027, R.drawable.f028,
 			R.drawable.f029, R.drawable.f030, R.drawable.f031, R.drawable.f032,

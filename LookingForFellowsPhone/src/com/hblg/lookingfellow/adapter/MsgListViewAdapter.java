@@ -31,6 +31,7 @@ import com.hblg.lookingfellow.slidingmenu.activity.RequestAddFriendMsgActivity;
 import com.hblg.lookingfellow.slidingmenu.fragment.MsgFragment;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.ImageTool;
+import com.hblg.lookingfellow.tools.TimeConvertTool;
 
 public class MsgListViewAdapter extends BaseAdapter {
 	Context context;
@@ -130,6 +131,7 @@ public class MsgListViewAdapter extends BaseAdapter {
 		holder.contentTextView.setText(content);
 		// Ê±¼ä
 		String time = (String)map.get("msgTime");
+		time = TimeConvertTool.calDateTime(time);
 		holder.timeTextView.setText(time);
 		
 		bm = ImageTool.getHeadImageFromLocalOrNet(context, (String)map.get("headimage"));

@@ -175,7 +175,8 @@ public class ClientConnServerThread extends Thread {
 		Friend friend = new Friend();
 		friend.setQq(obj.getString("stuQQ"));
 		friend.setName(obj.getString("stuName"));
-		friend.setHometown(obj.getString("stuHometown"));
+		friend.setProvince(obj.getString("stuPro"));
+		friend.setCity(obj.getString("stuCity"));
 		friend.setSex(obj.getString("stuSex"));
 		friend.setSigns(obj.getString("stuSigns"));
 		friend.setPhone(obj.getString("stuPhone"));

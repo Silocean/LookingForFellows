@@ -64,7 +64,6 @@ public class PersonFragment extends Fragment {
 	
 	private void initStuInfo() {
 		Bitmap headBg = ImageTool.getHeadImageBgFromLocalOrNet(getActivity(), User.qq);
-		//headImageBg.setImageBitmap(headBg);
 		headImageBg.setBackgroundDrawable(new BitmapDrawable(headBg));
 		Bitmap head = ImageTool.getHeadImageFromLocalOrNet(getActivity(), User.qq);
 		Bitmap output = ImageTool.toRoundCorner(head, 360.0f);
@@ -73,7 +72,7 @@ public class PersonFragment extends Fragment {
 		String qq = User.qq;
 		Student student = service.getStuInfo(qq);
 		titleBarTextView.setText(student.getName());
-		homeTownTextView.setText(student.getHometown());
+		homeTownTextView.setText(student.getProvince() + " " + student.getCity());
 		if(student.getSigns().equals("")) {
 			signsTextView.setText("Œ¥…Ë÷√");
 		} else {

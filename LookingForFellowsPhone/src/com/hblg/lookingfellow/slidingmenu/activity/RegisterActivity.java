@@ -125,21 +125,24 @@ public class RegisterActivity extends Activity implements OnClickListener{
 			String name = nameEditText.getText().toString().trim();
 			//一定要去掉空格，否则在用get方式提交数据的时候会出错
 			String hometown = hometownTextView.getText().toString().trim();
+			String pro = hometown.split(" ")[0];
+			String city = hometown.split(" ")[1];
 			String password = passwordEditText.getText().toString().trim();
 			message = new Message();
-			register(qq, name, hometown, password);
+			register(qq, name, pro, city, password);
 			//System.out.println(message.arg1);
 			handler.sendMessage(message);
 		}
 	}
 
-	private void register(String qq, String name, String hometown, String password) {
+	private void register(String qq, String name, String pro, String city, String password) {
 		try {
 			String path = Common.PATH + "UserRegisterServlet";
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("qq", qq);
 			params.put("name", name);
-			params.put("hometown", hometown);
+			params.put("province", pro);
+			params.put("city", city);
 			params.put("password", password);
 			StringBuilder sb = new StringBuilder(path);
 			sb.append("?");

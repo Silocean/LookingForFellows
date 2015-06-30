@@ -99,9 +99,10 @@ public class LookingFriendFragment extends Fragment implements OnItemClickListen
 		try {
 			SQLiteService service = new SQLiteService(getActivity());
 			Student student = service.getStuInfo(User.qq);
-			String hometown = student.getHometown();
-			String path = Common.PATH + "FriendServlet?tag=searchfriends&hometown=";
-			path = path + URLEncoder.encode(hometown, "utf-8") + "&qq=" + User.qq;
+			String province = student.getProvince();
+			String city = student.getCity();
+			String path = Common.PATH + "FriendServlet?tag=searchfriends&province=";
+			path = path + URLEncoder.encode(province, "utf-8") + "&qq=" + User.qq;
 			HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();
 			conn.setRequestMethod("GET");
 			conn.setConnectTimeout(5000);
@@ -118,7 +119,8 @@ public class LookingFriendFragment extends Fragment implements OnItemClickListen
 						Map<String, String> map = new HashMap<String, String>();
 						map.put("friendQq", obj.getString("friendQq"));
 						map.put("friendName", obj.getString("friendName"));
-						map.put("friendHometown", obj.getString("friendHometown"));
+						map.put("friendPro", obj.getString("friendPro"));
+						map.put("friendCity", obj.getString("friendCity"));
 						map.put("friendSex", obj.getString("friendSex"));
 						map.put("friendSigns", obj.getString("friendSigns"));
 						map.put("friendPhone", obj.getString("friendPhone"));

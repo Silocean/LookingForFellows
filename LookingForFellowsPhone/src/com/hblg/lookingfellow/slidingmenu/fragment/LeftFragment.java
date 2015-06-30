@@ -1,5 +1,6 @@
 package com.hblg.lookingfellow.slidingmenu.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,7 +9,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.Common;
@@ -20,7 +20,6 @@ import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
  */
 public class LeftFragment extends Fragment implements OnClickListener{
 	
-	
 	Button leftmenuPosts;
 	Button leftmenuPerson;
 	Button leftmenuLookingfellow;
@@ -29,12 +28,11 @@ public class LeftFragment extends Fragment implements OnClickListener{
 	ImageView newMsgNotificationImageView;
 	Button leftmenuSettings;
 	
-	Button leftmenuCross;
+	/*Button leftmenuCross;
 	Button leftmenuNear;
-	Button leftmenuShare;
+	Button leftmenuShare;*/
 	
 	Button leftmenuInvite;
-	
 	
 	PersonFragment personFragment;
 	MainFragment mainFragment;
@@ -59,12 +57,12 @@ public class LeftFragment extends Fragment implements OnClickListener{
 		newMsgNotificationImageView = (ImageView)view.findViewById(R.id.leftmenu_msg_new_notification);
 		leftmenuSettings = (Button)view.findViewById(R.id.leftmenu_settings_button);
 		leftmenuSettings.setOnClickListener(this);
-		leftmenuCross = (Button)view.findViewById(R.id.leftmenu_cross_button);
+		/*leftmenuCross = (Button)view.findViewById(R.id.leftmenu_cross_button);
 		leftmenuCross.setOnClickListener(this);
 		leftmenuNear = (Button)view.findViewById(R.id.leftmenu_near_button);
 		leftmenuNear.setOnClickListener(this);
 		leftmenuShare = (Button)view.findViewById(R.id.leftmenu_share_button);
-		leftmenuShare.setOnClickListener(this);
+		leftmenuShare.setOnClickListener(this);*/
 		leftmenuInvite = (Button)view.findViewById(R.id.leftmenu_invite_button);
 		leftmenuInvite.setOnClickListener(this);
 		mainFragment = new MainFragment();
@@ -157,7 +155,7 @@ public class LeftFragment extends Fragment implements OnClickListener{
 			((SlidingActivity)getActivity()).replaceFragment(R.id.center_frame, settingsFragment);
 			((SlidingActivity)getActivity()).showLeft();
 			break;
-		case R.id.leftmenu_cross_button:
+		/*case R.id.leftmenu_cross_button:
 			//TODO
 			Toast.makeText(getActivity(), "cross", 0).show();
 			break;
@@ -168,10 +166,15 @@ public class LeftFragment extends Fragment implements OnClickListener{
 		case R.id.leftmenu_share_button:
 			//TODO
 			Toast.makeText(getActivity(), "share", 0).show();
-			break;
+			break;*/
 		case R.id.leftmenu_invite_button:
 			//TODO
-			Toast.makeText(getActivity(), "invite", 0).show();
+			Intent intent=new Intent(Intent.ACTION_SEND);   
+	        intent.setType("text/plain");   
+	        intent.putExtra(Intent.EXTRA_SUBJECT, "分享");   
+	        intent.putExtra(Intent.EXTRA_TEXT, "嗨！我发现一款好玩儿的社交应用，推荐给你！");    
+	        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);   
+	        startActivity(Intent.createChooser(intent, "share"));   
 			break;
 		default:
 			break;

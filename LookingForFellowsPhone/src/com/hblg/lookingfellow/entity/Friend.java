@@ -4,7 +4,8 @@ public class Friend {
 	
 	private String qq;
 	private String name;
-	private String hometown;
+	private String province;
+	private String city;
 	private String sex;
 	private String signs;
 	private String phone;
@@ -12,12 +13,13 @@ public class Friend {
 	public Friend() {
 		
 	}
-	
-	public Friend(String qq, String name, String hometown, 
+
+	public Friend(String qq, String name, String province, String city,
 			String sex, String signs, String phone) {
 		this.qq = qq;
 		this.name = name;
-		this.hometown = hometown;
+		this.province = province;
+		this.city = city;
 		this.sex = sex;
 		this.signs = signs;
 		this.phone = phone;
@@ -39,14 +41,22 @@ public class Friend {
 		this.name = name;
 	}
 
-	public String getHometown() {
-		return hometown;
+	public String getProvince() {
+		return province;
 	}
 
-	public void setHometown(String hometown) {
-		this.hometown = hometown;
+	public void setProvince(String province) {
+		this.province = province;
 	}
-	
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public String getSex() {
 		return sex;
 	}
@@ -73,10 +83,10 @@ public class Friend {
 
 	@Override
 	public String toString() {
-		return "Friend [qq=" + qq + ", name=" + name + ", hometown="
-				+ hometown + ", sex=" + sex
-				+ ", signs=" + signs + ", phone=" + phone + "]";
+		return "Friend [qq=" + qq + ", name=" + name + ", province=" + province
+				+ ", city=" + city + ", sex=" + sex + ", signs=" + signs
+				+ ", phone=" + phone + "]";
 	}
-
+	
 	
 }

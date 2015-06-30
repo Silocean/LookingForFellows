@@ -88,7 +88,7 @@ public class SearchfriendsListViewAdapter extends BaseAdapter {
 		String name = (String)map.get("friendName");
 		holder.nameTextView.setText(name);
 		// ¼ÒÏç
-		String hometown = (String)map.get("friendHometown");
+		String hometown = (String)map.get("friendPro") + " " + (String)map.get("friendCity");
 		holder.hometownTextView.setText(hometown);
 		
 		holder.addFriend.setOnClickListener(new OnClickListener() {
@@ -99,7 +99,7 @@ public class SearchfriendsListViewAdapter extends BaseAdapter {
 		});
 		//Í·Ïñ
 		bm = ImageTool.getHeadImageFromLocalOrNet(context, friendQq);
-		bm = ImageTool.toRoundCorner(bm, 15);
+		//bm = ImageTool.toRoundCorner(bm, 15);
 		holder.headImage.setImageBitmap(bm);
 		
 		return convertView;

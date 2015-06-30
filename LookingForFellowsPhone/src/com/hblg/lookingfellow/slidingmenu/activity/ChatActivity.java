@@ -19,9 +19,11 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +53,16 @@ import com.hblg.lookingfellow.tools.TimeConvertTool;
 import com.hblg.lookingfellow.tools.UIMode;
 
 public class ChatActivity extends Activity implements OnClickListener{
+	
+	private int photoIds[]=new int[]{
+			R.drawable.bg_default,
+			R.drawable.bg_01,R.drawable.bg_02,R.drawable.bg_03,
+			R.drawable.bg_04,R.drawable.bg_05,R.drawable.bg_06,
+			R.drawable.bg_07,R.drawable.bg_08,R.drawable.bg_09,
+			R.drawable.bg_10,R.drawable.bg_11,R.drawable.bg_12,
+			R.drawable.bg_13,R.drawable.bg_14
+	};
+	
 	private Button faceBtn;//添加表情
 	private Button faceFoucsBtn;//当表情展开时
 	
@@ -90,6 +102,8 @@ public class ChatActivity extends Activity implements OnClickListener{
 	
 	public static boolean active = false; // 该activity是不是处于最顶端
 	
+	private InputMethodManager inputMethodManager;
+	
 	@Override
 	protected void onResume() {
 		active = true;
@@ -105,7 +119,7 @@ public class ChatActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		ManageActivity.addActiviy("ChatActivity", this);
 		setContentView(R.layout.activity_chat);
-		UIMode.changeUIMode(ChatActivity.this, UIMode.checkUIMode(ChatActivity.this));
+		inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 		initView();
 		initListData();
 		initEmotionView();
@@ -128,15 +142,20 @@ public class ChatActivity extends Activity implements OnClickListener{
 		contentEditText = (EditText)this.findViewById(R.id.chat_bottombar_edittext);
 		contentEditText.addTextChangedListener(new MaxLengthWatcher(60, contentEditText, this));
 		
+		contentEditText.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				faceBtn.setVisibility(faceBtn.VISIBLE);
+				faceFoucsBtn.setVisibility(faceBtn.GONE);
+				viewPager.setVisibility(viewPager.GONE);
+				page_select.setVisibility(page_select.GONE);
+				contentEditText.setFocusable(true);
+				inputMethodManager.showSoftInput(contentEditText,0);
+			}
+		});
+		
 		bgLayout=(RelativeLayout)this.findViewById(R.id.chat_bg);
-		String mode=MySharePreferences.getShare(getApplicationContext()).getString(MySharePreferences.BGSKIN, "none");
-		if(MySharePreferences.BGSKIN_BLACK.equals(mode)||MySharePreferences.BGSKIN_BLACK==mode){
-			bgLayout.setBackgroundColor(this.getResources().getColor(R.color.skin_black));
-		}else if(MySharePreferences.BGSKIN_BLUE.equals(mode)||MySharePreferences.BGSKIN_BLUE==mode){
-			bgLayout.setBackgroundColor(this.getResources().getColor(R.color.skin_blue));
-		}else if(MySharePreferences.BGSKIN_RED.equals(mode)||MySharePreferences.BGSKIN_RED==mode){
-			bgLayout.setBackgroundColor(this.getResources().getColor(R.color.skin_red));
-		}
+		int position = MySharePreferences.getShare(getApplicationContext()).getInt(MySharePreferences.BGSKIN, 0);
+		bgLayout.setBackgroundResource(photoIds[position]);
 	}
 	private void initEmotionView(){
 		faceBtn=(Button)findViewById(R.id.chat_bottombar_addbutton);
@@ -360,7 +379,7 @@ public class ChatActivity extends Activity implements OnClickListener{
 		SQLiteService service = new SQLiteService(getApplicationContext());
 		ArrayList<Map<String, Object>> tempList = service.getChatMessages(User.qq, receiver);
 		if(tempList.size() == 0) { //  如果没有消息记录
-			Toast.makeText(getApplicationContext(), "暂没有消息记录", 0).show();
+			//Toast.makeText(getApplicationContext(), "暂没有消息记录", 0).show();
 		}
 		return tempList;
 	}
@@ -382,6 +401,7 @@ public class ChatActivity extends Activity implements OnClickListener{
 			faceFoucsBtn.setVisibility(faceBtn.VISIBLE);
 			viewPager.setVisibility(viewPager.VISIBLE);
 			page_select.setVisibility(page_select.VISIBLE);
+			inputMethodManager.hideSoftInputFromWindow(contentEditText.getWindowToken(), 0);
 			break;
 		case R.id.chat_bottombar_addbutton_focused://关闭表情
 			faceBtn.setVisibility(faceBtn.VISIBLE);
@@ -405,6 +425,7 @@ public class ChatActivity extends Activity implements OnClickListener{
 				page_select.setVisibility(page_select.GONE);
 				faceBtn.setVisibility(faceBtn.VISIBLE);
 				faceFoucsBtn.setVisibility(View.GONE);
+				inputMethodManager.hideSoftInputFromWindow(contentEditText.getWindowToken(), 0);
 				
 				// 发送消息到服务器
 				oos = new ObjectOutputStream(ManageClientConnServer.getClientConServerThread(User.qq).getS().getOutputStream());
@@ -430,7 +451,6 @@ public class ChatActivity extends Activity implements OnClickListener{
 				
 				// 更新聊天界面
 				updateChatView(getApplicationContext(),msg);
-				
 				
 			} catch (Exception e) {
 				e.printStackTrace();

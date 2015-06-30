@@ -109,7 +109,7 @@ public class ChatListViewAdapter extends BaseAdapter {
 		}
 		
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
-
+		
 		// ID
 		final int id = (Integer)map.get("msgId");
 		

@@ -14,7 +14,6 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
@@ -38,6 +37,7 @@ import com.hblg.lookingfellow.pla.util.ImageFetcher;
 import com.hblg.lookingfellow.pla.view.ScaleImageView;
 import com.hblg.lookingfellow.pla.view.XListView;
 import com.hblg.lookingfellow.pla.view.XListView.IXListViewListener;
+import com.hblg.lookingfellow.slidingmenu.activity.ChangeProActitity;
 import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.PostDetailActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.SendPostActivity;
@@ -50,11 +50,14 @@ import com.hblg.lookingfellow.tools.UIMode;
 
 public class MainFragment extends Fragment implements IXListViewListener {
 	private View thisLayout;
+	private TextView titleBarvTextView;
 	private ImageView titlebarLeftmenu;
 	private ImageView titlebarRightmenu;
-
+	
 	String imagePath = Common.PATH + "head/";
-
+	
+	private String province = "公告板";
+	
 	private ImageFetcher mImageFetcher;
 	private XListView mAdapterView = null;
 	private StaggeredAdapter mAdapter = null;
@@ -65,7 +68,7 @@ public class MainFragment extends Fragment implements IXListViewListener {
 	
 	private class ContentTask extends
 			AsyncTask<String, Integer, LinkedList<Map<String, Object>>> {
-
+		
 		private Context mContext;
 		private int mType = 1;
 
@@ -146,14 +149,13 @@ public class MainFragment extends Fragment implements IXListViewListener {
 
 	/**
 	 * 添加内容
-	 * 
 	 * @param pageindex
 	 * @param type
 	 *            1为下拉刷新 2为加载更多
 	 */
 	private void AddItemToContainer(int pageindex, int type) {
 		if (task.getStatus() != Status.RUNNING) {
-			String url = Common.PATH + "PostsServlet?page=";
+			String url = Common.PATH + "PostsServlet?province=" + province + "&page=";
 			url = url + pageindex;
 			Log.d("MainActivity", "current url:" + url);
 			ContentTask task = new ContentTask(getActivity(), type);
@@ -314,13 +316,22 @@ public class MainFragment extends Fragment implements IXListViewListener {
 			mImageFetcher.setExitTasksEarly(false);
 			mAdapterView.setAdapter(mAdapter);
 			AddItemToContainer(0, 1);
+		} else if(requestCode == 5) { // 更改省份
+			System.out.println("=========更改省份");
+			if(data != null) {
+				province = data.getStringExtra("pro");
+				titleBarvTextView.setText(province);
+				mImageFetcher.setExitTasksEarly(false);
+				mAdapterView.setAdapter(mAdapter);
+				AddItemToContainer(0, 1);
+			}
 		}
 	}
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		thisLayout = inflater.inflate(R.layout.main_content_posts, null);
-		initMode();
+		//initMode();
 		return thisLayout;
 	}
 
@@ -336,6 +347,14 @@ public class MainFragment extends Fragment implements IXListViewListener {
 		mAdapterView.setAdapter(mAdapter);
 		AddItemToContainer(0, 1);
 		mImageFetcher.setExitTasksEarly(false);
+		titleBarvTextView = (TextView)thisLayout.findViewById(R.id.titlebar_title);
+		titleBarvTextView.setText(province);
+		titleBarvTextView.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), ChangeProActitity.class);
+				startActivityForResult(intent, 5);
+			}
+		});
 		titlebarLeftmenu = (ImageView) thisLayout
 				.findViewById(R.id.main_titlebar_leftmenu);
 		titlebarLeftmenu.setOnClickListener(new OnClickListener() {
@@ -348,12 +367,12 @@ public class MainFragment extends Fragment implements IXListViewListener {
 				.findViewById(R.id.main_titlebar_rightmenu);
 		titlebarRightmenu.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Intent intent = new Intent(getActivity(),
-						SendPostActivity.class);
+				Intent intent = new Intent(getActivity(), SendPostActivity.class);
 				startActivityForResult(intent, 1); // 1表示发帖activity撤销，并发帖成功
 			}
 		});
 	}
+	
 	public void initMode() {
 		SharedPreferences sf = MySharePreferences.getShare(getActivity());
 		//亮度模式
@@ -380,13 +399,14 @@ public class MainFragment extends Fragment implements IXListViewListener {
 	@Override
 	public void onResume() {
 		super.onResume();
-		initMode();
+		System.out.println("+++++++++++" + province);
+		titleBarvTextView.setText(province);
+		//initMode();
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-
 	}
 
 	@Override

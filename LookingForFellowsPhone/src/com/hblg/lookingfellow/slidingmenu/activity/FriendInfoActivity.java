@@ -45,6 +45,7 @@ public class FriendInfoActivity extends Activity implements OnClickListener {
 	Button titlebarRightmenu;
 	
 	ImageView headImage;
+	ImageView headImageBg;
 	
 	Button hometownButton;
 	Button signsButton;
@@ -82,6 +83,7 @@ public class FriendInfoActivity extends Activity implements OnClickListener {
 		titlebarLeftmenu = (Button)this.findViewById(R.id.main_titlebar_goback_leftmenu);
 		titlebarRightmenu = (Button)this.findViewById(R.id.main_titlebar_gomore_rightmenu);
 		headImage = (ImageView)this.findViewById(R.id.friendinfo_headimage);
+		headImageBg = (ImageView)this.findViewById(R.id.friendinfo_headimage_bg);
 		hometownButton = (Button)this.findViewById(R.id.friendinfo_hometown_button);
 		signsButton = (Button)this.findViewById(R.id.friendinfo_signs_button);
 		mobileButton = (Button)this.findViewById(R.id.friendinfo_mobile_button);
@@ -125,7 +127,7 @@ public class FriendInfoActivity extends Activity implements OnClickListener {
 				String json = new String(data, "utf-8");
 				friend = parseJson(json);
 				titleTextView.setText(friend.getName());
-				hometowntTextView.setText(friend.getHometown());
+				hometowntTextView.setText(friend.getProvince() + " " + friend.getCity());
 				if(friend.getSigns().equals("")) {
 					signsTextView.setText("Œ¥…Ë÷√");
 				} else {
@@ -136,6 +138,8 @@ public class FriendInfoActivity extends Activity implements OnClickListener {
 				} else {
 					mobileTextView.setText(friend.getPhone());
 				}
+				Bitmap headBg = ImageTool.getHeadImageBgFromLocalOrNet(getApplicationContext(), User.qq);
+				headImageBg.setBackgroundDrawable(new BitmapDrawable(headBg));
 				Bitmap bitmap = ImageTool.getHeadImageFromLocalOrNet(getApplicationContext(), qq);
 				Bitmap output = ImageTool.toRoundCorner(bitmap, 360.0f);
 				headImage.setImageBitmap(output);
@@ -150,7 +154,8 @@ public class FriendInfoActivity extends Activity implements OnClickListener {
 		Friend friend = new Friend();
 		friend.setQq(obj.getString("stuQQ"));
 		friend.setName(obj.getString("stuName"));
-		friend.setHometown(obj.getString("stuHometown"));
+		friend.setProvince(obj.getString("stuPro"));
+		friend.setCity(obj.getString("stuCity"));
 		friend.setSex(obj.getString("stuSex"));
 		friend.setSigns(obj.getString("stuSigns"));
 		friend.setPhone(obj.getString("stuPhone"));

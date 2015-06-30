@@ -223,8 +223,8 @@
                         android:text="设置" />
                 </RelativeLayout>
             </LinearLayout>
-            
             <!-- 第四组菜单 -->
+           <!--  
             <LinearLayout
                 android:id="@+id/leftmenu_fourth_linerlayout"
                 android:layout_width="240dip"
@@ -265,12 +265,12 @@
                         android:background="@drawable/leftmenu_button_bg"
                         android:text="分享" />
                 </RelativeLayout>
-            </LinearLayout>
+            </LinearLayout> -->
 
             <LinearLayout
                 android:layout_width="240dip"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/leftmenu_fourth_linerlayout"
+                android:layout_below="@id/leftmenu_third_linearlayout"
                 android:layout_centerHorizontal="true"
                 android:paddingTop="15dip"
                 android:paddingBottom="15dip" >

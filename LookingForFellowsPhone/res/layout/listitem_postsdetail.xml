@@ -18,12 +18,13 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip" >
 
             <ImageView
                 android:id="@+id/posts_list_headImg"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
@@ -35,31 +36,29 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/posts_list_headImg"
                 android:layout_marginLeft="4dp"
-                android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/posts_list_headImg"
-                android:text="心照不宣的我"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/posts_list_time"
+                android:id="@+id/posts_list_replyToWho"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/posts_list_headImg"
                 android:layout_marginBottom="0dp"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/posts_list_headImg"
-                android:text="2013/9/27 23:13" />
+                android:text="回复：" />
 
             <TextView
-                android:id="@+id/posts_list_floor"
+                android:id="@+id/posts_list_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignTop="@id/posts_list_headImg"
                 android:layout_marginRight="3dp"
-                android:layout_marginTop="10dp"
-                android:text="1楼" />
+                android:layout_marginTop="10dp" />
+            
         </RelativeLayout>
 
         <TextView
@@ -67,7 +66,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="这是一沟绝望的死水，清风吹不起半点一轮，不如多扔些破铜烂铁"
             android:textColor="@color/black" />
     </LinearLayout>
 

@@ -59,7 +59,7 @@ public class ChooseCityActivity extends Activity {
 		SQLiteService service = new SQLiteService(getApplicationContext());
 		String qq = User.qq;
 		hometown = provinceName + " " + cityName;
-		service.modifyHometown(hometown, qq);
+		service.modifyHometown(provinceName, cityName, qq);
 		dialog = ProgressDialog.show(ChooseCityActivity.this, "", "«Î…‘µ»...", true);
 		new ModifyHometownThread(tag).start();
 	}
