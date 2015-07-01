@@ -39,7 +39,7 @@ public class ChooseCityActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		ManageActivity.addActiviy("ChooseCityActivity", this);
 		setContentView(R.layout.activity_choosecity);
-		UIMode.changeUIMode(ChooseCityActivity.this, UIMode.checkUIMode(ChooseCityActivity.this));
+		//UIMode.changeUIMode(ChooseCityActivity.this, UIMode.checkUIMode(ChooseCityActivity.this));
 		gobackButton = (Button)this.findViewById(R.id.choosecity_goback_button);
 		gobackButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {

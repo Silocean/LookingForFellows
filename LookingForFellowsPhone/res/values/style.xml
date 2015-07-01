@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <style name="AppBaseTheme" parent="@android:style/Theme.NoTitleBar">
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:windowAnimationStyle">@style/MyActivitySwitchAnimation</item>
+    </style>
+    
+    <style name="MyActivitySwitchAnimation">
+        <item name="android:activityOpenEnterAnimation">@anim/main_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/main_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/back_enter</item>
+        <!-- <item name="android:activityCloseExitAnimation">@anim/push_right_out</item> -->
+    </style>
 
     <style name="leftmenu_listitem_textstyle">
         <item name="android:textSize">18sp</item>

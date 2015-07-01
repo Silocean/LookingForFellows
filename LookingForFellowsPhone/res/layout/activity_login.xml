@@ -41,86 +41,78 @@
 
     <RelativeLayout
         android:id="@+id/first"
-        android:layout_width="270dip"
+        android:layout_width="fill_parent"
         android:layout_height="50dip"
         android:layout_below="@id/login_titlebar"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
         android:layout_marginTop="25dip" >
 
-        <RelativeLayout
+        <Button
+            android:id="@+id/login_hometown_bg_button"
             android:layout_width="fill_parent"
-            android:layout_height="50dip" >
+            android:layout_height="fill_parent"
+            android:background="@drawable/leftmenuitem_selector" />
 
-            <Button
-                android:id="@+id/login_hometown_bg_button"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/leftmenuitem_selector" />
+        <ImageView
+            android:id="@+id/QQimageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/settings_personinfo_icon" />
 
-            <ImageView
-                android:id="@+id/QQimageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dip"
-                android:background="@drawable/settings_personinfo_icon" />
-
-            <EditText
-                android:id="@+id/qq_editText"
-                style="@style/personinfo_settings_right_textstyle"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dip"
-                android:layout_toRightOf="@id/QQimageView"
-                android:background="@null"
-                android:hint="请输入QQ号码"
-                android:numeric="integer"
-                android:text="1" />
-        </RelativeLayout>
+        <EditText
+            android:id="@+id/qq_editText"
+            style="@style/personinfo_settings_right_textstyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@id/QQimageView"
+            android:background="@null"
+            android:hint="请输入QQ号码"
+            android:numeric="integer" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/second"
-        android:layout_width="270dip"
+        android:layout_width="fill_parent"
         android:layout_height="50dip"
         android:layout_below="@id/first"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
         android:layout_marginTop="25dip" >
 
-        <RelativeLayout
+        <Button
+            android:id="@+id/login_name_bg_button"
             android:layout_width="fill_parent"
-            android:layout_height="50dip" >
+            android:layout_height="fill_parent"
+            android:background="@drawable/leftmenuitem_selector" />
 
-            <Button
-                android:id="@+id/login_name_bg_button"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/leftmenuitem_selector" />
+        <ImageView
+            android:id="@+id/passwordimageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/settings_lock_icon" />
 
-            <ImageView
-                android:id="@+id/passwordimageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dip"
-                android:background="@drawable/settings_lock_icon" />
-
-            <EditText
-                android:id="@+id/password_editText"
-                style="@style/personinfo_settings_right_textstyle"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dip"
-                android:layout_toRightOf="@id/passwordimageView"
-                android:background="@null"
-                android:hint="请输入密码"
-                android:password="true"
-                android:text="1" />
-        </RelativeLayout>
+        <EditText
+            android:id="@+id/password_editText"
+            style="@style/personinfo_settings_right_textstyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:layout_toRightOf="@id/passwordimageView"
+            android:background="@null"
+            android:hint="请输入密码"
+            android:password="true" />
     </RelativeLayout>
 
 </RelativeLayout>

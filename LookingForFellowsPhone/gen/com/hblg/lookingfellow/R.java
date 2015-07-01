@@ -9,8 +9,17 @@ package com.hblg.lookingfellow;
 
 public final class R {
     public static final class anim {
-        public static final int translate_in=0x7f040000;
-        public static final int translate_out=0x7f040001;
+        public static final int back_enter=0x7f040000;
+        public static final int back_exit=0x7f040001;
+        public static final int main_enter=0x7f040002;
+        public static final int main_exit=0x7f040003;
+        public static final int push_left_in=0x7f040004;
+        public static final int push_left_out=0x7f040005;
+        public static final int push_right_in=0x7f040006;
+        public static final int push_right_out=0x7f040007;
+        public static final int rotate_refresh=0x7f040008;
+        public static final int translate_in=0x7f040009;
+        public static final int translate_out=0x7f04000a;
     }
     public static final class attr {
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -1637,12 +1646,12 @@ containing a value of this type.
         public static final int addfriends_searchother_button=0x7f070123;
         public static final int addfriends_titlebar=0x7f070121;
         public static final int addpic=0x7f0700d4;
-        public static final int afterDescendants=0x7f070034;
-        public static final int all=0x7f070032;
+        public static final int afterDescendants=0x7f070033;
+        public static final int all=0x7f070030;
         public static final int always=0x7f07001a;
-        public static final int alwaysScroll=0x7f070038;
-        public static final int animation=0x7f070030;
-        public static final int anyRtl=0x7f070027;
+        public static final int alwaysScroll=0x7f070036;
+        public static final int animation=0x7f070031;
+        public static final int anyRtl=0x7f070026;
         public static final int areaname=0x7f0700fe;
         public static final int atfriend=0x7f0700d3;
         public static final int authorNameView=0x7f0700e5;
@@ -1651,14 +1660,14 @@ containing a value of this type.
          */
         public static final int auto_focus=0x7f070001;
         public static final int background=0x7f0700d2;
-        public static final int beforeDescendants=0x7f070033;
+        public static final int beforeDescendants=0x7f070034;
         public static final int bg_black_layout=0x7f0700dd;
         public static final int bg_img=0x7f0700de;
         public static final int bg_indicator_img=0x7f0700df;
         public static final int bgbutton=0x7f0700fd;
         public static final int blocksDescendants=0x7f070035;
         public static final int card_list=0x7f0700e8;
-        public static final int center=0x7f07002b;
+        public static final int center=0x7f070028;
         public static final int center_frame=0x7f0700d8;
         public static final int chatToName=0x7f070154;
         public static final int chat_bg=0x7f070042;
@@ -1693,7 +1702,7 @@ containing a value of this type.
         public static final int delete=0x7f070156;
         public static final int deleteFromMsgList=0x7f070155;
         public static final int deleteTextView=0x7f07014e;
-        public static final int disabled=0x7f070036;
+        public static final int disabled=0x7f070037;
         public static final int downRelativeLayout=0x7f07010f;
         public static final int encode_failed=0x7f070005;
         public static final int encode_succeeded=0x7f070006;
@@ -1701,7 +1710,7 @@ containing a value of this type.
         public static final int feedback_titlebar=0x7f070057;
         public static final int fifth=0x7f0700c8;
         public static final int first=0x7f070072;
-        public static final int firstStrong=0x7f070026;
+        public static final int firstStrong=0x7f070027;
         public static final int fourth=0x7f0700c7;
         public static final int friendList=0x7f070120;
         public static final int friendinfo_headimage=0x7f070061;
@@ -1724,9 +1733,9 @@ containing a value of this type.
         public static final int friendslayout_name=0x7f070100;
         public static final int friendslayout_sex=0x7f070101;
         public static final int go_more_icon=0x7f070098;
-        public static final int gone=0x7f07000f;
-        public static final int gravity=0x7f070028;
-        public static final int hardware=0x7f070021;
+        public static final int gone=0x7f07000d;
+        public static final int gravity=0x7f070029;
+        public static final int hardware=0x7f070020;
         public static final int head_arrowImageView=0x7f070164;
         public static final int head_contentLayout=0x7f070163;
         public static final int head_lastUpdatedTextView=0x7f070167;
@@ -1736,16 +1745,16 @@ containing a value of this type.
         public static final int headimage_popupwindow_takenewpicture=0x7f070151;
         public static final int headimage_popupwindow_takeoldpicture=0x7f070152;
         public static final int headimageview=0x7f0700e4;
-        public static final int high=0x7f070019;
+        public static final int high=0x7f070018;
         public static final int hometown=0x7f070065;
         public static final int hometown_textView=0x7f0700c2;
         public static final int hometown_textview=0x7f07012e;
-        public static final int horizontal=0x7f070011;
+        public static final int horizontal=0x7f070010;
         public static final int ifContentScrolls=0x7f07001b;
         public static final int image=0x7f0700e0;
-        public static final int inherit=0x7f070024;
-        public static final int insideInset=0x7f070014;
-        public static final int insideOverlay=0x7f070013;
+        public static final int inherit=0x7f070022;
+        public static final int insideInset=0x7f070013;
+        public static final int insideOverlay=0x7f070014;
         public static final int introduce_text=0x7f0700cd;
         public static final int invisible=0x7f07000e;
         public static final int launch_product_query=0x7f070007;
@@ -1772,15 +1781,15 @@ containing a value of this type.
         public static final int like=0x7f0700ea;
         public static final int line=0x7f07016c;
         public static final int list=0x7f07003c;
-        public static final int locale=0x7f070025;
+        public static final int locale=0x7f070023;
         public static final int loginButton=0x7f0700bc;
         public static final int login_goback_button=0x7f070070;
         public static final int login_hometown_bg_button=0x7f070073;
         public static final int login_name_bg_button=0x7f070077;
         public static final int login_sure=0x7f070071;
         public static final int login_titlebar=0x7f07006f;
-        public static final int low=0x7f070018;
-        public static final int ltr=0x7f070022;
+        public static final int low=0x7f070019;
+        public static final int ltr=0x7f070024;
         public static final int main_content_reg_temp=0x7f0700af;
         public static final int main_content_reg_temp1=0x7f0700b0;
         public static final int main_content_top_temp=0x7f0700ac;
@@ -1829,18 +1838,18 @@ containing a value of this type.
         public static final int msglayout_name=0x7f070106;
         public static final int msglayout_newMsg=0x7f070109;
         public static final int msglayout_time=0x7f070108;
-        public static final int multipleChoice=0x7f07003a;
-        public static final int multipleChoiceModal=0x7f07003b;
+        public static final int multipleChoice=0x7f070039;
+        public static final int multipleChoiceModal=0x7f07003a;
         public static final int name_editText=0x7f0700c4;
         public static final int never=0x7f07001c;
         public static final int news_list=0x7f0700e1;
         public static final int news_pic=0x7f0700e2;
         public static final int news_title=0x7f0700e3;
-        public static final int no=0x7f07002f;
-        public static final int none=0x7f070010;
-        public static final int normal=0x7f070037;
-        public static final int outsideInset=0x7f070016;
-        public static final int outsideOverlay=0x7f070015;
+        public static final int no=0x7f07002e;
+        public static final int none=0x7f070011;
+        public static final int normal=0x7f070038;
+        public static final int outsideInset=0x7f070015;
+        public static final int outsideOverlay=0x7f070016;
         public static final int page0_select=0x7f07004e;
         public static final int page1_select=0x7f07004f;
         public static final int page2_select=0x7f070050;
@@ -1936,10 +1945,10 @@ containing a value of this type.
         public static final int return_scan_result=0x7f07000a;
         public static final int right=0x7f07001f;
         public static final int right_frame=0x7f07016d;
-        public static final int rtl=0x7f070023;
+        public static final int rtl=0x7f070025;
         public static final int scane_goback_button=0x7f0700dc;
         public static final int scrapped_view=0x7f070000;
-        public static final int scrolling=0x7f070031;
+        public static final int scrolling=0x7f070032;
         public static final int searchFriendList=0x7f070124;
         public static final int search_book_contents_failed=0x7f07000b;
         public static final int search_book_contents_succeeded=0x7f07000c;
@@ -1979,13 +1988,13 @@ containing a value of this type.
         public static final int settings_update_button=0x7f070145;
         public static final int signs=0x7f070069;
         public static final int signs_textview=0x7f070131;
-        public static final int singleChoice=0x7f070039;
+        public static final int singleChoice=0x7f07003b;
         public static final int sixth=0x7f0700c9;
         public static final int slidingMenu=0x7f07011d;
-        public static final int software=0x7f070020;
+        public static final int software=0x7f070021;
         public static final int submit=0x7f070059;
         public static final int textEnd=0x7f07002a;
-        public static final int textStart=0x7f070029;
+        public static final int textStart=0x7f07002b;
         public static final int third=0x7f0700c5;
         public static final int thumbnail=0x7f0700e9;
         public static final int timeView=0x7f0700e6;
@@ -1996,10 +2005,10 @@ containing a value of this type.
         public static final int upRelativeLayout=0x7f07010b;
         public static final int update_progress=0x7f070170;
         public static final int vertical=0x7f070012;
-        public static final int viewEnd=0x7f07002d;
-        public static final int viewStart=0x7f07002c;
+        public static final int viewEnd=0x7f07002c;
+        public static final int viewStart=0x7f07002d;
         public static final int viewfinder_view=0x7f0700cb;
-        public static final int visible=0x7f07000d;
+        public static final int visible=0x7f07000f;
         public static final int xlistview_footer_content=0x7f070171;
         public static final int xlistview_footer_hint_textview=0x7f070173;
         public static final int xlistview_footer_progressbar=0x7f070172;
@@ -2009,7 +2018,7 @@ containing a value of this type.
         public static final int xlistview_header_progressbar=0x7f070179;
         public static final int xlistview_header_text=0x7f070175;
         public static final int xlistview_header_time=0x7f070177;
-        public static final int yes=0x7f07002e;
+        public static final int yes=0x7f07002f;
     }
     public static final class layout {
         public static final int act_pull_to_refresh_sample=0x7f030000;
@@ -2097,11 +2106,18 @@ containing a value of this type.
         public static final int xlistview_header_last_time=0x7f09000a;
     }
     public static final class style {
-        public static final int AnimationPreview=0x7f08000b;
-        public static final int leftmenu_listitem_textstyle=0x7f080007;
-        public static final int listitem_postlayout_textstyle=0x7f080008;
-        public static final int personinfo_settings_right_textstyle=0x7f08000a;
-        public static final int personinfo_textstyle=0x7f080009;
+        public static final int AnimationPreview=0x7f08000e;
+        public static final int AppBaseTheme=0x7f080007;
+        /**  Application theme. 
+         */
+        public static final int AppTheme=0x7f080008;
+        /**  <item name="android:activityCloseExitAnimation">@anim/push_right_out</item> 
+         */
+        public static final int MyActivitySwitchAnimation=0x7f080009;
+        public static final int leftmenu_listitem_textstyle=0x7f08000a;
+        public static final int listitem_postlayout_textstyle=0x7f08000b;
+        public static final int personinfo_settings_right_textstyle=0x7f08000d;
+        public static final int personinfo_textstyle=0x7f08000c;
         public static final int ptr_arrow=0x7f080002;
         public static final int ptr_header=0x7f080001;
         public static final int ptr_headerContainer=0x7f080000;
@@ -2175,7 +2191,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:cacheColorHint
+          @attr name com.hblg.lookingfellow:cacheColorHint
         */
         public static final int AbsListView_cacheColorHint = 6;
         /**
@@ -2207,7 +2223,7 @@ containing a value of this type.
 <tr><td><code>multipleChoiceModal</code></td><td>3</td><td> The list allows multiple choices in a custom selection mode. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:choiceMode
+          @attr name com.hblg.lookingfellow:choiceMode
         */
         public static final int AbsListView_choiceMode = 9;
         /**
@@ -2227,7 +2243,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:drawSelectorOnTop
+          @attr name com.hblg.lookingfellow:drawSelectorOnTop
         */
         public static final int AbsListView_drawSelectorOnTop = 1;
         /**
@@ -2246,7 +2262,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:fastScrollAlwaysVisible
+          @attr name com.hblg.lookingfellow:fastScrollAlwaysVisible
         */
         public static final int AbsListView_fastScrollAlwaysVisible = 10;
         /**
@@ -2265,7 +2281,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:fastScrollEnabled
+          @attr name com.hblg.lookingfellow:fastScrollEnabled
         */
         public static final int AbsListView_fastScrollEnabled = 7;
         /**
@@ -2279,7 +2295,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name android:listSelector
+          @attr name com.hblg.lookingfellow:listSelector
         */
         public static final int AbsListView_listSelector = 0;
         /**
@@ -2299,7 +2315,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:scrollingCache
+          @attr name com.hblg.lookingfellow:scrollingCache
         */
         public static final int AbsListView_scrollingCache = 3;
         /**
@@ -2324,7 +2340,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:smoothScrollbar
+          @attr name com.hblg.lookingfellow:smoothScrollbar
         */
         public static final int AbsListView_smoothScrollbar = 8;
         /**
@@ -2340,7 +2356,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:stackFromBottom
+          @attr name com.hblg.lookingfellow:stackFromBottom
         */
         public static final int AbsListView_stackFromBottom = 2;
         /**
@@ -2359,7 +2375,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:textFilterEnabled
+          @attr name com.hblg.lookingfellow:textFilterEnabled
         */
         public static final int AbsListView_textFilterEnabled = 4;
         /**
@@ -2389,7 +2405,7 @@ containing a value of this type.
             </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:transcriptMode
+          @attr name com.hblg.lookingfellow:transcriptMode
         */
         public static final int AbsListView_transcriptMode = 5;
         /** Attributes that can be used with a ListView.
@@ -2436,7 +2452,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:dividerHeight
+          @attr name com.hblg.lookingfellow:dividerHeight
         */
         public static final int ListView_dividerHeight = 0;
         /**
@@ -2455,7 +2471,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:footerDividersEnabled
+          @attr name com.hblg.lookingfellow:footerDividersEnabled
         */
         public static final int ListView_footerDividersEnabled = 2;
         /**
@@ -2474,7 +2490,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:headerDividersEnabled
+          @attr name com.hblg.lookingfellow:headerDividersEnabled
         */
         public static final int ListView_headerDividersEnabled = 1;
         /**
@@ -2488,7 +2504,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name android:overScrollFooter
+          @attr name com.hblg.lookingfellow:overScrollFooter
         */
         public static final int ListView_overScrollFooter = 4;
         /**
@@ -2502,7 +2518,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name android:overScrollHeader
+          @attr name com.hblg.lookingfellow:overScrollHeader
         */
         public static final int ListView_overScrollHeader = 3;
         /** Attributes that can be used with a PinterestLikeAdapterView.
@@ -2535,7 +2551,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:plaColumnNumber
+          @attr name com.hblg.lookingfellow:plaColumnNumber
         */
         public static final int PinterestLikeAdapterView_plaColumnNumber = 0;
         /**
@@ -2551,7 +2567,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:plaColumnPaddingLeft
+          @attr name com.hblg.lookingfellow:plaColumnPaddingLeft
         */
         public static final int PinterestLikeAdapterView_plaColumnPaddingLeft = 2;
         /**
@@ -2567,7 +2583,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:plaColumnPaddingRight
+          @attr name com.hblg.lookingfellow:plaColumnPaddingRight
         */
         public static final int PinterestLikeAdapterView_plaColumnPaddingRight = 3;
         /**
@@ -2581,7 +2597,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:plaLandscapeColumnNumber
+          @attr name com.hblg.lookingfellow:plaLandscapeColumnNumber
         */
         public static final int PinterestLikeAdapterView_plaLandscapeColumnNumber = 1;
         /** Attributes that can be used with a View.
@@ -2874,7 +2890,7 @@ containing a value of this type.
             </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:accessibilityFocusable
+          @attr name com.hblg.lookingfellow:accessibilityFocusable
         */
         public static final int View_accessibilityFocusable = 66;
         /**
@@ -2893,7 +2909,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:alpha
+          @attr name com.hblg.lookingfellow:alpha
         */
         public static final int View_alpha = 50;
         /**
@@ -2909,7 +2925,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:clickable
+          @attr name com.hblg.lookingfellow:clickable
         */
         public static final int View_clickable = 36;
         /**
@@ -2929,7 +2945,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:contentDescription
+          @attr name com.hblg.lookingfellow:contentDescription
         */
         public static final int View_contentDescription = 47;
         /**
@@ -2961,7 +2977,7 @@ containing a value of this type.
             </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:drawingCacheQuality
+          @attr name com.hblg.lookingfellow:drawingCacheQuality
         */
         public static final int View_drawingCacheQuality = 40;
         /**
@@ -2980,7 +2996,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:duplicateParentState
+          @attr name com.hblg.lookingfellow:duplicateParentState
         */
         public static final int View_duplicateParentState = 42;
         /**
@@ -2996,7 +3012,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:fadeScrollbars
+          @attr name com.hblg.lookingfellow:fadeScrollbars
         */
         public static final int View_fadeScrollbars = 18;
         /**
@@ -3023,7 +3039,7 @@ containing a value of this type.
 <tr><td><code>vertical</code></td><td>0x00002000</td><td> Fades vertical edges only. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:fadingEdge
+          @attr name com.hblg.lookingfellow:fadingEdge
         */
         public static final int View_fadingEdge = 28;
         /**
@@ -3041,7 +3057,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:fadingEdgeLength
+          @attr name com.hblg.lookingfellow:fadingEdgeLength
         */
         public static final int View_fadingEdgeLength = 30;
         /**
@@ -3062,7 +3078,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:filterTouchesWhenObscured
+          @attr name com.hblg.lookingfellow:filterTouchesWhenObscured
         */
         public static final int View_filterTouchesWhenObscured = 39;
         /**
@@ -3083,7 +3099,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:fitsSystemWindows
+          @attr name com.hblg.lookingfellow:fitsSystemWindows
         */
         public static final int View_fitsSystemWindows = 14;
         /**
@@ -3106,7 +3122,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:focusable
+          @attr name com.hblg.lookingfellow:focusable
         */
         public static final int View_focusable = 11;
         /**
@@ -3126,7 +3142,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:focusableInTouchMode
+          @attr name com.hblg.lookingfellow:focusableInTouchMode
         */
         public static final int View_focusableInTouchMode = 12;
         /**
@@ -3145,7 +3161,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:hapticFeedbackEnabled
+          @attr name com.hblg.lookingfellow:hapticFeedbackEnabled
         */
         public static final int View_hapticFeedbackEnabled = 46;
         /**
@@ -3167,7 +3183,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:id
+          @attr name com.hblg.lookingfellow:id
         */
         public static final int View_id = 0;
         /**
@@ -3201,7 +3217,7 @@ containing a value of this type.
 <tr><td><code>no</code></td><td>2</td><td> The view is not important for accessibility. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:importantForAccessibility
+          @attr name com.hblg.lookingfellow:importantForAccessibility
         */
         public static final int View_importantForAccessibility = 65;
         /**
@@ -3223,7 +3239,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:isScrollContainer
+          @attr name com.hblg.lookingfellow:isScrollContainer
         */
         public static final int View_isScrollContainer = 17;
         /**
@@ -3242,7 +3258,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:keepScreenOn
+          @attr name com.hblg.lookingfellow:keepScreenOn
         */
         public static final int View_keepScreenOn = 41;
         /**
@@ -3274,7 +3290,7 @@ containing a value of this type.
             </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:layerType
+          @attr name com.hblg.lookingfellow:layerType
         */
         public static final int View_layerType = 61;
         /**
@@ -3301,7 +3317,7 @@ containing a value of this type.
 <tr><td><code>locale</code></td><td>3</td><td> Locale </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:layoutDirection
+          @attr name com.hblg.lookingfellow:layoutDirection
         */
         public static final int View_layoutDirection = 62;
         /**
@@ -3317,7 +3333,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:longClickable
+          @attr name com.hblg.lookingfellow:longClickable
         */
         public static final int View_longClickable = 37;
         /**
@@ -3339,7 +3355,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:minHeight
+          @attr name com.hblg.lookingfellow:minHeight
         */
         public static final int View_minHeight = 43;
         /**
@@ -3361,7 +3377,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:minWidth
+          @attr name com.hblg.lookingfellow:minWidth
         */
         public static final int View_minWidth = 44;
         /**
@@ -3380,7 +3396,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:nextFocusDown
+          @attr name com.hblg.lookingfellow:nextFocusDown
         */
         public static final int View_nextFocusDown = 34;
         /**
@@ -3399,7 +3415,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:nextFocusForward
+          @attr name com.hblg.lookingfellow:nextFocusForward
         */
         public static final int View_nextFocusForward = 35;
         /**
@@ -3418,7 +3434,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:nextFocusLeft
+          @attr name com.hblg.lookingfellow:nextFocusLeft
         */
         public static final int View_nextFocusLeft = 31;
         /**
@@ -3437,7 +3453,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:nextFocusRight
+          @attr name com.hblg.lookingfellow:nextFocusRight
         */
         public static final int View_nextFocusRight = 32;
         /**
@@ -3456,7 +3472,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:nextFocusUp
+          @attr name com.hblg.lookingfellow:nextFocusUp
         */
         public static final int View_nextFocusUp = 33;
         /**
@@ -3479,7 +3495,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:onClick
+          @attr name com.hblg.lookingfellow:onClick
         */
         public static final int View_onClick = 48;
         /**
@@ -3509,7 +3525,7 @@ containing a value of this type.
 <tr><td><code>never</code></td><td>2</td><td> Never show over-scroll effects. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:overScrollMode
+          @attr name com.hblg.lookingfellow:overScrollMode
         */
         public static final int View_overScrollMode = 49;
         /**
@@ -3541,7 +3557,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:padding
+          @attr name com.hblg.lookingfellow:padding
         */
         public static final int View_padding = 4;
         /**
@@ -3559,7 +3575,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:paddingBottom
+          @attr name com.hblg.lookingfellow:paddingBottom
         */
         public static final int View_paddingBottom = 8;
         /**
@@ -3577,7 +3593,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:paddingEnd
+          @attr name com.hblg.lookingfellow:paddingEnd
         */
         public static final int View_paddingEnd = 10;
         /**
@@ -3595,7 +3611,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:paddingLeft
+          @attr name com.hblg.lookingfellow:paddingLeft
         */
         public static final int View_paddingLeft = 5;
         /**
@@ -3613,7 +3629,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:paddingRight
+          @attr name com.hblg.lookingfellow:paddingRight
         */
         public static final int View_paddingRight = 7;
         /**
@@ -3631,7 +3647,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:paddingStart
+          @attr name com.hblg.lookingfellow:paddingStart
         */
         public static final int View_paddingStart = 9;
         /**
@@ -3649,7 +3665,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:paddingTop
+          @attr name com.hblg.lookingfellow:paddingTop
         */
         public static final int View_paddingTop = 6;
         /**
@@ -3669,7 +3685,7 @@ containing a value of this type.
 <tr><td><code>vertical</code></td><td>0x00002000</td><td> Fades vertical edges only. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:requiresFadingEdge
+          @attr name com.hblg.lookingfellow:requiresFadingEdge
         */
         public static final int View_requiresFadingEdge = 29;
         /**
@@ -3685,7 +3701,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:rotation
+          @attr name com.hblg.lookingfellow:rotation
         */
         public static final int View_rotation = 55;
         /**
@@ -3701,7 +3717,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:rotationX
+          @attr name com.hblg.lookingfellow:rotationX
         */
         public static final int View_rotationX = 56;
         /**
@@ -3717,7 +3733,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:rotationY
+          @attr name com.hblg.lookingfellow:rotationY
         */
         public static final int View_rotationY = 57;
         /**
@@ -3740,7 +3756,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:saveEnabled
+          @attr name com.hblg.lookingfellow:saveEnabled
         */
         public static final int View_saveEnabled = 38;
         /**
@@ -3756,7 +3772,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:scaleX
+          @attr name com.hblg.lookingfellow:scaleX
         */
         public static final int View_scaleX = 58;
         /**
@@ -3772,7 +3788,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:scaleY
+          @attr name com.hblg.lookingfellow:scaleY
         */
         public static final int View_scaleY = 59;
         /**
@@ -3790,7 +3806,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:scrollX
+          @attr name com.hblg.lookingfellow:scrollX
         */
         public static final int View_scrollX = 2;
         /**
@@ -3808,7 +3824,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:scrollY
+          @attr name com.hblg.lookingfellow:scrollY
         */
         public static final int View_scrollY = 3;
         /**
@@ -3824,7 +3840,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:scrollbarAlwaysDrawHorizontalTrack
+          @attr name com.hblg.lookingfellow:scrollbarAlwaysDrawHorizontalTrack
         */
         public static final int View_scrollbarAlwaysDrawHorizontalTrack = 26;
         /**
@@ -3840,7 +3856,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:scrollbarAlwaysDrawVerticalTrack
+          @attr name com.hblg.lookingfellow:scrollbarAlwaysDrawVerticalTrack
         */
         public static final int View_scrollbarAlwaysDrawVerticalTrack = 27;
         /**
@@ -3856,7 +3872,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:scrollbarDefaultDelayBeforeFade
+          @attr name com.hblg.lookingfellow:scrollbarDefaultDelayBeforeFade
         */
         public static final int View_scrollbarDefaultDelayBeforeFade = 20;
         /**
@@ -3872,7 +3888,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:scrollbarFadeDuration
+          @attr name com.hblg.lookingfellow:scrollbarFadeDuration
         */
         public static final int View_scrollbarFadeDuration = 19;
         /**
@@ -3890,7 +3906,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:scrollbarSize
+          @attr name com.hblg.lookingfellow:scrollbarSize
         */
         public static final int View_scrollbarSize = 21;
         /**
@@ -3920,7 +3936,7 @@ containing a value of this type.
 <tr><td><code>outsideInset</code></td><td>0x03000000</td><td> Edge of the view and inset </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:scrollbarStyle
+          @attr name com.hblg.lookingfellow:scrollbarStyle
         */
         public static final int View_scrollbarStyle = 16;
         /**
@@ -3932,7 +3948,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:scrollbarThumbHorizontal
+          @attr name com.hblg.lookingfellow:scrollbarThumbHorizontal
         */
         public static final int View_scrollbarThumbHorizontal = 22;
         /**
@@ -3944,7 +3960,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:scrollbarThumbVertical
+          @attr name com.hblg.lookingfellow:scrollbarThumbVertical
         */
         public static final int View_scrollbarThumbVertical = 23;
         /**
@@ -3956,7 +3972,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:scrollbarTrackHorizontal
+          @attr name com.hblg.lookingfellow:scrollbarTrackHorizontal
         */
         public static final int View_scrollbarTrackHorizontal = 24;
         /**
@@ -3968,7 +3984,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:scrollbarTrackVertical
+          @attr name com.hblg.lookingfellow:scrollbarTrackVertical
         */
         public static final int View_scrollbarTrackVertical = 25;
         /**
@@ -3988,7 +4004,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>vertical</code></td><td>0x00000200</td><td> Displays vertical scrollbar only. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:scrollbars
+          @attr name com.hblg.lookingfellow:scrollbars
         */
         public static final int View_scrollbars = 15;
         /**
@@ -4007,7 +4023,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:soundEffectsEnabled
+          @attr name com.hblg.lookingfellow:soundEffectsEnabled
         */
         public static final int View_soundEffectsEnabled = 45;
         /**
@@ -4030,7 +4046,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:tag
+          @attr name com.hblg.lookingfellow:tag
         */
         public static final int View_tag = 1;
         /**
@@ -4073,7 +4089,7 @@ containing a value of this type.
             </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:textAlignment
+          @attr name com.hblg.lookingfellow:textAlignment
         */
         public static final int View_textAlignment = 64;
         /**
@@ -4113,7 +4129,7 @@ containing a value of this type.
 <tr><td><code>locale</code></td><td>5</td><td> The paragraph direction is coming from the system Locale. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:textDirection
+          @attr name com.hblg.lookingfellow:textDirection
         */
         public static final int View_textDirection = 63;
         /**
@@ -4134,7 +4150,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:transformPivotX
+          @attr name com.hblg.lookingfellow:transformPivotX
         */
         public static final int View_transformPivotX = 53;
         /**
@@ -4155,7 +4171,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:transformPivotY
+          @attr name com.hblg.lookingfellow:transformPivotY
         */
         public static final int View_transformPivotY = 54;
         /**
@@ -4176,7 +4192,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:translationX
+          @attr name com.hblg.lookingfellow:translationX
         */
         public static final int View_translationX = 51;
         /**
@@ -4197,7 +4213,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:translationY
+          @attr name com.hblg.lookingfellow:translationY
         */
         public static final int View_translationY = 52;
         /**
@@ -4217,7 +4233,7 @@ containing a value of this type.
 <tr><td><code>right</code></td><td>2</td><td> Place the scroll bar on the right. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:verticalScrollbarPosition
+          @attr name com.hblg.lookingfellow:verticalScrollbarPosition
         */
         public static final int View_verticalScrollbarPosition = 60;
         /**
@@ -4237,7 +4253,7 @@ containing a value of this type.
 <tr><td><code>gone</code></td><td>2</td><td> Completely hidden, as if the view had not been added. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:visibility
+          @attr name com.hblg.lookingfellow:visibility
         */
         public static final int View_visibility = 13;
         /** 
@@ -4312,7 +4328,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:addStatesFromChildren
+          @attr name com.hblg.lookingfellow:addStatesFromChildren
         */
         public static final int ViewGroup_addStatesFromChildren = 7;
         /**
@@ -4331,7 +4347,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:alwaysDrawnWithCache
+          @attr name com.hblg.lookingfellow:alwaysDrawnWithCache
         */
         public static final int ViewGroup_alwaysDrawnWithCache = 6;
         /**
@@ -4352,7 +4368,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:animateLayoutChanges
+          @attr name com.hblg.lookingfellow:animateLayoutChanges
         */
         public static final int ViewGroup_animateLayoutChanges = 0;
         /**
@@ -4373,7 +4389,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:animationCache
+          @attr name com.hblg.lookingfellow:animationCache
         */
         public static final int ViewGroup_animationCache = 4;
         /**
@@ -4395,7 +4411,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:clipChildren
+          @attr name com.hblg.lookingfellow:clipChildren
         */
         public static final int ViewGroup_clipChildren = 1;
         /**
@@ -4414,7 +4430,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:clipToPadding
+          @attr name com.hblg.lookingfellow:clipToPadding
         */
         public static final int ViewGroup_clipToPadding = 2;
         /**
@@ -4437,7 +4453,7 @@ containing a value of this type.
 <tr><td><code>blocksDescendants</code></td><td>2</td><td> The ViewGroup will block its descendants from receiving focus. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:descendantFocusability
+          @attr name com.hblg.lookingfellow:descendantFocusability
         */
         public static final int ViewGroup_descendantFocusability = 8;
         /**
@@ -4452,7 +4468,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:layoutAnimation
+          @attr name com.hblg.lookingfellow:layoutAnimation
         */
         public static final int ViewGroup_layoutAnimation = 3;
         /**
@@ -4480,7 +4496,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>all</code></td><td>0x3</td><td> The drawing cache is always persisted. </td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:persistentDrawingCache
+          @attr name com.hblg.lookingfellow:persistentDrawingCache
         */
         public static final int ViewGroup_persistentDrawingCache = 5;
         /**
@@ -4507,7 +4523,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:splitMotionEvents
+          @attr name com.hblg.lookingfellow:splitMotionEvents
         */
         public static final int ViewGroup_splitMotionEvents = 9;
     };

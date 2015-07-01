@@ -19,12 +19,12 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -34,8 +34,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.ChatListViewAdapter;
@@ -50,7 +48,6 @@ import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.Expressions;
 import com.hblg.lookingfellow.tools.MySharePreferences;
 import com.hblg.lookingfellow.tools.TimeConvertTool;
-import com.hblg.lookingfellow.tools.UIMode;
 
 public class ChatActivity extends Activity implements OnClickListener{
 	
@@ -144,10 +141,10 @@ public class ChatActivity extends Activity implements OnClickListener{
 		
 		contentEditText.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				faceBtn.setVisibility(faceBtn.VISIBLE);
-				faceFoucsBtn.setVisibility(faceBtn.GONE);
-				viewPager.setVisibility(viewPager.GONE);
-				page_select.setVisibility(page_select.GONE);
+				faceBtn.setVisibility(View.VISIBLE);
+				faceFoucsBtn.setVisibility(View.GONE);
+				viewPager.setVisibility(View.GONE);
+				page_select.setVisibility(View.GONE);
 				contentEditText.setFocusable(true);
 				inputMethodManager.showSoftInput(contentEditText,0);
 			}
@@ -387,7 +384,7 @@ public class ChatActivity extends Activity implements OnClickListener{
 	public void initListData() {
 		ArrayList<Map<String, Object>> data = this.getChatMessages(friendQq);
 		adapter = new ChatListViewAdapter(getApplicationContext(), data, listView, this);
-		this.data = data;
+		ChatActivity.data = data;
 		adapter.setData(data);
 		listView = (ListView)this.findViewById(R.id.chat_listview);
 		listView.setAdapter(adapter);
@@ -397,17 +394,17 @@ public class ChatActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.chat_bottombar_addbutton://展开表情
-			faceBtn.setVisibility(faceBtn.GONE);
-			faceFoucsBtn.setVisibility(faceBtn.VISIBLE);
-			viewPager.setVisibility(viewPager.VISIBLE);
-			page_select.setVisibility(page_select.VISIBLE);
+			faceBtn.setVisibility(View.GONE);
+			faceFoucsBtn.setVisibility(View.VISIBLE);
+			viewPager.setVisibility(View.VISIBLE);
+			page_select.setVisibility(View.VISIBLE);
 			inputMethodManager.hideSoftInputFromWindow(contentEditText.getWindowToken(), 0);
 			break;
 		case R.id.chat_bottombar_addbutton_focused://关闭表情
-			faceBtn.setVisibility(faceBtn.VISIBLE);
-			faceFoucsBtn.setVisibility(faceBtn.GONE);
-			viewPager.setVisibility(viewPager.GONE);
-			page_select.setVisibility(page_select.GONE);
+			faceBtn.setVisibility(View.VISIBLE);
+			faceFoucsBtn.setVisibility(View.GONE);
+			viewPager.setVisibility(View.GONE);
+			page_select.setVisibility(View.GONE);
 			break;
 		case R.id.chat_goback_button:
 			this.finish();
@@ -422,8 +419,8 @@ public class ChatActivity extends Activity implements OnClickListener{
 			try {
 				//表情相关处理
 				viewPager.setVisibility(ViewPager.GONE);
-				page_select.setVisibility(page_select.GONE);
-				faceBtn.setVisibility(faceBtn.VISIBLE);
+				page_select.setVisibility(View.GONE);
+				faceBtn.setVisibility(View.VISIBLE);
 				faceFoucsBtn.setVisibility(View.GONE);
 				inputMethodManager.hideSoftInputFromWindow(contentEditText.getWindowToken(), 0);
 				
