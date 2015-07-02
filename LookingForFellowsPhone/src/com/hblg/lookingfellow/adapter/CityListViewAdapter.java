@@ -2,12 +2,9 @@ package com.hblg.lookingfellow.adapter;
 
 import java.util.List;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,15 +12,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
-import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.slidingmenu.activity.ChooseCityActivity;
-import com.hblg.lookingfellow.slidingmenu.activity.PersonInfoActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.RegisterActivity;
-import com.hblg.lookingfellow.sqlite.SQLiteService;
-import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
 
 public class CityListViewAdapter extends BaseAdapter {
 	ChooseCityActivity chooseCityActivity;

@@ -7,13 +7,11 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class FlowView extends ImageView implements View.OnClickListener, View.OnLongClickListener {
 
-    private Context context;
     public Bitmap bitmap;
-    private int columnIndex;// 鍥剧墖灞炰簬绗嚑鍒�
+    private int columnIndex;
     private String fileName;
     private int ItemWidth;
     private Handler viewHandler;
@@ -21,19 +19,16 @@ public class FlowView extends ImageView implements View.OnClickListener, View.On
 
     public FlowView(Context c, AttributeSet attrs, int defStyle) {
         super(c, attrs, defStyle);
-        this.context = c;
         Init();
     }
 
     public FlowView(Context c, AttributeSet attrs) {
         super(c, attrs);
-        this.context = c;
         Init();
     }
 
     public FlowView(Context c) {
         super(c);
-        this.context = c;
         Init();
     }
 

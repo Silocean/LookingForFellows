@@ -14,9 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.customwidget.SignsTextWatcher;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.model.ManageActivity;
-import com.hblg.lookingfellow.selfdefinedwidget.SignsTextWatcher;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
 

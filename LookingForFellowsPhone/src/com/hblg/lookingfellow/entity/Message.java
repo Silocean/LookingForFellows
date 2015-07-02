@@ -2,6 +2,7 @@ package com.hblg.lookingfellow.entity;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class Message implements Serializable{
 	
 	int type; //消息类型

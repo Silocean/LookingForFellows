@@ -25,7 +25,7 @@ public class MySharePreferences {
 	 */
 	public static SharedPreferences getShare(Context context) {
 		if (preferences == null) {
-			preferences = context.getSharedPreferences(SHARED_FILE_NAME,context.MODE_PRIVATE);
+			preferences = context.getSharedPreferences(SHARED_FILE_NAME,Context.MODE_PRIVATE);
 		}
 		return preferences;
 	}

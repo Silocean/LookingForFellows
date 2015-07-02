@@ -3,6 +3,7 @@ package com.hblg.lookingfellow.adapter;
 import java.util.ArrayList;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -29,6 +30,7 @@ import com.hblg.lookingfellow.tools.ExpressionUtil;
 import com.hblg.lookingfellow.tools.ImageTool;
 
 
+@SuppressWarnings("deprecation")
 public class ChatListViewAdapter extends BaseAdapter {
 	
 	Context context;
@@ -82,6 +84,7 @@ public class ChatListViewAdapter extends BaseAdapter {
 	private final int type_left=0;
 	private final int  type_right=1;
 	private int type_count=2;
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		int type=getItemViewType(position);
@@ -106,6 +109,7 @@ public class ChatListViewAdapter extends BaseAdapter {
 			holder=(ViewHolder)convertView.getTag();
 		}
 		
+		@SuppressWarnings("unchecked")
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
 		
 		// ID
@@ -189,6 +193,7 @@ public class ChatListViewAdapter extends BaseAdapter {
 			});
 		}
 	}
+	@SuppressLint("InflateParams")
 	private void initPopupWindow() {
 		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		popupView = inflater.inflate(R.layout.popupwindow_chatmsg, null);

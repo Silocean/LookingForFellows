@@ -15,14 +15,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.slidingmenu.activity.ChatActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
 import com.hblg.lookingfellow.tools.ImageTool;
-import com.hblg.lookingfellow.tools.ImageUtils;
-import com.hblg.lookingfellow.tools.ImageUtils.ImageCallBack;
 
 public class friendsListViewAdapter extends BaseAdapter {
 	
@@ -77,6 +74,7 @@ public class friendsListViewAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder)convertView.getTag();
 		}
+		@SuppressWarnings("unchecked")
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
 		// qqºÅÂë
 		final String qq = (String)map.get("friQQ");

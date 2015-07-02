@@ -38,7 +38,7 @@
             android:src="@drawable/main_titlebar_friend_rightmenu_icon" />
     </RelativeLayout>
 
-    <com.hblg.lookingfellow.selfdefinedwidget.PullDownView
+    <com.hblg.lookingfellow.customwidget.PullDownView
         android:id="@+id/friendList"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -46,6 +46,6 @@
         android:divider="@color/black_half"
         android:dividerHeight="1dip"
         android:scrollbars="none" >
-    </com.hblg.lookingfellow.selfdefinedwidget.PullDownView>
+    </com.hblg.lookingfellow.customwidget.PullDownView>
 
 </LinearLayout>

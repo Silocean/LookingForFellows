@@ -53,13 +53,13 @@ import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.PostDetailListViewAdapter;
+import com.hblg.lookingfellow.customwidget.MaxLengthWatcher;
+import com.hblg.lookingfellow.customwidget.MyGridView;
 import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.entity.Post;
 import com.hblg.lookingfellow.entity.Student;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.model.ManageActivity;
-import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
-import com.hblg.lookingfellow.selfdefinedwidget.MyGridView;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.Expressions;
 import com.hblg.lookingfellow.tools.ImageTool;
@@ -108,7 +108,7 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 	private static final int WHAT_DID_MORE = 1;
 	/** Handler What加载数据失败 **/
 	private static final int WHAT_DID_FAILED = 2;
-	
+
 	private static final int REPLY_SUCCESS = 3;
 	private static final int REPLY_FAILED = 4;
 	private static final int NETWORK_ERROR = 5;
@@ -119,15 +119,15 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 	private PostDetailListViewAdapter listViewAdapter;
 	private ArrayList<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
 	Post post;
-	
+
 	int page = 0;
 
 	ProgressDialog dialog;
-	
+
 	public String toId = "";
 	public String toName = "";
 	String content = "";
-	
+
 	private InputMethodManager inputMethodManager;
 
 	@Override
@@ -135,13 +135,13 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		ManageActivity.addActiviy("PostDetailActivity", this);
 		setContentView(R.layout.activity_postdetail);
-		inputMethodManager=(InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-		post = (Post)getIntent().getSerializableExtra("post");
+		inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		post = (Post) getIntent().getSerializableExtra("post");
 		this.toId = post.getAuthorId();
 		this.toName = post.getAuthorName();
 		headView = this.getLayoutInflater().inflate(
 				R.layout.posts_detail_header, null);
-		
+
 		refresh = getLayoutInflater().inflate(R.layout.posts_detail_footer,
 				null);
 		listview = (ListView) findViewById(R.id.post_detail_list);
@@ -151,7 +151,7 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 				getApplicationContext(), listview, this);
 
 		initView();
-		
+
 		initHeadView();
 
 		loadData();
@@ -212,12 +212,15 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 		commentBtn = (Button) findViewById(R.id.post_detail_comment);
 		backBtn = (Button) findViewById(R.id.post_detail_back_btn);
 		commentEdt = (EditText) findViewById(R.id.chat_bottombar_edittext);
-		commentEdt.addTextChangedListener(new MaxLengthWatcher(600, commentEdt, this));
+		commentEdt.addTextChangedListener(new MaxLengthWatcher(600, commentEdt,
+				this));
 		titleTextView = (TextView) findViewById(R.id.postdetail_title);
 		titleTextView.setText(post.getAuthorName());
-		
-		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); 
+
+		getWindow().setSoftInputMode(
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		commentEdt.setOnClickListener(new OnClickListener() {
+			@SuppressWarnings("static-access")
 			@Override
 			public void onClick(View v) {
 				faceBtn.setVisibility(faceBtn.VISIBLE);
@@ -225,7 +228,7 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 				viewPager.setVisibility(viewPager.GONE);
 				page_select.setVisibility(page_select.GONE);
 				commentEdt.setFocusable(true);
-				inputMethodManager.showSoftInput(commentEdt,0);
+				inputMethodManager.showSoftInput(commentEdt, 0);
 			}
 		});
 
@@ -442,6 +445,7 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -450,7 +454,8 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 			faceFoucsBtn.setVisibility(faceBtn.VISIBLE);
 			viewPager.setVisibility(viewPager.VISIBLE);
 			page_select.setVisibility(page_select.VISIBLE);
-			inputMethodManager.hideSoftInputFromWindow(commentEdt.getWindowToken(), 0);
+			inputMethodManager.hideSoftInputFromWindow(
+					commentEdt.getWindowToken(), 0);
 			break;
 		case R.id.post_detail_add_btn_focused:// 关闭表情
 			faceBtn.setVisibility(faceBtn.VISIBLE);
@@ -459,12 +464,14 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 			page_select.setVisibility(page_select.GONE);
 			break;
 		case R.id.post_detail_comment:// 评论
-			
+
 			this.content = commentEdt.getText().toString().trim();
-			
-			if(check(content)) {
-				inputMethodManager.hideSoftInputFromWindow(commentEdt.getWindowToken(), 0);
-				dialog = ProgressDialog.show(PostDetailActivity.this, "", "请稍等...", true);
+
+			if (check(content)) {
+				inputMethodManager.hideSoftInputFromWindow(
+						commentEdt.getWindowToken(), 0);
+				dialog = ProgressDialog.show(PostDetailActivity.this, "",
+						"请稍等...", true);
 				new ReplyThread(content).start();
 				commentEdt.setText("");
 				viewPager.setVisibility(ViewPager.GONE);
@@ -484,6 +491,7 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 
 	private class ReplyThread extends Thread {
 		String content;
+
 		public ReplyThread(String content) {
 			this.content = content;
 		}
@@ -500,42 +508,45 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 	}
 
 	private boolean check(String content) {
-		if(content.equals("")) {
+		if (content.equals("")) {
 			return false;
 		}
 		return true;
 	}
 
 	public void rely(String content) throws Exception {
-		String time = TimeConvertTool.convertToString(new Date(System.currentTimeMillis()));
+		String time = TimeConvertTool.convertToString(new Date(System
+				.currentTimeMillis()));
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("details", content);
 		params.put("time", time);
 		params.put("fromId", User.qq);
 		params.put("toId", toId);
-		params.put("postId", post.getId()+"");
+		params.put("postId", post.getId() + "");
 		StringBuilder sb = new StringBuilder();
 		for (Map.Entry<String, String> entry : params.entrySet()) {
 			sb.append(entry.getKey() + "=");
 			sb.append(URLEncoder.encode(entry.getValue(), "utf-8") + "&");
 		}
-		sb.deleteCharAt(sb.length()-1);
+		sb.deleteCharAt(sb.length() - 1);
 		System.out.println("content:" + content);
 		System.out.println(sb);
 		byte[] data = sb.toString().getBytes();
 		String path = Common.PATH + "ReplyServlet";
-		HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();
+		HttpURLConnection conn = (HttpURLConnection) new URL(path)
+				.openConnection();
 		conn.setRequestMethod("POST");
 		conn.setConnectTimeout(5000);
-		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		conn.setRequestProperty("Content-Type",
+				"application/x-www-form-urlencoded");
 		conn.setRequestProperty("Content-Length", String.valueOf(data.length));
 		conn.setDoOutput(true);
 		OutputStream out = conn.getOutputStream();
 		out.write(data);
-		if(conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+		if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 			InputStream in = conn.getInputStream();
 			String str = new String(StreamTool.read(in));
-			if(str.equals("success")) {
+			if (str.equals("success")) {
 				Message msg = handler.obtainMessage(REPLY_SUCCESS); // 3表示发帖成功
 				msg.sendToTarget();
 				// 更新回复列表
@@ -552,7 +563,8 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 	}
 
 	private void updataList(String qq, String time, String content) {
-		Student student = new SQLiteService(getApplicationContext()).getStuInfo(User.qq);
+		Student student = new SQLiteService(getApplicationContext())
+				.getStuInfo(User.qq);
 		ArrayList<Map<String, Object>> temp = new ArrayList<Map<String, Object>>();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("details", content);
@@ -566,7 +578,7 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 		data.addAll(temp);
 		listViewAdapter.setData(data);
 		listview.setAdapter(listViewAdapter);
-		listview.setSelection(listview.getCount()-1);
+		listview.setSelection(listview.getCount() - 1);
 	}
 
 	private void loadData() {
@@ -584,13 +596,18 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 		listViewAdapter.setData(data);
 		listview.setAdapter(listViewAdapter);
 		listview.removeFooterView(refresh);
-		Bitmap bitmap = ImageTool.getHeadImageFromLocalOrNet(getApplicationContext(), post.getAuthorId());
+		Bitmap bitmap = ImageTool.getHeadImageFromLocalOrNet(
+				getApplicationContext(), post.getAuthorId());
 		bitmap = ImageTool.toRoundCorner(bitmap, 15);
-		ImageView headImage = (ImageView)headView.findViewById(R.id.post_headImg);
+		ImageView headImage = (ImageView) headView
+				.findViewById(R.id.post_headImg);
 		headImage.setImageBitmap(bitmap);
-		TextView authorTextView = (TextView)headView.findViewById(R.id.post_nameTxt);
-		TextView timetTextView = (TextView)headView.findViewById(R.id.post_time);
-		TextView contentTextView = (TextView)headView.findViewById(R.id.post_content);
+		TextView authorTextView = (TextView) headView
+				.findViewById(R.id.post_nameTxt);
+		TextView timetTextView = (TextView) headView
+				.findViewById(R.id.post_time);
+		TextView contentTextView = (TextView) headView
+				.findViewById(R.id.post_content);
 		authorTextView.setText(post.getAuthorName());
 		timetTextView.setText(post.getTime());
 		// 内容
@@ -606,58 +623,68 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 		}
 		contentTextView.setText(ss);
 	}
-	
+
 	/**
 	 * 对spanableString进行正则判断，如果符合要求，则以相应图片代替
 	 */
-    public void dealExpression(Context context, SpannableString spannableString, String zhengze, int start) throws Exception {
-    	if(zhengze.equals("\\[[0-9a-z]{32}\\]_\\d+.jpg")) {// 如果是帖子图片
-    		Pattern pattern = Pattern.compile(zhengze, Pattern.CASE_INSENSITIVE);
-    		Matcher matcher = pattern.matcher(spannableString);
-    		while (matcher.find()) {
-    			String key = matcher.group();
-    			Log.d("Key", key);
-    			if (matcher.start() < start) {
-    				continue;
-    			}
-            	String imageName = key;
-            	imageName = imageName.substring(1, imageName.indexOf('_')-1) + imageName.substring(imageName.indexOf('_'), imageName.length());
-            	InputStream is = new URL(Common.PATH + "post/" + imageName).openStream();
-            	System.out.println("====="+key);
-            	Bitmap bitmap = BitmapFactory.decodeStream(is);
-            	ImageSpan imageSpan = new ImageSpan(bitmap);				            
-            	int end = matcher.start() + key.length();
-            	spannableString.setSpan(imageSpan, matcher.start(), end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);	
-            	if (end < spannableString.length()) {						
-            		dealExpression(context, spannableString, zhengze, end);
-            	}
-            	break;
-    		}
-    	} else if(zhengze.equals("f0[0-9]{2}|f10[0-7]")) { // 如果是表情图片
-    		Pattern pattern = Pattern.compile(zhengze, Pattern.CASE_INSENSITIVE);
-    		Matcher matcher = pattern.matcher(spannableString);
-            while (matcher.find()) {
-                String key = matcher.group();
-                Log.d("Key", key);
-                if (matcher.start() < start) {
-                    continue;
-                }
-                Field field = R.drawable.class.getDeclaredField(key);
-    			int resId = Integer.parseInt(field.get(null).toString());		
-                if (resId != 0) {
-                    Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resId);
-                    ImageSpan imageSpan = new ImageSpan(bitmap);				            
-                    int end = matcher.start() + key.length();					
-                    spannableString.setSpan(imageSpan, matcher.start(), end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);	
-                    if (end < spannableString.length()) {						
-                        dealExpression(context, spannableString, zhengze, end);
-                    }
-                    break;
-                }
-            }
-    	}
-    }
-	
+	@SuppressWarnings("deprecation")
+	public void dealExpression(Context context,
+			SpannableString spannableString, String zhengze, int start)
+			throws Exception {
+		if (zhengze.equals("\\[[0-9a-z]{32}\\]_\\d+.jpg")) {// 如果是帖子图片
+			Pattern pattern = Pattern
+					.compile(zhengze, Pattern.CASE_INSENSITIVE);
+			Matcher matcher = pattern.matcher(spannableString);
+			while (matcher.find()) {
+				String key = matcher.group();
+				Log.d("Key", key);
+				if (matcher.start() < start) {
+					continue;
+				}
+				String imageName = key;
+				imageName = imageName.substring(1, imageName.indexOf('_') - 1)
+						+ imageName.substring(imageName.indexOf('_'),
+								imageName.length());
+				InputStream is = new URL(Common.PATH + "post/" + imageName)
+						.openStream();
+				System.out.println("=====" + key);
+				Bitmap bitmap = BitmapFactory.decodeStream(is);
+				ImageSpan imageSpan = new ImageSpan(bitmap);
+				int end = matcher.start() + key.length();
+				spannableString.setSpan(imageSpan, matcher.start(), end,
+						Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+				if (end < spannableString.length()) {
+					dealExpression(context, spannableString, zhengze, end);
+				}
+				break;
+			}
+		} else if (zhengze.equals("f0[0-9]{2}|f10[0-7]")) { // 如果是表情图片
+			Pattern pattern = Pattern
+					.compile(zhengze, Pattern.CASE_INSENSITIVE);
+			Matcher matcher = pattern.matcher(spannableString);
+			while (matcher.find()) {
+				String key = matcher.group();
+				Log.d("Key", key);
+				if (matcher.start() < start) {
+					continue;
+				}
+				Field field = R.drawable.class.getDeclaredField(key);
+				int resId = Integer.parseInt(field.get(null).toString());
+				if (resId != 0) {
+					Bitmap bitmap = BitmapFactory.decodeResource(
+							context.getResources(), resId);
+					ImageSpan imageSpan = new ImageSpan(bitmap);
+					int end = matcher.start() + key.length();
+					spannableString.setSpan(imageSpan, matcher.start(), end,
+							Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+					if (end < spannableString.length()) {
+						dealExpression(context, spannableString, zhengze, end);
+					}
+					break;
+				}
+			}
+		}
+	}
 
 	Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
@@ -670,7 +697,7 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 				listViewAdapter.setData(data);
 				listview.setAdapter(listViewAdapter);
 				listview.removeFooterView(refresh);
-				if(tempData.size()<5) {
+				if (tempData.size() < 5) {
 					loadfinish = false;
 				} else {
 					isFlow = true;
@@ -680,14 +707,14 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 			case WHAT_DID_MORE:
 				page += 1;
 				ArrayList<Map<String, Object>> tempData2 = getData(page);
-				System.out.println(page+"===="+tempData2);
-				//tempData2.remove(0); // 去掉第一个楼主
+				System.out.println(page + "====" + tempData2);
+				// tempData2.remove(0); // 去掉第一个楼主
 				data.addAll(tempData2);
 				listViewAdapter.setData(data);
 				listview.setAdapter(listViewAdapter);
 				listview.removeFooterView(refresh);
-				listview.setSelection(listview.getCount()-1);
-				if(tempData2.size()<=0) {
+				listview.setSelection(listview.getCount() - 1);
+				if (tempData2.size() <= 0) {
 					loadfinish = false;
 				} else {
 					loadfinish = true;
@@ -712,20 +739,22 @@ public class PostDetailActivity extends Activity implements OnClickListener {
 	public ArrayList<Map<String, Object>> getData(int page) {
 		ArrayList<Map<String, Object>> temp = new ArrayList<Map<String, Object>>();
 		try {
-			String path = Common.PATH + "ReplyServlet?postId=" + post.getId() + "&page=" + page;
-			HttpURLConnection conn = (HttpURLConnection) new URL(path).openConnection();
+			String path = Common.PATH + "ReplyServlet?postId=" + post.getId()
+					+ "&page=" + page;
+			HttpURLConnection conn = (HttpURLConnection) new URL(path)
+					.openConnection();
 			conn.setRequestMethod("GET");
 			conn.setConnectTimeout(5000);
-			if(conn.getResponseCode() == 200) {
+			if (conn.getResponseCode() == 200) {
 				InputStream in = conn.getInputStream();
 				byte[] data = StreamTool.read(in);
 				String str = new String(data);
-				System.out.println("回复数据："+str);
-				if(str.equals("]")) {
+				System.out.println("回复数据：" + str);
+				if (str.equals("]")) {
 					Toast.makeText(getApplicationContext(), "已无更多回复", 0).show();
 				} else {
 					JSONArray array = new JSONArray(str);
-					for(int i=0; i<array.length(); i++) {
+					for (int i = 0; i < array.length(); i++) {
 						JSONObject obj = array.getJSONObject(i);
 						Map<String, Object> map = new HashMap<String, Object>();
 						map.put("replyId", obj.getInt("id"));

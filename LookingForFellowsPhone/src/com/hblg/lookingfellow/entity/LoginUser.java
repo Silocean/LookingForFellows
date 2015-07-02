@@ -2,6 +2,7 @@ package com.hblg.lookingfellow.entity;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class LoginUser implements Serializable{
 	String qq;
 	String password;

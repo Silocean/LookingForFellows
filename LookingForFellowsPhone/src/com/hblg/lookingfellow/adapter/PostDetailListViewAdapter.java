@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,13 +22,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.Common;
@@ -35,11 +34,11 @@ import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
 import com.hblg.lookingfellow.slidingmenu.activity.PostDetailActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
-import com.hblg.lookingfellow.tools.ExpressionUtil;
 import com.hblg.lookingfellow.tools.ImageTool;
 import com.hblg.lookingfellow.tools.TimeConvertTool;
 
 public class PostDetailListViewAdapter extends BaseAdapter{
+	@SuppressWarnings("unused")
 	private ListView listview;
 	Context context;
 	List<Map<String, Object>>list;
@@ -79,6 +78,7 @@ public class PostDetailListViewAdapter extends BaseAdapter{
 		return position;
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		holder=new Holder();
@@ -181,7 +181,8 @@ public class PostDetailListViewAdapter extends BaseAdapter{
             	InputStream is = new URL(Common.PATH + "post/" + imageName).openStream();
             	System.out.println("====="+key);
             	Bitmap bitmap = BitmapFactory.decodeStream(is);
-            	ImageSpan imageSpan = new ImageSpan(bitmap);				            
+            	@SuppressWarnings("deprecation")
+				ImageSpan imageSpan = new ImageSpan(bitmap);				            
             	int end = matcher.start() + key.length();
             	spannableString.setSpan(imageSpan, matcher.start(), end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);	
             	if (end < spannableString.length()) {						
@@ -202,7 +203,8 @@ public class PostDetailListViewAdapter extends BaseAdapter{
     			int resId = Integer.parseInt(field.get(null).toString());		
                 if (resId != 0) {
                     Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), resId);
-                    ImageSpan imageSpan = new ImageSpan(bitmap);				            
+                    @SuppressWarnings("deprecation")
+					ImageSpan imageSpan = new ImageSpan(bitmap);				            
                     int end = matcher.start() + key.length();					
                     spannableString.setSpan(imageSpan, matcher.start(), end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);	
                     if (end < spannableString.length()) {						

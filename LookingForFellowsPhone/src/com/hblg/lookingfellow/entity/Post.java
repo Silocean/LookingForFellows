@@ -2,6 +2,7 @@ package com.hblg.lookingfellow.entity;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class Post implements Serializable{
 	int id;
 	String title;

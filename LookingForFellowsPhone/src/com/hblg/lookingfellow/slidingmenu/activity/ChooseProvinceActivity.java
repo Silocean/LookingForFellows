@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -21,13 +20,15 @@ public class ChooseProvinceActivity extends Activity {
 	List<String> list;
 	String tag;
 	Bundle bundle = new Bundle();
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		ManageActivity.addActiviy("ChooseProvinceActivity", this);
 		setContentView(R.layout.activity_chooseprovince);
-		gobackButton = (Button)this.findViewById(R.id.chooseprovince_goback_button);
+		gobackButton = (Button) this
+				.findViewById(R.id.chooseprovince_goback_button);
 		gobackButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				finish();
@@ -37,8 +38,9 @@ public class ChooseProvinceActivity extends Activity {
 		bundle.putString("tag", tag);
 		SQLiteService sqLiteService = new SQLiteService(getApplicationContext());
 		list = sqLiteService.getAllProvinces();
-		listView = (ListView)this.findViewById(R.id.provinceList);
-		ProvinceListViewAdapter adapter = new ProvinceListViewAdapter(bundle, getApplicationContext(), list, R.layout.listitem_choosearea);
+		listView = (ListView) this.findViewById(R.id.provinceList);
+		ProvinceListViewAdapter adapter = new ProvinceListViewAdapter(bundle,
+				getApplicationContext(), list, R.layout.listitem_choosearea);
 		listView.setAdapter(adapter);
 	}
 

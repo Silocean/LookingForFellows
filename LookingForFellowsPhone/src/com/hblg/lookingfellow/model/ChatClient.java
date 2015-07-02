@@ -6,9 +6,8 @@ import java.net.Socket;
 
 import android.content.Context;
 
+import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.entity.LoginUser;
-import com.hblg.lookingfellow.entity.Message;
-import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
 
 public class ChatClient {
@@ -20,7 +19,7 @@ public class ChatClient {
 	}
 	private void connectServer() {
 		try {
-			s = new Socket("10.0.2.2", 3456);
+			s = new Socket(Common.IPADDRESS, 3456);
 			ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
 			LoginUser user = new LoginUser();
 			user.setQq(User.qq);
@@ -36,6 +35,7 @@ public class ChatClient {
 			e.printStackTrace();
 		}
 	}
+	@SuppressWarnings("unused")
 	private void disconnect() {
 		if(s != null) {
 			try {

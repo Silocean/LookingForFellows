@@ -20,27 +20,28 @@ import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.NetModifyStuInfoTool;
-import com.hblg.lookingfellow.tools.UIMode;
 
 public class ChooseCityActivity extends Activity {
 	Button gobackButton;
 	ListView listView;
 	List<String> list;
 	String tag;
-	
+
 	String hometown;
-	
+
 	ProgressDialog dialog;
 	Message message;
 	UIHandler handler = new UIHandler();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ManageActivity.addActiviy("ChooseCityActivity", this);
 		setContentView(R.layout.activity_choosecity);
-		//UIMode.changeUIMode(ChooseCityActivity.this, UIMode.checkUIMode(ChooseCityActivity.this));
-		gobackButton = (Button)this.findViewById(R.id.choosecity_goback_button);
+		// UIMode.changeUIMode(ChooseCityActivity.this,
+		// UIMode.checkUIMode(ChooseCityActivity.this));
+		gobackButton = (Button) this
+				.findViewById(R.id.choosecity_goback_button);
 		gobackButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				finish();
@@ -50,29 +51,34 @@ public class ChooseCityActivity extends Activity {
 		String proName = bundle.getString("province");
 		SQLiteService sqLiteService = new SQLiteService(getApplicationContext());
 		list = sqLiteService.getAllCities(proName);
-		listView = (ListView)this.findViewById(R.id.cityList);
-		CityListViewAdapter adapter = new CityListViewAdapter(this, bundle, getApplicationContext(), list, R.layout.listitem_choosearea);
+		listView = (ListView) this.findViewById(R.id.cityList);
+		CityListViewAdapter adapter = new CityListViewAdapter(this, bundle,
+				getApplicationContext(), list, R.layout.listitem_choosearea);
 		listView.setAdapter(adapter);
 	}
-	
+
 	public void changeHometown(String provinceName, String cityName, int tag) {
 		SQLiteService service = new SQLiteService(getApplicationContext());
 		String qq = User.qq;
 		hometown = provinceName + " " + cityName;
 		service.modifyHometown(provinceName, cityName, qq);
-		dialog = ProgressDialog.show(ChooseCityActivity.this, "", "请稍等...", true);
+		dialog = ProgressDialog.show(ChooseCityActivity.this, "", "请稍等...",
+				true);
 		new ModifyHometownThread(tag).start();
 	}
-	
+
 	private class ModifyHometownThread extends Thread {
 		int tag;
+
 		public ModifyHometownThread(int tag) {
 			this.tag = tag;
 		}
+
 		@Override
 		public void run() {
 			modify();
 		}
+
 		private void modify() {
 			try {
 				message = NetModifyStuInfoTool.connNet("hometown", hometown);
@@ -83,23 +89,27 @@ public class ChooseCityActivity extends Activity {
 			}
 		}
 	}
-	
+
 	private class UIHandler extends Handler {
 
 		@Override
 		public void handleMessage(Message msg) {
-			if(msg.arg1 == 1 && msg.arg2 == 1) {
+			if (msg.arg1 == 1 && msg.arg2 == 1) {
 				// 表示保存成功
 				dialog.dismiss();
 				Toast.makeText(getApplicationContext(), "保存成功", 0).show();
-				/*PersonFragment personFragment = new PersonFragment();
-				((SlidingActivity)getParent()).replaceFragment(R.id.center_frame, personFragment);
-				((SlidingActivity)getParent()).showLeft();*/
-			} else if(msg.arg1 == 1 && msg.arg2 == 2) {
+				/*
+				 * PersonFragment personFragment = new PersonFragment();
+				 * ((SlidingActivity
+				 * )getParent()).replaceFragment(R.id.center_frame,
+				 * personFragment); ((SlidingActivity)getParent()).showLeft();
+				 */
+			} else if (msg.arg1 == 1 && msg.arg2 == 2) {
 				// 表示保存成功
 				dialog.dismiss();
 				Toast.makeText(getApplicationContext(), "保存成功", 0).show();
-				Intent intent = new Intent(getApplicationContext(), PersonInfoActivity.class);
+				Intent intent = new Intent(getApplicationContext(),
+						PersonInfoActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				getApplicationContext().startActivity(intent);
 			} else {
@@ -108,7 +118,7 @@ public class ChooseCityActivity extends Activity {
 				Toast.makeText(getApplicationContext(), "保存失败", 0).show();
 			}
 		}
-		
+
 	}
-	
+
 }

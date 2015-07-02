@@ -110,6 +110,7 @@ public class MsgListViewAdapter extends BaseAdapter {
 			holder = (ViewHolder)convertView.getTag();
 		}
 		
+		@SuppressWarnings("unchecked")
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
 		
 		// Ãû×Ö
@@ -258,6 +259,7 @@ public class MsgListViewAdapter extends BaseAdapter {
 		private TextView nameTextView;
 		private TextView contentTextView;
 		private TextView timeTextView;
+		@SuppressWarnings("unused")
 		private Button newMsgImageView;
 		private RelativeLayout relativeLayout;
 		private Button deleteBtn;

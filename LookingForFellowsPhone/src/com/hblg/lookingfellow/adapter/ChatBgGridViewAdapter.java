@@ -2,10 +2,8 @@ package com.hblg.lookingfellow.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-
 import com.hblg.lookingfellow.R;
-import com.hblg.lookingfellow.tools.ImageTool;
 import com.hblg.lookingfellow.tools.MySharePreferences;
 
 public class ChatBgGridViewAdapter extends BaseAdapter{
@@ -64,6 +60,7 @@ public class ChatBgGridViewAdapter extends BaseAdapter{
 		return position;
 	}
 
+	@SuppressLint("InflateParams")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final Holder holder;

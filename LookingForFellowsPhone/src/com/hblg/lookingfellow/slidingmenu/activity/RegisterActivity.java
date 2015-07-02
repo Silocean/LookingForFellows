@@ -23,9 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.customwidget.MaxLengthWatcher;
 import com.hblg.lookingfellow.entity.Common;
 import com.hblg.lookingfellow.model.ManageActivity;
-import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
 import com.hblg.lookingfellow.tools.StreamTool;
 
 public class RegisterActivity extends Activity implements OnClickListener{

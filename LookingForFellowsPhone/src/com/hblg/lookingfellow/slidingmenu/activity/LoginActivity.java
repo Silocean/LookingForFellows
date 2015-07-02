@@ -1,7 +1,6 @@
 package com.hblg.lookingfellow.slidingmenu.activity;
 
 import java.io.DataInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.net.HttpURLConnection;
@@ -24,7 +23,6 @@ import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.entity.Common;
-import com.hblg.lookingfellow.entity.LoginUser;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.model.ChatClient;
@@ -57,6 +55,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 		qqEditText = (EditText)this.findViewById(R.id.qq_editText);
 		passwordEditText = (EditText)this.findViewById(R.id.password_editText);
 		
+		@SuppressWarnings("unused")
 		SQLiteService service = new SQLiteService(getApplicationContext());
 		
 	}

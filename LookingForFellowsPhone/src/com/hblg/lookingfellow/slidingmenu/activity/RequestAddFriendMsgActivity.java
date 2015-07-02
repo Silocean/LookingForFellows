@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,11 +16,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.MsgListViewAdapter;
-import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 
 public class RequestAddFriendMsgActivity extends Activity implements OnItemLongClickListener, OnItemClickListener {
@@ -80,6 +75,7 @@ public class RequestAddFriendMsgActivity extends Activity implements OnItemLongC
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
+		@SuppressWarnings("unused")
 		String friendQq = (String)data.get(position).get("msgSender");
 		//showPopwindow(view, friendQq);
 		return false;

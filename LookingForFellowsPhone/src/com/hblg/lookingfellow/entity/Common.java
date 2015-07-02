@@ -9,8 +9,9 @@ import java.util.List;
  *
  */
 public class Common {
+	public static final String IPADDRESS ="192.168.1.102";
 	public static boolean newMsg = false; // 是否有未读消息到来
 	public static boolean ListnewMsg = false; // msgList中的item是否未读
 	public static List<String> msgSenders = new ArrayList<String>(); // 存放消息发送者的list
-	public static final String PATH = "http://10.0.2.2:8080/lookingfellowWeb0.2/";
+	public static final String PATH = "http://" + IPADDRESS + ":8080/lookingfellowWeb0.2/";
 }

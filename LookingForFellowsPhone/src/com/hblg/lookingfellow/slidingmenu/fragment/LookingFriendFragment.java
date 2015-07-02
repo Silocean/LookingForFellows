@@ -11,17 +11,6 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.hblg.lookingfellow.R;
-import com.hblg.lookingfellow.adapter.SearchfriendsListViewAdapter;
-import com.hblg.lookingfellow.entity.Common;
-import com.hblg.lookingfellow.entity.Student;
-import com.hblg.lookingfellow.entity.User;
-import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
-import com.hblg.lookingfellow.slidingmenu.activity.RequestAddFriendMsgActivity;
-import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
-import com.hblg.lookingfellow.sqlite.SQLiteService;
-import com.hblg.lookingfellow.tools.StreamTool;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,14 +18,23 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.hblg.lookingfellow.R;
+import com.hblg.lookingfellow.adapter.SearchfriendsListViewAdapter;
+import com.hblg.lookingfellow.entity.Common;
+import com.hblg.lookingfellow.entity.Student;
+import com.hblg.lookingfellow.entity.User;
+import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
+import com.hblg.lookingfellow.slidingmenu.activity.SlidingActivity;
+import com.hblg.lookingfellow.sqlite.SQLiteService;
+import com.hblg.lookingfellow.tools.StreamTool;
 
 public class LookingFriendFragment extends Fragment implements OnItemClickListener {
 	LayoutInflater inflater;
@@ -100,6 +98,7 @@ public class LookingFriendFragment extends Fragment implements OnItemClickListen
 			SQLiteService service = new SQLiteService(getActivity());
 			Student student = service.getStuInfo(User.qq);
 			String province = student.getProvince();
+			@SuppressWarnings("unused")
 			String city = student.getCity();
 			String path = Common.PATH + "FriendServlet?tag=searchfriends&province=";
 			path = path + URLEncoder.encode(province, "utf-8") + "&qq=" + User.qq;

@@ -37,13 +37,13 @@ import android.widget.TextView;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.adapter.ChatListViewAdapter;
+import com.hblg.lookingfellow.customwidget.MaxLengthWatcher;
+import com.hblg.lookingfellow.customwidget.MyGridView;
 import com.hblg.lookingfellow.entity.Message;
 import com.hblg.lookingfellow.entity.MessageType;
 import com.hblg.lookingfellow.entity.User;
 import com.hblg.lookingfellow.model.ManageActivity;
 import com.hblg.lookingfellow.model.ManageClientConnServer;
-import com.hblg.lookingfellow.selfdefinedwidget.MaxLengthWatcher;
-import com.hblg.lookingfellow.selfdefinedwidget.MyGridView;
 import com.hblg.lookingfellow.sqlite.SQLiteService;
 import com.hblg.lookingfellow.tools.Expressions;
 import com.hblg.lookingfellow.tools.MySharePreferences;

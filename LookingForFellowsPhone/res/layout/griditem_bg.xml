@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center" >
-    <com.hblg.lookingfellow.selfdefinedwidget.SquareLayout
+    <com.hblg.lookingfellow.customwidget.SquareLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
         <ImageView
@@ -20,5 +20,5 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/skin_ok"
             android:visibility="gone" />
-    </com.hblg.lookingfellow.selfdefinedwidget.SquareLayout>
+    </com.hblg.lookingfellow.customwidget.SquareLayout>
 </LinearLayout>

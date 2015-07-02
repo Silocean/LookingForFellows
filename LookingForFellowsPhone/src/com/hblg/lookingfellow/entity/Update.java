@@ -2,12 +2,12 @@ package com.hblg.lookingfellow.entity;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Map;
 
 /**
  * 应用程序更新实体类
  * @author Fay
  */
+@SuppressWarnings("serial")
 public class Update implements Serializable{
 	
 	

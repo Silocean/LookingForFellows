@@ -8,8 +8,8 @@ import android.view.View.OnClickListener;
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.R.id;
 import com.hblg.lookingfellow.adapter.ChatBgGridViewAdapter;
+import com.hblg.lookingfellow.customwidget.MyGridView;
 import com.hblg.lookingfellow.model.ManageActivity;
-import com.hblg.lookingfellow.selfdefinedwidget.MyGridView;
 
 public class ChatBgActivity extends Activity{
 	private MyGridView myGridView;

@@ -16,7 +16,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hblg.lookingfellow.R;
 import com.hblg.lookingfellow.slidingmenu.activity.FriendInfoActivity;
@@ -77,6 +76,7 @@ public class PostsListViewAdapter extends BaseAdapter {
 			holder=(ViewHolder)convertView.getTag();
 		}
 		
+		@SuppressWarnings("unchecked")
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
 		
 		// ∑¢Ã˚»ÀID

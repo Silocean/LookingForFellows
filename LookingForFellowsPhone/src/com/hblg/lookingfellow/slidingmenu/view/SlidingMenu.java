@@ -27,8 +27,6 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 
-import com.hblg.lookingfellow.R;
-
 public class SlidingMenu extends RelativeLayout {
 	private View mSlidingView;
 	private View mMenuView;
@@ -54,6 +52,7 @@ public class SlidingMenu extends RelativeLayout {
 		init(context);
 	}
 
+	@SuppressWarnings("deprecation")
 	private void init(Context context) {
 		
 		mContext = context;
@@ -87,6 +86,7 @@ public class SlidingMenu extends RelativeLayout {
 		setCenterView(center);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void setLeftView(View view) {
 		LayoutParams behindParams = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.FILL_PARENT);
@@ -94,6 +94,7 @@ public class SlidingMenu extends RelativeLayout {
 		mMenuView = view;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void setRightView(View view) {
 		LayoutParams behindParams = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.FILL_PARENT);
@@ -102,6 +103,7 @@ public class SlidingMenu extends RelativeLayout {
 		mDetailView = view;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void setCenterView(View view) {
 		LayoutParams aboveParams = new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT);

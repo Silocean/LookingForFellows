@@ -45,7 +45,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dip" >
 
-        <com.hblg.lookingfellow.selfdefinedwidget.ModifyNameEditText
+        <com.hblg.lookingfellow.customwidget.ModifyNameEditText
             android:id="@+id/modifyMobile_editText"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

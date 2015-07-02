@@ -33,6 +33,7 @@ import com.hblg.lookingfellow.entity.Update;
 
 /**
  * 应用程序更新工具包
+ * 
  * @version 1.0
  */
 public class UpdateManager {
@@ -45,7 +46,7 @@ public class UpdateManager {
 
 	private Context mContext;
 	/**
-	 *  通知对话框
+	 * 通知对话框
 	 */
 	private Dialog noticeDialog;
 	/**
@@ -53,40 +54,41 @@ public class UpdateManager {
 	 */
 	private Dialog downloadDialog;
 	/**
-	 *  进度条
+	 * 进度条
 	 */
 	private ProgressBar mProgress;
 	/**
-	 *  查询动画
+	 * 查询动画
 	 */
 	private ProgressDialog mProDialog;
 
 	private int progress;
 	/**
-	 *  下载线程
+	 * 下载线程
 	 */
 	private Thread downLoadThread;
 	/**
-	 *  终止标记
+	 * 终止标记
 	 */
 	private boolean interceptFlag = false;
 	/**
-	 *  提示语
+	 * 提示语
 	 */
 	private String updateMsg = "";
 	/**
-	 *  返回的安装包url
+	 * 返回的安装包url
 	 */
 	private String apkUrl = "";
 	/**
-	 *  下载包保存路径
+	 * 下载包保存路径
 	 */
 	private String savePath = "";
 	/**
-	 *  apk保存完整路径
+	 * apk保存完整路径
 	 */
 	private String apkFilePath = "";
 
+	@SuppressWarnings("unused")
 	private String curVersionName = "";
 	private int curVersionCode;
 	private Update mUpdate;
@@ -121,7 +123,7 @@ public class UpdateManager {
 	 * 
 	 * @param context
 	 * @param isShowMsg
-	 *  是否显示提示消息
+	 *            是否显示提示消息
 	 */
 	public void checkAppUpdate(Context context, final boolean isShowMsg) {
 		this.mContext = context;
@@ -138,8 +140,10 @@ public class UpdateManager {
 					if (mUpdate != null) {
 						if (curVersionCode < mUpdate.getVersionCode()) {
 							apkUrl = mUpdate.getDownloadUrl();
-							Log.v("URL", "apkUrl"+apkUrl);
-							updateMsg="嘿嘿，有更新咯！当前版本号为"+curVersionCode+".0;"+"要更新的版本号为"+mUpdate.getVersionCode()+".0";
+							Log.v("URL", "apkUrl" + apkUrl);
+							updateMsg = "嘿嘿，有更新咯！当前版本号为" + curVersionCode
+									+ ".0;" + "要更新的版本号为"
+									+ mUpdate.getVersionCode() + ".0";
 							showNoticeDialog();
 						} else if (isShowMsg) {
 							AlertDialog.Builder builder = new Builder(mContext);
@@ -163,15 +167,17 @@ public class UpdateManager {
 				Message msg = new Message();
 				try {
 					deleteApk();
-					//在这里从后台中获得版本信息
-					/*String response=downLoaddataFromNet("url");
-					Update update =Update.parse("response");*/
-					
-					//临时测试
-					Update update=Update.parse("");
-					Log.v("Update",update.toString());
+					// 在这里从后台中获得版本信息
+					/*
+					 * String response=downLoaddataFromNet("url"); Update update
+					 * =Update.parse("response");
+					 */
+
+					// 临时测试
+					Update update = Update.parse("");
+					Log.v("Update", update.toString());
 					msg.what = 1;
-					msg.obj=update;
+					msg.obj = update;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -287,11 +293,11 @@ public class UpdateManager {
 
 				int count = 0;
 				byte buf[] = new byte[1024];
-				
-				//-------------------------->
-				interceptFlag=false;//我后来加的，默认的是false，即表示可以下载，
-				
-				//当点击取消下载后，这个被设置成true,意思是不能继续开这个下载线程
+
+				// -------------------------->
+				interceptFlag = false;// 我后来加的，默认的是false，即表示可以下载，
+
+				// 当点击取消下载后，这个被设置成true,意思是不能继续开这个下载线程
 
 				do {
 					int numread = is.read(buf);
@@ -306,8 +312,7 @@ public class UpdateManager {
 					}
 					fos.write(buf, 0, numread);
 				} while (!interceptFlag);// 点击取消就停止下载
-				//---------------------------->
-				
+				// ---------------------------->
 
 				fos.close();
 				is.close();
@@ -340,57 +345,54 @@ public class UpdateManager {
 		if (!apkfile.exists()) {
 			return;
 		}
-		
-		
+
 		deleteMyData();
-		
+
 		Intent i = new Intent(Intent.ACTION_VIEW);
 		i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
 				"application/vnd.android.package-archive");
 		mContext.startActivity(i);
-		
-		
+
 	}
-	
-	/**头像文件*/
+
+	/** 头像文件 */
+	@SuppressWarnings("unused")
 	private static final File HEAD_PHOTO_DIR = new File(
-			Environment.getExternalStorageDirectory() + "/DCIM/lookingfellow/HeadPhoto");
-	
-	public void deleteMyData(){
-		//根据情况而定，有需要删除的数据可在这里删除
-		/*MyPreferences.getShare(mContext).edit().putString(MyPreferences.TOKEN, "").commit();
-		MyPreferences.getShare(mContext).edit().putString(MyPreferences.Name, "").commit();
-		MyPreferences.getShare(mContext).edit().putString(MyPreferences.Password, "").commit();
-		MyPreferences.getShare(mContext).edit().putString(MyPreferences.Email, "").commit();
-		MyPreferences.getShare(mContext).edit().putString(MyPreferences.PHONE, "").commit();
-		if(HEAD_PHOTO_DIR.exists()){
-			File[] files = HEAD_PHOTO_DIR.listFiles();
-			if(files.length !=0){
-				try{
-					for(int index=0;index<files.length;index++){
-						files[index].delete();
-					}
-				}catch(OutOfMemoryError e){
-					e.printStackTrace();
+			Environment.getExternalStorageDirectory()
+					+ "/DCIM/lookingfellow/HeadPhoto");
+
+	public void deleteMyData() {
+		// 根据情况而定，有需要删除的数据可在这里删除
+		/*
+		 * MyPreferences.getShare(mContext).edit().putString(MyPreferences.TOKEN,
+		 * "").commit();
+		 * MyPreferences.getShare(mContext).edit().putString(MyPreferences.Name,
+		 * "").commit();
+		 * MyPreferences.getShare(mContext).edit().putString(MyPreferences
+		 * .Password, "").commit();
+		 * MyPreferences.getShare(mContext).edit().putString
+		 * (MyPreferences.Email, "").commit();
+		 * MyPreferences.getShare(mContext).edit
+		 * ().putString(MyPreferences.PHONE, "").commit();
+		 * if(HEAD_PHOTO_DIR.exists()){ File[] files =
+		 * HEAD_PHOTO_DIR.listFiles(); if(files.length !=0){ try{ for(int
+		 * index=0;index<files.length;index++){ files[index].delete(); }
+		 * }catch(OutOfMemoryError e){ e.printStackTrace(); } } }
+		 */
+	}
+
+	public void deleteApk() {
+
+		File UPDATE_DIR = new File(Environment.getExternalStorageDirectory()
+				.getAbsoluteFile() + "/lookingfellow/Update");
+		if (UPDATE_DIR.exists()) {
+			File files[] = UPDATE_DIR.listFiles();
+			if (files.length != 0) {
+				for (int index = 0; index < files.length; index++) {
+					files[index].delete();
 				}
 			}
-		}*/
-	}
-	
-	
-	public void deleteApk(){
-		
-		File UPDATE_DIR = new File(
-				Environment.getExternalStorageDirectory()
-				.getAbsoluteFile() + "/lookingfellow/Update");
-	    if(UPDATE_DIR.exists()){
-	    	File files[]=UPDATE_DIR.listFiles();
-	    	if(files.length!=0){
-	    		for(int index=0;index<files.length;index++){
-	    			files[index].delete();
-	    		}
-	    	}
-	    }
-		
+		}
+
 	}
 }

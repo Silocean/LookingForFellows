@@ -923,7 +923,6 @@ public abstract class PLA_AbsListView extends PLA_AdapterView<ListAdapter> imple
      * 
      * @return A view displaying the data associated with the specified position
      */
-    @SuppressWarnings("deprecation")
     View obtainView(int position, boolean[] isScrap) {
         isScrap[0] = false;
         View scrapView;
@@ -2285,7 +2284,6 @@ public abstract class PLA_AbsListView extends PLA_AdapterView<ListAdapter> imple
      * @return true if we're already at the beginning/end of the list and have
      *         nothing to do.
      */
-    @SuppressWarnings("deprecation")
     boolean trackMotionScroll(int deltaY, int incrementalDeltaY) {
         final int childCount = getChildCount();
         if (childCount == 0) {
@@ -3085,7 +3083,6 @@ public abstract class PLA_AbsListView extends PLA_AdapterView<ListAdapter> imple
         /**
          * Move all views remaining in mActiveViews to mScrapViews.
          */
-        @SuppressWarnings("deprecation")
         void scrapActiveViews() {
             final View[] activeViews = mActiveViews;
             final boolean hasListener = mRecyclerListener != null;

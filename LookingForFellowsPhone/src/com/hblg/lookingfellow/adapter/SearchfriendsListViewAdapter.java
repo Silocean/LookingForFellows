@@ -81,6 +81,7 @@ public class SearchfriendsListViewAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder)convertView.getTag();
 		}
+		@SuppressWarnings("unchecked")
 		Map<String, Object> map = (Map<String, Object>)this.getItem(position);
 		//qq
 		final String friendQq = (String)map.get("friendQq");
